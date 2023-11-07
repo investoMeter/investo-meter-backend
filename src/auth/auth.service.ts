@@ -4,16 +4,16 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
-import {
-  RegisterRequestDto,
-  LoginRequestDto,
-  LogoutRequestDto,
-  RefreshRequestDto,
-} from './dto/request';
+import { RegisterRequestDto, LoginRequestDto } from './dto/request';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 import { Tokens } from './types';
-import { LoginResponseDto, RegisterResponseDto } from './dto/response';
+import {
+  LoginResponseDto,
+  LogoutResponseDto,
+  RefreshResponseDto,
+  RegisterResponseDto,
+} from './dto/response';
 
 @Injectable()
 export class AuthService {
@@ -96,12 +96,42 @@ export class AuthService {
     };
   }
 
-  async logout(logoutDto: LogoutRequestDto) {
-    return 'logout';
+  async logout(userId: string): Promise<LogoutResponseDto> {
+    await this.prisma.player.update({
+      where: { id: userId, hashedRefreshToken: { not: null } },
+      data: { hashedRefreshToken: null },
+    });
+
+    return { message: 'Logged out successfully!' };
   }
 
-  async refresh(refreshDto: RefreshRequestDto) {
-    return 'refresh';
+  async refresh(userId: string, rt: string): Promise<RefreshResponseDto> {
+    const player = await this.prisma.player.findUnique({
+      where: { id: userId },
+      select: {
+        hashedRefreshToken: true,
+        username: true,
+        email: true,
+        salt: true,
+      },
+    });
+    if (!player) {
+      throw new NotFoundException(`player with id: ${userId} is not found`);
+    }
+
+    const hashedRefreshToken = await bcrypt.hash(rt, player.salt);
+
+    if (hashedRefreshToken !== player.hashedRefreshToken) {
+      throw new ForbiddenException(`Access denied.`);
+    }
+
+    const tokens = await this.getTokens(userId, player.username, player.email);
+    return {
+      id: userId,
+      username: player.username,
+      email: player.email,
+      ...tokens,
+    };
   }
 
   // Utils
