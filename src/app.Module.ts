@@ -5,4 +5,4 @@ import { AuthModule } from './auth/auth.module';
 @Module({
   imports: [PrismaModule, AuthModule],
 })
-export class appModule {}
+export class AppModule {}
