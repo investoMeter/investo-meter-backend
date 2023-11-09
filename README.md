@@ -9,7 +9,6 @@
 ```bash
 $ docker-compose up
 $ npm install
-$ npx migrate dev
 ```
 
 ## Running the app
