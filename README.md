@@ -4,8 +4,8 @@
 
 ## Installation
 
-# 1) install docker
-# 2) open terminal inside project folder
+### 1) install docker
+### 2) open terminal inside project folder
 ```bash
 $ docker-compose up
 $ npm install
