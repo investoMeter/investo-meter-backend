@@ -9,6 +9,8 @@
 ```bash
 $ docker-compose up
 $ npm install
+$ npx prisma init
+$ npx prisma db push
 ```
 
 ## Running the app
