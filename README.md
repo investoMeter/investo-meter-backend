@@ -15,7 +15,7 @@ $ npm install -g npm
 ```bash
 $ docker-compose up
 $ npm install
-$ npx prisma init
+$ npx prisma generate
 $ npx prisma db push
 ```
 ### after running docker compose up don't wait for the terminal to stop it won't open a new tab and continue the steps because the docker image will be running in this tab till you close it
