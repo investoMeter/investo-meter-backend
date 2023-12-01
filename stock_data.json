@@ -1,0 +1,9806 @@
+[
+   {
+      "symbol":"A",
+      "name":"Agilent Technologies Inc"
+   },
+   {
+      "symbol":"AA",
+      "name":"Alcoa Corp"
+   },
+   {
+      "symbol":"AACT",
+      "name":"Ares Acquisition Corporation II - Class A"
+   },
+   {
+      "symbol":"AAIC",
+      "name":"Arlington Asset Investment Corp - Class A"
+   },
+   {
+      "symbol":"AAIN",
+      "name":"Arlington Asset Investment Corp"
+   },
+   {
+      "symbol":"AAN",
+      "name":"Aarons Company Inc (The)"
+   },
+   {
+      "symbol":"AAP",
+      "name":"Advance Auto Parts Inc"
+   },
+   {
+      "symbol":"AAT",
+      "name":"American Assets Trust Inc"
+   },
+   {
+      "symbol":"AB",
+      "name":"AllianceBernstein Holding Lp"
+   },
+   {
+      "symbol":"ABBV",
+      "name":"Abbvie Inc"
+   },
+   {
+      "symbol":"ABEV",
+      "name":"Ambev S.A."
+   },
+   {
+      "symbol":"ABG",
+      "name":"Asbury Automotive Group Inc"
+   },
+   {
+      "symbol":"ABM",
+      "name":"ABM Industries Inc"
+   },
+   {
+      "symbol":"ABR",
+      "name":"Arbor Realty Trust Inc"
+   },
+   {
+      "symbol":"ABT",
+      "name":"Abbott Laboratories"
+   },
+   {
+      "symbol":"AC",
+      "name":"Associated Capital Group Inc - Class A"
+   },
+   {
+      "symbol":"ACA",
+      "name":"Arcosa Inc"
+   },
+   {
+      "symbol":"ACCO",
+      "name":"Acco Brands Corporation"
+   },
+   {
+      "symbol":"ACEL",
+      "name":"Accel Entertainment Inc - Class A1"
+   },
+   {
+      "symbol":"ACHR",
+      "name":"Archer Aviation Inc - Class A"
+   },
+   {
+      "symbol":"ACI",
+      "name":"Albertsons Companies Inc - Class A"
+   },
+   {
+      "symbol":"ACM",
+      "name":"AECOM"
+   },
+   {
+      "symbol":"ACN",
+      "name":"Accenture plc - Class A"
+   },
+   {
+      "symbol":"ACP",
+      "name":"abrdn Income Credit Strategies Fund"
+   },
+   {
+      "symbol":"ACR",
+      "name":"ACRES Commercial Realty Corp"
+   },
+   {
+      "symbol":"ACRE",
+      "name":"Ares Commercial Real Estate Corp"
+   },
+   {
+      "symbol":"ACRO",
+      "name":"Acropolis Infrastructure Acquisition Corp - Class A"
+   },
+   {
+      "symbol":"ACV",
+      "name":"Virtus Diversified Income & Convertible Fund"
+   },
+   {
+      "symbol":"ADC",
+      "name":"Agree Realty Corp"
+   },
+   {
+      "symbol":"ADCT",
+      "name":"Adc Therapeutics SA"
+   },
+   {
+      "symbol":"ADM",
+      "name":"Archer Daniels Midland Company"
+   },
+   {
+      "symbol":"ADNT",
+      "name":"Adient plc"
+   },
+   {
+      "symbol":"ADT",
+      "name":"ADT Inc"
+   },
+   {
+      "symbol":"ADX",
+      "name":"Adams Diversified Equity Fund"
+   },
+   {
+      "symbol":"AEE",
+      "name":"Ameren Corp"
+   },
+   {
+      "symbol":"AEFC",
+      "name":"Aegon Funding Company LLC"
+   },
+   {
+      "symbol":"AEG",
+      "name":"Aegon Ltd"
+   },
+   {
+      "symbol":"AEL",
+      "name":"American Equity Investment Life Holding Company"
+   },
+   {
+      "symbol":"AEM",
+      "name":"Agnico Eagle Mines Ltd"
+   },
+   {
+      "symbol":"AENZ",
+      "name":"Aenza S.A.A"
+   },
+   {
+      "symbol":"AEO",
+      "name":"American Eagle Outfitters Inc"
+   },
+   {
+      "symbol":"AER",
+      "name":"Aercap Holdings N.V."
+   },
+   {
+      "symbol":"AES",
+      "name":"AES Corp"
+   },
+   {
+      "symbol":"AESI",
+      "name":"Atlas Energy Solutions Inc"
+   },
+   {
+      "symbol":"AEVA",
+      "name":"Aeva Technologies Inc"
+   },
+   {
+      "symbol":"AFB",
+      "name":"AllianceBernstein National Municipal Income Fund Inc"
+   },
+   {
+      "symbol":"AFG",
+      "name":"American Financial Group Inc"
+   },
+   {
+      "symbol":"AFL",
+      "name":"Aflac Inc"
+   },
+   {
+      "symbol":"AFT",
+      "name":"Apollo Senior Floating Rate Fund Inc"
+   },
+   {
+      "symbol":"AG",
+      "name":"First Majestic Silver Corporation"
+   },
+   {
+      "symbol":"AGCO",
+      "name":"AGCO Corp"
+   },
+   {
+      "symbol":"AGD",
+      "name":"abrdn Global Dynamic Dividend Fund"
+   },
+   {
+      "symbol":"AGI",
+      "name":"Alamos Gold Inc - Class A"
+   },
+   {
+      "symbol":"AGL",
+      "name":"Agilon Health Inc"
+   },
+   {
+      "symbol":"AGM",
+      "name":"Federal Agricultural Mortgage Corp - Class C"
+   },
+   {
+      "symbol":"AGO",
+      "name":"Assured Guaranty Ltd"
+   },
+   {
+      "symbol":"AGR",
+      "name":"Avangrid Inc"
+   },
+   {
+      "symbol":"AGRO",
+      "name":"Adecoagro S.A."
+   },
+   {
+      "symbol":"AGS",
+      "name":"PlayAGS Inc"
+   },
+   {
+      "symbol":"AGTI",
+      "name":"Agiliti Inc"
+   },
+   {
+      "symbol":"AGX",
+      "name":"Argan Inc"
+   },
+   {
+      "symbol":"AHH",
+      "name":"Armada Hoffler Properties Inc"
+   },
+   {
+      "symbol":"AHT",
+      "name":"Ashford Hospitality Trust Inc"
+   },
+   {
+      "symbol":"AI",
+      "name":"C3.ai Inc - Class A"
+   },
+   {
+      "symbol":"AIF",
+      "name":"Apollo Tactical Income Fund Inc"
+   },
+   {
+      "symbol":"AIG",
+      "name":"American International Group Inc"
+   },
+   {
+      "symbol":"AIN",
+      "name":"Albany International Corp - Class A"
+   },
+   {
+      "symbol":"AIO",
+      "name":"Virtus Artificial Intelligence & Technology Opportunities Fund"
+   },
+   {
+      "symbol":"AIR",
+      "name":"AAR Corp"
+   },
+   {
+      "symbol":"AIRC",
+      "name":"Apartment Income REIT Corp - Class A"
+   },
+   {
+      "symbol":"AIT",
+      "name":"Applied Industrial Technologies Inc"
+   },
+   {
+      "symbol":"AIU",
+      "name":"Meta Data Ltd"
+   },
+   {
+      "symbol":"AIV",
+      "name":"Apartment Investment & Management Co. - Class A"
+   },
+   {
+      "symbol":"AIZ",
+      "name":"Assurant Inc"
+   },
+   {
+      "symbol":"AJG",
+      "name":"Arthur J. Gallagher & Company"
+   },
+   {
+      "symbol":"AJX",
+      "name":"Great Ajax Corp"
+   },
+   {
+      "symbol":"AKA",
+      "name":"a.k.a. Brands Holding Corp"
+   },
+   {
+      "symbol":"AKR",
+      "name":"Acadia Realty Trust"
+   },
+   {
+      "symbol":"AL",
+      "name":"Air Lease Corp - Class A"
+   },
+   {
+      "symbol":"ALB",
+      "name":"Albemarle Corp"
+   },
+   {
+      "symbol":"ALC",
+      "name":"Alcon Inc"
+   },
+   {
+      "symbol":"ALCC",
+      "name":"AltC Acquisition Corp - Class A"
+   },
+   {
+      "symbol":"ALE",
+      "name":"Allete Inc"
+   },
+   {
+      "symbol":"ALEX",
+      "name":"Alexander & Baldwin Inc"
+   },
+   {
+      "symbol":"ALG",
+      "name":"Alamo Group Inc"
+   },
+   {
+      "symbol":"ALIT",
+      "name":"Alight Inc - Class A"
+   },
+   {
+      "symbol":"ALK",
+      "name":"Alaska Air Group Inc"
+   },
+   {
+      "symbol":"ALL",
+      "name":"Allstate Corp (The)"
+   },
+   {
+      "symbol":"ALLE",
+      "name":"Allegion plc"
+   },
+   {
+      "symbol":"ALLG",
+      "name":"Allego NV"
+   },
+   {
+      "symbol":"ALLY",
+      "name":"Ally Financial Inc"
+   },
+   {
+      "symbol":"ALSN",
+      "name":"Allison Transmission Holdings Inc"
+   },
+   {
+      "symbol":"ALTG",
+      "name":"Alta Equipment Group Inc - Class A"
+   },
+   {
+      "symbol":"ALUR",
+      "name":"Allurion Technologies Inc"
+   },
+   {
+      "symbol":"ALV",
+      "name":"Autoliv Inc"
+   },
+   {
+      "symbol":"ALX",
+      "name":"Alexander`s Inc"
+   },
+   {
+      "symbol":"AM",
+      "name":"Antero Midstream Corp"
+   },
+   {
+      "symbol":"AMBC",
+      "name":"AMBAC Financial Group Inc"
+   },
+   {
+      "symbol":"AMBP",
+      "name":"Ardagh Metal Packaging S.A."
+   },
+   {
+      "symbol":"AMC",
+      "name":"AMC Entertainment Holdings Inc - Class A"
+   },
+   {
+      "symbol":"AMCR",
+      "name":"Amcor Plc"
+   },
+   {
+      "symbol":"AME",
+      "name":"Ametek Inc"
+   },
+   {
+      "symbol":"AMG",
+      "name":"Affiliated Managers Group Inc"
+   },
+   {
+      "symbol":"AMH",
+      "name":"American Homes 4 Rent - Class A"
+   },
+   {
+      "symbol":"AMK",
+      "name":"Assetmark Financial Holdings Inc"
+   },
+   {
+      "symbol":"AMN",
+      "name":"AMN Healthcare Services Inc"
+   },
+   {
+      "symbol":"AMP",
+      "name":"Ameriprise Financial Inc"
+   },
+   {
+      "symbol":"AMPS",
+      "name":"Altus Power Inc - Class A"
+   },
+   {
+      "symbol":"AMPX",
+      "name":"Amprius Technologies Inc"
+   },
+   {
+      "symbol":"AMPY",
+      "name":"Amplify Energy Corp"
+   },
+   {
+      "symbol":"AMR",
+      "name":"Alpha Metallurgical Resources Inc"
+   },
+   {
+      "symbol":"AMRC",
+      "name":"Ameresco Inc - Class A"
+   },
+   {
+      "symbol":"AMRX",
+      "name":"Amneal Pharmaceuticals Inc - Class A"
+   },
+   {
+      "symbol":"AMT",
+      "name":"American Tower Corp"
+   },
+   {
+      "symbol":"AMTB",
+      "name":"Amerant Bancorp Inc - Class A"
+   },
+   {
+      "symbol":"AMTD",
+      "name":"AMTD IDEA Group"
+   },
+   {
+      "symbol":"AMWL",
+      "name":"American Well Corporation - Class A"
+   },
+   {
+      "symbol":"AMX",
+      "name":"America Movil S.A.B.DE C.V."
+   },
+   {
+      "symbol":"AN",
+      "name":"Autonation Inc"
+   },
+   {
+      "symbol":"ANET",
+      "name":"Arista Networks Inc"
+   },
+   {
+      "symbol":"ANF",
+      "name":"Abercrombie & Fitch Co. - Class A"
+   },
+   {
+      "symbol":"ANVS",
+      "name":"Annovis Bio Inc"
+   },
+   {
+      "symbol":"AOD",
+      "name":"abrdn Total Dynamic Dividend Fund"
+   },
+   {
+      "symbol":"AOMR",
+      "name":"Angel Oak Mortgage REIT Inc"
+   },
+   {
+      "symbol":"AON",
+      "name":"Aon plc. - Class A"
+   },
+   {
+      "symbol":"AORT",
+      "name":"Artivion Inc"
+   },
+   {
+      "symbol":"AOS",
+      "name":"A.O. Smith Corp"
+   },
+   {
+      "symbol":"AP",
+      "name":"Ampco-Pittsburgh Corp"
+   },
+   {
+      "symbol":"APAM",
+      "name":"Artisan Partners Asset Management Inc - Class A"
+   },
+   {
+      "symbol":"APCA",
+      "name":"AP Acquisition Corp - Class A"
+   },
+   {
+      "symbol":"APD",
+      "name":"Air Products & Chemicals Inc"
+   },
+   {
+      "symbol":"APG",
+      "name":"APi Group Corporation"
+   },
+   {
+      "symbol":"APGB",
+      "name":"Apollo Strategic Growth Capital II - Class A"
+   },
+   {
+      "symbol":"APH",
+      "name":"Amphenol Corp - Class A"
+   },
+   {
+      "symbol":"APLE",
+      "name":"Apple Hospitality REIT Inc"
+   },
+   {
+      "symbol":"APO",
+      "name":"Apollo Global Management Inc - Class A (New)"
+   },
+   {
+      "symbol":"APOS",
+      "name":"Apollo Global Management Inc"
+   },
+   {
+      "symbol":"APTV",
+      "name":"Aptiv PLC"
+   },
+   {
+      "symbol":"AQN",
+      "name":"Algonquin Power & Utilities Corp"
+   },
+   {
+      "symbol":"AR",
+      "name":"Antero Resources Corp"
+   },
+   {
+      "symbol":"ARC",
+      "name":"ARC Document Solutions Inc"
+   },
+   {
+      "symbol":"ARCH",
+      "name":"Arch Resources Inc - Class A"
+   },
+   {
+      "symbol":"ARCO",
+      "name":"Arcos Dorados Holdings Inc - Class A"
+   },
+   {
+      "symbol":"ARDC",
+      "name":"Ares Dynamic Credit Allocation Fund Inc"
+   },
+   {
+      "symbol":"ARE",
+      "name":"Alexandria Real Estate Equities Inc"
+   },
+   {
+      "symbol":"ARES",
+      "name":"Ares Management Corp - Class A"
+   },
+   {
+      "symbol":"ARGD",
+      "name":"Argo Group US Inc"
+   },
+   {
+      "symbol":"ARGO",
+      "name":"Argo Group International Holdings Ltd"
+   },
+   {
+      "symbol":"ARI",
+      "name":"Apollo Commercial Real Estate Finance Inc"
+   },
+   {
+      "symbol":"ARIS",
+      "name":"Aris Water Solutions Inc - Class A"
+   },
+   {
+      "symbol":"ARL",
+      "name":"American Realty Investors Inc"
+   },
+   {
+      "symbol":"ARLO",
+      "name":"Arlo Technologies Inc"
+   },
+   {
+      "symbol":"ARMK",
+      "name":"Aramark"
+   },
+   {
+      "symbol":"AROC",
+      "name":"Archrock Inc"
+   },
+   {
+      "symbol":"ARR",
+      "name":"ARMOUR Residential REIT Inc"
+   },
+   {
+      "symbol":"ARW",
+      "name":"Arrow Electronics Inc"
+   },
+   {
+      "symbol":"ASA",
+      "name":"ASA Gold and Precious Metals Ltd"
+   },
+   {
+      "symbol":"ASAI",
+      "name":"Sendas Distribuidora S.A."
+   },
+   {
+      "symbol":"ASAN",
+      "name":"Asana Inc - Class A"
+   },
+   {
+      "symbol":"ASB",
+      "name":"Associated Banc-Corp"
+   },
+   {
+      "symbol":"ASC",
+      "name":"Ardmore Shipping Corp"
+   },
+   {
+      "symbol":"ASG",
+      "name":"Liberty All-Star Growth Fund Inc"
+   },
+   {
+      "symbol":"ASGI",
+      "name":"abrdn Global Infrastructure Income Fund"
+   },
+   {
+      "symbol":"ASGN",
+      "name":"ASGN Inc"
+   },
+   {
+      "symbol":"ASH",
+      "name":"Ashland Inc"
+   },
+   {
+      "symbol":"ASIX",
+      "name":"AdvanSix Inc"
+   },
+   {
+      "symbol":"ASPN",
+      "name":"Aspen Aerogels Inc"
+   },
+   {
+      "symbol":"ASR",
+      "name":"Grupo Aeroportuario Del Sureste S.A."
+   },
+   {
+      "symbol":"ASX",
+      "name":"ASE Technology Holding Co.Ltd"
+   },
+   {
+      "symbol":"ATEN",
+      "name":"A10 Networks Inc"
+   },
+   {
+      "symbol":"ATGE",
+      "name":"Adtalem Global Education Inc"
+   },
+   {
+      "symbol":"ATHM",
+      "name":"Autohome Inc"
+   },
+   {
+      "symbol":"ATI",
+      "name":"ATI Inc"
+   },
+   {
+      "symbol":"ATIP",
+      "name":"ATI Physical Therapy Inc - Class A"
+   },
+   {
+      "symbol":"ATKR",
+      "name":"Atkore Inc"
+   },
+   {
+      "symbol":"ATMU",
+      "name":"Atmus Filtration Technologies Inc"
+   },
+   {
+      "symbol":"ATO",
+      "name":"Atmos Energy Corp"
+   },
+   {
+      "symbol":"ATR",
+      "name":"Aptargroup Inc"
+   },
+   {
+      "symbol":"ATS",
+      "name":"ATS Corporation."
+   },
+   {
+      "symbol":"ATUS",
+      "name":"Altice USA Inc - Class A"
+   },
+   {
+      "symbol":"AU",
+      "name":"AngloGold Ashanti Plc."
+   },
+   {
+      "symbol":"AUB",
+      "name":"Atlantic Union Bankshares Corp"
+   },
+   {
+      "symbol":"AVA",
+      "name":"Avista Corp"
+   },
+   {
+      "symbol":"AVAL",
+      "name":"Grupo Aval Acciones y Valores S.A."
+   },
+   {
+      "symbol":"AVB",
+      "name":"Avalonbay Communities Inc"
+   },
+   {
+      "symbol":"AVD",
+      "name":"American Vanguard Corp"
+   },
+   {
+      "symbol":"AVK",
+      "name":"Advent Convertible and Income Fund"
+   },
+   {
+      "symbol":"AVNS",
+      "name":"Avanos Medical Inc"
+   },
+   {
+      "symbol":"AVNT",
+      "name":"Avient Corp"
+   },
+   {
+      "symbol":"AVTR",
+      "name":"Avantor Inc"
+   },
+   {
+      "symbol":"AVY",
+      "name":"Avery Dennison Corp"
+   },
+   {
+      "symbol":"AWF",
+      "name":"AllianceBernstein Global High Income Fund Inc"
+   },
+   {
+      "symbol":"AWI",
+      "name":"Armstrong World Industries Inc"
+   },
+   {
+      "symbol":"AWK",
+      "name":"American Water Works Co. Inc"
+   },
+   {
+      "symbol":"AWP",
+      "name":"abrdn Global Premier Properties Fund"
+   },
+   {
+      "symbol":"AWR",
+      "name":"American States Water Company"
+   },
+   {
+      "symbol":"AX",
+      "name":"Axos Financial Inc"
+   },
+   {
+      "symbol":"AXL",
+      "name":"American Axle & Manufacturing Holdings Inc"
+   },
+   {
+      "symbol":"AXP",
+      "name":"American Express Company"
+   },
+   {
+      "symbol":"AXR",
+      "name":"AMREP Corp"
+   },
+   {
+      "symbol":"AXS",
+      "name":"Axis Capital Holdings Ltd"
+   },
+   {
+      "symbol":"AXTA",
+      "name":"Axalta Coating Systems Ltd"
+   },
+   {
+      "symbol":"AYI",
+      "name":"Acuity Brands Inc"
+   },
+   {
+      "symbol":"AYX",
+      "name":"Alteryx Inc - Class A"
+   },
+   {
+      "symbol":"AZEK",
+      "name":"AZEK Company Inc - Class A"
+   },
+   {
+      "symbol":"AZO",
+      "name":"Autozone Inc"
+   },
+   {
+      "symbol":"AZUL",
+      "name":"Azul S.A."
+   },
+   {
+      "symbol":"AZZ",
+      "name":"AZZ Inc"
+   },
+   {
+      "symbol":"B",
+      "name":"Barnes Group Inc"
+   },
+   {
+      "symbol":"BA",
+      "name":"Boeing Company"
+   },
+   {
+      "symbol":"BABA",
+      "name":"Alibaba Group Holding Ltd"
+   },
+   {
+      "symbol":"BAC",
+      "name":"Bank Of America Corp"
+   },
+   {
+      "symbol":"BAH",
+      "name":"Booz Allen Hamilton Holding Corp - Class A"
+   },
+   {
+      "symbol":"BAK",
+      "name":"Braskem S.A."
+   },
+   {
+      "symbol":"BALL",
+      "name":"Ball Corp"
+   },
+   {
+      "symbol":"BALY",
+      "name":"Ballys Corporation"
+   },
+   {
+      "symbol":"BAM",
+      "name":"Brookfield Asset Management Ltd - Class A"
+   },
+   {
+      "symbol":"BANC",
+      "name":"Banc of California Inc"
+   },
+   {
+      "symbol":"BAP",
+      "name":"Credicorp Ltd"
+   },
+   {
+      "symbol":"BARK",
+      "name":"BARK Inc - Class A"
+   },
+   {
+      "symbol":"BAX",
+      "name":"Baxter International Inc"
+   },
+   {
+      "symbol":"BB",
+      "name":"BlackBerry Ltd"
+   },
+   {
+      "symbol":"BBAI",
+      "name":"BigBear.ai Inc"
+   },
+   {
+      "symbol":"BBAR",
+      "name":"BBVA Argentina"
+   },
+   {
+      "symbol":"BBD",
+      "name":"Banco Bradesco S.A."
+   },
+   {
+      "symbol":"BBDC",
+      "name":"Barings BDC Inc"
+   },
+   {
+      "symbol":"BBLN",
+      "name":"Babylon Holdings Ltd - Class A"
+   },
+   {
+      "symbol":"BBN",
+      "name":"BlackRock Taxable Municipal Bond Trust"
+   },
+   {
+      "symbol":"BBU",
+      "name":"Brookfield Business Partners L.P."
+   },
+   {
+      "symbol":"BBUC",
+      "name":"Brookfield Business Corp - Class A - Class A (Sub Voting)"
+   },
+   {
+      "symbol":"BBVA",
+      "name":"Banco Bilbao Vizcaya Argentaria."
+   },
+   {
+      "symbol":"BBW",
+      "name":"Build A Bear Workshop Inc"
+   },
+   {
+      "symbol":"BBWI",
+      "name":"Bath & Body Works Inc"
+   },
+   {
+      "symbol":"BBY",
+      "name":"Best Buy Co. Inc"
+   },
+   {
+      "symbol":"BC",
+      "name":"Brunswick Corp"
+   },
+   {
+      "symbol":"BCAT",
+      "name":"BlackRock Capital Allocation Term Trust"
+   },
+   {
+      "symbol":"BCC",
+      "name":"Boise Cascade Company"
+   },
+   {
+      "symbol":"BCE",
+      "name":"BCE Inc"
+   },
+   {
+      "symbol":"BCH",
+      "name":"Banco de Chile"
+   },
+   {
+      "symbol":"BCO",
+      "name":"Brink`s Company"
+   },
+   {
+      "symbol":"BCS",
+      "name":"Barclays plc"
+   },
+   {
+      "symbol":"BCSF",
+      "name":"Bain Capital Specialty Finance Inc"
+   },
+   {
+      "symbol":"BCX",
+      "name":"BlackRock Resources & Commodities Strategy Trust"
+   },
+   {
+      "symbol":"BDC",
+      "name":"Belden Inc"
+   },
+   {
+      "symbol":"BDJ",
+      "name":"BlackRock Enhanced Equity Dividend Trust"
+   },
+   {
+      "symbol":"BDN",
+      "name":"Brandywine Realty Trust"
+   },
+   {
+      "symbol":"BDX",
+      "name":"Becton Dickinson & Company"
+   },
+   {
+      "symbol":"BE",
+      "name":"Bloom Energy Corp - Class A"
+   },
+   {
+      "symbol":"BEDU",
+      "name":"Bright Scholar Education Holdings Ltd"
+   },
+   {
+      "symbol":"BEKE",
+      "name":"KE Holdings Inc"
+   },
+   {
+      "symbol":"BEN",
+      "name":"Franklin Resources Inc"
+   },
+   {
+      "symbol":"BEP",
+      "name":"Brookfield Renewable Partners LP"
+   },
+   {
+      "symbol":"BEPC",
+      "name":"Brookfield Renewable Corporation - Class A - Class A (Sub Voting)"
+   },
+   {
+      "symbol":"BEPH",
+      "name":"Brookfield BRP Holdings (Canada) Inc"
+   },
+   {
+      "symbol":"BERY",
+      "name":"Berry Global Group Inc"
+   },
+   {
+      "symbol":"BEST",
+      "name":"BEST Inc"
+   },
+   {
+      "symbol":"BETR",
+      "name":"Better Home & Finance Holding Company"
+   },
+   {
+      "symbol":"BFAC",
+      "name":"Battery Future Acquisition Corp - Class A"
+   },
+   {
+      "symbol":"BFAM",
+      "name":"Bright Horizons Family Solutions Inc"
+   },
+   {
+      "symbol":"BFH",
+      "name":"Bread Financial Holdings Inc"
+   },
+   {
+      "symbol":"BFK",
+      "name":"BlackRock Municipal Income Trust"
+   },
+   {
+      "symbol":"BFLY",
+      "name":"Butterfly Network Inc - Class A"
+   },
+   {
+      "symbol":"BFS",
+      "name":"Saul Centers Inc"
+   },
+   {
+      "symbol":"BFX",
+      "name":"BowFlex Inc"
+   },
+   {
+      "symbol":"BFZ",
+      "name":"BlackRock California Municipal Income Trust"
+   },
+   {
+      "symbol":"BG",
+      "name":"Bunge Global SA"
+   },
+   {
+      "symbol":"BGB",
+      "name":"Blackstone Strategic Credit 2027 Term Fund"
+   },
+   {
+      "symbol":"BGH",
+      "name":"Barings Global Short Duration High Yield Fund"
+   },
+   {
+      "symbol":"BGR",
+      "name":"Blackrock Energy & Resources Trust"
+   },
+   {
+      "symbol":"BGS",
+      "name":"B&G Foods Inc"
+   },
+   {
+      "symbol":"BGSF",
+      "name":"BGSF Inc"
+   },
+   {
+      "symbol":"BGT",
+      "name":"BlackRock Floating Rate Income Trust"
+   },
+   {
+      "symbol":"BGX",
+      "name":"Blackstone Long-Short Credit Income Fund"
+   },
+   {
+      "symbol":"BGY",
+      "name":"BlackRock Enhanced International Dividend Trust"
+   },
+   {
+      "symbol":"BH",
+      "name":"Biglari Holdings Inc - Class B"
+   },
+   {
+      "symbol":"BHC",
+      "name":"Bausch Health Companies Inc"
+   },
+   {
+      "symbol":"BHE",
+      "name":"Benchmark Electronics Inc"
+   },
+   {
+      "symbol":"BHG",
+      "name":"Bright Health Group Inc"
+   },
+   {
+      "symbol":"BHIL",
+      "name":"Benson Hill Inc"
+   },
+   {
+      "symbol":"BHK",
+      "name":"BlackRock Core Bond Trust"
+   },
+   {
+      "symbol":"BHLB",
+      "name":"Berkshire Hills Bancorp Inc"
+   },
+   {
+      "symbol":"BHP",
+      "name":"BHP Group Ltd"
+   },
+   {
+      "symbol":"BHR",
+      "name":"Braemar Hotels & Resorts Inc"
+   },
+   {
+      "symbol":"BHV",
+      "name":"BlackRock Virginia Municipal Bond Trust."
+   },
+   {
+      "symbol":"BHVN",
+      "name":"Biohaven Ltd"
+   },
+   {
+      "symbol":"BIG",
+      "name":"Big Lots Inc"
+   },
+   {
+      "symbol":"BIGZ",
+      "name":"BlackRock Innovation and Growth Term Trust"
+   },
+   {
+      "symbol":"BILL",
+      "name":"BILL Holdings Inc"
+   },
+   {
+      "symbol":"BIO",
+      "name":"Bio-Rad Laboratories Inc - Class A"
+   },
+   {
+      "symbol":"BIP",
+      "name":"Brookfield Infrastructure Partners L.P"
+   },
+   {
+      "symbol":"BIPC",
+      "name":"Brookfield Infrastructure Corp - Class A (Subordinate Share)"
+   },
+   {
+      "symbol":"BIPH",
+      "name":"Brookfield Infrastructure Finance ULC"
+   },
+   {
+      "symbol":"BIPI",
+      "name":"BIP Bermuda Holdings I Ltd"
+   },
+   {
+      "symbol":"BIRK",
+      "name":"Birkenstock Holding Plc"
+   },
+   {
+      "symbol":"BIT",
+      "name":"BlackRock Multi-Sector Income Trust"
+   },
+   {
+      "symbol":"BJ",
+      "name":"BJ`s Wholesale Club Holdings Inc"
+   },
+   {
+      "symbol":"BK",
+      "name":"Bank Of New York Mellon Corp"
+   },
+   {
+      "symbol":"BKD",
+      "name":"Brookdale Senior Living Inc"
+   },
+   {
+      "symbol":"BKE",
+      "name":"Buckle Inc"
+   },
+   {
+      "symbol":"BKH",
+      "name":"Black Hills Corporation"
+   },
+   {
+      "symbol":"BKKT",
+      "name":"Bakkt Holdings Inc - Class A"
+   },
+   {
+      "symbol":"BKN",
+      "name":"BlackRock Investment Quality Municipal Trust"
+   },
+   {
+      "symbol":"BKSY",
+      "name":"BlackSky Technology Inc - Class A"
+   },
+   {
+      "symbol":"BKT",
+      "name":"BlackRock Income Trust Inc"
+   },
+   {
+      "symbol":"BKU",
+      "name":"BankUnited Inc"
+   },
+   {
+      "symbol":"BLCO",
+      "name":"Bausch + Lomb Corp"
+   },
+   {
+      "symbol":"BLD",
+      "name":"TopBuild Corp"
+   },
+   {
+      "symbol":"BLDR",
+      "name":"Builders Firstsource Inc"
+   },
+   {
+      "symbol":"BLE",
+      "name":"BlackRock Municipal Income Trust II"
+   },
+   {
+      "symbol":"BLK",
+      "name":"Blackrock Inc"
+   },
+   {
+      "symbol":"BLND",
+      "name":"Blend Labs Inc - Class A"
+   },
+   {
+      "symbol":"BLW",
+      "name":"BlackRock Ltd Duration Income Trust"
+   },
+   {
+      "symbol":"BLX",
+      "name":"Banco Latinoamericano De Comercio Exterior SA - Class E"
+   },
+   {
+      "symbol":"BMA",
+      "name":"Banco Macro S.A."
+   },
+   {
+      "symbol":"BMAC",
+      "name":"Black Mountain Acquisition Corp - Class A"
+   },
+   {
+      "symbol":"BME",
+      "name":"BlackRock Health Sciences Trust"
+   },
+   {
+      "symbol":"BMEZ",
+      "name":"BlackRock Health Sciences Term Trust"
+   },
+   {
+      "symbol":"BMI",
+      "name":"Badger Meter Inc"
+   },
+   {
+      "symbol":"BMN",
+      "name":"BlackRock 2037 Municipal Target Term Trust"
+   },
+   {
+      "symbol":"BMO",
+      "name":"Bank of Montreal"
+   },
+   {
+      "symbol":"BMY",
+      "name":"Bristol-Myers Squibb Company"
+   },
+   {
+      "symbol":"BN",
+      "name":"Brookfield Corporation - Class A"
+   },
+   {
+      "symbol":"BNED",
+      "name":"Barnes & Noble Education Inc"
+   },
+   {
+      "symbol":"BNH",
+      "name":"Brookfield Finance Inc"
+   },
+   {
+      "symbol":"BNJ",
+      "name":"BlackRock New Jersey Municipal Income Trust"
+   },
+   {
+      "symbol":"BNL",
+      "name":"Broadstone Net Lease Inc"
+   },
+   {
+      "symbol":"BNRE",
+      "name":"Brookfield Reinsurance Ltd (Exchangeable Shares Sub Voting) - Class A"
+   },
+   {
+      "symbol":"BNS",
+      "name":"Bank Of Nova Scotia"
+   },
+   {
+      "symbol":"BNY",
+      "name":"BlackRock New York Municipal Income Trust"
+   },
+   {
+      "symbol":"BOAC",
+      "name":"Bluescape Opportunities Acquisition Corp - Class A"
+   },
+   {
+      "symbol":"BOC",
+      "name":"Boston Omaha Corp - Class A"
+   },
+   {
+      "symbol":"BODY",
+      "name":"Beachbody Company Inc (The) - Class A"
+   },
+   {
+      "symbol":"BOE",
+      "name":"BlackRock Enhanced Global Dividend Trust"
+   },
+   {
+      "symbol":"BOH",
+      "name":"Bank of Hawaii Corp"
+   },
+   {
+      "symbol":"BOND",
+      "name":"PIMCO ACTIVE BOND EXCHANGE-TRADED FUND "
+   },
+   {
+      "symbol":"BOOT",
+      "name":"Boot Barn Holdings Inc"
+   },
+   {
+      "symbol":"BORR",
+      "name":"Borr Drilling Ltd"
+   },
+   {
+      "symbol":"BOWL",
+      "name":"Bowlero Corp - Class A"
+   },
+   {
+      "symbol":"BOX",
+      "name":"Box Inc - Class A"
+   },
+   {
+      "symbol":"BP",
+      "name":"BP plc"
+   },
+   {
+      "symbol":"BPT",
+      "name":"BP Prudhoe Bay Royalty Trust"
+   },
+   {
+      "symbol":"BQ",
+      "name":"Boqii Holding Ltd"
+   },
+   {
+      "symbol":"BR",
+      "name":"Broadridge Financial Solutions Inc"
+   },
+   {
+      "symbol":"BRBR",
+      "name":"Bellring Brands Inc"
+   },
+   {
+      "symbol":"BRC",
+      "name":"Brady Corp - Class A"
+   },
+   {
+      "symbol":"BRCC",
+      "name":"BRC Inc - Class A"
+   },
+   {
+      "symbol":"BRD",
+      "name":"Beard Energy Transition Acquisition Corp - Class A"
+   },
+   {
+      "symbol":"BRDG",
+      "name":"Bridge Investment Group Holdings Inc - Class A"
+   },
+   {
+      "symbol":"BRFS",
+      "name":"BRF S.A."
+   },
+   {
+      "symbol":"BRO",
+      "name":"Brown & Brown Inc"
+   },
+   {
+      "symbol":"BROS",
+      "name":"Dutch Bros Inc - Class A"
+   },
+   {
+      "symbol":"BRSP",
+      "name":"BrightSpire Capital Inc - Class A"
+   },
+   {
+      "symbol":"BRT",
+      "name":"BRT Apartments Corp"
+   },
+   {
+      "symbol":"BRW",
+      "name":"Saba Capital Income & Opportunities Fund"
+   },
+   {
+      "symbol":"BRX",
+      "name":"Brixmor Property Group Inc"
+   },
+   {
+      "symbol":"BSAC",
+      "name":"Banco Santander Chile SA"
+   },
+   {
+      "symbol":"BSBR",
+      "name":"Banco Santander (Brasil) S.A."
+   },
+   {
+      "symbol":"BSIG",
+      "name":"BrightSphere Investment Group Inc"
+   },
+   {
+      "symbol":"BSL",
+      "name":"Blackstone Senior Floating Rate 2027 Term Fund"
+   },
+   {
+      "symbol":"BSM",
+      "name":"Black Stone Minerals L.P."
+   },
+   {
+      "symbol":"BST",
+      "name":"BlackRock Science and Technology Trust"
+   },
+   {
+      "symbol":"BSTZ",
+      "name":"BlackRock Science and Technology Term Trust"
+   },
+   {
+      "symbol":"BSX",
+      "name":"Boston Scientific Corp"
+   },
+   {
+      "symbol":"BTA",
+      "name":"BlackRock Long-Term Municipal Advantage Trust"
+   },
+   {
+      "symbol":"BTCM",
+      "name":"BIT Mining Ltd"
+   },
+   {
+      "symbol":"BTE",
+      "name":"Baytex Energy Corp"
+   },
+   {
+      "symbol":"BTI",
+      "name":"British American Tobacco Plc"
+   },
+   {
+      "symbol":"BTO",
+      "name":"John Hancock Financial Opportunities Fund"
+   },
+   {
+      "symbol":"BTT",
+      "name":"BlackRock Municipal 2030 Target Term Trust"
+   },
+   {
+      "symbol":"BTU",
+      "name":"Peabody Energy Corp New"
+   },
+   {
+      "symbol":"BTZ",
+      "name":"BlackRock Credit Allocation Income Trust"
+   },
+   {
+      "symbol":"BUD",
+      "name":"Anheuser-Busch InBev SA\/NV"
+   },
+   {
+      "symbol":"BUI",
+      "name":"BlackRock Utility Infrastructure & Power Opportunities Trust"
+   },
+   {
+      "symbol":"BUR",
+      "name":"Burford Capital Ltd"
+   },
+   {
+      "symbol":"BURL",
+      "name":"Burlington Stores Inc"
+   },
+   {
+      "symbol":"BUXX",
+      "name":"Strive Enhanced Income Short Maturity ETF"
+   },
+   {
+      "symbol":"BV",
+      "name":"BrightView Holdings Inc"
+   },
+   {
+      "symbol":"BVH",
+      "name":"Bluegreen Vacations Holding Corporation - Class A"
+   },
+   {
+      "symbol":"BVN",
+      "name":"Compania de Minas Buenaventura S.A."
+   },
+   {
+      "symbol":"BW",
+      "name":"Babcock & Wilcox Enterprises Inc"
+   },
+   {
+      "symbol":"BWA",
+      "name":"BorgWarner Inc"
+   },
+   {
+      "symbol":"BWG",
+      "name":"BrandywineGLOBAL - Global Income Opportunities Fund Inc"
+   },
+   {
+      "symbol":"BWXT",
+      "name":"BWX Technologies Inc"
+   },
+   {
+      "symbol":"BX",
+      "name":"Blackstone Inc"
+   },
+   {
+      "symbol":"BXC",
+      "name":"Bluelinx Hldgs Inc"
+   },
+   {
+      "symbol":"BXMT",
+      "name":"Blackstone Mortgage Trust Inc - Class A"
+   },
+   {
+      "symbol":"BXMX",
+      "name":"Nuveen S&P 500 Buy-Write Income Fund"
+   },
+   {
+      "symbol":"BXP",
+      "name":"Boston Properties Inc"
+   },
+   {
+      "symbol":"BXSL",
+      "name":"Blackstone Secured Lending Fund."
+   },
+   {
+      "symbol":"BY",
+      "name":"Byline Bancorp Inc"
+   },
+   {
+      "symbol":"BYD",
+      "name":"Boyd Gaming Corp"
+   },
+   {
+      "symbol":"BYM",
+      "name":"BlackRock Municipal Income Quality Trust"
+   },
+   {
+      "symbol":"BYN",
+      "name":"Banyan Acquisition Corp - Class A"
+   },
+   {
+      "symbol":"BZH",
+      "name":"Beazer Homes USA Inc"
+   },
+   {
+      "symbol":"C",
+      "name":"Citigroup Inc"
+   },
+   {
+      "symbol":"CAAP",
+      "name":"Corporacion America Airports S.A."
+   },
+   {
+      "symbol":"CABO",
+      "name":"Cable One Inc"
+   },
+   {
+      "symbol":"CACI",
+      "name":"Caci International Inc"
+   },
+   {
+      "symbol":"CADE",
+      "name":"Cadence Bancorporation - Class A"
+   },
+   {
+      "symbol":"CAE",
+      "name":"Cae Inc"
+   },
+   {
+      "symbol":"CAF",
+      "name":"Morgan Stanley China A Share Fund Inc"
+   },
+   {
+      "symbol":"CAG",
+      "name":"Conagra Brands Inc"
+   },
+   {
+      "symbol":"CAH",
+      "name":"Cardinal Health Inc"
+   },
+   {
+      "symbol":"CAL",
+      "name":"Caleres Inc"
+   },
+   {
+      "symbol":"CALX",
+      "name":"Calix Inc"
+   },
+   {
+      "symbol":"CANG",
+      "name":"Cango Inc"
+   },
+   {
+      "symbol":"CANO",
+      "name":"Cano Health Inc - Class A"
+   },
+   {
+      "symbol":"CAPL",
+      "name":"CrossAmerica Partners LP"
+   },
+   {
+      "symbol":"CARR",
+      "name":"Carrier Global Corp"
+   },
+   {
+      "symbol":"CARS",
+      "name":"Cars.com"
+   },
+   {
+      "symbol":"CAT",
+      "name":"Caterpillar Inc"
+   },
+   {
+      "symbol":"CATO",
+      "name":"Cato Corp - Class A"
+   },
+   {
+      "symbol":"CAVA",
+      "name":"Cava Group Inc"
+   },
+   {
+      "symbol":"CB",
+      "name":"Chubb Ltd"
+   },
+   {
+      "symbol":"CBD",
+      "name":"Companhia Brasileira De Distribuicao. ADR ()"
+   },
+   {
+      "symbol":"CBH",
+      "name":"Virtus Convertible & Income 2024 Target Term Fund"
+   },
+   {
+      "symbol":"CBL",
+      "name":"CBL& Associates Properties Inc - New"
+   },
+   {
+      "symbol":"CBO",
+      "name":"NYSE LISTED TEST STOCK FOR CTS AND CQS"
+   },
+   {
+      "symbol":"CBRE",
+      "name":"CBRE Group Inc - Class A"
+   },
+   {
+      "symbol":"CBT",
+      "name":"Cabot Corp"
+   },
+   {
+      "symbol":"CBU",
+      "name":"Community Bank System Inc"
+   },
+   {
+      "symbol":"CBX",
+      "name":"NYSE LISTED TEST"
+   },
+   {
+      "symbol":"CBZ",
+      "name":"Cbiz Inc"
+   },
+   {
+      "symbol":"CC",
+      "name":"Chemours Company"
+   },
+   {
+      "symbol":"CCI",
+      "name":"Crown Castle Inc"
+   },
+   {
+      "symbol":"CCIA",
+      "name":"Carlyle Credit Income Fund"
+   },
+   {
+      "symbol":"CCJ",
+      "name":"Cameco Corp"
+   },
+   {
+      "symbol":"CCK",
+      "name":"Crown Holdings Inc"
+   },
+   {
+      "symbol":"CCL",
+      "name":"Carnival Corp (Paired Stock)"
+   },
+   {
+      "symbol":"CCM",
+      "name":"Concord Medical Services"
+   },
+   {
+      "symbol":"CCO",
+      "name":"Clear Channel Outdoor Holdings Inc"
+   },
+   {
+      "symbol":"CCRD",
+      "name":"CoreCard Corporation - Class A"
+   },
+   {
+      "symbol":"CCS",
+      "name":"Century Communities Inc"
+   },
+   {
+      "symbol":"CCU",
+      "name":"Compania Cervecerias Unidas S.A."
+   },
+   {
+      "symbol":"CCV",
+      "name":"Churchill Capital Corp V - Class A"
+   },
+   {
+      "symbol":"CCVI",
+      "name":"Churchill Capital Corp VI - Class A"
+   },
+   {
+      "symbol":"CCZ",
+      "name":"Comcast Corp"
+   },
+   {
+      "symbol":"CDAY",
+      "name":"Ceridian HCM Holding Inc"
+   },
+   {
+      "symbol":"CDE",
+      "name":"Coeur Mining Inc"
+   },
+   {
+      "symbol":"CDP",
+      "name":"COPT Defense Properties"
+   },
+   {
+      "symbol":"CDRE",
+      "name":"Cadre Holdings Inc"
+   },
+   {
+      "symbol":"CE",
+      "name":"Celanese Corp - Series A"
+   },
+   {
+      "symbol":"CEE",
+      "name":"Central and Eastern Europe Fund Inc (The)"
+   },
+   {
+      "symbol":"CEIX",
+      "name":"Consol Energy Inc"
+   },
+   {
+      "symbol":"CEM",
+      "name":"ClearBridge MLP and Midstream Fund Inc"
+   },
+   {
+      "symbol":"CEN",
+      "name":"Center Coast Brookfield MLP & Energy Infrastructure Fund"
+   },
+   {
+      "symbol":"CEPU",
+      "name":"Central Puerto"
+   },
+   {
+      "symbol":"CF",
+      "name":"CF Industries Holdings Inc"
+   },
+   {
+      "symbol":"CFG",
+      "name":"Citizens Financial Group Inc"
+   },
+   {
+      "symbol":"CFR",
+      "name":"Cullen Frost Bankers Inc"
+   },
+   {
+      "symbol":"CGA",
+      "name":"China Green Agriculture Inc"
+   },
+   {
+      "symbol":"CGAU",
+      "name":"Vitalist Inc"
+   },
+   {
+      "symbol":"CHCT",
+      "name":"Community Healthcare Trust Inc"
+   },
+   {
+      "symbol":"CHD",
+      "name":"Church & Dwight Co. Inc"
+   },
+   {
+      "symbol":"CHE",
+      "name":"Chemed Corp"
+   },
+   {
+      "symbol":"CHGG",
+      "name":"Chegg Inc"
+   },
+   {
+      "symbol":"CHH",
+      "name":"Choice Hotels International Inc"
+   },
+   {
+      "symbol":"CHMI",
+      "name":"Cherry Hill Mortgage Investment Corporation"
+   },
+   {
+      "symbol":"CHN",
+      "name":"China Fund Inc"
+   },
+   {
+      "symbol":"CHPT",
+      "name":"ChargePoint Holdings Inc - Class A"
+   },
+   {
+      "symbol":"CHS",
+      "name":"Chico`s Fas Inc"
+   },
+   {
+      "symbol":"CHT",
+      "name":"Chunghwa Telecom"
+   },
+   {
+      "symbol":"CHWY",
+      "name":"Chewy Inc - Class A"
+   },
+   {
+      "symbol":"CI",
+      "name":"Cigna Group (The)"
+   },
+   {
+      "symbol":"CIA",
+      "name":"Citizens Inc - Class A"
+   },
+   {
+      "symbol":"CIB",
+      "name":"Bancolombia S.A."
+   },
+   {
+      "symbol":"CIEN",
+      "name":"CIENA Corp"
+   },
+   {
+      "symbol":"CIF",
+      "name":"MFS Intermediate High Income Fund"
+   },
+   {
+      "symbol":"CIG",
+      "name":"Cia Energetica DE Minas Gerais - Cemig"
+   },
+   {
+      "symbol":"CII",
+      "name":"BlackRock Enhanced Capital and Income Fund Inc"
+   },
+   {
+      "symbol":"CIM",
+      "name":"Chimera Investment Corp"
+   },
+   {
+      "symbol":"CINT",
+      "name":"CI&T Inc Class A"
+   },
+   {
+      "symbol":"CIO",
+      "name":"City Office REIT Inc"
+   },
+   {
+      "symbol":"CION",
+      "name":"CION Invt Corp"
+   },
+   {
+      "symbol":"CIVI",
+      "name":"Civitas Resources Inc New"
+   },
+   {
+      "symbol":"CL",
+      "name":"Colgate-Palmolive Company"
+   },
+   {
+      "symbol":"CLB",
+      "name":"Core Laboratories Inc"
+   },
+   {
+      "symbol":"CLCO",
+      "name":"Cool Company Ltd"
+   },
+   {
+      "symbol":"CLDT",
+      "name":"Chatham Lodging Trust"
+   },
+   {
+      "symbol":"CLF",
+      "name":"Cleveland-Cliffs Inc"
+   },
+   {
+      "symbol":"CLH",
+      "name":"Clean Harbors Inc"
+   },
+   {
+      "symbol":"CLPR",
+      "name":"Clipper Realty Inc"
+   },
+   {
+      "symbol":"CLS",
+      "name":"Celestica Inc"
+   },
+   {
+      "symbol":"CLVT",
+      "name":"Clarivate Plc"
+   },
+   {
+      "symbol":"CLW",
+      "name":"Clearwater Paper Corp"
+   },
+   {
+      "symbol":"CLX",
+      "name":"Clorox Company"
+   },
+   {
+      "symbol":"CM",
+      "name":"Canadian Imperial Bank Of Commerce"
+   },
+   {
+      "symbol":"CMA",
+      "name":"Comerica Inc"
+   },
+   {
+      "symbol":"CMC",
+      "name":"Commercial Metals Company"
+   },
+   {
+      "symbol":"CMCM",
+      "name":"Cheetah Mobile Inc"
+   },
+   {
+      "symbol":"CMG",
+      "name":"Chipotle Mexican Grill"
+   },
+   {
+      "symbol":"CMI",
+      "name":"Cummins Inc"
+   },
+   {
+      "symbol":"CMP",
+      "name":"Compass Minerals International Inc"
+   },
+   {
+      "symbol":"CMRE",
+      "name":"Costamare Inc"
+   },
+   {
+      "symbol":"CMS",
+      "name":"CMS Energy Corporation"
+   },
+   {
+      "symbol":"CMTG",
+      "name":"Claros Mortgage Trust Inc"
+   },
+   {
+      "symbol":"CMU",
+      "name":"MFS High Yield Municipal Trust"
+   },
+   {
+      "symbol":"CNA",
+      "name":"CNA Financial Corp"
+   },
+   {
+      "symbol":"CNC",
+      "name":"Centene Corp"
+   },
+   {
+      "symbol":"CNDA",
+      "name":"Concord Acquisition Corp II - Class A"
+   },
+   {
+      "symbol":"CNDB",
+      "name":"Concord Acquisition Corp III - Class A"
+   },
+   {
+      "symbol":"CNF",
+      "name":"CNFinance Holdings Ltd"
+   },
+   {
+      "symbol":"CNHI",
+      "name":"CNH Industrial NV"
+   },
+   {
+      "symbol":"CNI",
+      "name":"Canadian National Railway Company"
+   },
+   {
+      "symbol":"CNK",
+      "name":"Cinemark Holdings Inc"
+   },
+   {
+      "symbol":"CNM",
+      "name":"Core & Main Inc Class A"
+   },
+   {
+      "symbol":"CNMD",
+      "name":"Conmed Corp"
+   },
+   {
+      "symbol":"CNNE",
+      "name":"Cannae Holdings Inc"
+   },
+   {
+      "symbol":"CNO",
+      "name":"CNO Financial Group Inc"
+   },
+   {
+      "symbol":"CNP",
+      "name":"Centerpoint Energy Inc"
+   },
+   {
+      "symbol":"CNQ",
+      "name":"Canadian Natural Resources Ltd"
+   },
+   {
+      "symbol":"CNS",
+      "name":"Cohen & Steers Inc"
+   },
+   {
+      "symbol":"CNX",
+      "name":"CNX Resources Corp"
+   },
+   {
+      "symbol":"CODI",
+      "name":"Compass Diversified Holdings"
+   },
+   {
+      "symbol":"COF",
+      "name":"Capital One Financial Corp"
+   },
+   {
+      "symbol":"COHR",
+      "name":"Coherent Corp"
+   },
+   {
+      "symbol":"COLD",
+      "name":"Americold Realty Trust Inc"
+   },
+   {
+      "symbol":"COMP",
+      "name":"Compass Inc - Class A"
+   },
+   {
+      "symbol":"COOK",
+      "name":"Traeger Inc"
+   },
+   {
+      "symbol":"COP",
+      "name":"Conoco Phillips"
+   },
+   {
+      "symbol":"COR",
+      "name":"Cencora Inc"
+   },
+   {
+      "symbol":"CORR",
+      "name":"CorEnergy Infrastructure Trust Inc"
+   },
+   {
+      "symbol":"COTY",
+      "name":"Coty Inc - Class A"
+   },
+   {
+      "symbol":"COUR",
+      "name":"Coursera Inc"
+   },
+   {
+      "symbol":"CP",
+      "name":"Canadian Pacific Kansas City Ltd"
+   },
+   {
+      "symbol":"CPA",
+      "name":"Copa Holdings S.A. - Class A"
+   },
+   {
+      "symbol":"CPAC",
+      "name":"Cementos Pacasmayo S.A.A."
+   },
+   {
+      "symbol":"CPB",
+      "name":"Campbell Soup Company"
+   },
+   {
+      "symbol":"CPE",
+      "name":"Callon Petroleum Company"
+   },
+   {
+      "symbol":"CPF",
+      "name":"Central Pacific Financial Corp"
+   },
+   {
+      "symbol":"CPG",
+      "name":"Crescent Point Energy Corp"
+   },
+   {
+      "symbol":"CPK",
+      "name":"Chesapeake Utilities Corp"
+   },
+   {
+      "symbol":"CPNG",
+      "name":"Coupang Inc - Class A"
+   },
+   {
+      "symbol":"CPRI",
+      "name":"Capri Holdings Ltd"
+   },
+   {
+      "symbol":"CPS",
+      "name":"Cooper-Standard Holdings Inc"
+   },
+   {
+      "symbol":"CPT",
+      "name":"Camden Property Trust"
+   },
+   {
+      "symbol":"CPTK",
+      "name":"Crown PropTech Acquisitions - Class A"
+   },
+   {
+      "symbol":"CR",
+      "name":"Crane Company"
+   },
+   {
+      "symbol":"CRBG",
+      "name":"Corebridge Financial Inc"
+   },
+   {
+      "symbol":"CRC",
+      "name":"California Resources Corporation - New"
+   },
+   {
+      "symbol":"CRGY",
+      "name":"Crescent Energy Co. - Class A"
+   },
+   {
+      "symbol":"CRH",
+      "name":"CRH Plc"
+   },
+   {
+      "symbol":"CRI",
+      "name":"Carters Inc"
+   },
+   {
+      "symbol":"CRK",
+      "name":"Comstock Resources Inc"
+   },
+   {
+      "symbol":"CRL",
+      "name":"Charles River Laboratories International Inc"
+   },
+   {
+      "symbol":"CRM",
+      "name":"Salesforce Inc"
+   },
+   {
+      "symbol":"CRS",
+      "name":"Carpenter Technology Corp"
+   },
+   {
+      "symbol":"CRT",
+      "name":"Cross Timbers Royalty Trust"
+   },
+   {
+      "symbol":"CSAN",
+      "name":"Cosan S.A"
+   },
+   {
+      "symbol":"CSL",
+      "name":"Carlisle Companies Inc"
+   },
+   {
+      "symbol":"CSR",
+      "name":"Centerspace"
+   },
+   {
+      "symbol":"CSTA",
+      "name":"Constellation Acquisition Corp I - Class A"
+   },
+   {
+      "symbol":"CSTM",
+      "name":"Constellium SE - Class A"
+   },
+   {
+      "symbol":"CSV",
+      "name":"Carriage Services Inc"
+   },
+   {
+      "symbol":"CTBB",
+      "name":"Qwest Corporation"
+   },
+   {
+      "symbol":"CTLT",
+      "name":"Catalent Inc"
+   },
+   {
+      "symbol":"CTO",
+      "name":"CTO Realty Growth Inc - New - New"
+   },
+   {
+      "symbol":"CTOS",
+      "name":"Custom Truck One Source Inc"
+   },
+   {
+      "symbol":"CTR",
+      "name":"ClearBridge MLP and Midstream Total Return Fund Inc"
+   },
+   {
+      "symbol":"CTRA",
+      "name":"Coterra Energy Inc"
+   },
+   {
+      "symbol":"CTRE",
+      "name":"CareTrust REIT Inc"
+   },
+   {
+      "symbol":"CTS",
+      "name":"CTS Corp"
+   },
+   {
+      "symbol":"CTV",
+      "name":"Innovid Corp"
+   },
+   {
+      "symbol":"CTVA",
+      "name":"Corteva Inc"
+   },
+   {
+      "symbol":"CUBB",
+      "name":"Customers Bancorp Inc"
+   },
+   {
+      "symbol":"CUBE",
+      "name":"CubeSmart"
+   },
+   {
+      "symbol":"CUK",
+      "name":"Carnival plc"
+   },
+   {
+      "symbol":"CULP",
+      "name":"Culp Inc"
+   },
+   {
+      "symbol":"CURO",
+      "name":"CURO Group Holdings Corp"
+   },
+   {
+      "symbol":"CURV",
+      "name":"Torrid Holdings Inc"
+   },
+   {
+      "symbol":"CUZ",
+      "name":"Cousins Properties Inc"
+   },
+   {
+      "symbol":"CVE",
+      "name":"Cenovus Energy Inc"
+   },
+   {
+      "symbol":"CVEO",
+      "name":"Civeo Corp"
+   },
+   {
+      "symbol":"CVI",
+      "name":"CVR Energy Inc"
+   },
+   {
+      "symbol":"CVII",
+      "name":"Churchill Capital Corp VII - Class A"
+   },
+   {
+      "symbol":"CVNA",
+      "name":"Carvana Co. - Class A"
+   },
+   {
+      "symbol":"CVS",
+      "name":"CVS Health Corp"
+   },
+   {
+      "symbol":"CVU",
+      "name":"CPI Aerostructures Inc"
+   },
+   {
+      "symbol":"CVX",
+      "name":"Chevron Corp"
+   },
+   {
+      "symbol":"CW",
+      "name":"Curtiss-Wright Corp"
+   },
+   {
+      "symbol":"CWAN",
+      "name":"Clearwater Analytics Holdings Inc Class A"
+   },
+   {
+      "symbol":"CWEN",
+      "name":"Clearway Energy Inc - Class C"
+   },
+   {
+      "symbol":"CWH",
+      "name":"Camping World Holdings Inc - Class A"
+   },
+   {
+      "symbol":"CWK",
+      "name":"Cushman & Wakefield plc"
+   },
+   {
+      "symbol":"CWT",
+      "name":"California Water Service Group"
+   },
+   {
+      "symbol":"CX",
+      "name":"Cemex S.A.B. De C.V."
+   },
+   {
+      "symbol":"CXE",
+      "name":"MFS High Income Municipal Trust"
+   },
+   {
+      "symbol":"CXH",
+      "name":"MFS Investment Grade Municipal Trust"
+   },
+   {
+      "symbol":"CXM",
+      "name":"Sprinklr Inc Class A"
+   },
+   {
+      "symbol":"CXT",
+      "name":"Crane NXT Company"
+   },
+   {
+      "symbol":"CXW",
+      "name":"CoreCivic Inc"
+   },
+   {
+      "symbol":"CYD",
+      "name":"China Yuchai International"
+   },
+   {
+      "symbol":"CYH",
+      "name":"Community Health Systems Inc"
+   },
+   {
+      "symbol":"CZOO",
+      "name":"Cazoo Group Ltd - Class A"
+   },
+   {
+      "symbol":"D",
+      "name":"Dominion Energy Inc"
+   },
+   {
+      "symbol":"DAC",
+      "name":"Danaos Corporation"
+   },
+   {
+      "symbol":"DAL",
+      "name":"Delta Air Lines Inc"
+   },
+   {
+      "symbol":"DAN",
+      "name":"Dana Inc"
+   },
+   {
+      "symbol":"DAO",
+      "name":"Youdao Inc"
+   },
+   {
+      "symbol":"DAR",
+      "name":"Darling Ingredients Inc"
+   },
+   {
+      "symbol":"DAVA",
+      "name":"Endava plc"
+   },
+   {
+      "symbol":"DB",
+      "name":"Deutsche Bank AG"
+   },
+   {
+      "symbol":"DBI",
+      "name":"Designer Brands Inc - Class A"
+   },
+   {
+      "symbol":"DBL",
+      "name":"DoubleLine Opportunistic Credit Fund"
+   },
+   {
+      "symbol":"DBRG",
+      "name":"DigitalBridge Group Inc - Class A"
+   },
+   {
+      "symbol":"DCF",
+      "name":"BNY Mellon Alcentra Global Credit Income 2024 Target Term Fund Inc"
+   },
+   {
+      "symbol":"DCI",
+      "name":"Donaldson Co. Inc"
+   },
+   {
+      "symbol":"DCO",
+      "name":"Ducommun Inc"
+   },
+   {
+      "symbol":"DD",
+      "name":"DuPont de Nemours Inc"
+   },
+   {
+      "symbol":"DDC",
+      "name":"Dominion Diamond Corp"
+   },
+   {
+      "symbol":"DDD",
+      "name":"3D Systems Corp"
+   },
+   {
+      "symbol":"DDF",
+      "name":"Delaware Investments Dividend and Income Fund Inc"
+   },
+   {
+      "symbol":"DDL",
+      "name":"Dingdong (Cayman) Ltd"
+   },
+   {
+      "symbol":"DDS",
+      "name":"Dillard`s Inc - Class A"
+   },
+   {
+      "symbol":"DDT",
+      "name":"Dillards Capital Trust I"
+   },
+   {
+      "symbol":"DE",
+      "name":"Deere & Company"
+   },
+   {
+      "symbol":"DEA",
+      "name":"Easterly Government Properties Inc"
+   },
+   {
+      "symbol":"DECK",
+      "name":"Deckers Outdoor Corp"
+   },
+   {
+      "symbol":"DEI",
+      "name":"Douglas Emmett Inc"
+   },
+   {
+      "symbol":"DELL",
+      "name":"Dell Technologies Inc - Class C"
+   },
+   {
+      "symbol":"DEO",
+      "name":"Diageo plc"
+   },
+   {
+      "symbol":"DESP",
+      "name":"Despegar.com Corp"
+   },
+   {
+      "symbol":"DEX",
+      "name":"Delaware Enhanced Global Dividend & Income Fund"
+   },
+   {
+      "symbol":"DFH",
+      "name":"Dream Finders Homes Inc - Class A"
+   },
+   {
+      "symbol":"DFIN",
+      "name":"Donnelley Financial Solutions Inc"
+   },
+   {
+      "symbol":"DFP",
+      "name":"Flaherty & Crumrine Dynamic Preferred and Income Fund Inc"
+   },
+   {
+      "symbol":"DFS",
+      "name":"Discover Financial Services"
+   },
+   {
+      "symbol":"DG",
+      "name":"Dollar General Corp"
+   },
+   {
+      "symbol":"DGX",
+      "name":"Quest Diagnostics Inc"
+   },
+   {
+      "symbol":"DHF",
+      "name":"BNY Mellon High Yield Strategies Fund"
+   },
+   {
+      "symbol":"DHI",
+      "name":"D.R. Horton Inc"
+   },
+   {
+      "symbol":"DHR",
+      "name":"Danaher Corp"
+   },
+   {
+      "symbol":"DHT",
+      "name":"DHT Holdings Inc"
+   },
+   {
+      "symbol":"DHX",
+      "name":"DHI Group Inc"
+   },
+   {
+      "symbol":"DIAX",
+      "name":"Nuveen Dow 30SM Dynamic Overwrite Fund"
+   },
+   {
+      "symbol":"DIN",
+      "name":"Dine Brands Global Inc"
+   },
+   {
+      "symbol":"DINO",
+      "name":"HF Sinclair Corp"
+   },
+   {
+      "symbol":"DIP",
+      "name":"BTD Capital Fund"
+   },
+   {
+      "symbol":"DIS",
+      "name":"Walt Disney Co (The)"
+   },
+   {
+      "symbol":"DK",
+      "name":"Delek US Holdings Inc"
+   },
+   {
+      "symbol":"DKL",
+      "name":"Delek Logistics Partners LP"
+   },
+   {
+      "symbol":"DKS",
+      "name":"Dicks Sporting Goods Inc"
+   },
+   {
+      "symbol":"DLB",
+      "name":"Dolby Laboratories Inc - Class A"
+   },
+   {
+      "symbol":"DLNG",
+      "name":"Dynagas LNG Partners LP"
+   },
+   {
+      "symbol":"DLR",
+      "name":"Digital Realty Trust Inc"
+   },
+   {
+      "symbol":"DLX",
+      "name":"Deluxe Corp"
+   },
+   {
+      "symbol":"DLY",
+      "name":"DoubleLine Yield Opportunities Fund"
+   },
+   {
+      "symbol":"DM",
+      "name":"Desktop Metal Inc - Class A"
+   },
+   {
+      "symbol":"DMA",
+      "name":"Destra Multi-Alternative Fund"
+   },
+   {
+      "symbol":"DMB",
+      "name":"BNY Mellon Municipal Bond Infrastructure Fund Inc"
+   },
+   {
+      "symbol":"DMO",
+      "name":"Western Asset Mortgage Opportunity Fund Inc"
+   },
+   {
+      "symbol":"DNA",
+      "name":"Ginkgo Bioworks Holdings Inc - Class A"
+   },
+   {
+      "symbol":"DNB",
+      "name":"Dun & Bradstreet Holdings Inc"
+   },
+   {
+      "symbol":"DNMR",
+      "name":"Danimer Scientific Inc - Class A"
+   },
+   {
+      "symbol":"DNOW",
+      "name":"NOW Inc"
+   },
+   {
+      "symbol":"DNP",
+      "name":"DNP Select Income Fund Inc"
+   },
+   {
+      "symbol":"DO",
+      "name":"Diamond Offshore Drilling Inc"
+   },
+   {
+      "symbol":"DOC",
+      "name":"Physicians Realty Trust"
+   },
+   {
+      "symbol":"DOCN",
+      "name":"DigitalOcean Holdings Inc"
+   },
+   {
+      "symbol":"DOCS",
+      "name":"Doximity Inc - Class A"
+   },
+   {
+      "symbol":"DOLE",
+      "name":"Dole plc"
+   },
+   {
+      "symbol":"DOMA",
+      "name":"Doma Holdings Inc - New"
+   },
+   {
+      "symbol":"DOOR",
+      "name":"Masonite International Corp"
+   },
+   {
+      "symbol":"DOUG",
+      "name":"Douglas Elliman Inc"
+   },
+   {
+      "symbol":"DOV",
+      "name":"Dover Corp"
+   },
+   {
+      "symbol":"DOW",
+      "name":"Dow Inc"
+   },
+   {
+      "symbol":"DPG",
+      "name":"Duff & Phelps Utility and Infrastructure Fund Inc"
+   },
+   {
+      "symbol":"DPZ",
+      "name":"Dominos Pizza Inc"
+   },
+   {
+      "symbol":"DQ",
+      "name":"Daqo New Energy Corp"
+   },
+   {
+      "symbol":"DRD",
+      "name":"DRDGold Ltd"
+   },
+   {
+      "symbol":"DRH",
+      "name":"Diamondrock Hospitality Company"
+   },
+   {
+      "symbol":"DRI",
+      "name":"Darden Restaurants Inc"
+   },
+   {
+      "symbol":"DRQ",
+      "name":"Dril-Quip Inc"
+   },
+   {
+      "symbol":"DSAQ",
+      "name":"Direct Selling Acquisition Corp - Class A"
+   },
+   {
+      "symbol":"DSL",
+      "name":"Doubleline Income Solutions Fund"
+   },
+   {
+      "symbol":"DSM",
+      "name":"BNY Mellon Strategic Municipal Bond Fund Inc"
+   },
+   {
+      "symbol":"DSMC",
+      "name":"Distillate Small\/Mid Cash Flow ETF"
+   },
+   {
+      "symbol":"DSTX",
+      "name":"Distillate International Fundamental Stability & Value ETF"
+   },
+   {
+      "symbol":"DSU",
+      "name":"BlackRock Debt Strategies Fund Inc"
+   },
+   {
+      "symbol":"DSX",
+      "name":"Diana Shipping Inc"
+   },
+   {
+      "symbol":"DT",
+      "name":"Dynatrace Inc"
+   },
+   {
+      "symbol":"DTB",
+      "name":"DTE Energy Company"
+   },
+   {
+      "symbol":"DTC",
+      "name":"Solo Brands Inc - Class A"
+   },
+   {
+      "symbol":"DTF",
+      "name":"DTF Tax-Free Income 2028 Term Fund Inc"
+   },
+   {
+      "symbol":"DTM",
+      "name":"DT Midstream Inc"
+   },
+   {
+      "symbol":"DUK",
+      "name":"Duke Energy Corp"
+   },
+   {
+      "symbol":"DV",
+      "name":"DoubleVerify Holdings Inc"
+   },
+   {
+      "symbol":"DVA",
+      "name":"DaVita Inc"
+   },
+   {
+      "symbol":"DVN",
+      "name":"Devon Energy Corp"
+   },
+   {
+      "symbol":"DX",
+      "name":"Dynex Capital Inc"
+   },
+   {
+      "symbol":"DXC",
+      "name":"DXC Technology Company"
+   },
+   {
+      "symbol":"DY",
+      "name":"Dycom Industries Inc"
+   },
+   {
+      "symbol":"E",
+      "name":"Eni Spa"
+   },
+   {
+      "symbol":"EAF",
+      "name":"GrafTech International Ltd"
+   },
+   {
+      "symbol":"EAI",
+      "name":"Entergy Arkansas LLC"
+   },
+   {
+      "symbol":"EARN",
+      "name":"Ellington Residential Mortgage REIT"
+   },
+   {
+      "symbol":"EAT",
+      "name":"Brinker International Inc"
+   },
+   {
+      "symbol":"EB",
+      "name":"Eventbrite Inc - Class A"
+   },
+   {
+      "symbol":"EBF",
+      "name":"Ennis Inc"
+   },
+   {
+      "symbol":"EBR",
+      "name":"Centrais Eletricas Brasileiras S.A."
+   },
+   {
+      "symbol":"EBS",
+      "name":"Emergent Biosolutions Inc"
+   },
+   {
+      "symbol":"EC",
+      "name":"Ecopetrol SA"
+   },
+   {
+      "symbol":"ECAT",
+      "name":"BlackRock ESG Capital Allocation Term Trust"
+   },
+   {
+      "symbol":"ECC",
+      "name":"Eagle Point Credit Company Inc"
+   },
+   {
+      "symbol":"ECL",
+      "name":"Ecolab Inc"
+   },
+   {
+      "symbol":"ECVT",
+      "name":"Ecovyst Inc"
+   },
+   {
+      "symbol":"ED",
+      "name":"Consolidated Edison Inc"
+   },
+   {
+      "symbol":"EDD",
+      "name":"Morgan Stanley Emerging Markets Domestic Debt Fund Inc"
+   },
+   {
+      "symbol":"EDF",
+      "name":"Virtus Stone Harbor Emerging Markets Income Fund"
+   },
+   {
+      "symbol":"EDI",
+      "name":"Virtus Stone Harbor Emerging Markets Total Income Fund"
+   },
+   {
+      "symbol":"EDN",
+      "name":"Empresa Distribuidora y Comercial Norte S.A."
+   },
+   {
+      "symbol":"EDR",
+      "name":"Endeavor Group Holdings Inc - Class A"
+   },
+   {
+      "symbol":"EDU",
+      "name":"New Oriental Education & Technology Group Inc"
+   },
+   {
+      "symbol":"EE",
+      "name":"Excelerate Energy Inc - Class A"
+   },
+   {
+      "symbol":"EEA",
+      "name":"European Equity Fund Inc"
+   },
+   {
+      "symbol":"EEX",
+      "name":"Emerald Holding Inc"
+   },
+   {
+      "symbol":"EFC",
+      "name":"Ellington Financial Inc"
+   },
+   {
+      "symbol":"EFR",
+      "name":"Eaton Vance Senior Floating-Rate Trust"
+   },
+   {
+      "symbol":"EFT",
+      "name":"Eaton Vance Floating-Rate Income Trust"
+   },
+   {
+      "symbol":"EFX",
+      "name":"Equifax Inc"
+   },
+   {
+      "symbol":"EFXT",
+      "name":"Enerflex Ltd"
+   },
+   {
+      "symbol":"EG",
+      "name":"Everest Group Ltd"
+   },
+   {
+      "symbol":"EGF",
+      "name":"BlackRock Enhanced Government Fund Inc"
+   },
+   {
+      "symbol":"EGGF",
+      "name":"EG Acquisition Corp - Class A"
+   },
+   {
+      "symbol":"EGLE",
+      "name":"Eagle Bulk Shipping Inc"
+   },
+   {
+      "symbol":"EGO",
+      "name":"Eldorado Gold Corp"
+   },
+   {
+      "symbol":"EGP",
+      "name":"Eastgroup Properties Inc"
+   },
+   {
+      "symbol":"EGY",
+      "name":"VAALCO Energy Inc"
+   },
+   {
+      "symbol":"EHAB",
+      "name":"Enhabit Inc"
+   },
+   {
+      "symbol":"EHC",
+      "name":"Encompass Health Corp"
+   },
+   {
+      "symbol":"EHI",
+      "name":"Western Asset Global High Income Fund Inc"
+   },
+   {
+      "symbol":"EIC",
+      "name":"Eagle Point Income Company Inc"
+   },
+   {
+      "symbol":"EIG",
+      "name":"Employers Holdings Inc"
+   },
+   {
+      "symbol":"EIX",
+      "name":"Edison International"
+   },
+   {
+      "symbol":"EL",
+      "name":"Estee Lauder Cos. Inc - Class A"
+   },
+   {
+      "symbol":"ELAN",
+      "name":"Elanco Animal Health Inc"
+   },
+   {
+      "symbol":"ELC",
+      "name":"Entergy Louisiana LLC"
+   },
+   {
+      "symbol":"ELF",
+      "name":"e.l.f. Beauty Inc"
+   },
+   {
+      "symbol":"ELIQ",
+      "name":"Electriq Power Holdings Inc - Class A"
+   },
+   {
+      "symbol":"ELME",
+      "name":"Elme Communities"
+   },
+   {
+      "symbol":"ELP",
+      "name":"Cia Paranaense De Energia Copel"
+   },
+   {
+      "symbol":"ELS",
+      "name":"Equity Lifestyle Properties Inc"
+   },
+   {
+      "symbol":"ELV",
+      "name":"Elevance Health Inc"
+   },
+   {
+      "symbol":"EMD",
+      "name":"Western Asset Emerging Markets Debt Fund Inc"
+   },
+   {
+      "symbol":"EME",
+      "name":"Emcor Group Inc"
+   },
+   {
+      "symbol":"EMF",
+      "name":"Templeton Emerging Markets Fund"
+   },
+   {
+      "symbol":"EMN",
+      "name":"Eastman Chemical Company"
+   },
+   {
+      "symbol":"EMO",
+      "name":"ClearBridge Energy Midstream Opportunity Fund Inc"
+   },
+   {
+      "symbol":"EMP",
+      "name":"Entergy Utility Enterprises Inc"
+   },
+   {
+      "symbol":"EMR",
+      "name":"Emerson Electric Company"
+   },
+   {
+      "symbol":"ENB",
+      "name":"Enbridge Inc"
+   },
+   {
+      "symbol":"ENFN",
+      "name":"Enfusion Inc - Class A"
+   },
+   {
+      "symbol":"ENIC",
+      "name":"Enel Chile S.A."
+   },
+   {
+      "symbol":"ENJ",
+      "name":"Entergy New Orleans Inc"
+   },
+   {
+      "symbol":"ENLC",
+      "name":"Enlink Midstream LLC"
+   },
+   {
+      "symbol":"ENOV",
+      "name":"Enovis Corp"
+   },
+   {
+      "symbol":"ENR",
+      "name":"Energizer Holdings Inc"
+   },
+   {
+      "symbol":"ENS",
+      "name":"Enersys"
+   },
+   {
+      "symbol":"ENV",
+      "name":"Envestnet Inc"
+   },
+   {
+      "symbol":"ENVA",
+      "name":"Enova International Inc"
+   },
+   {
+      "symbol":"ENZ",
+      "name":"Enzo Biochem Inc"
+   },
+   {
+      "symbol":"EOCW",
+      "name":"Elliott Opportunity II Corp - Class A"
+   },
+   {
+      "symbol":"EOD",
+      "name":"Allspring Global Dividend Opportunity Fund"
+   },
+   {
+      "symbol":"EOG",
+      "name":"EOG Resources Inc"
+   },
+   {
+      "symbol":"EOI",
+      "name":"Eaton Vance Enhanced Equity Income Fund"
+   },
+   {
+      "symbol":"EOS",
+      "name":"Eaton Vance Enhanced Equity Income Fund II"
+   },
+   {
+      "symbol":"EOT",
+      "name":"Eaton Vance National Municipal Opportunities Trust"
+   },
+   {
+      "symbol":"EPAC",
+      "name":"Enerpac Tool Group Corp - Class A"
+   },
+   {
+      "symbol":"EPAM",
+      "name":"EPAM Systems Inc"
+   },
+   {
+      "symbol":"EPC",
+      "name":"Edgewell Personal Care Company"
+   },
+   {
+      "symbol":"EPD",
+      "name":"Enterprise Products Partners L P"
+   },
+   {
+      "symbol":"EPR",
+      "name":"EPR Properties"
+   },
+   {
+      "symbol":"EPRT",
+      "name":"Essential Properties Realty Trust Inc"
+   },
+   {
+      "symbol":"EQBK",
+      "name":"Equity Bancshares Inc - Class A"
+   },
+   {
+      "symbol":"EQC",
+      "name":"Equity Commonwealth"
+   },
+   {
+      "symbol":"EQH",
+      "name":"Equitable Holdings Inc"
+   },
+   {
+      "symbol":"EQNR",
+      "name":"Equinor ASA"
+   },
+   {
+      "symbol":"EQR",
+      "name":"Equity Residential Properties Trust"
+   },
+   {
+      "symbol":"EQS",
+      "name":"Equus Total Return Inc"
+   },
+   {
+      "symbol":"EQT",
+      "name":"EQT Corp"
+   },
+   {
+      "symbol":"ERF",
+      "name":"Enerplus Corporation"
+   },
+   {
+      "symbol":"ERJ",
+      "name":"Embraer S.A."
+   },
+   {
+      "symbol":"ERO",
+      "name":"Ero Copper Corp"
+   },
+   {
+      "symbol":"ES",
+      "name":"Eversource Energy"
+   },
+   {
+      "symbol":"ESAB",
+      "name":"ESAB Corp"
+   },
+   {
+      "symbol":"ESE",
+      "name":"Esco Technologies Inc"
+   },
+   {
+      "symbol":"ESI",
+      "name":"Element Solutions Inc"
+   },
+   {
+      "symbol":"ESMT",
+      "name":"Engagesmart Inc"
+   },
+   {
+      "symbol":"ESNT",
+      "name":"Essent Group Ltd"
+   },
+   {
+      "symbol":"ESRT",
+      "name":"Empire State Realty Trust Inc - Class A"
+   },
+   {
+      "symbol":"ESS",
+      "name":"Essex Property Trust Inc"
+   },
+   {
+      "symbol":"ESTC",
+      "name":"Elastic N.V"
+   },
+   {
+      "symbol":"ET",
+      "name":"Energy Transfer LP"
+   },
+   {
+      "symbol":"ETB",
+      "name":"Eaton Vance Tax-Managed Buy-Write Income Fund"
+   },
+   {
+      "symbol":"ETD",
+      "name":"Ethan Allen Interiors Inc"
+   },
+   {
+      "symbol":"ETG",
+      "name":"Eaton Vance Tax-Advantaged Global Dividend Income Fund"
+   },
+   {
+      "symbol":"ETJ",
+      "name":"Eaton Vance Risk-Managed Diversified Equity Income Fund"
+   },
+   {
+      "symbol":"ETN",
+      "name":"Eaton Corporation plc"
+   },
+   {
+      "symbol":"ETO",
+      "name":"Eaton Vance Tax-Advantaged Global Dividend Opportunities Fund"
+   },
+   {
+      "symbol":"ETR",
+      "name":"Entergy Corp"
+   },
+   {
+      "symbol":"ETRN",
+      "name":"Equitrans Midstream Corporation"
+   },
+   {
+      "symbol":"ETV",
+      "name":"Eaton Vance Tax-Managed Buy-Write Opportunities Fund"
+   },
+   {
+      "symbol":"ETW",
+      "name":"Eaton Vance Tax-Managed Global Buy-Write Opportunities Fund"
+   },
+   {
+      "symbol":"ETWO",
+      "name":"E2open Parent Holdings Inc - Class A"
+   },
+   {
+      "symbol":"ETX",
+      "name":"Eaton Vance Municipal Income 2028 Term Trust"
+   },
+   {
+      "symbol":"ETY",
+      "name":"Eaton Vance Tax-Managed Diversified Equity Income Fund"
+   },
+   {
+      "symbol":"EURN",
+      "name":"Euronav NV"
+   },
+   {
+      "symbol":"EVA",
+      "name":"Enviva Inc"
+   },
+   {
+      "symbol":"EVC",
+      "name":"Entravision Communications Corp - Class A"
+   },
+   {
+      "symbol":"EVEX",
+      "name":"Eve Holding Inc"
+   },
+   {
+      "symbol":"EVF",
+      "name":"Eaton Vance Senior Income Trust"
+   },
+   {
+      "symbol":"EVG",
+      "name":"Eaton Vance Short Duration Diversified Income Fund"
+   },
+   {
+      "symbol":"EVH",
+      "name":"Evolent Health Inc - Class A"
+   },
+   {
+      "symbol":"EVN",
+      "name":"Eaton Vance Municipal Income Trust"
+   },
+   {
+      "symbol":"EVR",
+      "name":"Evercore Inc - Class A"
+   },
+   {
+      "symbol":"EVRI",
+      "name":"Everi Holdings Inc"
+   },
+   {
+      "symbol":"EVT",
+      "name":"Eaton Vance Tax Advantaged Dividend Income Fund"
+   },
+   {
+      "symbol":"EVTC",
+      "name":"Evertec Inc"
+   },
+   {
+      "symbol":"EVTL",
+      "name":"Vertical Aerospace Ltd"
+   },
+   {
+      "symbol":"EW",
+      "name":"Edwards Lifesciences Corp"
+   },
+   {
+      "symbol":"EXD",
+      "name":"Eaton Vance Tax-Managed Buy-Write Strategy Fund"
+   },
+   {
+      "symbol":"EXG",
+      "name":"Eaton Vance Tax-Managed Global Diversified Equity Income Fund"
+   },
+   {
+      "symbol":"EXK",
+      "name":"Endeavour Silver Corp"
+   },
+   {
+      "symbol":"EXP",
+      "name":"Eagle Materials Inc"
+   },
+   {
+      "symbol":"EXPR",
+      "name":"Express Inc"
+   },
+   {
+      "symbol":"EXR",
+      "name":"Extra Space Storage Inc"
+   },
+   {
+      "symbol":"EXTO",
+      "name":"Almacenes Exito S.A."
+   },
+   {
+      "symbol":"F",
+      "name":"Ford Motor Company"
+   },
+   {
+      "symbol":"FAF",
+      "name":"First American Financial Corp"
+   },
+   {
+      "symbol":"FAM",
+      "name":"First Trust-abrdn Global Opportunity Income Fund"
+   },
+   {
+      "symbol":"FATH",
+      "name":"Fathom Digital Manufacturing Corporation - Class A"
+   },
+   {
+      "symbol":"FBIN",
+      "name":"Fortune Brands Innovations Inc"
+   },
+   {
+      "symbol":"FBK",
+      "name":"FB Financial Corp"
+   },
+   {
+      "symbol":"FBP",
+      "name":"First Bancorp PR"
+   },
+   {
+      "symbol":"FBRT",
+      "name":"Franklin BSP Realty Trust Inc"
+   },
+   {
+      "symbol":"FC",
+      "name":"Franklin Covey Company"
+   },
+   {
+      "symbol":"FCF",
+      "name":"First Commonwealth Financial Corp"
+   },
+   {
+      "symbol":"FCN",
+      "name":"FTI Consulting Inc"
+   },
+   {
+      "symbol":"FCPT",
+      "name":"Four Corners Property Trust Inc"
+   },
+   {
+      "symbol":"FCRX",
+      "name":"Crescent Capital BDC Inc"
+   },
+   {
+      "symbol":"FCT",
+      "name":"First Trust Senior Floting Rate Income Fund II"
+   },
+   {
+      "symbol":"FCX",
+      "name":"Freeport-McMoRan Inc"
+   },
+   {
+      "symbol":"FDEU",
+      "name":"First Trust Dynamic Europe Equity Income Fund"
+   },
+   {
+      "symbol":"FDP",
+      "name":"Fresh Del Monte Produce Inc"
+   },
+   {
+      "symbol":"FDS",
+      "name":"Factset Research Systems Inc"
+   },
+   {
+      "symbol":"FDX",
+      "name":"Fedex Corp"
+   },
+   {
+      "symbol":"FE",
+      "name":"Firstenergy Corp"
+   },
+   {
+      "symbol":"FEDU",
+      "name":"Four Seasons Education (Cayman) Inc"
+   },
+   {
+      "symbol":"FEI",
+      "name":"First Trust MLP and Energy Income Fund"
+   },
+   {
+      "symbol":"FENG",
+      "name":"Phoenix New Media Ltd"
+   },
+   {
+      "symbol":"FEO",
+      "name":"First Trust-abrdn Emerging Opportunity Fund"
+   },
+   {
+      "symbol":"FERG",
+      "name":"Ferguson Plc."
+   },
+   {
+      "symbol":"FET",
+      "name":"Forum Energy Technologies Inc"
+   },
+   {
+      "symbol":"FF",
+      "name":"Futurefuel Corp"
+   },
+   {
+      "symbol":"FFA",
+      "name":"First Trust Enhanced Equity Income Fund"
+   },
+   {
+      "symbol":"FFC",
+      "name":"Flaherty & Crumrine Preferred and Income Securities Fund Inc"
+   },
+   {
+      "symbol":"FFWM",
+      "name":"First Foundation Inc"
+   },
+   {
+      "symbol":"FG",
+      "name":"F&G Annuities & Life Inc"
+   },
+   {
+      "symbol":"FGB",
+      "name":"First Trust Specialty Finance & Financial Opportunities Fund"
+   },
+   {
+      "symbol":"FHI",
+      "name":"Federated Hermes Inc - Class B"
+   },
+   {
+      "symbol":"FHN",
+      "name":"First Horizon Corporation"
+   },
+   {
+      "symbol":"FI",
+      "name":"Fiserv Inc"
+   },
+   {
+      "symbol":"FICO",
+      "name":"Fair Isaac Corp"
+   },
+   {
+      "symbol":"FIF",
+      "name":"First Trust Energy Infrastructure Fund"
+   },
+   {
+      "symbol":"FIGS",
+      "name":"Figs Inc - Class A"
+   },
+   {
+      "symbol":"FIHL",
+      "name":"Fidelis Insurance Holdings Ltd"
+   },
+   {
+      "symbol":"FINS",
+      "name":"Angel Oak Financial Strategies Income Term Trust"
+   },
+   {
+      "symbol":"FINV",
+      "name":"FinVolution Group"
+   },
+   {
+      "symbol":"FIS",
+      "name":"Fidelity National Information Services Inc"
+   },
+   {
+      "symbol":"FIX",
+      "name":"Comfort Systems USA Inc"
+   },
+   {
+      "symbol":"FL",
+      "name":"Foot Locker Inc"
+   },
+   {
+      "symbol":"FLC",
+      "name":"Flaherty & Crumrine Total Return Fund Inc"
+   },
+   {
+      "symbol":"FLME",
+      "name":"Flame Acquisition Corp - Class A"
+   },
+   {
+      "symbol":"FLNG",
+      "name":"Flex Lng Ltd"
+   },
+   {
+      "symbol":"FLO",
+      "name":"Flowers Foods Inc"
+   },
+   {
+      "symbol":"FLR",
+      "name":"Fluor Corporation"
+   },
+   {
+      "symbol":"FLS",
+      "name":"Flowserve Corp"
+   },
+   {
+      "symbol":"FLT",
+      "name":"Fleetcor Technologies Inc"
+   },
+   {
+      "symbol":"FMC",
+      "name":"FMC Corp"
+   },
+   {
+      "symbol":"FMN",
+      "name":"Federated Hermes Premier Municipal Income Fund"
+   },
+   {
+      "symbol":"FMS",
+      "name":"Fresenius Medical Care AG & Co. KGaA"
+   },
+   {
+      "symbol":"FMX",
+      "name":"Fomento Economico Mexicano S.A.B. de C.V."
+   },
+   {
+      "symbol":"FMY",
+      "name":"First Trust Mortgage Income Fund"
+   },
+   {
+      "symbol":"FN",
+      "name":"Fabrinet"
+   },
+   {
+      "symbol":"FNA",
+      "name":"Paragon 28 Inc"
+   },
+   {
+      "symbol":"FNB",
+      "name":"F.N.B. Corp"
+   },
+   {
+      "symbol":"FND",
+      "name":"Floor & Decor Holdings Inc - Class A"
+   },
+   {
+      "symbol":"FNF",
+      "name":"Fidelity National Financial Inc"
+   },
+   {
+      "symbol":"FNV",
+      "name":"Franco-Nevada Corporation"
+   },
+   {
+      "symbol":"FOA",
+      "name":"Finance of America Companies Inc"
+   },
+   {
+      "symbol":"FOF",
+      "name":"Cohen & Steers Closed-End Opportunity Fund Inc"
+   },
+   {
+      "symbol":"FOR",
+      "name":"Forestar Group Inc New"
+   },
+   {
+      "symbol":"FOUR",
+      "name":"Shift4 Payments Inc - Class A"
+   },
+   {
+      "symbol":"FPF",
+      "name":"First Trust Intermediate Duration Preferred & Income Fund"
+   },
+   {
+      "symbol":"FPH",
+      "name":"Five Point Holdings LLC - Class A"
+   },
+   {
+      "symbol":"FPI",
+      "name":"Farmland Partners Inc"
+   },
+   {
+      "symbol":"FPL",
+      "name":"First Trust New Opportunities MLP & Energy Fund"
+   },
+   {
+      "symbol":"FR",
+      "name":"First Industrial Realty Trust Inc"
+   },
+   {
+      "symbol":"FRA",
+      "name":"Blackrock Floating Rate Income Strategies Fund Inc"
+   },
+   {
+      "symbol":"FREY",
+      "name":"FREYR Battery"
+   },
+   {
+      "symbol":"FRGE",
+      "name":"Forge Global Holdings Inc - Class A"
+   },
+   {
+      "symbol":"FRO",
+      "name":"Frontline Plc"
+   },
+   {
+      "symbol":"FRT",
+      "name":"Federal Realty Investment Trust."
+   },
+   {
+      "symbol":"FRXB",
+      "name":"Forest Road Acquisition Corp II - Class A"
+   },
+   {
+      "symbol":"FSCO",
+      "name":"FS Credit Opportunities Corp"
+   },
+   {
+      "symbol":"FSD",
+      "name":"First Trust High Income Long Short Fund"
+   },
+   {
+      "symbol":"FSK",
+      "name":"FS KKR Capital Corp"
+   },
+   {
+      "symbol":"FSLY",
+      "name":"Fastly Inc - Class A"
+   },
+   {
+      "symbol":"FSM",
+      "name":"Fortuna Silver Mines Inc"
+   },
+   {
+      "symbol":"FSR",
+      "name":"Fisker Inc - Class A"
+   },
+   {
+      "symbol":"FSS",
+      "name":"Federal Signal Corp"
+   },
+   {
+      "symbol":"FT",
+      "name":"Franklin Universal Trust"
+   },
+   {
+      "symbol":"FTCH",
+      "name":"Farfetch Ltd - Class A"
+   },
+   {
+      "symbol":"FTHY",
+      "name":"First Trust High Yield Opportunities 2027 Term Fund"
+   },
+   {
+      "symbol":"FTI",
+      "name":"TechnipFMC plc"
+   },
+   {
+      "symbol":"FTK",
+      "name":"Flotek Industries Inc"
+   },
+   {
+      "symbol":"FTS",
+      "name":"Fortis Inc"
+   },
+   {
+      "symbol":"FTV",
+      "name":"Fortive Corp"
+   },
+   {
+      "symbol":"FUBO",
+      "name":"fuboTV Inc"
+   },
+   {
+      "symbol":"FUL",
+      "name":"H.B. Fuller Company"
+   },
+   {
+      "symbol":"FUN",
+      "name":"Cedar Fair L.P."
+   },
+   {
+      "symbol":"FVRR",
+      "name":"Fiverr International Ltd"
+   },
+   {
+      "symbol":"G",
+      "name":"Genpact Ltd"
+   },
+   {
+      "symbol":"GAB",
+      "name":"Gabelli Equity Trust Inc"
+   },
+   {
+      "symbol":"GAM",
+      "name":"General American Investors Co. Inc"
+   },
+   {
+      "symbol":"GAQ",
+      "name":"Generation Asia I Acquisition Ltd - Class A"
+   },
+   {
+      "symbol":"GATO",
+      "name":"Gatos Silver Inc"
+   },
+   {
+      "symbol":"GATX",
+      "name":"GATX Corp"
+   },
+   {
+      "symbol":"GB",
+      "name":"Global Blue Group Holding AG"
+   },
+   {
+      "symbol":"GBAB",
+      "name":"Guggenheim Taxbl Muni Bnd & Invtmnt Grd Debt Trst Com Shrs Of benf Int"
+   },
+   {
+      "symbol":"GBCI",
+      "name":"Glacier Bancorp Inc"
+   },
+   {
+      "symbol":"GBLI",
+      "name":"Global Indemnity Group LLC - Class A"
+   },
+   {
+      "symbol":"GBTG",
+      "name":"Global Business Travel Group Inc - Class A"
+   },
+   {
+      "symbol":"GBX",
+      "name":"Greenbrier Cos. Inc"
+   },
+   {
+      "symbol":"GCI",
+      "name":"Gannett Co Inc"
+   },
+   {
+      "symbol":"GCO",
+      "name":"Genesco Inc"
+   },
+   {
+      "symbol":"GCV",
+      "name":"Gabelli Convertible and Income Securities Fund Inc"
+   },
+   {
+      "symbol":"GD",
+      "name":"General Dynamics Corp"
+   },
+   {
+      "symbol":"GDDY",
+      "name":"Godaddy Inc - Class A"
+   },
+   {
+      "symbol":"GDIV",
+      "name":"Harbor Dividend Growth Leaders ETF"
+   },
+   {
+      "symbol":"GDL",
+      "name":"GDL Fund"
+   },
+   {
+      "symbol":"GDO",
+      "name":"Western Asset Global Corporate Defined Opportunity Fund Inc"
+   },
+   {
+      "symbol":"GDOT",
+      "name":"Green Dot Corp - Class A"
+   },
+   {
+      "symbol":"GDV",
+      "name":"Gabelli Dividend & Income Trust"
+   },
+   {
+      "symbol":"GE",
+      "name":"General Electric Company"
+   },
+   {
+      "symbol":"GEF",
+      "name":"Greif Inc - Class A"
+   },
+   {
+      "symbol":"GEHI",
+      "name":"Gravitas Education Holdings Inc"
+   },
+   {
+      "symbol":"GEL",
+      "name":"Genesis Energy L.P."
+   },
+   {
+      "symbol":"GENI",
+      "name":"Genius Sports Ltd"
+   },
+   {
+      "symbol":"GEO",
+      "name":"Geo Group Inc"
+   },
+   {
+      "symbol":"GER",
+      "name":"Goldman Sachs MLP and Energy Renaissance Fund"
+   },
+   {
+      "symbol":"GES",
+      "name":"Guess Inc"
+   },
+   {
+      "symbol":"GETR",
+      "name":"Getaround Inc - Class A"
+   },
+   {
+      "symbol":"GETY",
+      "name":"Getty Images Holdings Inc - Class A"
+   },
+   {
+      "symbol":"GF",
+      "name":"New Germany Fund Inc"
+   },
+   {
+      "symbol":"GFF",
+      "name":"Griffon Corp"
+   },
+   {
+      "symbol":"GFI",
+      "name":"Gold Fields Ltd"
+   },
+   {
+      "symbol":"GFL",
+      "name":"GFL Environmental Inc (Sub Voting)"
+   },
+   {
+      "symbol":"GFR",
+      "name":"Greenfire Resources Ltd"
+   },
+   {
+      "symbol":"GGB",
+      "name":"Gerdau S.A."
+   },
+   {
+      "symbol":"GGG",
+      "name":"Graco Inc"
+   },
+   {
+      "symbol":"GGT",
+      "name":"Gabelli Multimedia Trust Inc"
+   },
+   {
+      "symbol":"GGZ",
+      "name":"Gabelli Global Small and Mid Cap Value Trust"
+   },
+   {
+      "symbol":"GHC",
+      "name":"Graham Holdings Co. - Class B"
+   },
+   {
+      "symbol":"GHG",
+      "name":"GreenTree Hospitality Group Ltd"
+   },
+   {
+      "symbol":"GHI",
+      "name":"Greystone Housing Impact Investors LP"
+   },
+   {
+      "symbol":"GHL",
+      "name":"Greenhill & Co Inc"
+   },
+   {
+      "symbol":"GHLD",
+      "name":"Guild Holdings Co - Class A"
+   },
+   {
+      "symbol":"GHM",
+      "name":"Graham Corp"
+   },
+   {
+      "symbol":"GHY",
+      "name":"PGIM Global High Yield Fund Inc"
+   },
+   {
+      "symbol":"GIB",
+      "name":"CGI Inc - Class A"
+   },
+   {
+      "symbol":"GIC",
+      "name":"Global Industrial Company"
+   },
+   {
+      "symbol":"GIL",
+      "name":"Gildan Activewear Inc"
+   },
+   {
+      "symbol":"GIM",
+      "name":"Templeton Global Income Fund Inc"
+   },
+   {
+      "symbol":"GIS",
+      "name":"General Mills Inc"
+   },
+   {
+      "symbol":"GJH",
+      "name":"Synthetic FixedIncome Securities Inc 6375 STRATS Cl A1"
+   },
+   {
+      "symbol":"GJO",
+      "name":"Synthetic FixedIncome Securities Inc Synthetic FixedIncome Securities Inc on behalf of STRATSSM Trust for WalMart Stores Inc Securities Series 2004"
+   },
+   {
+      "symbol":"GJP",
+      "name":"Synthetic FixedIncome Securities Inc Synthetic FixedIncome Securities Inc on behalf of STRATS SM Trust for Dominion Resources Inc Securities Series 2"
+   },
+   {
+      "symbol":"GJR",
+      "name":"Synthetic FixedIncome Securities Inc STRATS Trust for ProcterGamble Securities Series 20061"
+   },
+   {
+      "symbol":"GJS",
+      "name":"Synthetic Fixed-Income Securities Inc"
+   },
+   {
+      "symbol":"GJT",
+      "name":"Synthetic FixedIncome Securities Inc Synthetic FixedIncome Securities Inc Floating Rate Structured Repackaged AssetBacked Trust Securities Certificates"
+   },
+   {
+      "symbol":"GKOS",
+      "name":"Glaukos Corporation"
+   },
+   {
+      "symbol":"GL",
+      "name":"Globe Life Inc"
+   },
+   {
+      "symbol":"GLOB",
+      "name":"Globant S.A."
+   },
+   {
+      "symbol":"GLP",
+      "name":"Global Partners LP"
+   },
+   {
+      "symbol":"GLT",
+      "name":"Glatfelter Corporation"
+   },
+   {
+      "symbol":"GLW",
+      "name":"Corning Inc"
+   },
+   {
+      "symbol":"GM",
+      "name":"General Motors Company"
+   },
+   {
+      "symbol":"GME",
+      "name":"Gamestop Corporation - Class A"
+   },
+   {
+      "symbol":"GMED",
+      "name":"Globus Medical Inc - Class A"
+   },
+   {
+      "symbol":"GMRE",
+      "name":"Global Medical REIT Inc"
+   },
+   {
+      "symbol":"GMS",
+      "name":"GMS Inc"
+   },
+   {
+      "symbol":"GNE",
+      "name":"Genie Energy Ltd - Class B"
+   },
+   {
+      "symbol":"GNK",
+      "name":"Genco Shipping & Trading Ltd"
+   },
+   {
+      "symbol":"GNL",
+      "name":"Global Net Lease Inc"
+   },
+   {
+      "symbol":"GNRC",
+      "name":"Generac Holdings Inc"
+   },
+   {
+      "symbol":"GNT",
+      "name":"GAMCO Natural Resources Gold & Income Trust"
+   },
+   {
+      "symbol":"GNTY",
+      "name":"Guaranty Bancshares Inc (TX)"
+   },
+   {
+      "symbol":"GNW",
+      "name":"Genworth Financial Inc - Class A"
+   },
+   {
+      "symbol":"GOF",
+      "name":"Guggenheim Strategic Opportunities Fund"
+   },
+   {
+      "symbol":"GOL",
+      "name":"Gol Linhas Aereas Inteligentes S.A."
+   },
+   {
+      "symbol":"GOLD",
+      "name":"Barrick Gold Corp"
+   },
+   {
+      "symbol":"GOLF",
+      "name":"Acushnet Holdings Corp"
+   },
+   {
+      "symbol":"GOOS",
+      "name":"Canada Goose Holdings Inc (Subord Vot Shs)"
+   },
+   {
+      "symbol":"GOTU",
+      "name":"Gaotu Techedu Inc"
+   },
+   {
+      "symbol":"GPC",
+      "name":"Genuine Parts Company"
+   },
+   {
+      "symbol":"GPI",
+      "name":"Group 1 Automotive Inc"
+   },
+   {
+      "symbol":"GPJA",
+      "name":"Georgia Power Company"
+   },
+   {
+      "symbol":"GPK",
+      "name":"Graphic Packaging Holding Company"
+   },
+   {
+      "symbol":"GPMT",
+      "name":"Granite Point Mortgage Trust Inc"
+   },
+   {
+      "symbol":"GPN",
+      "name":"Global Payments Inc"
+   },
+   {
+      "symbol":"GPOR",
+      "name":"Gulfport Energy Corp (New)"
+   },
+   {
+      "symbol":"GPRK",
+      "name":"Geopark Ltd"
+   },
+   {
+      "symbol":"GPS",
+      "name":"Gap Inc"
+   },
+   {
+      "symbol":"GRBK",
+      "name":"Green Brick Partners Inc"
+   },
+   {
+      "symbol":"GRC",
+      "name":"Gorman-Rupp Company"
+   },
+   {
+      "symbol":"GRMN",
+      "name":"Garmin Ltd"
+   },
+   {
+      "symbol":"GRND",
+      "name":"Grindr Inc - Class A"
+   },
+   {
+      "symbol":"GRNT",
+      "name":"Granite Ridge Resources Inc - Class A"
+   },
+   {
+      "symbol":"GROV",
+      "name":"Grove Collaborative Holdings Inc - Class A"
+   },
+   {
+      "symbol":"GRX",
+      "name":"Gabelli Healthcare & WellnessRx Trust"
+   },
+   {
+      "symbol":"GS",
+      "name":"Goldman Sachs Group Inc"
+   },
+   {
+      "symbol":"GSBD",
+      "name":"Goldman Sachs BDC Inc"
+   },
+   {
+      "symbol":"GSK",
+      "name":"GSK Plc"
+   },
+   {
+      "symbol":"GSL",
+      "name":"Global Ship Lease Inc - Class A"
+   },
+   {
+      "symbol":"GTES",
+      "name":"Gates Industrial Corporation plc"
+   },
+   {
+      "symbol":"GTLS",
+      "name":"Chart Industries Inc"
+   },
+   {
+      "symbol":"GTN",
+      "name":"Gray Television Inc"
+   },
+   {
+      "symbol":"GTY",
+      "name":"Getty Realty Corp"
+   },
+   {
+      "symbol":"GUG",
+      "name":"Guggenheim Active Allocation Fund"
+   },
+   {
+      "symbol":"GUT",
+      "name":"Gabelli Utility Trust"
+   },
+   {
+      "symbol":"GVA",
+      "name":"Granite Construction Inc"
+   },
+   {
+      "symbol":"GWH",
+      "name":"ESS Tech Inc"
+   },
+   {
+      "symbol":"GWRE",
+      "name":"Guidewire Software Inc"
+   },
+   {
+      "symbol":"GWW",
+      "name":"W.W. Grainger Inc"
+   },
+   {
+      "symbol":"GXO",
+      "name":"GXO Logistics Inc"
+   },
+   {
+      "symbol":"H",
+      "name":"Hyatt Hotels Corporation - Class A"
+   },
+   {
+      "symbol":"HAE",
+      "name":"Haemonetics Corp"
+   },
+   {
+      "symbol":"HAL",
+      "name":"Halliburton Company"
+   },
+   {
+      "symbol":"HASI",
+      "name":"Hannon Armstrong Sustainable Infrastructure capital Inc"
+   },
+   {
+      "symbol":"HAYW",
+      "name":"Hayward Holdings Inc"
+   },
+   {
+      "symbol":"HBB",
+      "name":"Hamilton Beach Brands Holding Co - Class A"
+   },
+   {
+      "symbol":"HBI",
+      "name":"Hanesbrands Inc"
+   },
+   {
+      "symbol":"HBM",
+      "name":"Hudbay Minerals Inc"
+   },
+   {
+      "symbol":"HCA",
+      "name":"HCA Healthcare Inc"
+   },
+   {
+      "symbol":"HCC",
+      "name":"Warrior Met Coal Inc"
+   },
+   {
+      "symbol":"HCI",
+      "name":"HCI Group Inc"
+   },
+   {
+      "symbol":"HCXY",
+      "name":"Hercules Capital Inc"
+   },
+   {
+      "symbol":"HD",
+      "name":"Home Depot Inc"
+   },
+   {
+      "symbol":"HDB",
+      "name":"HDFC Bank Ltd"
+   },
+   {
+      "symbol":"HE",
+      "name":"Hawaiian Electric Industries Inc"
+   },
+   {
+      "symbol":"HEI",
+      "name":"Heico Corp"
+   },
+   {
+      "symbol":"HEP",
+      "name":"Holly Energy Partners L.P."
+   },
+   {
+      "symbol":"HEQ",
+      "name":"John Hancock Hedged equity & Income Fund"
+   },
+   {
+      "symbol":"HES",
+      "name":"Hess Corporation"
+   },
+   {
+      "symbol":"HESM",
+      "name":"Hess Midstream LP - Class A"
+   },
+   {
+      "symbol":"HFRO",
+      "name":"Highland Opportunities and Income Fund"
+   },
+   {
+      "symbol":"HG",
+      "name":"Hamilton Insurance Group Ltd - Class B"
+   },
+   {
+      "symbol":"HGER",
+      "name":"Harbor Commodity All-Weather Strategy ETF"
+   },
+   {
+      "symbol":"HGLB",
+      "name":"Highland Global Allocation Fund"
+   },
+   {
+      "symbol":"HGTY",
+      "name":"Hagerty Inc - Class A"
+   },
+   {
+      "symbol":"HGV",
+      "name":"Hilton Grand Vacations Inc"
+   },
+   {
+      "symbol":"HHH",
+      "name":"Howard Hughes Corporation"
+   },
+   {
+      "symbol":"HHLA",
+      "name":"HH&L Acquisition Co - Class A"
+   },
+   {
+      "symbol":"HI",
+      "name":"Hillenbrand Inc"
+   },
+   {
+      "symbol":"HIE",
+      "name":"Miller\/Howard High Income Equity Fund"
+   },
+   {
+      "symbol":"HIG",
+      "name":"Hartford Financial Services Group Inc"
+   },
+   {
+      "symbol":"HII",
+      "name":"Huntington Ingalls Industries Inc"
+   },
+   {
+      "symbol":"HIMS",
+      "name":"Hims & Hers Health Inc - Class A"
+   },
+   {
+      "symbol":"HIO",
+      "name":"Western Asset High Income Opportunity Fund Inc"
+   },
+   {
+      "symbol":"HIPO",
+      "name":"Hippo Holdings Inc"
+   },
+   {
+      "symbol":"HIW",
+      "name":"Highwoods Properties Inc"
+   },
+   {
+      "symbol":"HIX",
+      "name":"Western Asset High Income Fund II Inc"
+   },
+   {
+      "symbol":"HKD",
+      "name":"AMTD Digital Inc"
+   },
+   {
+      "symbol":"HL",
+      "name":"Hecla Mining Company"
+   },
+   {
+      "symbol":"HLF",
+      "name":"Herbalife Ltd"
+   },
+   {
+      "symbol":"HLI",
+      "name":"Houlihan Lokey Inc - Class A"
+   },
+   {
+      "symbol":"HLIO",
+      "name":"Helios Technologies Inc"
+   },
+   {
+      "symbol":"HLLY",
+      "name":"Holley Inc - Class A"
+   },
+   {
+      "symbol":"HLN",
+      "name":"Haleon plc"
+   },
+   {
+      "symbol":"HLT",
+      "name":"Hilton Worldwide Holdings Inc"
+   },
+   {
+      "symbol":"HLX",
+      "name":"Helix Energy Solutions Group Inc"
+   },
+   {
+      "symbol":"HMC",
+      "name":"Honda Motor"
+   },
+   {
+      "symbol":"HMN",
+      "name":"Horace Mann Educators Corp"
+   },
+   {
+      "symbol":"HMY",
+      "name":"Harmony Gold Mining Co Ltd"
+   },
+   {
+      "symbol":"HNI",
+      "name":"HNI Corp"
+   },
+   {
+      "symbol":"HOG",
+      "name":"Harley-Davidson Inc"
+   },
+   {
+      "symbol":"HOMB",
+      "name":"Home Bancshares Inc"
+   },
+   {
+      "symbol":"HOUS",
+      "name":"Anywhere Real Estate Inc"
+   },
+   {
+      "symbol":"HOV",
+      "name":"Hovnanian Enterprises Inc - Class A"
+   },
+   {
+      "symbol":"HP",
+      "name":"Helmerich & Payne Inc"
+   },
+   {
+      "symbol":"HPE",
+      "name":"Hewlett Packard Enterprise Company"
+   },
+   {
+      "symbol":"HPF",
+      "name":"John Hancock Preferred Income Fund II"
+   },
+   {
+      "symbol":"HPI",
+      "name":"John Hancock Preferred Income Fund"
+   },
+   {
+      "symbol":"HPP",
+      "name":"Hudson Pacific Properties Inc"
+   },
+   {
+      "symbol":"HPQ",
+      "name":"HP Inc"
+   },
+   {
+      "symbol":"HPS",
+      "name":"John Hancock Preferred Income Fund III"
+   },
+   {
+      "symbol":"HQH",
+      "name":"abrdn Healthcare Investors"
+   },
+   {
+      "symbol":"HQL",
+      "name":"abrdn Life Sciences Investors"
+   },
+   {
+      "symbol":"HR",
+      "name":"Healthcare Realty Trust Inc"
+   },
+   {
+      "symbol":"HRB",
+      "name":"H&R Block Inc"
+   },
+   {
+      "symbol":"HRI",
+      "name":"Herc Holdings Inc"
+   },
+   {
+      "symbol":"HRL",
+      "name":"Hormel Foods Corp"
+   },
+   {
+      "symbol":"HRT",
+      "name":"HireRight Holdings Corp"
+   },
+   {
+      "symbol":"HRTG",
+      "name":"Heritage Insurance Holdings Inc"
+   },
+   {
+      "symbol":"HSBC",
+      "name":"HSBC Holdings plc"
+   },
+   {
+      "symbol":"HSHP",
+      "name":"Himalaya Shipping Ltd"
+   },
+   {
+      "symbol":"HSY",
+      "name":"Hershey Company"
+   },
+   {
+      "symbol":"HT",
+      "name":"Hersha Hospitality Trust - Class A"
+   },
+   {
+      "symbol":"HTD",
+      "name":"John Hancock Tax- Advantaged Dividend Income"
+   },
+   {
+      "symbol":"HTFB",
+      "name":"Horizon Technology Finance Corp"
+   },
+   {
+      "symbol":"HTH",
+      "name":"Hilltop Holdings Inc"
+   },
+   {
+      "symbol":"HTY",
+      "name":"John Hancock Tax-Advantaged Global Shareholder Yield Fund"
+   },
+   {
+      "symbol":"HUBB",
+      "name":"Hubbell Inc"
+   },
+   {
+      "symbol":"HUBS",
+      "name":"HubSpot Inc"
+   },
+   {
+      "symbol":"HUM",
+      "name":"Humana Inc"
+   },
+   {
+      "symbol":"HUN",
+      "name":"Huntsman Corp"
+   },
+   {
+      "symbol":"HUYA",
+      "name":"HUYA Inc"
+   },
+   {
+      "symbol":"HVT",
+      "name":"Haverty Furniture Cos. Inc"
+   },
+   {
+      "symbol":"HWM",
+      "name":"Howmet Aerospace Inc"
+   },
+   {
+      "symbol":"HXL",
+      "name":"Hexcel Corp"
+   },
+   {
+      "symbol":"HY",
+      "name":"Hyster-Yale Materials Handling Inc - Class A"
+   },
+   {
+      "symbol":"HYAC",
+      "name":"Haymaker Acquisition Corp 4 - Class A"
+   },
+   {
+      "symbol":"HYB",
+      "name":"New America High Income Fund Inc"
+   },
+   {
+      "symbol":"HYI",
+      "name":"Western Asset High Yield Defined Opportunity Fund Inc"
+   },
+   {
+      "symbol":"HYLN",
+      "name":"Hyliion Holdings Corporation - Class A"
+   },
+   {
+      "symbol":"HYT",
+      "name":"BlackRock Corporate High Yield Fund Inc"
+   },
+   {
+      "symbol":"HZO",
+      "name":"Marinemax Inc"
+   },
+   {
+      "symbol":"IAE",
+      "name":"Voya Asia Pacific High Dividend Equity Income Fund"
+   },
+   {
+      "symbol":"IAG",
+      "name":"Iamgold Corp"
+   },
+   {
+      "symbol":"IBM",
+      "name":"International Business Machines Corp"
+   },
+   {
+      "symbol":"IBN",
+      "name":"ICICI Bank Ltd"
+   },
+   {
+      "symbol":"IBP",
+      "name":"Installed Building Products Inc"
+   },
+   {
+      "symbol":"ICD",
+      "name":"Independence Contract Drilling Inc"
+   },
+   {
+      "symbol":"ICE",
+      "name":"Intercontinental Exchange Inc"
+   },
+   {
+      "symbol":"ICL",
+      "name":"ICL Group Ltd"
+   },
+   {
+      "symbol":"IDA",
+      "name":"Idacorp Inc"
+   },
+   {
+      "symbol":"IDE",
+      "name":"Voya Infrastructure Industrials and Materials Fund"
+   },
+   {
+      "symbol":"IDT",
+      "name":"IDT Corp - Class B"
+   },
+   {
+      "symbol":"IEX",
+      "name":"Idex Corporation"
+   },
+   {
+      "symbol":"IFF",
+      "name":"International Flavors & Fragrances Inc"
+   },
+   {
+      "symbol":"IFIN",
+      "name":"Infint Acquisition Corp - Class A"
+   },
+   {
+      "symbol":"IFN",
+      "name":"India Fund Inc"
+   },
+   {
+      "symbol":"IFS",
+      "name":"Intercorp Financial Services Inc"
+   },
+   {
+      "symbol":"IGA",
+      "name":"Voya Global Advantage and Premium Opportunity Fund"
+   },
+   {
+      "symbol":"IGD",
+      "name":"Voya Global Equity Dividend and Premium Opportunity Fund"
+   },
+   {
+      "symbol":"IGI",
+      "name":"Western Asset Investment Grade Defined Opportunity Trust Inc"
+   },
+   {
+      "symbol":"IGR",
+      "name":"CBRE Global Real Estate Income Fund"
+   },
+   {
+      "symbol":"IGT",
+      "name":"International Game Technology PLC"
+   },
+   {
+      "symbol":"IH",
+      "name":"iHuman Inc"
+   },
+   {
+      "symbol":"IHD",
+      "name":"Voya Emerging Markets High Dividend Equity Fund"
+   },
+   {
+      "symbol":"IHG",
+      "name":"Intercontinental Hotels Group"
+   },
+   {
+      "symbol":"IHIT",
+      "name":"Invesco High Income 2023 Target Term Fund"
+   },
+   {
+      "symbol":"IHS",
+      "name":"IHS Holding Ltd"
+   },
+   {
+      "symbol":"IHTA",
+      "name":"Invesco High Income 2024 Target Term Fund"
+   },
+   {
+      "symbol":"IIF",
+      "name":"Morgan Stanley India Investment Fund Inc"
+   },
+   {
+      "symbol":"IIIN",
+      "name":"Insteel Industries Inc"
+   },
+   {
+      "symbol":"IIM",
+      "name":"Invesco Value Municipal Income Trust"
+   },
+   {
+      "symbol":"IIPR",
+      "name":"Innovative Industrial Properties Inc"
+   },
+   {
+      "symbol":"IMAX",
+      "name":"Imax Corp"
+   },
+   {
+      "symbol":"INFA",
+      "name":"Informatica Inc - Class A"
+   },
+   {
+      "symbol":"INFY",
+      "name":"Infosys Ltd"
+   },
+   {
+      "symbol":"ING",
+      "name":"ING Groep N.V."
+   },
+   {
+      "symbol":"INGR",
+      "name":"Ingredion Inc"
+   },
+   {
+      "symbol":"INN",
+      "name":"Summit Hotel Properties Inc"
+   },
+   {
+      "symbol":"INSI",
+      "name":"Insight Select Income Fund"
+   },
+   {
+      "symbol":"INSP",
+      "name":"Inspire Medical Systems Inc"
+   },
+   {
+      "symbol":"INST",
+      "name":"Instructure Holdings Inc"
+   },
+   {
+      "symbol":"INSW",
+      "name":"International Seaways Inc"
+   },
+   {
+      "symbol":"INVH",
+      "name":"Invitation Homes Inc"
+   },
+   {
+      "symbol":"IONQ",
+      "name":"IonQ Inc"
+   },
+   {
+      "symbol":"IOT",
+      "name":"Samsara Inc - Class A"
+   },
+   {
+      "symbol":"IP",
+      "name":"International Paper Company"
+   },
+   {
+      "symbol":"IPG",
+      "name":"Interpublic Group Of Cos. Inc"
+   },
+   {
+      "symbol":"IPI",
+      "name":"Intrepid Potash Inc"
+   },
+   {
+      "symbol":"IQI",
+      "name":"Invesco Quality Municipal Income Trust"
+   },
+   {
+      "symbol":"IQV",
+      "name":"IQVIA Holdings Inc"
+   },
+   {
+      "symbol":"IR",
+      "name":"Ingersoll-Rand Inc"
+   },
+   {
+      "symbol":"IRL",
+      "name":"New Ireland Fund Inc"
+   },
+   {
+      "symbol":"IRM",
+      "name":"Iron Mountain Inc"
+   },
+   {
+      "symbol":"IRRX",
+      "name":"Integrated Rail and Resources Acquisition Corp - Class A"
+   },
+   {
+      "symbol":"IRS",
+      "name":"Irsa Inversiones Y Representaciones S.A."
+   },
+   {
+      "symbol":"IRT",
+      "name":"Independence Realty Trust Inc"
+   },
+   {
+      "symbol":"ISD",
+      "name":"PGIM High Yield Bond Fund Inc"
+   },
+   {
+      "symbol":"ISG",
+      "name":"ING Group NV Perpetual Dent Secs 6125"
+   },
+   {
+      "symbol":"IT",
+      "name":"Gartner Inc"
+   },
+   {
+      "symbol":"ITGR",
+      "name":"Integer Holdings Corp"
+   },
+   {
+      "symbol":"ITT",
+      "name":"ITT Inc"
+   },
+   {
+      "symbol":"ITUB",
+      "name":"Itau Unibanco Holding S.A."
+   },
+   {
+      "symbol":"ITW",
+      "name":"Illinois Tool Works Inc"
+   },
+   {
+      "symbol":"IVH",
+      "name":"Delaware Ivy High Income Opportunities Fund"
+   },
+   {
+      "symbol":"IVR",
+      "name":"Invesco Mortgage Capital Inc"
+   },
+   {
+      "symbol":"IVT",
+      "name":"InvenTrust Properties Corp"
+   },
+   {
+      "symbol":"IVZ",
+      "name":"Invesco Ltd"
+   },
+   {
+      "symbol":"IX",
+      "name":"Orix Corporation"
+   },
+   {
+      "symbol":"J",
+      "name":"Jacobs Solutions Inc"
+   },
+   {
+      "symbol":"JBGS",
+      "name":"JBG SMITH Properties"
+   },
+   {
+      "symbol":"JBI",
+      "name":"Janus International Group Inc - Class A"
+   },
+   {
+      "symbol":"JBK",
+      "name":"Lehman ABS Corp"
+   },
+   {
+      "symbol":"JBL",
+      "name":"Jabil Inc"
+   },
+   {
+      "symbol":"JBT",
+      "name":"John Bean Technologies Corp"
+   },
+   {
+      "symbol":"JCE",
+      "name":"Nuveen Core Equity Alpha Fund"
+   },
+   {
+      "symbol":"JCI",
+      "name":"Johnson Controls International plc"
+   },
+   {
+      "symbol":"JEF",
+      "name":"Jefferies Financial Group Inc"
+   },
+   {
+      "symbol":"JELD",
+      "name":"JELD-WEN Holding Inc"
+   },
+   {
+      "symbol":"JEMD",
+      "name":"Nuveen Emerging Markets Debt 2022 Target Term Fund"
+   },
+   {
+      "symbol":"JEQ",
+      "name":"abrdn Japan Equity Fund Inc"
+   },
+   {
+      "symbol":"JFR",
+      "name":"Nuveen Floating Rate Income Fund"
+   },
+   {
+      "symbol":"JGH",
+      "name":"Nuveen Global High Income Fund"
+   },
+   {
+      "symbol":"JHAA",
+      "name":"Nuveen Corporate Income 2023 Target Term Fund"
+   },
+   {
+      "symbol":"JHG",
+      "name":"Janus Henderson Group plc"
+   },
+   {
+      "symbol":"JHI",
+      "name":"John Hancock Investors Trust"
+   },
+   {
+      "symbol":"JHS",
+      "name":"John Hancock Income Securities Trust"
+   },
+   {
+      "symbol":"JHX",
+      "name":"James Hardie Industries plc"
+   },
+   {
+      "symbol":"JILL",
+      "name":"J.Jill Inc"
+   },
+   {
+      "symbol":"JKS",
+      "name":"JinkoSolar Holding Co. Ltd"
+   },
+   {
+      "symbol":"JLL",
+      "name":"Jones Lang Lasalle Inc"
+   },
+   {
+      "symbol":"JLS",
+      "name":"Nuveen Mortgage and Income Fund"
+   },
+   {
+      "symbol":"JMIA",
+      "name":"Jumia Technologies Ag"
+   },
+   {
+      "symbol":"JMM",
+      "name":"Nuveen Multi-Market Income Fund"
+   },
+   {
+      "symbol":"JNJ",
+      "name":"Johnson & Johnson"
+   },
+   {
+      "symbol":"JNPR",
+      "name":"Juniper Networks Inc"
+   },
+   {
+      "symbol":"JOBY",
+      "name":"Joby Aviation Inc"
+   },
+   {
+      "symbol":"JOE",
+      "name":"St. Joe Company"
+   },
+   {
+      "symbol":"JOF",
+      "name":"Japan Smaller Capitalization Fund Inc"
+   },
+   {
+      "symbol":"JPC",
+      "name":"Nuveen Preferred & Income Opportunities Fund"
+   },
+   {
+      "symbol":"JPI",
+      "name":"Nuveen Preferred and Income Term Fund"
+   },
+   {
+      "symbol":"JPM",
+      "name":"JPMorgan Chase & Company"
+   },
+   {
+      "symbol":"JPS",
+      "name":"Nuveen Preferred & Income Securities Fund"
+   },
+   {
+      "symbol":"JPT",
+      "name":"Nuveen Preferred and Income Fund"
+   },
+   {
+      "symbol":"JQC",
+      "name":"Nuveen Credit Strategies Income Fund"
+   },
+   {
+      "symbol":"JRI",
+      "name":"Nuveen Real Asset Income and Growth Fund"
+   },
+   {
+      "symbol":"JRO",
+      "name":"Nuveen Floating Rate Income Opportunity Fund"
+   },
+   {
+      "symbol":"JRS",
+      "name":"Nuveen Real Estate Income Fund."
+   },
+   {
+      "symbol":"JSD",
+      "name":"Nuveen Short Duration Credit Opportunities Fund"
+   },
+   {
+      "symbol":"JT",
+      "name":"Jianpu Technology Inc"
+   },
+   {
+      "symbol":"JWN",
+      "name":"Nordstrom Inc"
+   },
+   {
+      "symbol":"JXN",
+      "name":"Jackson Financial Inc - Class A"
+   },
+   {
+      "symbol":"K",
+      "name":"Kellanova Company"
+   },
+   {
+      "symbol":"KAI",
+      "name":"Kadant Inc"
+   },
+   {
+      "symbol":"KAMN",
+      "name":"Kaman Corp"
+   },
+   {
+      "symbol":"KAR",
+      "name":"Openlane Inc"
+   },
+   {
+      "symbol":"KB",
+      "name":"KB Financial Group Inc"
+   },
+   {
+      "symbol":"KBH",
+      "name":"KB Home"
+   },
+   {
+      "symbol":"KBR",
+      "name":"KBR Inc"
+   },
+   {
+      "symbol":"KCGI",
+      "name":"Kensington Capital Acquisition Corp V - Class A"
+   },
+   {
+      "symbol":"KD",
+      "name":"Kyndryl Holdings Inc"
+   },
+   {
+      "symbol":"KEN",
+      "name":"Kenon Holdings Ltd"
+   },
+   {
+      "symbol":"KEP",
+      "name":"Korea Electric Power"
+   },
+   {
+      "symbol":"KEX",
+      "name":"Kirby Corp"
+   },
+   {
+      "symbol":"KEY",
+      "name":"Keycorp"
+   },
+   {
+      "symbol":"KEYS",
+      "name":"Keysight Technologies Inc"
+   },
+   {
+      "symbol":"KF",
+      "name":"Korea Fund Inc"
+   },
+   {
+      "symbol":"KFS",
+      "name":"Kingsway Financial Services Inc"
+   },
+   {
+      "symbol":"KFY",
+      "name":"Korn Ferry"
+   },
+   {
+      "symbol":"KGC",
+      "name":"Kinross Gold Corp"
+   },
+   {
+      "symbol":"KGS",
+      "name":"Kodiak Gas Services Inc"
+   },
+   {
+      "symbol":"KIM",
+      "name":"Kimco Realty Corporation"
+   },
+   {
+      "symbol":"KIND",
+      "name":"Nextdoor Holdings Inc - Class A"
+   },
+   {
+      "symbol":"KIO",
+      "name":"KKR Income Opportunities Fund"
+   },
+   {
+      "symbol":"KKR",
+      "name":"KKR & Co. Inc"
+   },
+   {
+      "symbol":"KKRS",
+      "name":"KKR Group Finance Co. IX LLC"
+   },
+   {
+      "symbol":"KLG",
+      "name":"WK Kellogg Company"
+   },
+   {
+      "symbol":"KMB",
+      "name":"Kimberly-Clark Corp"
+   },
+   {
+      "symbol":"KMF",
+      "name":"Kayne Anderson NextGen Energy & Infrastructure Inc"
+   },
+   {
+      "symbol":"KMI",
+      "name":"Kinder Morgan Inc - Class P"
+   },
+   {
+      "symbol":"KMPB",
+      "name":"Kemper Corporation"
+   },
+   {
+      "symbol":"KMT",
+      "name":"Kennametal Inc"
+   },
+   {
+      "symbol":"KMX",
+      "name":"Carmax Inc"
+   },
+   {
+      "symbol":"KN",
+      "name":"Knowles Corp"
+   },
+   {
+      "symbol":"KNF",
+      "name":"Knife River Corp"
+   },
+   {
+      "symbol":"KNOP",
+      "name":"KNOT Offshore Partners LP"
+   },
+   {
+      "symbol":"KNSL",
+      "name":"Kinsale Capital Group Inc"
+   },
+   {
+      "symbol":"KNSW",
+      "name":"KnightSwan Acquisition Corp - Class A"
+   },
+   {
+      "symbol":"KNTK",
+      "name":"Kinetik Holdings Inc - Class A"
+   },
+   {
+      "symbol":"KNX",
+      "name":"Knight-Swift Transportation Holdings Inc - Class A"
+   },
+   {
+      "symbol":"KO",
+      "name":"Coca-Cola Company"
+   },
+   {
+      "symbol":"KODK",
+      "name":"Eastman Kodak Company"
+   },
+   {
+      "symbol":"KOF",
+      "name":"Coca-Cola Femsa S.A.B. DE C.V."
+   },
+   {
+      "symbol":"KOP",
+      "name":"Koppers Holdings Inc"
+   },
+   {
+      "symbol":"KORE",
+      "name":"Kore Group Holdings Inc"
+   },
+   {
+      "symbol":"KOS",
+      "name":"Kosmos Energy Ltd"
+   },
+   {
+      "symbol":"KR",
+      "name":"Kroger Company"
+   },
+   {
+      "symbol":"KRC",
+      "name":"Kilroy Realty Corp"
+   },
+   {
+      "symbol":"KREF",
+      "name":"KKR Real Estate Finance Trust Inc"
+   },
+   {
+      "symbol":"KRG",
+      "name":"Kite Realty Group Trust"
+   },
+   {
+      "symbol":"KRO",
+      "name":"Kronos Worldwide Inc"
+   },
+   {
+      "symbol":"KRP",
+      "name":"Kimbell Royalty Partners LP"
+   },
+   {
+      "symbol":"KSM",
+      "name":"DWS Strategic Municipal Income Trust"
+   },
+   {
+      "symbol":"KSS",
+      "name":"Kohl`s Corp"
+   },
+   {
+      "symbol":"KT",
+      "name":"KT Corporation"
+   },
+   {
+      "symbol":"KTB",
+      "name":"Kontoor Brands Inc"
+   },
+   {
+      "symbol":"KTF",
+      "name":"DWS Municipal Income Trust"
+   },
+   {
+      "symbol":"KTH",
+      "name":"Structures Products Cp 8 CorTS Issued by Peco Energy Cap Tr II Preferred Stock"
+   },
+   {
+      "symbol":"KTN",
+      "name":"Structured Products Corp 8205 CorTS 8205 Corporate Backed Trust Securities CorTS"
+   },
+   {
+      "symbol":"KUKE",
+      "name":"Kuke Music Holding Ltd"
+   },
+   {
+      "symbol":"KVUE",
+      "name":"Kenvue Inc"
+   },
+   {
+      "symbol":"KVYO",
+      "name":"Klaviyo Inc - Series A"
+   },
+   {
+      "symbol":"KW",
+      "name":"Kennedy-Wilson Holdings Inc"
+   },
+   {
+      "symbol":"KWR",
+      "name":"Quaker Houghton"
+   },
+   {
+      "symbol":"KYN",
+      "name":"Kayne Anderson Energy Infrastructure Fund Inc"
+   },
+   {
+      "symbol":"L",
+      "name":"Loews Corp"
+   },
+   {
+      "symbol":"LAAC",
+      "name":"Lithium Americas (Argentina) Corp"
+   },
+   {
+      "symbol":"LAC",
+      "name":"Lithium Americas Corp (NewCo)"
+   },
+   {
+      "symbol":"LAD",
+      "name":"Lithia Motors Inc - Class A"
+   },
+   {
+      "symbol":"LADR",
+      "name":"Ladder Capital Corp - Class A"
+   },
+   {
+      "symbol":"LANV",
+      "name":"Lanvin Group Holdings Ltd - Class A"
+   },
+   {
+      "symbol":"LAW",
+      "name":"CS Disco Inc"
+   },
+   {
+      "symbol":"LAZ",
+      "name":"Lazard Ltd - Class A"
+   },
+   {
+      "symbol":"LBRT",
+      "name":"Liberty Energy Inc - Class A"
+   },
+   {
+      "symbol":"LC",
+      "name":"LendingClub Corp"
+   },
+   {
+      "symbol":"LCII",
+      "name":"LCI Industries"
+   },
+   {
+      "symbol":"LCW",
+      "name":"Learn CW Investment Corp - Class A"
+   },
+   {
+      "symbol":"LDI",
+      "name":"LoanDepot Inc - Class A"
+   },
+   {
+      "symbol":"LDOS",
+      "name":"Leidos Holdings Inc"
+   },
+   {
+      "symbol":"LDP",
+      "name":"Cohen & Steers Ltd Duration Preferred and Income Fund Inc"
+   },
+   {
+      "symbol":"LEA",
+      "name":"Lear Corp"
+   },
+   {
+      "symbol":"LEG",
+      "name":"Leggett & Platt Inc"
+   },
+   {
+      "symbol":"LEJU",
+      "name":"Leju Holdings Ltd"
+   },
+   {
+      "symbol":"LEN",
+      "name":"Lennar Corp - Class A"
+   },
+   {
+      "symbol":"LEO",
+      "name":"BNY Mellon Strategic Municipals Inc"
+   },
+   {
+      "symbol":"LEV",
+      "name":"Lion Electric Co (The)"
+   },
+   {
+      "symbol":"LEVI",
+      "name":"Levi Strauss & Co. Cls A"
+   },
+   {
+      "symbol":"LFT",
+      "name":"Lument Finance Trust Inc"
+   },
+   {
+      "symbol":"LGI",
+      "name":"Lazard Global Total Return and Income Fund Inc"
+   },
+   {
+      "symbol":"LH",
+      "name":"Laboratory Corp Of America Holdings"
+   },
+   {
+      "symbol":"LHC",
+      "name":"Leo Holdings Corp II - Class A"
+   },
+   {
+      "symbol":"LHX",
+      "name":"L3Harris Technologies Inc"
+   },
+   {
+      "symbol":"LICY",
+      "name":"Li-Cycle Holdings Corp - Class A"
+   },
+   {
+      "symbol":"LII",
+      "name":"Lennox International Inc"
+   },
+   {
+      "symbol":"LITB",
+      "name":"LightInTheBox Holding Co Ltd"
+   },
+   {
+      "symbol":"LL",
+      "name":"LL Flooring Holdings Inc"
+   },
+   {
+      "symbol":"LLAP",
+      "name":"Terran Orbital Corp - Class A"
+   },
+   {
+      "symbol":"LLY",
+      "name":"Lilly(Eli) & Company"
+   },
+   {
+      "symbol":"LMND",
+      "name":"Lemonade Inc"
+   },
+   {
+      "symbol":"LMT",
+      "name":"Lockheed Martin Corp"
+   },
+   {
+      "symbol":"LNC",
+      "name":"Lincoln National Corp"
+   },
+   {
+      "symbol":"LND",
+      "name":"Brasilagro Companhia Brasileira De Propriedade Agricola"
+   },
+   {
+      "symbol":"LNN",
+      "name":"Lindsay Corporation"
+   },
+   {
+      "symbol":"LOB",
+      "name":"Live Oak Bancshares Inc"
+   },
+   {
+      "symbol":"LOCL",
+      "name":"Local Bounti Corp - Class A"
+   },
+   {
+      "symbol":"LOMA",
+      "name":"Loma Negra Compania Industrial Argentina Sociedad Anonima"
+   },
+   {
+      "symbol":"LOW",
+      "name":"Lowe`s Cos. Inc"
+   },
+   {
+      "symbol":"LPG",
+      "name":"Dorian LPG Ltd"
+   },
+   {
+      "symbol":"LPL",
+      "name":"LG Display Co Ltd"
+   },
+   {
+      "symbol":"LPX",
+      "name":"Louisiana-Pacific Corp"
+   },
+   {
+      "symbol":"LRN",
+      "name":"Stride Inc"
+   },
+   {
+      "symbol":"LSPD",
+      "name":"Lightspeed Commerce Inc (Sub Voting)"
+   },
+   {
+      "symbol":"LTC",
+      "name":"LTC Properties Inc"
+   },
+   {
+      "symbol":"LTH",
+      "name":"Life Time Group Holdings Inc"
+   },
+   {
+      "symbol":"LTHM",
+      "name":"Livent Corp"
+   },
+   {
+      "symbol":"LU",
+      "name":"Lufax Holding Ltd"
+   },
+   {
+      "symbol":"LUMN",
+      "name":"Lumen Technologies Inc"
+   },
+   {
+      "symbol":"LUV",
+      "name":"Southwest Airlines Company"
+   },
+   {
+      "symbol":"LVS",
+      "name":"Las Vegas Sands Corp"
+   },
+   {
+      "symbol":"LVWR",
+      "name":"LiveWire Group Inc"
+   },
+   {
+      "symbol":"LW",
+      "name":"Lamb Weston Holdings Inc"
+   },
+   {
+      "symbol":"LXFR",
+      "name":"Luxfer Holdings PLC"
+   },
+   {
+      "symbol":"LXP",
+      "name":"LXP Industrial Trust"
+   },
+   {
+      "symbol":"LXU",
+      "name":"LSB Industries Inc"
+   },
+   {
+      "symbol":"LYB",
+      "name":"LyondellBasell Industries NV - Class A"
+   },
+   {
+      "symbol":"LYG",
+      "name":"Lloyds Banking Group plc"
+   },
+   {
+      "symbol":"LYV",
+      "name":"Live Nation Entertainment Inc"
+   },
+   {
+      "symbol":"LZB",
+      "name":"La-Z-Boy Inc"
+   },
+   {
+      "symbol":"LZM",
+      "name":"Lifezone Metals Ltd"
+   },
+   {
+      "symbol":"M",
+      "name":"Macy`s Inc"
+   },
+   {
+      "symbol":"MA",
+      "name":"Mastercard Incorporated - Class A"
+   },
+   {
+      "symbol":"MAA",
+      "name":"Mid-America Apartment Communities Inc"
+   },
+   {
+      "symbol":"MAC",
+      "name":"Macerich Company"
+   },
+   {
+      "symbol":"MAIN",
+      "name":"Main Street Capital Corporation"
+   },
+   {
+      "symbol":"MAN",
+      "name":"ManpowerGroup"
+   },
+   {
+      "symbol":"MANU",
+      "name":"Manchester United Plc. - Class A"
+   },
+   {
+      "symbol":"MAS",
+      "name":"Masco Corp"
+   },
+   {
+      "symbol":"MATV",
+      "name":"Mativ Holdings Inc"
+   },
+   {
+      "symbol":"MATX",
+      "name":"Matson Inc"
+   },
+   {
+      "symbol":"MAV",
+      "name":"Pioneer Municipal High Income Advantage Fund Inc"
+   },
+   {
+      "symbol":"MAX",
+      "name":"MediaAlpha Inc - Class A"
+   },
+   {
+      "symbol":"MBAC",
+      "name":"M3 Brigade Acquisition II Corp - Class A"
+   },
+   {
+      "symbol":"MBC",
+      "name":"MasterBrand Inc"
+   },
+   {
+      "symbol":"MBI",
+      "name":"MBIA Inc"
+   },
+   {
+      "symbol":"MC",
+      "name":"Moelis & Co - Class A"
+   },
+   {
+      "symbol":"MCB",
+      "name":"Metropolitan Bank Holding Corp"
+   },
+   {
+      "symbol":"MCD",
+      "name":"McDonald`s Corp"
+   },
+   {
+      "symbol":"MCI",
+      "name":"Barings Corporate Investors"
+   },
+   {
+      "symbol":"MCK",
+      "name":"Mckesson Corporation"
+   },
+   {
+      "symbol":"MCN",
+      "name":"Madison Covered Call & Equity Strategy Fund"
+   },
+   {
+      "symbol":"MCO",
+      "name":"Moody`s Corp"
+   },
+   {
+      "symbol":"MCR",
+      "name":"MFS Charter Income Trust"
+   },
+   {
+      "symbol":"MCS",
+      "name":"Marcus Corp"
+   },
+   {
+      "symbol":"MCW",
+      "name":"Mister Car Wash Inc"
+   },
+   {
+      "symbol":"MCY",
+      "name":"Mercury General Corp"
+   },
+   {
+      "symbol":"MD",
+      "name":"Pediatrix Medical Group Inc"
+   },
+   {
+      "symbol":"MDC",
+      "name":"M.D.C. Holdings Inc"
+   },
+   {
+      "symbol":"MDT",
+      "name":"Medtronic Plc"
+   },
+   {
+      "symbol":"MDU",
+      "name":"MDU Resources Group Inc"
+   },
+   {
+      "symbol":"MDV",
+      "name":"Modiv Industrial Inc - Class C"
+   },
+   {
+      "symbol":"MEC",
+      "name":"Mayville Engineering Company Inc"
+   },
+   {
+      "symbol":"MED",
+      "name":"Medifast Inc"
+   },
+   {
+      "symbol":"MEG",
+      "name":"Montrose Environmental Group Inc"
+   },
+   {
+      "symbol":"MEGI",
+      "name":"MainStay CBRE Global Infrastructure Megatrends Fund"
+   },
+   {
+      "symbol":"MEI",
+      "name":"Methode Electronics Inc"
+   },
+   {
+      "symbol":"MET",
+      "name":"Metlife Inc"
+   },
+   {
+      "symbol":"MFA",
+      "name":"MFA Financial Inc"
+   },
+   {
+      "symbol":"MFC",
+      "name":"Manulife Financial Corp"
+   },
+   {
+      "symbol":"MFD",
+      "name":"Macquarie-First Tr. Global Inf. Utilities Div. & Income Fund"
+   },
+   {
+      "symbol":"MFG",
+      "name":"Mizuho Financial Group Inc"
+   },
+   {
+      "symbol":"MFM",
+      "name":"MFS Municipal Income Trust"
+   },
+   {
+      "symbol":"MFV",
+      "name":"MFS Special Value Trust"
+   },
+   {
+      "symbol":"MG",
+      "name":"Mistras Group Inc"
+   },
+   {
+      "symbol":"MGA",
+      "name":"Magna International Inc"
+   },
+   {
+      "symbol":"MGF",
+      "name":"MFS Government Markets Income Trust"
+   },
+   {
+      "symbol":"MGM",
+      "name":"MGM Resorts International"
+   },
+   {
+      "symbol":"MGU",
+      "name":"Macquarie Global Infrastructure Total Return Fund Inc"
+   },
+   {
+      "symbol":"MGY",
+      "name":"Magnolia Oil & Gas Corp - Class A"
+   },
+   {
+      "symbol":"MHD",
+      "name":"BlackRock MuniHoldings Fund Inc"
+   },
+   {
+      "symbol":"MHF",
+      "name":"Western Asset Municipal High Income Fund Inc"
+   },
+   {
+      "symbol":"MHI",
+      "name":"Pioneer Municipal High Income Fund Inc"
+   },
+   {
+      "symbol":"MHK",
+      "name":"Mohawk Industries Inc"
+   },
+   {
+      "symbol":"MHLA",
+      "name":"Maiden Holdings Ltd"
+   },
+   {
+      "symbol":"MHN",
+      "name":"BlackRock MuniHoldings New York Quality Fund Inc"
+   },
+   {
+      "symbol":"MHNC",
+      "name":"Maiden Holdings North American Ltd 775 Nts 12012043"
+   },
+   {
+      "symbol":"MHO",
+      "name":"MI Homes Inc"
+   },
+   {
+      "symbol":"MIN",
+      "name":"MFS Intermediate Income Trust"
+   },
+   {
+      "symbol":"MIO",
+      "name":"Pioneer Municipal High Income Opportunities Fund Inc"
+   },
+   {
+      "symbol":"MIR",
+      "name":"Mirion Technologies Inc - Class A"
+   },
+   {
+      "symbol":"MITT",
+      "name":"AG Mortgage Investment Trust Inc"
+   },
+   {
+      "symbol":"MIXT",
+      "name":"MiX Telematics Ltd"
+   },
+   {
+      "symbol":"MIY",
+      "name":"BlackRock MuniYield Michigan Quality Fund Inc"
+   },
+   {
+      "symbol":"MKC",
+      "name":"McCormick & Co. Inc (Non Voting)"
+   },
+   {
+      "symbol":"MKFG",
+      "name":"Markforged Holding Corporation"
+   },
+   {
+      "symbol":"MKL",
+      "name":"Markel Group Inc"
+   },
+   {
+      "symbol":"ML",
+      "name":"MoneyLion Inc - Class A"
+   },
+   {
+      "symbol":"MLI",
+      "name":"Mueller Industries Inc"
+   },
+   {
+      "symbol":"MLM",
+      "name":"Martin Marietta Materials Inc"
+   },
+   {
+      "symbol":"MLNK",
+      "name":"MeridianLink Inc"
+   },
+   {
+      "symbol":"MLP",
+      "name":"Maui Land & Pineapple Co. Inc"
+   },
+   {
+      "symbol":"MLR",
+      "name":"Miller Industries Inc"
+   },
+   {
+      "symbol":"MMC",
+      "name":"Marsh & McLennan Cos. Inc"
+   },
+   {
+      "symbol":"MMD",
+      "name":"MainStay MacKay DefinedTerm Municipal Opportunities Fund"
+   },
+   {
+      "symbol":"MMI",
+      "name":"Marcus & Millichap Inc"
+   },
+   {
+      "symbol":"MMM",
+      "name":"3M Company"
+   },
+   {
+      "symbol":"MMS",
+      "name":"Maximus Inc"
+   },
+   {
+      "symbol":"MMT",
+      "name":"MFS Multimarket Income Trust"
+   },
+   {
+      "symbol":"MMU",
+      "name":"Western Asset Managed Municipals Fund Inc"
+   },
+   {
+      "symbol":"MNP",
+      "name":"Western Asset Municipal Partners Fund Inc"
+   },
+   {
+      "symbol":"MNR",
+      "name":"Mach Natural Resources LP"
+   },
+   {
+      "symbol":"MNSO",
+      "name":"MINISO Group Holding Ltd"
+   },
+   {
+      "symbol":"MNTN",
+      "name":"Everest Consolidator Acquisition Corp - Class A"
+   },
+   {
+      "symbol":"MO",
+      "name":"Altria Group Inc"
+   },
+   {
+      "symbol":"MOD",
+      "name":"Modine Manufacturing Company"
+   },
+   {
+      "symbol":"MODG",
+      "name":"Topgolf Callaway Brands Corp"
+   },
+   {
+      "symbol":"MODN",
+      "name":"Model N Inc"
+   },
+   {
+      "symbol":"MOGU",
+      "name":"MOGU Inc"
+   },
+   {
+      "symbol":"MOH",
+      "name":"Molina Healthcare Inc"
+   },
+   {
+      "symbol":"MOS",
+      "name":"Mosaic Company"
+   },
+   {
+      "symbol":"MOV",
+      "name":"Movado Group Inc"
+   },
+   {
+      "symbol":"MP",
+      "name":"MP Materials Corporation"
+   },
+   {
+      "symbol":"MPA",
+      "name":"BlackRock MuniYield Pennsylvania Quality Fund"
+   },
+   {
+      "symbol":"MPC",
+      "name":"Marathon Petroleum Corp"
+   },
+   {
+      "symbol":"MPLN",
+      "name":"MultiPlan Corp - Class A"
+   },
+   {
+      "symbol":"MPLX",
+      "name":"MPLX LP"
+   },
+   {
+      "symbol":"MPV",
+      "name":"Barings Participation Investors"
+   },
+   {
+      "symbol":"MPW",
+      "name":"Medical Properties Trust Inc"
+   },
+   {
+      "symbol":"MPX",
+      "name":"Marine Products Corp"
+   },
+   {
+      "symbol":"MQT",
+      "name":"BlackRock MuniYield Quality Fund II Inc"
+   },
+   {
+      "symbol":"MQY",
+      "name":"BlackRock MuniYield Quality Fund Inc"
+   },
+   {
+      "symbol":"MRC",
+      "name":"MRC Global Inc"
+   },
+   {
+      "symbol":"MRDB",
+      "name":"MariaDB Plc - Class A"
+   },
+   {
+      "symbol":"MRK",
+      "name":"Merck & Co Inc"
+   },
+   {
+      "symbol":"MRO",
+      "name":"Marathon Oil Corporation"
+   },
+   {
+      "symbol":"MRT",
+      "name":"MedEquities Realty Trust Inc"
+   },
+   {
+      "symbol":"MS",
+      "name":"Morgan Stanley"
+   },
+   {
+      "symbol":"MSA",
+      "name":"MSA Safety Inc"
+   },
+   {
+      "symbol":"MSB",
+      "name":"Mesabi Trust"
+   },
+   {
+      "symbol":"MSC",
+      "name":"Studio City International Holdings Ltd"
+   },
+   {
+      "symbol":"MSCI",
+      "name":"MSCI Inc"
+   },
+   {
+      "symbol":"MSD",
+      "name":"Morgan Stanley Emerging Markets Debt Fund Inc"
+   },
+   {
+      "symbol":"MSGE",
+      "name":"Madison Square Garden Entertainment Corp - Class A"
+   },
+   {
+      "symbol":"MSGS",
+      "name":"Madison Square Garden Sports Corp - Class A"
+   },
+   {
+      "symbol":"MSI",
+      "name":"Motorola Solutions Inc"
+   },
+   {
+      "symbol":"MSM",
+      "name":"MSC Industrial Direct Co. Inc - Class A"
+   },
+   {
+      "symbol":"MT",
+      "name":"ArcelorMittal"
+   },
+   {
+      "symbol":"MTAL",
+      "name":"Metals Acquisition Ltd"
+   },
+   {
+      "symbol":"MTB",
+      "name":"M & T Bank Corp"
+   },
+   {
+      "symbol":"MTBL",
+      "name":"Moatable Inc"
+   },
+   {
+      "symbol":"MTD",
+      "name":"Mettler-Toledo International Inc"
+   },
+   {
+      "symbol":"MTDR",
+      "name":"Matador Resources Company"
+   },
+   {
+      "symbol":"MTG",
+      "name":"MGIC Investment Corp"
+   },
+   {
+      "symbol":"MTH",
+      "name":"Meritage Homes Corp"
+   },
+   {
+      "symbol":"MTN",
+      "name":"Vail Resorts Inc"
+   },
+   {
+      "symbol":"MTR",
+      "name":"Mesa Royalty Trust"
+   },
+   {
+      "symbol":"MTRN",
+      "name":"Materion Corp"
+   },
+   {
+      "symbol":"MTW",
+      "name":"Manitowoc Co. Inc"
+   },
+   {
+      "symbol":"MTX",
+      "name":"Minerals Technologies Inc"
+   },
+   {
+      "symbol":"MTZ",
+      "name":"Mastec Inc"
+   },
+   {
+      "symbol":"MUA",
+      "name":"BlackRock Muniassets Fund Inc"
+   },
+   {
+      "symbol":"MUC",
+      "name":"BlackRock MuniHoldings California Quality Fund Inc"
+   },
+   {
+      "symbol":"MUE",
+      "name":"BlackRock MuniHoldings Quality Fund II Inc"
+   },
+   {
+      "symbol":"MUFG",
+      "name":"Mitsubishi UFJ Financial Group Inc"
+   },
+   {
+      "symbol":"MUI",
+      "name":"BlackRock Municipal Income Fund Inc"
+   },
+   {
+      "symbol":"MUJ",
+      "name":"BlackRock MuniHoldings New Jersey Quality Fund Inc"
+   },
+   {
+      "symbol":"MUR",
+      "name":"Murphy Oil Corp"
+   },
+   {
+      "symbol":"MUSA",
+      "name":"Murphy USA Inc"
+   },
+   {
+      "symbol":"MUX",
+      "name":"McEwen Mining Inc"
+   },
+   {
+      "symbol":"MVF",
+      "name":"BlackRock MuniVest Fund Inc"
+   },
+   {
+      "symbol":"MVO",
+      "name":"MV Oil Trust"
+   },
+   {
+      "symbol":"MVT",
+      "name":"BlackRock Munivest Fund II Inc"
+   },
+   {
+      "symbol":"MWA",
+      "name":"Mueller Water Products Inc - Series A"
+   },
+   {
+      "symbol":"MX",
+      "name":"MagnaChip Semiconductor Corp"
+   },
+   {
+      "symbol":"MXE",
+      "name":"Mexico Equity And Income Fund Inc"
+   },
+   {
+      "symbol":"MXF",
+      "name":"Mexico Fund Inc"
+   },
+   {
+      "symbol":"MYD",
+      "name":"BlackRock MuniYield Fund Inc"
+   },
+   {
+      "symbol":"MYE",
+      "name":"Myers Industries Inc"
+   },
+   {
+      "symbol":"MYI",
+      "name":"BlackRock MuniYield Quality Fund III Inc"
+   },
+   {
+      "symbol":"MYN",
+      "name":"BlackRock MuniYield New York Quality Fund Inc"
+   },
+   {
+      "symbol":"MYTE",
+      "name":"MYT Netherlands Parent BV"
+   },
+   {
+      "symbol":"NABL",
+      "name":"N-able Inc"
+   },
+   {
+      "symbol":"NAC",
+      "name":"Nuveen California Quality Municipal Income Fund"
+   },
+   {
+      "symbol":"NAD",
+      "name":"Nuveen Quality Municipal Income Fund"
+   },
+   {
+      "symbol":"NAN",
+      "name":"Nuveen New York Quality Municipal Income Fund"
+   },
+   {
+      "symbol":"NAPA",
+      "name":"Duckhorn Portfolio Inc (The)"
+   },
+   {
+      "symbol":"NAT",
+      "name":"Nordic American Tankers Ltd"
+   },
+   {
+      "symbol":"NAZ",
+      "name":"Nuveen Arizona Quality Municipal Income Fund"
+   },
+   {
+      "symbol":"NBB",
+      "name":"Nuveen Taxable Municipal Income Fund"
+   },
+   {
+      "symbol":"NBHC",
+      "name":"National Bank Holdings Corp - Class A"
+   },
+   {
+      "symbol":"NBR",
+      "name":"Nabors Industries Ltd"
+   },
+   {
+      "symbol":"NBXG",
+      "name":"Neuberger Berman Next Generation Connectivity Fund Inc"
+   },
+   {
+      "symbol":"NC",
+      "name":"Nacco Industries Inc - Class A"
+   },
+   {
+      "symbol":"NCA",
+      "name":"Nuveen California Municipal Value Fund."
+   },
+   {
+      "symbol":"NCLH",
+      "name":"Norwegian Cruise Line Holdings Ltd"
+   },
+   {
+      "symbol":"NCV",
+      "name":"Virtus Convertible & Income Fund"
+   },
+   {
+      "symbol":"NCZ",
+      "name":"Virtus Convertible & Income Fund II"
+   },
+   {
+      "symbol":"NDMO",
+      "name":"Nuveen Dynamic Municipal Opportunities Fund"
+   },
+   {
+      "symbol":"NDP",
+      "name":"Tortoise Energy Independence Fund Inc"
+   },
+   {
+      "symbol":"NE",
+      "name":"Noble Corp Plc - Class A"
+   },
+   {
+      "symbol":"NEA",
+      "name":"Nuveen AMT-Free Quality Municipal Income Fund"
+   },
+   {
+      "symbol":"NEE",
+      "name":"NextEra Energy Inc"
+   },
+   {
+      "symbol":"NEEPN",
+      "name":"NextEra Energy Capital Holdings Inc"
+   },
+   {
+      "symbol":"NEM",
+      "name":"Newmont Corp"
+   },
+   {
+      "symbol":"NEP",
+      "name":"NextEra Energy Partners LP"
+   },
+   {
+      "symbol":"NET",
+      "name":"Cloudflare Inc - Class A"
+   },
+   {
+      "symbol":"NETC",
+      "name":"Nabors Energy Transition Corp - Class A"
+   },
+   {
+      "symbol":"NETI",
+      "name":"Eneti Inc"
+   },
+   {
+      "symbol":"NEU",
+      "name":"NewMarket Corp"
+   },
+   {
+      "symbol":"NEXA",
+      "name":"Nexa Resources S.A."
+   },
+   {
+      "symbol":"NFG",
+      "name":"National Fuel Gas Company"
+   },
+   {
+      "symbol":"NFJ",
+      "name":"Virtus AllianzGI Dividend Interest & Premium Strategy Fund"
+   },
+   {
+      "symbol":"NFYS",
+      "name":"Enphys Acquisition Corp - Class A"
+   },
+   {
+      "symbol":"NGG",
+      "name":"National Grid Plc"
+   },
+   {
+      "symbol":"NGL",
+      "name":"NGL Energy Partners LP"
+   },
+   {
+      "symbol":"NGS",
+      "name":"Natural Gas Services Group Inc"
+   },
+   {
+      "symbol":"NGVC",
+      "name":"Natural Grocers by Vitamin Cottage Inc"
+   },
+   {
+      "symbol":"NGVT",
+      "name":"Ingevity Corp"
+   },
+   {
+      "symbol":"NHI",
+      "name":"National Health Investors Inc"
+   },
+   {
+      "symbol":"NI",
+      "name":"NiSource Inc"
+   },
+   {
+      "symbol":"NIC",
+      "name":"Nicolet Bankshares Inc"
+   },
+   {
+      "symbol":"NID",
+      "name":"Nuveen Intermediate Duration Municipal Term Fund"
+   },
+   {
+      "symbol":"NIE",
+      "name":"Virtus Equity & Convertible Income Fund"
+   },
+   {
+      "symbol":"NIM",
+      "name":"Nuveen Select Maturities Municipal Fund"
+   },
+   {
+      "symbol":"NINE",
+      "name":"Nine Energy Service Inc"
+   },
+   {
+      "symbol":"NIO",
+      "name":"NIO Inc"
+   },
+   {
+      "symbol":"NIQ",
+      "name":"Nuveen Intermediate Duration Quality Municipal Term Fund"
+   },
+   {
+      "symbol":"NJR",
+      "name":"New Jersey Resources Corporation"
+   },
+   {
+      "symbol":"NKE",
+      "name":"Nike Inc - Class B"
+   },
+   {
+      "symbol":"NKG",
+      "name":"Nuveen Georgia Quality Municipal Income Fund"
+   },
+   {
+      "symbol":"NKX",
+      "name":"Nuveen California AMT-Free Quality Municipal Income Fund"
+   },
+   {
+      "symbol":"NL",
+      "name":"NL Industries Inc"
+   },
+   {
+      "symbol":"NLOP",
+      "name":"Net Lease Office Properties"
+   },
+   {
+      "symbol":"NLY",
+      "name":"Annaly Capital Management Inc"
+   },
+   {
+      "symbol":"NM",
+      "name":"Navios Maritime Holdings Inc"
+   },
+   {
+      "symbol":"NMAI",
+      "name":"Nuveen Multi-Asset Income Fund"
+   },
+   {
+      "symbol":"NMCO",
+      "name":"Nuveen Municipal Credit Opportunities Fund"
+   },
+   {
+      "symbol":"NMG",
+      "name":"Nouveau Monde Graphite Inc"
+   },
+   {
+      "symbol":"NMI",
+      "name":"Nuveen Municipal Income Fund"
+   },
+   {
+      "symbol":"NMM",
+      "name":"Navios Maritime Partners L.P."
+   },
+   {
+      "symbol":"NMR",
+      "name":"Nomura Holdings Inc"
+   },
+   {
+      "symbol":"NMS",
+      "name":"Nuveen Minnesota Quality Municipal Income Fund"
+   },
+   {
+      "symbol":"NMT",
+      "name":"Nuveen Massachusetts Quality Municipal Income Fund"
+   },
+   {
+      "symbol":"NMZ",
+      "name":"Nuveen Municipal High Income Opportunity Fund"
+   },
+   {
+      "symbol":"NNI",
+      "name":"Nelnet Inc - Class A"
+   },
+   {
+      "symbol":"NNN",
+      "name":"NNN REIT Inc"
+   },
+   {
+      "symbol":"NNY",
+      "name":"Nuveen New York Municipal Value Fund"
+   },
+   {
+      "symbol":"NOA",
+      "name":"North American Construction Group Ltd"
+   },
+   {
+      "symbol":"NOAH",
+      "name":"Noah Holdings Ltd"
+   },
+   {
+      "symbol":"NOC",
+      "name":"Northrop Grumman Corp"
+   },
+   {
+      "symbol":"NOG",
+      "name":"Northern Oil and Gas Inc"
+   },
+   {
+      "symbol":"NOK",
+      "name":"Nokia Corp"
+   },
+   {
+      "symbol":"NOM",
+      "name":"Nuveen Missouri Quality Municipal Income Fund"
+   },
+   {
+      "symbol":"NOMD",
+      "name":"Nomad Foods Ltd"
+   },
+   {
+      "symbol":"NOTE",
+      "name":"FiscalNote Holdings Inc - Class A"
+   },
+   {
+      "symbol":"NOV",
+      "name":"NOV Inc"
+   },
+   {
+      "symbol":"NOVA",
+      "name":"Sunnova Energy International Inc"
+   },
+   {
+      "symbol":"NOW",
+      "name":"ServiceNow Inc"
+   },
+   {
+      "symbol":"NPCT",
+      "name":"Nuveen Core Plus Impact Fund"
+   },
+   {
+      "symbol":"NPFD",
+      "name":"Nuveen Variable Rate Preferred & Income Fund"
+   },
+   {
+      "symbol":"NPK",
+      "name":"National Presto Industries Inc"
+   },
+   {
+      "symbol":"NPO",
+      "name":"EnPro Industries Inc"
+   },
+   {
+      "symbol":"NPV",
+      "name":"Nuveen Virginia Quality Municipal Income Fund"
+   },
+   {
+      "symbol":"NPWR",
+      "name":"NET Power Inc - Class A"
+   },
+   {
+      "symbol":"NQP",
+      "name":"Nuveen Pennsylvania Quality Municipal Income Fund"
+   },
+   {
+      "symbol":"NR",
+      "name":"Newpark Resources Inc"
+   },
+   {
+      "symbol":"NRDY",
+      "name":"Nerdy Inc - Class A"
+   },
+   {
+      "symbol":"NREF",
+      "name":"NexPoint Real Estate Finance Inc"
+   },
+   {
+      "symbol":"NRG",
+      "name":"NRG Energy Inc"
+   },
+   {
+      "symbol":"NRGV",
+      "name":"Energy Vault Holdings Inc"
+   },
+   {
+      "symbol":"NRK",
+      "name":"Nuveen New York AMT-Free Quality Municipal Income Fund"
+   },
+   {
+      "symbol":"NRP",
+      "name":"Natural Resource Partners LP"
+   },
+   {
+      "symbol":"NRT",
+      "name":"North European Oil Royalty Trust"
+   },
+   {
+      "symbol":"NRUC",
+      "name":"National Rural Utilities Coop Finance Corp"
+   },
+   {
+      "symbol":"NS",
+      "name":"Nustar Energy L P"
+   },
+   {
+      "symbol":"NSA",
+      "name":"National Storage Affiliates Trust"
+   },
+   {
+      "symbol":"NSC",
+      "name":"Norfolk Southern Corp"
+   },
+   {
+      "symbol":"NSL",
+      "name":"Nuveen Senior Income Fund"
+   },
+   {
+      "symbol":"NSP",
+      "name":"Insperity Inc"
+   },
+   {
+      "symbol":"NSS",
+      "name":"NuStar Logistics LP"
+   },
+   {
+      "symbol":"NTB",
+      "name":"Bank of N T Butterfield & Son Ltd"
+   },
+   {
+      "symbol":"NTCO",
+      "name":"Natura &Co Holding S.A."
+   },
+   {
+      "symbol":"NTEST",
+      "name":"NTEST"
+   },
+   {
+      "symbol":"NTG",
+      "name":"Tortoise Midstream Energy Fund Inc"
+   },
+   {
+      "symbol":"NTR",
+      "name":"Nutrien Ltd"
+   },
+   {
+      "symbol":"NTST",
+      "name":"Netstreit Corp"
+   },
+   {
+      "symbol":"NTZ",
+      "name":"Natuzzi S.P.A."
+   },
+   {
+      "symbol":"NU",
+      "name":"Nu Holdings Ltd Class A"
+   },
+   {
+      "symbol":"NUE",
+      "name":"Nucor Corp"
+   },
+   {
+      "symbol":"NUO",
+      "name":"Nuveen Ohio Quality Municipal Income Fund"
+   },
+   {
+      "symbol":"NUS",
+      "name":"Nu Skin Enterprises Inc - Class A"
+   },
+   {
+      "symbol":"NUV",
+      "name":"Nuveen Municipal Value Fund Inc"
+   },
+   {
+      "symbol":"NUVB",
+      "name":"Nuvation Bio Inc - Class A"
+   },
+   {
+      "symbol":"NUW",
+      "name":"Nuveen AMT-Free Municipal Value Fund"
+   },
+   {
+      "symbol":"NVG",
+      "name":"Nuveen AMT-Free Municipal Credit Income Fund"
+   },
+   {
+      "symbol":"NVGS",
+      "name":"Navigator Holdings Ltd"
+   },
+   {
+      "symbol":"NVO",
+      "name":"Novo Nordisk"
+   },
+   {
+      "symbol":"NVR",
+      "name":"NVR Inc"
+   },
+   {
+      "symbol":"NVRI",
+      "name":"Enviri Corp"
+   },
+   {
+      "symbol":"NVRO",
+      "name":"Nevro Corp"
+   },
+   {
+      "symbol":"NVS",
+      "name":"Novartis AG"
+   },
+   {
+      "symbol":"NVST",
+      "name":"Envista Holdings Corp"
+   },
+   {
+      "symbol":"NVT",
+      "name":"nVent Electric plc"
+   },
+   {
+      "symbol":"NVTA",
+      "name":"Invitae Corp"
+   },
+   {
+      "symbol":"NWG",
+      "name":"NatWest Group Plc"
+   },
+   {
+      "symbol":"NWN",
+      "name":"Northwest Natural Holding Company"
+   },
+   {
+      "symbol":"NX",
+      "name":"Quanex Building Products Corp"
+   },
+   {
+      "symbol":"NXC",
+      "name":"Nuveen California Select Tax-Free Income Portfolio"
+   },
+   {
+      "symbol":"NXDT",
+      "name":"NexPoint Diversified Real Estate Trust"
+   },
+   {
+      "symbol":"NXE",
+      "name":"NexGen Energy Ltd"
+   },
+   {
+      "symbol":"NXG",
+      "name":"NXG NextGen Infrastructure Income Fund"
+   },
+   {
+      "symbol":"NXJ",
+      "name":"Nuveen New Jersey Quality Municipal Income Fund"
+   },
+   {
+      "symbol":"NXN",
+      "name":"Nuveen New York Select Tax-Free Income Portfolio"
+   },
+   {
+      "symbol":"NXP",
+      "name":"Nuveen Select Tax-Free Income Portfolio"
+   },
+   {
+      "symbol":"NXRT",
+      "name":"NexPoint Residential Trust Inc"
+   },
+   {
+      "symbol":"NXU",
+      "name":"Energy Vault Holdings Inc - Class A"
+   },
+   {
+      "symbol":"NYC",
+      "name":"American Strategic Investment Co - Class A"
+   },
+   {
+      "symbol":"NYCB",
+      "name":"New York Community Bancorp Inc"
+   },
+   {
+      "symbol":"NYT",
+      "name":"New York Times Co. - Class A"
+   },
+   {
+      "symbol":"NZF",
+      "name":"Nuveen Municipal Credit Income Fund"
+   },
+   {
+      "symbol":"O",
+      "name":"Realty Income Corp"
+   },
+   {
+      "symbol":"OBDC",
+      "name":"Blue Owl Capital Corp"
+   },
+   {
+      "symbol":"OBK",
+      "name":"Origin Bancorp Inc"
+   },
+   {
+      "symbol":"OC",
+      "name":"Owens Corning"
+   },
+   {
+      "symbol":"OCFT",
+      "name":"Oneconnect Financial Technology Co Ltd"
+   },
+   {
+      "symbol":"OCN",
+      "name":"Ocwen Financial Corp"
+   },
+   {
+      "symbol":"ODC",
+      "name":"Oil-Dri Corp Of America"
+   },
+   {
+      "symbol":"ODV",
+      "name":"Osisko Development Corp"
+   },
+   {
+      "symbol":"OEC",
+      "name":"Orion S.A"
+   },
+   {
+      "symbol":"OFG",
+      "name":"OFG Bancorp"
+   },
+   {
+      "symbol":"OGE",
+      "name":"Oge Energy Corp"
+   },
+   {
+      "symbol":"OGN",
+      "name":"Organon & Company"
+   },
+   {
+      "symbol":"OGS",
+      "name":"ONE Gas Inc"
+   },
+   {
+      "symbol":"OHI",
+      "name":"Omega Healthcare Investors Inc"
+   },
+   {
+      "symbol":"OI",
+      "name":"O-I Glass Inc"
+   },
+   {
+      "symbol":"OIA",
+      "name":"Invesco Municipal Income Opportunities Trust"
+   },
+   {
+      "symbol":"OII",
+      "name":"Oceaneering International Inc"
+   },
+   {
+      "symbol":"OIS",
+      "name":"Oil States International Inc"
+   },
+   {
+      "symbol":"OKE",
+      "name":"Oneok Inc"
+   },
+   {
+      "symbol":"OLN",
+      "name":"Olin Corp"
+   },
+   {
+      "symbol":"OLO",
+      "name":"Olo Inc - Class A"
+   },
+   {
+      "symbol":"OLP",
+      "name":"One Liberty Properties Inc"
+   },
+   {
+      "symbol":"OMC",
+      "name":"Omnicom Group Inc"
+   },
+   {
+      "symbol":"OMF",
+      "name":"OneMain Holdings Inc"
+   },
+   {
+      "symbol":"OMI",
+      "name":"Owens & Minor Inc"
+   },
+   {
+      "symbol":"ONL",
+      "name":"Orion Office REIT Inc"
+   },
+   {
+      "symbol":"ONON",
+      "name":"On Holding AG Class A"
+   },
+   {
+      "symbol":"ONTF",
+      "name":"ON24 Inc"
+   },
+   {
+      "symbol":"ONTO",
+      "name":"Onto Innovation Inc"
+   },
+   {
+      "symbol":"OOMA",
+      "name":"Ooma Inc"
+   },
+   {
+      "symbol":"OPA",
+      "name":"Magnum Opus Acquisition Ltd - Class A"
+   },
+   {
+      "symbol":"OPAD",
+      "name":"Offerpad Solutions Inc - Class A"
+   },
+   {
+      "symbol":"OPFI",
+      "name":"OppFi Inc - Class A"
+   },
+   {
+      "symbol":"OPP",
+      "name":"RiverNorth\/DoubleLine Strategic opportunity fund Inc"
+   },
+   {
+      "symbol":"OPY",
+      "name":"Oppenheimer Holdings Inc - Class A"
+   },
+   {
+      "symbol":"OR",
+      "name":"Osisko Gold Royalties Ltd"
+   },
+   {
+      "symbol":"ORA",
+      "name":"Ormat Technologies Inc"
+   },
+   {
+      "symbol":"ORAN",
+      "name":"Orange."
+   },
+   {
+      "symbol":"ORC",
+      "name":"Orchid Island Capital Inc"
+   },
+   {
+      "symbol":"ORCL",
+      "name":"Oracle Corp"
+   },
+   {
+      "symbol":"ORI",
+      "name":"Old Republic International Corp"
+   },
+   {
+      "symbol":"ORN",
+      "name":"Orion Group Holdings Inc"
+   },
+   {
+      "symbol":"OSCR",
+      "name":"Oscar Health Inc - Class A"
+   },
+   {
+      "symbol":"OSG",
+      "name":"Overseas Shipholding Group Inc - Class A"
+   },
+   {
+      "symbol":"OSI",
+      "name":"Osiris Acquisition Corp - Class A"
+   },
+   {
+      "symbol":"OSK",
+      "name":"Oshkosh Corp"
+   },
+   {
+      "symbol":"OTIS",
+      "name":"Otis Worldwide Corp"
+   },
+   {
+      "symbol":"OUST",
+      "name":"Ouster Inc - Class A"
+   },
+   {
+      "symbol":"OUT",
+      "name":"Outfront Media Inc"
+   },
+   {
+      "symbol":"OVV",
+      "name":"Ovintiv Inc"
+   },
+   {
+      "symbol":"OWL",
+      "name":"Blue Owl Capital Inc - Class A"
+   },
+   {
+      "symbol":"OWLT",
+      "name":"Owlet Inc - Class A"
+   },
+   {
+      "symbol":"OXM",
+      "name":"Oxford Industries Inc"
+   },
+   {
+      "symbol":"OXY",
+      "name":"Occidental Petroleum Corp"
+   },
+   {
+      "symbol":"OZ",
+      "name":"Belpointe REIT Inc"
+   },
+   {
+      "symbol":"PAAS",
+      "name":"Pan American Silver Corp"
+   },
+   {
+      "symbol":"PAC",
+      "name":"Grupo Aeroportuario Del Pacifico SAB de CV"
+   },
+   {
+      "symbol":"PACI",
+      "name":"PROOF Acquisition Corp I - Class A"
+   },
+   {
+      "symbol":"PACK",
+      "name":"Ranpak Holdings Corp - Class A"
+   },
+   {
+      "symbol":"PAG",
+      "name":"Penske Automotive Group Inc"
+   },
+   {
+      "symbol":"PAGS",
+      "name":"PagSeguro Digital Ltd - Class A"
+   },
+   {
+      "symbol":"PAI",
+      "name":"Western Asset Investment Grade Income Fund Inc"
+   },
+   {
+      "symbol":"PAM",
+      "name":"Pampa Energia SA"
+   },
+   {
+      "symbol":"PAR",
+      "name":"Par Technology Corp"
+   },
+   {
+      "symbol":"PARR",
+      "name":"Par Pacific Holdings Inc"
+   },
+   {
+      "symbol":"PATH",
+      "name":"UiPath Inc - Class A"
+   },
+   {
+      "symbol":"PAXS",
+      "name":"PIMCO Access Income Fund"
+   },
+   {
+      "symbol":"PAY",
+      "name":"Paymentus Holdings Inc - Class A"
+   },
+   {
+      "symbol":"PAYC",
+      "name":"Paycom Software Inc"
+   },
+   {
+      "symbol":"PB",
+      "name":"Prosperity Bancshares Inc"
+   },
+   {
+      "symbol":"PBA",
+      "name":"Pembina Pipeline Corporation"
+   },
+   {
+      "symbol":"PBF",
+      "name":"PBF Energy Inc - Class A"
+   },
+   {
+      "symbol":"PBH",
+      "name":"Prestige Consumer Healthcare Inc"
+   },
+   {
+      "symbol":"PBI",
+      "name":"Pitney Bowes Inc"
+   },
+   {
+      "symbol":"PBR",
+      "name":"Petroleo Brasileiro S.A. Petrobras"
+   },
+   {
+      "symbol":"PBT",
+      "name":"Permian Basin Royalty Trust"
+   },
+   {
+      "symbol":"PCF",
+      "name":"High Income Securities Fund"
+   },
+   {
+      "symbol":"PCG",
+      "name":"PG&E Corp"
+   },
+   {
+      "symbol":"PCM",
+      "name":"PCM Fund Inc"
+   },
+   {
+      "symbol":"PCN",
+      "name":"PIMCO Corporate & Income Strategy Fund"
+   },
+   {
+      "symbol":"PCOR",
+      "name":"Procore Technologies Inc"
+   },
+   {
+      "symbol":"PCQ",
+      "name":"Pimco California Municipal Income Fund"
+   },
+   {
+      "symbol":"PD",
+      "name":"Pagerduty Inc"
+   },
+   {
+      "symbol":"PDI",
+      "name":"PIMCO Dynamic Income Fund"
+   },
+   {
+      "symbol":"PDM",
+      "name":"Piedmont Office Realty Trust Inc - Class A"
+   },
+   {
+      "symbol":"PDO",
+      "name":"PIMCO Dynamic Income Opportunities Fund"
+   },
+   {
+      "symbol":"PDS",
+      "name":"Precision Drilling Corp"
+   },
+   {
+      "symbol":"PDT",
+      "name":"John Hancock Premium Dividend Fund"
+   },
+   {
+      "symbol":"PDX",
+      "name":"PIMCO Energy and Tactical Credit Opportunities Fund"
+   },
+   {
+      "symbol":"PEAK",
+      "name":"Healthpeak OP LLC"
+   },
+   {
+      "symbol":"PEB",
+      "name":"Pebblebrook Hotel Trust"
+   },
+   {
+      "symbol":"PEG",
+      "name":"Public Service Enterprise Group Inc"
+   },
+   {
+      "symbol":"PEN",
+      "name":"Penumbra Inc"
+   },
+   {
+      "symbol":"PEO",
+      "name":"Adams Natural Resources Fund Inc"
+   },
+   {
+      "symbol":"PERF",
+      "name":"Perfect Corp - Class A"
+   },
+   {
+      "symbol":"PFD",
+      "name":"Flaherty & Crumrine Preferred and Income Fund Inc"
+   },
+   {
+      "symbol":"PFE",
+      "name":"Pfizer Inc"
+   },
+   {
+      "symbol":"PFGC",
+      "name":"Performance Food Group Company"
+   },
+   {
+      "symbol":"PFH",
+      "name":"Prudential Financial Inc"
+   },
+   {
+      "symbol":"PFL",
+      "name":"Pimco Income Strategy Fund"
+   },
+   {
+      "symbol":"PFLT",
+      "name":"PennantPark Floating Rate Capital Ltd"
+   },
+   {
+      "symbol":"PFN",
+      "name":"Pimco Income Strategy Fund II"
+   },
+   {
+      "symbol":"PFO",
+      "name":"Flaherty & Crumrine Preferred and Income Opportunity Fund Inc"
+   },
+   {
+      "symbol":"PFS",
+      "name":"Provident Financial Services Inc"
+   },
+   {
+      "symbol":"PFSI",
+      "name":"PennyMac Financial Services Inc"
+   },
+   {
+      "symbol":"PG",
+      "name":"Procter & Gamble Company"
+   },
+   {
+      "symbol":"PGP",
+      "name":"Pimco Global StocksPLUS & Income Fund"
+   },
+   {
+      "symbol":"PGR",
+      "name":"Progressive Corp"
+   },
+   {
+      "symbol":"PGRE",
+      "name":"Paramount Group Inc"
+   },
+   {
+      "symbol":"PGRU",
+      "name":"PropertyGuru Group Ltd"
+   },
+   {
+      "symbol":"PGSS",
+      "name":"Pegasus Digital Mobility Acquisition Corp - Class A"
+   },
+   {
+      "symbol":"PGTI",
+      "name":"PGT Innovations Inc"
+   },
+   {
+      "symbol":"PGZ",
+      "name":"Principal Real Estate Income Fund"
+   },
+   {
+      "symbol":"PH",
+      "name":"Parker-Hannifin Corp"
+   },
+   {
+      "symbol":"PHD",
+      "name":"Pioneer Floating Rate Fund Inc"
+   },
+   {
+      "symbol":"PHG",
+      "name":"Koninklijke Philips N.V."
+   },
+   {
+      "symbol":"PHI",
+      "name":"PLDT Inc"
+   },
+   {
+      "symbol":"PHIN",
+      "name":"PHINIA Inc"
+   },
+   {
+      "symbol":"PHK",
+      "name":"Pimco High Income Fund"
+   },
+   {
+      "symbol":"PHM",
+      "name":"PulteGroup Inc"
+   },
+   {
+      "symbol":"PHR",
+      "name":"Phreesia Inc"
+   },
+   {
+      "symbol":"PHT",
+      "name":"Pioneer High Income Fund Inc"
+   },
+   {
+      "symbol":"PHX",
+      "name":"PHX Minerals Inc - Class A"
+   },
+   {
+      "symbol":"PHYT",
+      "name":"Pyrophyte Acquisition Corp - Class A"
+   },
+   {
+      "symbol":"PII",
+      "name":"Polaris Inc"
+   },
+   {
+      "symbol":"PIM",
+      "name":"Putnam Master Intermediate Income Trust"
+   },
+   {
+      "symbol":"PINE",
+      "name":"Alpine Income Property Trust Inc"
+   },
+   {
+      "symbol":"PINS",
+      "name":"Pinterest Inc - Class A"
+   },
+   {
+      "symbol":"PIPR",
+      "name":"Piper Sandler Co`s"
+   },
+   {
+      "symbol":"PJT",
+      "name":"PJT Partners Inc - Class A"
+   },
+   {
+      "symbol":"PK",
+      "name":"Park Hotels & Resorts Inc"
+   },
+   {
+      "symbol":"PKE",
+      "name":"Park Aerospace Corp"
+   },
+   {
+      "symbol":"PKG",
+      "name":"Packaging Corp Of America"
+   },
+   {
+      "symbol":"PKST",
+      "name":"Peakstone Realty Trust - Class E"
+   },
+   {
+      "symbol":"PKX",
+      "name":"POSCO Holdings Inc"
+   },
+   {
+      "symbol":"PL",
+      "name":"Planet Labs PBC - Class A"
+   },
+   {
+      "symbol":"PLD",
+      "name":"Prologis Inc"
+   },
+   {
+      "symbol":"PLNT",
+      "name":"Planet Fitness Inc - Class A"
+   },
+   {
+      "symbol":"PLOW",
+      "name":"Douglas Dynamics Inc"
+   },
+   {
+      "symbol":"PLTR",
+      "name":"Palantir Technologies Inc - Class A"
+   },
+   {
+      "symbol":"PLYM",
+      "name":"Plymouth Industrial Reit Inc"
+   },
+   {
+      "symbol":"PM",
+      "name":"Philip Morris International Inc"
+   },
+   {
+      "symbol":"PMF",
+      "name":"Pimco Municipal Income Fund"
+   },
+   {
+      "symbol":"PML",
+      "name":"Pimco Municipal Income Fund II"
+   },
+   {
+      "symbol":"PMM",
+      "name":"Putnam Managed Municipal Income Trust."
+   },
+   {
+      "symbol":"PMO",
+      "name":"Putnam Municipal Opportunities Trust"
+   },
+   {
+      "symbol":"PMT",
+      "name":"Pennymac Mortgage Investment Trust"
+   },
+   {
+      "symbol":"PMX",
+      "name":"Pimco Municipal Income Fund III"
+   },
+   {
+      "symbol":"PNC",
+      "name":"PNC Financial Services Group Inc"
+   },
+   {
+      "symbol":"PNF",
+      "name":"Pimco New York Municipal Income Fund"
+   },
+   {
+      "symbol":"PNI",
+      "name":"Pimco New York Municipal Income Fund II"
+   },
+   {
+      "symbol":"PNM",
+      "name":"PNM Resources Inc"
+   },
+   {
+      "symbol":"PNNT",
+      "name":"PennantPark Investment Corporation"
+   },
+   {
+      "symbol":"PNR",
+      "name":"Pentair plc"
+   },
+   {
+      "symbol":"PNW",
+      "name":"Pinnacle West Capital Corp"
+   },
+   {
+      "symbol":"POR",
+      "name":"Portland General Electric Company"
+   },
+   {
+      "symbol":"PORT",
+      "name":"Southport Acquisition Corp - Class A"
+   },
+   {
+      "symbol":"POST",
+      "name":"Post Holdings Inc"
+   },
+   {
+      "symbol":"PPG",
+      "name":"PPG Industries Inc"
+   },
+   {
+      "symbol":"PPL",
+      "name":"PPL Corp"
+   },
+   {
+      "symbol":"PPT",
+      "name":"Putnam Premier Income Trust"
+   },
+   {
+      "symbol":"PR",
+      "name":"Permian Resources Corp - Class A"
+   },
+   {
+      "symbol":"PRA",
+      "name":"Proassurance Corporation"
+   },
+   {
+      "symbol":"PRG",
+      "name":"PROG Holdings Inc"
+   },
+   {
+      "symbol":"PRGO",
+      "name":"Perrigo Company plc"
+   },
+   {
+      "symbol":"PRI",
+      "name":"Primerica Inc"
+   },
+   {
+      "symbol":"PRIM",
+      "name":"Primoris Services Corp"
+   },
+   {
+      "symbol":"PRLB",
+      "name":"Proto Labs Inc"
+   },
+   {
+      "symbol":"PRM",
+      "name":"Perimeter Solutions SA"
+   },
+   {
+      "symbol":"PRMW",
+      "name":"Primo Water Corporation"
+   },
+   {
+      "symbol":"PRO",
+      "name":"Pros Holdings Inc"
+   },
+   {
+      "symbol":"PRT",
+      "name":"PermRock Royalty Trust"
+   },
+   {
+      "symbol":"PSA",
+      "name":"Public Storage."
+   },
+   {
+      "symbol":"PSF",
+      "name":"Cohen & Steers Select Preferred and Income Fund Inc"
+   },
+   {
+      "symbol":"PSFE",
+      "name":"Paysafe Ltd - Class A"
+   },
+   {
+      "symbol":"PSN",
+      "name":"Parsons Corp"
+   },
+   {
+      "symbol":"PSO",
+      "name":"Pearson plc"
+   },
+   {
+      "symbol":"PSQH",
+      "name":"PSQ Holdings Inc - Class A"
+   },
+   {
+      "symbol":"PSTG",
+      "name":"Pure Storage Inc - Class A"
+   },
+   {
+      "symbol":"PSTL",
+      "name":"Postal Realty Trust Inc Cls A"
+   },
+   {
+      "symbol":"PSX",
+      "name":"Phillips 66"
+   },
+   {
+      "symbol":"PTA",
+      "name":"Cohen & Steers Tax-Advantaged Preferred Securities & Income Fund"
+   },
+   {
+      "symbol":"PTY",
+      "name":"PIMCO Corporate & Income Opportunity Fund"
+   },
+   {
+      "symbol":"PUK",
+      "name":"Prudential plc"
+   },
+   {
+      "symbol":"PUMP",
+      "name":"ProPetro Holding Corp"
+   },
+   {
+      "symbol":"PVH",
+      "name":"PVH Corp"
+   },
+   {
+      "symbol":"PVL",
+      "name":"Permianville Royalty Trust"
+   },
+   {
+      "symbol":"PWR",
+      "name":"Quanta Services Inc"
+   },
+   {
+      "symbol":"PWSC",
+      "name":"PowerSchool Holdings Inc Class A"
+   },
+   {
+      "symbol":"PX",
+      "name":"P10 Inc - Class A"
+   },
+   {
+      "symbol":"PXD",
+      "name":"Pioneer Natural Resources Company"
+   },
+   {
+      "symbol":"PYN",
+      "name":"Pimco New York Municipal Income Fund III"
+   },
+   {
+      "symbol":"PYT",
+      "name":"PPLUS Trust Series GSC-2"
+   },
+   {
+      "symbol":"PZC",
+      "name":"Pimco California Municipal Income Fund III"
+   },
+   {
+      "symbol":"QBTS",
+      "name":"D-Wave Quantum Inc"
+   },
+   {
+      "symbol":"QD",
+      "name":"Qudian Inc"
+   },
+   {
+      "symbol":"QGEN",
+      "name":"Qiagen NV"
+   },
+   {
+      "symbol":"QS",
+      "name":"QuantumScape Corp - Class A"
+   },
+   {
+      "symbol":"QSR",
+      "name":"Restaurant Brands International Inc"
+   },
+   {
+      "symbol":"QTWO",
+      "name":"Q2 Holdings Inc"
+   },
+   {
+      "symbol":"QUAD",
+      "name":"Quad\/Graphics Inc - Class A"
+   },
+   {
+      "symbol":"QVCC",
+      "name":"QVC Inc"
+   },
+   {
+      "symbol":"R",
+      "name":"Ryder System Inc"
+   },
+   {
+      "symbol":"RA",
+      "name":"Brookfield Real Assets Income Fund Inc"
+   },
+   {
+      "symbol":"RACE",
+      "name":"Ferrari N.V."
+   },
+   {
+      "symbol":"RAMP",
+      "name":"LiveRamp Holdings Inc"
+   },
+   {
+      "symbol":"RBA",
+      "name":"RB Global Inc"
+   },
+   {
+      "symbol":"RBC",
+      "name":"RBC Bearings Inc"
+   },
+   {
+      "symbol":"RBCP",
+      "name":"RBC Bearings Incorporated 5.00 Series A Mandatory Convertible Preferred Stock"
+   },
+   {
+      "symbol":"RBLX",
+      "name":"Roblox Corporation - Class A"
+   },
+   {
+      "symbol":"RBOT",
+      "name":"Vicarious Surgical Inc - Class A"
+   },
+   {
+      "symbol":"RBT",
+      "name":"Rubicon Technologies Inc - Class A"
+   },
+   {
+      "symbol":"RC",
+      "name":"Ready Capital Corp"
+   },
+   {
+      "symbol":"RCFA",
+      "name":"RCF Acquisition Corp - Class A"
+   },
+   {
+      "symbol":"RCI",
+      "name":"Rogers Communications Inc - Class B"
+   },
+   {
+      "symbol":"RCL",
+      "name":"Royal Caribbean Group"
+   },
+   {
+      "symbol":"RCS",
+      "name":"PIMCO Strategic Income Fund Inc"
+   },
+   {
+      "symbol":"RCUS",
+      "name":"Arcus Biosciences Inc"
+   },
+   {
+      "symbol":"RDN",
+      "name":"Radian Group Inc"
+   },
+   {
+      "symbol":"RDW",
+      "name":"Redwire Corporation"
+   },
+   {
+      "symbol":"RDY",
+      "name":"Dr. Reddy`s Laboratories Ltd"
+   },
+   {
+      "symbol":"RELX",
+      "name":"RELX Plc"
+   },
+   {
+      "symbol":"RERE",
+      "name":"ATRenew Inc"
+   },
+   {
+      "symbol":"RES",
+      "name":"RPC Inc"
+   },
+   {
+      "symbol":"REVG",
+      "name":"REV Group Inc"
+   },
+   {
+      "symbol":"REX",
+      "name":"REX American Resources Corp"
+   },
+   {
+      "symbol":"REXR",
+      "name":"Rexford Industrial Realty Inc"
+   },
+   {
+      "symbol":"REZI",
+      "name":"Resideo Technologies Inc"
+   },
+   {
+      "symbol":"RF",
+      "name":"Regions Financial Corp"
+   },
+   {
+      "symbol":"RFI",
+      "name":"Cohen & Steers Total Return Realty Fund Inc"
+   },
+   {
+      "symbol":"RFL",
+      "name":"Rafael Holdings Inc - Class B"
+   },
+   {
+      "symbol":"RFM",
+      "name":"RiverNorth Flexible Municipal Income Fund Inc"
+   },
+   {
+      "symbol":"RFMZ",
+      "name":"RiverNorth Flexible Municipal Income Fund II Inc"
+   },
+   {
+      "symbol":"RGA",
+      "name":"Reinsurance Group Of America Inc"
+   },
+   {
+      "symbol":"RGR",
+      "name":"Sturm Ruger & Co. Inc"
+   },
+   {
+      "symbol":"RGS",
+      "name":"Regis Corp"
+   },
+   {
+      "symbol":"RGT",
+      "name":"Royce Global Value Trust Inc"
+   },
+   {
+      "symbol":"RH",
+      "name":"RH - Class A"
+   },
+   {
+      "symbol":"RHI",
+      "name":"Robert Half Inc"
+   },
+   {
+      "symbol":"RHP",
+      "name":"Ryman Hospitality Properties Inc"
+   },
+   {
+      "symbol":"RIG",
+      "name":"Transocean Ltd"
+   },
+   {
+      "symbol":"RIO",
+      "name":"Rio Tinto plc"
+   },
+   {
+      "symbol":"RITM",
+      "name":"Rithm Capital Corporation"
+   },
+   {
+      "symbol":"RIV",
+      "name":"RiverNorth Opportunities Fund Inc"
+   },
+   {
+      "symbol":"RJF",
+      "name":"Raymond James Financial Inc"
+   },
+   {
+      "symbol":"RKT",
+      "name":"Rocket Companies Inc Class A"
+   },
+   {
+      "symbol":"RL",
+      "name":"Ralph Lauren Corp - Class A"
+   },
+   {
+      "symbol":"RLI",
+      "name":"RLI Corp"
+   },
+   {
+      "symbol":"RLJ",
+      "name":"RLJ Lodging Trust"
+   },
+   {
+      "symbol":"RLTY",
+      "name":"Cohen & Steers Real Estate Opportunities and Income Fund"
+   },
+   {
+      "symbol":"RLX",
+      "name":"RLX Technology Inc"
+   },
+   {
+      "symbol":"RM",
+      "name":"Regional Management Corp"
+   },
+   {
+      "symbol":"RMAX",
+      "name":"RE\/MAX Holdings Inc - Class A"
+   },
+   {
+      "symbol":"RMD",
+      "name":"Resmed Inc"
+   },
+   {
+      "symbol":"RMI",
+      "name":"RiverNorth Opportunistic Municipal Income Fund Inc"
+   },
+   {
+      "symbol":"RMM",
+      "name":"RiverNorth Managed Duration Municipal Income Fund Inc"
+   },
+   {
+      "symbol":"RMMZ",
+      "name":"RiverNorth Managed Duration Municipal Income Fund II Inc"
+   },
+   {
+      "symbol":"RMT",
+      "name":"Royce Micro-Cap Trust Inc"
+   },
+   {
+      "symbol":"RNG",
+      "name":"RingCentral Inc - Class A"
+   },
+   {
+      "symbol":"RNGR",
+      "name":"Ranger Energy Services Inc - Class A"
+   },
+   {
+      "symbol":"RNP",
+      "name":"Cohen & Steers REIT & Preferred Income Fund Inc"
+   },
+   {
+      "symbol":"RNR",
+      "name":"RenaissanceRe Holdings Ltd"
+   },
+   {
+      "symbol":"RNST",
+      "name":"Renasant Corp"
+   },
+   {
+      "symbol":"ROG",
+      "name":"Rogers Corp"
+   },
+   {
+      "symbol":"ROK",
+      "name":"Rockwell Automation Inc"
+   },
+   {
+      "symbol":"ROL",
+      "name":"Rollins Inc"
+   },
+   {
+      "symbol":"ROSS",
+      "name":"Ross Acquisition Corp II - Class A"
+   },
+   {
+      "symbol":"RPM",
+      "name":"RPM International Inc"
+   },
+   {
+      "symbol":"RPT",
+      "name":"RPT Realty"
+   },
+   {
+      "symbol":"RQI",
+      "name":"Cohen & Steers Quality Income Realty Fund Inc"
+   },
+   {
+      "symbol":"RRAC",
+      "name":"Rigel Resource Acquisition Corp - Class A"
+   },
+   {
+      "symbol":"RRC",
+      "name":"Range Resources Corp"
+   },
+   {
+      "symbol":"RRX",
+      "name":"Regal Rexnord Corp"
+   },
+   {
+      "symbol":"RS",
+      "name":"Reliance Steel & Aluminum Company"
+   },
+   {
+      "symbol":"RSF",
+      "name":"RiverNorth Capital and Income Fund"
+   },
+   {
+      "symbol":"RSG",
+      "name":"Republic Services Inc"
+   },
+   {
+      "symbol":"RSI",
+      "name":"Rush Street Interactive Inc - Class A"
+   },
+   {
+      "symbol":"RSKD",
+      "name":"Riskified Ltd - Class A"
+   },
+   {
+      "symbol":"RTO",
+      "name":"Rentokil Initial"
+   },
+   {
+      "symbol":"RTX",
+      "name":"RTX Corp"
+   },
+   {
+      "symbol":"RVLV",
+      "name":"Revolve Group Inc - Class A"
+   },
+   {
+      "symbol":"RVT",
+      "name":"Royce Value Trust Inc"
+   },
+   {
+      "symbol":"RVTY",
+      "name":"Revvity Inc"
+   },
+   {
+      "symbol":"RWT",
+      "name":"Redwood Trust Inc"
+   },
+   {
+      "symbol":"RXO",
+      "name":"RXO Inc"
+   },
+   {
+      "symbol":"RY",
+      "name":"Royal Bank Of Canada"
+   },
+   {
+      "symbol":"RYAM",
+      "name":"Rayonier Advanced Materials Inc"
+   },
+   {
+      "symbol":"RYAN",
+      "name":"Ryan Specialty Holdings Inc Class A"
+   },
+   {
+      "symbol":"RYI",
+      "name":"Ryerson Holding Corp"
+   },
+   {
+      "symbol":"RYN",
+      "name":"Rayonier Inc"
+   },
+   {
+      "symbol":"S",
+      "name":"SentinelOne Inc - Class A"
+   },
+   {
+      "symbol":"SA",
+      "name":"Seabridge Gold Inc"
+   },
+   {
+      "symbol":"SAFE",
+      "name":"Safehold Inc"
+   },
+   {
+      "symbol":"SAH",
+      "name":"Sonic Automotive Inc - Class A"
+   },
+   {
+      "symbol":"SAIC",
+      "name":"Science Applications International Corp"
+   },
+   {
+      "symbol":"SAJ",
+      "name":"Saratoga Investment Corp"
+   },
+   {
+      "symbol":"SAM",
+      "name":"Boston Beer Co. Inc - Class A"
+   },
+   {
+      "symbol":"SAN",
+      "name":"Banco Santander S.A."
+   },
+   {
+      "symbol":"SAND",
+      "name":"Sandstorm Gold Ltd"
+   },
+   {
+      "symbol":"SAP",
+      "name":"Sap SE"
+   },
+   {
+      "symbol":"SAVE",
+      "name":"Spirit Airlines Inc"
+   },
+   {
+      "symbol":"SB",
+      "name":"Safe Bulkers Inc"
+   },
+   {
+      "symbol":"SBBA",
+      "name":"Scorpio Tankers Inc"
+   },
+   {
+      "symbol":"SBH",
+      "name":"Sally Beauty Holdings Inc"
+   },
+   {
+      "symbol":"SBI",
+      "name":"Western Asset Intermediate Muni Fund Inc"
+   },
+   {
+      "symbol":"SBOW",
+      "name":"SilverBow Resources Inc"
+   },
+   {
+      "symbol":"SBR",
+      "name":"Sabine Royalty Trust"
+   },
+   {
+      "symbol":"SBS",
+      "name":"Companhia de Saneamento Basico do Estado de Sao Paulo."
+   },
+   {
+      "symbol":"SBSW",
+      "name":"Sibanye Stillwater Ltd"
+   },
+   {
+      "symbol":"SBXC",
+      "name":"SilverBox Corp III - Class A"
+   },
+   {
+      "symbol":"SCCO",
+      "name":"Southern Copper Corporation"
+   },
+   {
+      "symbol":"SCD",
+      "name":"LMP Capital and Income Fund Inc"
+   },
+   {
+      "symbol":"SCHW",
+      "name":"Charles Schwab Corp"
+   },
+   {
+      "symbol":"SCI",
+      "name":"Service Corp International"
+   },
+   {
+      "symbol":"SCL",
+      "name":"Stepan Company"
+   },
+   {
+      "symbol":"SCM",
+      "name":"Stellus Capital Investment Corp"
+   },
+   {
+      "symbol":"SCS",
+      "name":"Steelcase Inc - Class A"
+   },
+   {
+      "symbol":"SCU",
+      "name":"Sculptor Capital Management Inc - Class A"
+   },
+   {
+      "symbol":"SCX",
+      "name":"L.S. Starrett Co. - Class A"
+   },
+   {
+      "symbol":"SD",
+      "name":"Sandridge Energy Inc New"
+   },
+   {
+      "symbol":"SDHY",
+      "name":"PGIM Short Duration High Yield Opportunities Fund"
+   },
+   {
+      "symbol":"SDRL",
+      "name":"Seadrill Ltd"
+   },
+   {
+      "symbol":"SE",
+      "name":"Sea Ltd"
+   },
+   {
+      "symbol":"SEAS",
+      "name":"SeaWorld Entertainment Inc"
+   },
+   {
+      "symbol":"SEDA",
+      "name":"SDCL EDGE Acquisition Corp - Class A"
+   },
+   {
+      "symbol":"SEE",
+      "name":"Sealed Air Corp"
+   },
+   {
+      "symbol":"SEM",
+      "name":"Select Medical Holdings Corporation"
+   },
+   {
+      "symbol":"SEMR",
+      "name":"SEMrush Holdings Inc - Class A"
+   },
+   {
+      "symbol":"SES",
+      "name":"SES AI Corporation - Class A"
+   },
+   {
+      "symbol":"SF",
+      "name":"Stifel Financial Corp"
+   },
+   {
+      "symbol":"SFBS",
+      "name":"ServisFirst Bancshares Inc"
+   },
+   {
+      "symbol":"SFL",
+      "name":"SFL Corporation Ltd"
+   },
+   {
+      "symbol":"SG",
+      "name":"Sweetgreen Inc - Class A"
+   },
+   {
+      "symbol":"SGHC",
+      "name":"Super Group (SGHC) Ltd"
+   },
+   {
+      "symbol":"SGU",
+      "name":"Star Group L.P."
+   },
+   {
+      "symbol":"SHAK",
+      "name":"Shake Shack Inc - Class A"
+   },
+   {
+      "symbol":"SHAP",
+      "name":"Spree Acquisition Corp 1 Ltd - Class A"
+   },
+   {
+      "symbol":"SHCO",
+      "name":"Soho House & Co Inc Class A"
+   },
+   {
+      "symbol":"SHEL",
+      "name":"Shell Plc ADR (Representing - )"
+   },
+   {
+      "symbol":"SHG",
+      "name":"Shinhan Financial Group Co. Ltd"
+   },
+   {
+      "symbol":"SHO",
+      "name":"Sunstone Hotel Investors Inc"
+   },
+   {
+      "symbol":"SHOP",
+      "name":"Shopify Inc - Class A"
+   },
+   {
+      "symbol":"SHW",
+      "name":"Sherwin-Williams Company"
+   },
+   {
+      "symbol":"SID",
+      "name":"Companhia Siderurgica Nacional"
+   },
+   {
+      "symbol":"SIG",
+      "name":"Signet Jewelers Ltd"
+   },
+   {
+      "symbol":"SII",
+      "name":"Sprott Inc"
+   },
+   {
+      "symbol":"SITC",
+      "name":"SITE Centers Corp"
+   },
+   {
+      "symbol":"SITE",
+      "name":"SiteOne Landscape Supply Inc"
+   },
+   {
+      "symbol":"SIX",
+      "name":"Six Flags Entertainment Corp"
+   },
+   {
+      "symbol":"SJM",
+      "name":"J.M. Smucker Company"
+   },
+   {
+      "symbol":"SJT",
+      "name":"San Juan Basin Royalty Trust"
+   },
+   {
+      "symbol":"SJW",
+      "name":"SJW Group"
+   },
+   {
+      "symbol":"SKE",
+      "name":"Skeena Resources Ltd"
+   },
+   {
+      "symbol":"SKIL",
+      "name":"Skillsoft Corp - Class A"
+   },
+   {
+      "symbol":"SKLZ",
+      "name":"Skillz Inc - Class A"
+   },
+   {
+      "symbol":"SKM",
+      "name":"SK Telecom Co Ltd"
+   },
+   {
+      "symbol":"SKT",
+      "name":"Tanger Factory Outlet Centers Inc"
+   },
+   {
+      "symbol":"SKX",
+      "name":"Skechers U S A Inc - Class A"
+   },
+   {
+      "symbol":"SKY",
+      "name":"Skyline Champion Corp"
+   },
+   {
+      "symbol":"SLB",
+      "name":"SLB"
+   },
+   {
+      "symbol":"SLCA",
+      "name":"U.S. Silica Holdings Inc"
+   },
+   {
+      "symbol":"SLF",
+      "name":"Sun Life Financial Inc"
+   },
+   {
+      "symbol":"SLG",
+      "name":"SL Green Realty Corp"
+   },
+   {
+      "symbol":"SLGN",
+      "name":"Silgan Holdings Inc"
+   },
+   {
+      "symbol":"SLQT",
+      "name":"SelectQuote Inc"
+   },
+   {
+      "symbol":"SLVM",
+      "name":"Sylvamo Corp"
+   },
+   {
+      "symbol":"SM",
+      "name":"SM Energy Company"
+   },
+   {
+      "symbol":"SMAR",
+      "name":"Smartsheet Inc - Class A"
+   },
+   {
+      "symbol":"SMFG",
+      "name":"Sumitomo Mitsui Financial Group Inc"
+   },
+   {
+      "symbol":"SMG",
+      "name":"Scotts Miracle-Gro Company - Class A"
+   },
+   {
+      "symbol":"SMHI",
+      "name":"SEACOR Marine Holdings Inc"
+   },
+   {
+      "symbol":"SMLP",
+      "name":"Summit Midstream Partners LP"
+   },
+   {
+      "symbol":"SMP",
+      "name":"Standard Motor Products Inc"
+   },
+   {
+      "symbol":"SMR",
+      "name":"NuScale Power Corporation - Class A"
+   },
+   {
+      "symbol":"SMRT",
+      "name":"SmartRent Inc - Class A"
+   },
+   {
+      "symbol":"SMWB",
+      "name":"Similarweb Ltd"
+   },
+   {
+      "symbol":"SN",
+      "name":"SharkNinja Inc"
+   },
+   {
+      "symbol":"SNA",
+      "name":"Snap-on Inc"
+   },
+   {
+      "symbol":"SNAP",
+      "name":"Snap Inc - Class A"
+   },
+   {
+      "symbol":"SNDA",
+      "name":"Sonida Senior Living Inc"
+   },
+   {
+      "symbol":"SNDR",
+      "name":"Schneider National Inc - Class B"
+   },
+   {
+      "symbol":"SNN",
+      "name":"Smith & Nephew plc"
+   },
+   {
+      "symbol":"SNOW",
+      "name":"Snowflake Inc - Class A"
+   },
+   {
+      "symbol":"SNV",
+      "name":"Synovus Financial Corp"
+   },
+   {
+      "symbol":"SNX",
+      "name":"TD Synnex Corp"
+   },
+   {
+      "symbol":"SO",
+      "name":"Southern Company"
+   },
+   {
+      "symbol":"SOF",
+      "name":"Amplify ETF Trust Samsung SOFR"
+   },
+   {
+      "symbol":"SOI",
+      "name":"Solaris Oilfield Infrastructure Inc - Class A"
+   },
+   {
+      "symbol":"SOL",
+      "name":"Emeren Group Ltd"
+   },
+   {
+      "symbol":"SON",
+      "name":"Sonoco Products Company"
+   },
+   {
+      "symbol":"SONY",
+      "name":"Sony Group Corporation"
+   },
+   {
+      "symbol":"SOR",
+      "name":"Source Capital Inc"
+   },
+   {
+      "symbol":"SOS",
+      "name":"SOS Ltd"
+   },
+   {
+      "symbol":"SPB",
+      "name":"Spectrum Brands Holdings Inc"
+   },
+   {
+      "symbol":"SPCE",
+      "name":"Virgin Galactic Holdings Inc - Class A"
+   },
+   {
+      "symbol":"SPE",
+      "name":"Special Opportunities Fund Inc"
+   },
+   {
+      "symbol":"SPG",
+      "name":"Simon Property Group Inc"
+   },
+   {
+      "symbol":"SPGI",
+      "name":"S&P Global Inc"
+   },
+   {
+      "symbol":"SPH",
+      "name":"Suburban Propane Partners LP"
+   },
+   {
+      "symbol":"SPHR",
+      "name":"Sphere Entertainment Co - Class A"
+   },
+   {
+      "symbol":"SPIR",
+      "name":"Spire Global Inc - Class A"
+   },
+   {
+      "symbol":"SPLP",
+      "name":"Steel Partners Holdings LP"
+   },
+   {
+      "symbol":"SPNT",
+      "name":"SiriusPoint Ltd"
+   },
+   {
+      "symbol":"SPOT",
+      "name":"Spotify Technology S.A."
+   },
+   {
+      "symbol":"SPR",
+      "name":"Spirit Aerosystems Holdings Inc - Class A"
+   },
+   {
+      "symbol":"SPRU",
+      "name":"Spruce Power Holding Corporation - Class A"
+   },
+   {
+      "symbol":"SPXC",
+      "name":"SPX Technologies Inc"
+   },
+   {
+      "symbol":"SPXX",
+      "name":"Nuveen S&P 500 Dynamic Overwrite Fund"
+   },
+   {
+      "symbol":"SQ",
+      "name":"Block Inc - Class A"
+   },
+   {
+      "symbol":"SQM",
+      "name":"Sociedad Quimica Y Minera de Chile S.A."
+   },
+   {
+      "symbol":"SQNS",
+      "name":"Sequans Communications S.A"
+   },
+   {
+      "symbol":"SQSP",
+      "name":"Squarespace Inc - Class A"
+   },
+   {
+      "symbol":"SR",
+      "name":"Spire Inc"
+   },
+   {
+      "symbol":"SRC",
+      "name":"Spirit Realty Capital Inc"
+   },
+   {
+      "symbol":"SRE",
+      "name":"Sempra"
+   },
+   {
+      "symbol":"SRFM",
+      "name":"Surf Air Mobility Inc"
+   },
+   {
+      "symbol":"SRG",
+      "name":"Seritage Growth Properties - Class A"
+   },
+   {
+      "symbol":"SRI",
+      "name":"Stoneridge Inc"
+   },
+   {
+      "symbol":"SRL",
+      "name":"Scully Royalty Ltd"
+   },
+   {
+      "symbol":"SRT",
+      "name":"Startek Inc"
+   },
+   {
+      "symbol":"SRV",
+      "name":"NXG Cushing Midstream Energy Fund"
+   },
+   {
+      "symbol":"SSD",
+      "name":"Simpson Manufacturing Co. Inc"
+   },
+   {
+      "symbol":"SSL",
+      "name":"Sasol Ltd"
+   },
+   {
+      "symbol":"SST",
+      "name":"System1 Inc - Class A"
+   },
+   {
+      "symbol":"SSTK",
+      "name":"Shutterstock Inc"
+   },
+   {
+      "symbol":"ST",
+      "name":"Sensata Technologies Holding Plc"
+   },
+   {
+      "symbol":"STAG",
+      "name":"STAG Industrial Inc"
+   },
+   {
+      "symbol":"STC",
+      "name":"Stewart Information Services Corp"
+   },
+   {
+      "symbol":"STE",
+      "name":"Steris Plc"
+   },
+   {
+      "symbol":"STEL",
+      "name":"Stellar Bancorp Inc"
+   },
+   {
+      "symbol":"STEM",
+      "name":"Stem Inc - Class A"
+   },
+   {
+      "symbol":"STEW",
+      "name":"SRH Total Return Fund Inc"
+   },
+   {
+      "symbol":"STG",
+      "name":"Sunlands Technology Group"
+   },
+   {
+      "symbol":"STK",
+      "name":"Columbia Seligman Premium Technology Growth Fund Inc"
+   },
+   {
+      "symbol":"STLA",
+      "name":"Stellantis N.V"
+   },
+   {
+      "symbol":"STM",
+      "name":"ST Microelectronics"
+   },
+   {
+      "symbol":"STN",
+      "name":"Stantec Inc"
+   },
+   {
+      "symbol":"STR",
+      "name":"Sitio Royalties Corp - Class A"
+   },
+   {
+      "symbol":"STT",
+      "name":"State Street Corp"
+   },
+   {
+      "symbol":"STVN",
+      "name":"Stevanato Group Spa"
+   },
+   {
+      "symbol":"STWD",
+      "name":"Starwood Property Trust Inc"
+   },
+   {
+      "symbol":"STXT",
+      "name":"Strive Total Return Bond ETF"
+   },
+   {
+      "symbol":"STZ",
+      "name":"Constellation Brands Inc - Class A"
+   },
+   {
+      "symbol":"SU",
+      "name":"Suncor Energy Inc"
+   },
+   {
+      "symbol":"SUAC",
+      "name":"ShoulderUp Technology Acquisition Corp - Class A"
+   },
+   {
+      "symbol":"SUI",
+      "name":"Sun Communities Inc"
+   },
+   {
+      "symbol":"SUM",
+      "name":"Summit Materials Inc - Class A"
+   },
+   {
+      "symbol":"SUN",
+      "name":"Sunoco LP"
+   },
+   {
+      "symbol":"SUP",
+      "name":"Superior Industries International Inc"
+   },
+   {
+      "symbol":"SUPV",
+      "name":"Grupo Supervielle S.A."
+   },
+   {
+      "symbol":"SUZ",
+      "name":"Suzano S.A."
+   },
+   {
+      "symbol":"SVV",
+      "name":"Savers Value Village Inc"
+   },
+   {
+      "symbol":"SWI",
+      "name":"SolarWinds Corp"
+   },
+   {
+      "symbol":"SWK",
+      "name":"Stanley Black & Decker Inc"
+   },
+   {
+      "symbol":"SWN",
+      "name":"Southwestern Energy Company"
+   },
+   {
+      "symbol":"SWX",
+      "name":"Southwest Gas Holdings Inc"
+   },
+   {
+      "symbol":"SWZ",
+      "name":"Swiss Helvetia Fund Inc"
+   },
+   {
+      "symbol":"SXC",
+      "name":"SunCoke Energy Inc"
+   },
+   {
+      "symbol":"SXI",
+      "name":"Standex International Corp"
+   },
+   {
+      "symbol":"SXT",
+      "name":"Sensient Technologies Corp"
+   },
+   {
+      "symbol":"SYF",
+      "name":"Synchrony Financial"
+   },
+   {
+      "symbol":"SYK",
+      "name":"Stryker Corp"
+   },
+   {
+      "symbol":"SYY",
+      "name":"Sysco Corp"
+   },
+   {
+      "symbol":"T",
+      "name":"AT&T Inc"
+   },
+   {
+      "symbol":"TAC",
+      "name":"Transalta Corp"
+   },
+   {
+      "symbol":"TAK",
+      "name":"Takeda Pharmaceutical Company"
+   },
+   {
+      "symbol":"TAL",
+      "name":"TAL Education Group"
+   },
+   {
+      "symbol":"TALO",
+      "name":"Talos Energy Inc"
+   },
+   {
+      "symbol":"TAP",
+      "name":"Molson Coors Beverage Company - Class B"
+   },
+   {
+      "symbol":"TARO",
+      "name":"Taro Pharmaceutical Industries"
+   },
+   {
+      "symbol":"TBI",
+      "name":"TrueBlue Inc"
+   },
+   {
+      "symbol":"TCI",
+      "name":"Transcontinental Realty Investors Inc"
+   },
+   {
+      "symbol":"TCN",
+      "name":"Tricon Residential Inc"
+   },
+   {
+      "symbol":"TCOA",
+      "name":"Zalatoris Acquisition Corp - Class A"
+   },
+   {
+      "symbol":"TCS",
+      "name":"Container Store Group Inc"
+   },
+   {
+      "symbol":"TD",
+      "name":"Toronto Dominion Bank"
+   },
+   {
+      "symbol":"TDC",
+      "name":"Teradata Corp"
+   },
+   {
+      "symbol":"TDCX",
+      "name":"TDCX Inc"
+   },
+   {
+      "symbol":"TDF",
+      "name":"Templeton Dragon Fund Inc"
+   },
+   {
+      "symbol":"TDG",
+      "name":"Transdigm Group Incorporated"
+   },
+   {
+      "symbol":"TDOC",
+      "name":"Teladoc Health Inc"
+   },
+   {
+      "symbol":"TDS",
+      "name":"Telephone And Data Systems Inc"
+   },
+   {
+      "symbol":"TDW",
+      "name":"Tidewater Inc - New"
+   },
+   {
+      "symbol":"TDY",
+      "name":"Teledyne Technologies Inc"
+   },
+   {
+      "symbol":"TEAF",
+      "name":"Ecofin Sustainable and Social Impact Term Fund"
+   },
+   {
+      "symbol":"TECK",
+      "name":"Teck Resources Ltd - Class B - Class B (Sub Voting)"
+   },
+   {
+      "symbol":"TEF",
+      "name":"Telefonica S.A"
+   },
+   {
+      "symbol":"TEI",
+      "name":"Templeton Emerging Markets Income Fund Inc"
+   },
+   {
+      "symbol":"TEL",
+      "name":"TE Connectivity Ltd"
+   },
+   {
+      "symbol":"TEO",
+      "name":"Telecom Argentina S.A."
+   },
+   {
+      "symbol":"TEVA",
+      "name":"Teva- Pharmaceutical Industries Ltd"
+   },
+   {
+      "symbol":"TEX",
+      "name":"Terex Corp"
+   },
+   {
+      "symbol":"TFC",
+      "name":"Truist Financial Corporation"
+   },
+   {
+      "symbol":"TFII",
+      "name":"TFI International Inc"
+   },
+   {
+      "symbol":"TFPM",
+      "name":"Triple Flag Precious Metals Corp"
+   },
+   {
+      "symbol":"TFSA",
+      "name":"Terra Income Fund 6 Inc"
+   },
+   {
+      "symbol":"TFX",
+      "name":"Teleflex Incorporated"
+   },
+   {
+      "symbol":"TG",
+      "name":"Tredegar Corp"
+   },
+   {
+      "symbol":"TGH",
+      "name":"Textainer Group Holdings Ltd"
+   },
+   {
+      "symbol":"TGI",
+      "name":"Triumph Group Inc"
+   },
+   {
+      "symbol":"TGLS",
+      "name":"Tecnoglass Inc"
+   },
+   {
+      "symbol":"TGNA",
+      "name":"TEGNA Inc"
+   },
+   {
+      "symbol":"TGS",
+      "name":"Transportadora de Gas del Sur"
+   },
+   {
+      "symbol":"TGT",
+      "name":"Target Corp"
+   },
+   {
+      "symbol":"THC",
+      "name":"Tenet Healthcare Corp"
+   },
+   {
+      "symbol":"THG",
+      "name":"Hanover Insurance Group Inc"
+   },
+   {
+      "symbol":"THLV",
+      "name":"THOR LOW VOLATILITY ETF "
+   },
+   {
+      "symbol":"THO",
+      "name":"Thor Industries Inc"
+   },
+   {
+      "symbol":"THQ",
+      "name":"abrdn Healthcare Opportunities Fund"
+   },
+   {
+      "symbol":"THR",
+      "name":"Thermon Group Holdings Inc"
+   },
+   {
+      "symbol":"THS",
+      "name":"Treehouse Foods Inc"
+   },
+   {
+      "symbol":"THW",
+      "name":"abrdn World Healthcare Fund"
+   },
+   {
+      "symbol":"TIMB",
+      "name":"TIM SA"
+   },
+   {
+      "symbol":"TISI",
+      "name":"Team Inc"
+   },
+   {
+      "symbol":"TIXT",
+      "name":"TELUS International (Cda) Inc (Sub Voting)"
+   },
+   {
+      "symbol":"TJX",
+      "name":"TJX Companies Inc"
+   },
+   {
+      "symbol":"TK",
+      "name":"Teekay Corp"
+   },
+   {
+      "symbol":"TKC",
+      "name":"Turkcell Iletisim Hizmetleri A.S."
+   },
+   {
+      "symbol":"TKO",
+      "name":"TKO Group Holdings Inc - Class A"
+   },
+   {
+      "symbol":"TKR",
+      "name":"Timken Company"
+   },
+   {
+      "symbol":"TLK",
+      "name":"Telkom Indonesia (Persero) Tbk PT"
+   },
+   {
+      "symbol":"TLYS",
+      "name":"Tillys Inc - Class A"
+   },
+   {
+      "symbol":"TM",
+      "name":"Toyota Motor Corporation"
+   },
+   {
+      "symbol":"TMAC",
+      "name":"Music Acquisition Corporation - Series A"
+   },
+   {
+      "symbol":"TME",
+      "name":"Tencent Music Entertainment Group"
+   },
+   {
+      "symbol":"TMHC",
+      "name":"Taylor Morrison Home Corp"
+   },
+   {
+      "symbol":"TMO",
+      "name":"Thermo Fisher Scientific Inc"
+   },
+   {
+      "symbol":"TMST",
+      "name":"TimkenSteel Corp"
+   },
+   {
+      "symbol":"TNC",
+      "name":"Tennant Company"
+   },
+   {
+      "symbol":"TNET",
+      "name":"TriNet Group Inc"
+   },
+   {
+      "symbol":"TNK",
+      "name":"Teekay Tankers Ltd - Class A"
+   },
+   {
+      "symbol":"TNL",
+      "name":"Travel+Leisure Company"
+   },
+   {
+      "symbol":"TNP",
+      "name":"Tsakos Energy Navigation Ltd"
+   },
+   {
+      "symbol":"TOL",
+      "name":"Toll Brothers Inc"
+   },
+   {
+      "symbol":"TOST",
+      "name":"Toast Inc - Class A"
+   },
+   {
+      "symbol":"TPB",
+      "name":"Turning Point Brands Inc"
+   },
+   {
+      "symbol":"TPC",
+      "name":"Tutor Perini Corp"
+   },
+   {
+      "symbol":"TPH",
+      "name":"Tri Pointe Homes Inc"
+   },
+   {
+      "symbol":"TPL",
+      "name":"Texas Pacific Land Corporation"
+   },
+   {
+      "symbol":"TPR",
+      "name":"Tapestry Inc"
+   },
+   {
+      "symbol":"TPTA",
+      "name":"Terra Property Trust Inc"
+   },
+   {
+      "symbol":"TPVG",
+      "name":"TriplePoint Venture Growth BDC Corp"
+   },
+   {
+      "symbol":"TPX",
+      "name":"Tempur Sealy International Inc"
+   },
+   {
+      "symbol":"TPZ",
+      "name":"Tortoise Power and Energy Infrastructure Fund Inc"
+   },
+   {
+      "symbol":"TR",
+      "name":"Tootsie Roll Industries Inc"
+   },
+   {
+      "symbol":"TRC",
+      "name":"Tejon Ranch Company"
+   },
+   {
+      "symbol":"TREX",
+      "name":"TREX Co. Inc"
+   },
+   {
+      "symbol":"TRGP",
+      "name":"Targa Resources Corp"
+   },
+   {
+      "symbol":"TRI",
+      "name":"Thomson-Reuters Corp"
+   },
+   {
+      "symbol":"TRIS",
+      "name":"Tristar Acquisition I Corp - Class A"
+   },
+   {
+      "symbol":"TRN",
+      "name":"Trinity Industries Inc"
+   },
+   {
+      "symbol":"TRNO",
+      "name":"Terreno Realty Corp"
+   },
+   {
+      "symbol":"TROX",
+      "name":"Tronox Holdings plc - Class A"
+   },
+   {
+      "symbol":"TRP",
+      "name":"TC Energy Corporation"
+   },
+   {
+      "symbol":"TRTL",
+      "name":"TortoiseEcofin Acquisition Corp III - Class A"
+   },
+   {
+      "symbol":"TRTX",
+      "name":"TPG RE Finance Trust Inc"
+   },
+   {
+      "symbol":"TRU",
+      "name":"TransUnion"
+   },
+   {
+      "symbol":"TRV",
+      "name":"Travelers Companies Inc"
+   },
+   {
+      "symbol":"TS",
+      "name":"Tenaris S.A."
+   },
+   {
+      "symbol":"TSE",
+      "name":"Trinseo PLC"
+   },
+   {
+      "symbol":"TSI",
+      "name":"TCW Strategic Income Fund Inc"
+   },
+   {
+      "symbol":"TSLX",
+      "name":"Sixth Street Specialty Lending Inc"
+   },
+   {
+      "symbol":"TSM",
+      "name":"Taiwan Semiconductor Manufacturing"
+   },
+   {
+      "symbol":"TSN",
+      "name":"Tyson Foods Inc - Class A"
+   },
+   {
+      "symbol":"TSQ",
+      "name":"Townsquare Media Inc - Class A"
+   },
+   {
+      "symbol":"TT",
+      "name":"Trane Technologies plc - Class A"
+   },
+   {
+      "symbol":"TTC",
+      "name":"Toro Company"
+   },
+   {
+      "symbol":"TTE",
+      "name":"TotalEnergies SE"
+   },
+   {
+      "symbol":"TTI",
+      "name":"Tetra Technologies Inc"
+   },
+   {
+      "symbol":"TTP",
+      "name":"Tortoise Pipeline & Energy Fund Inc"
+   },
+   {
+      "symbol":"TU",
+      "name":"Telus Corp"
+   },
+   {
+      "symbol":"TUP",
+      "name":"Tupperware Brands Corporation"
+   },
+   {
+      "symbol":"TUYA",
+      "name":"Tuya Inc"
+   },
+   {
+      "symbol":"TV",
+      "name":"Grupo Televisa SAB"
+   },
+   {
+      "symbol":"TVC",
+      "name":"Tennessee Valley Authority"
+   },
+   {
+      "symbol":"TWI",
+      "name":"Titan International Inc"
+   },
+   {
+      "symbol":"TWLO",
+      "name":"Twilio Inc Class A"
+   },
+   {
+      "symbol":"TWN",
+      "name":"Taiwan Fund Inc"
+   },
+   {
+      "symbol":"TWO",
+      "name":"Two Harbors Investment Corp"
+   },
+   {
+      "symbol":"TWOA",
+      "name":"two - Class A"
+   },
+   {
+      "symbol":"TX",
+      "name":"Ternium S.A."
+   },
+   {
+      "symbol":"TXO",
+      "name":"TXO Partners L.P."
+   },
+   {
+      "symbol":"TXT",
+      "name":"Textron Inc"
+   },
+   {
+      "symbol":"TY",
+      "name":"Tri-Continental Corp"
+   },
+   {
+      "symbol":"TYG",
+      "name":"Tortoise Energy Infrastructure Corp"
+   },
+   {
+      "symbol":"TYL",
+      "name":"Tyler Technologies Inc"
+   },
+   {
+      "symbol":"U",
+      "name":"Unity Software Inc"
+   },
+   {
+      "symbol":"UA",
+      "name":"Under Armour Inc - Class C"
+   },
+   {
+      "symbol":"UAA",
+      "name":"Under Armour Inc - Class A"
+   },
+   {
+      "symbol":"UAN",
+      "name":"CVR Partners LP"
+   },
+   {
+      "symbol":"UBER",
+      "name":"Uber Technologies Inc"
+   },
+   {
+      "symbol":"UBS",
+      "name":"UBS Group AG"
+   },
+   {
+      "symbol":"UDR",
+      "name":"UDR Inc"
+   },
+   {
+      "symbol":"UE",
+      "name":"Urban Edge Properties"
+   },
+   {
+      "symbol":"UFI",
+      "name":"UNIFI Inc"
+   },
+   {
+      "symbol":"UGI",
+      "name":"UGI Corp"
+   },
+   {
+      "symbol":"UGP",
+      "name":"Ultrapar Participacoes S.A."
+   },
+   {
+      "symbol":"UHAL",
+      "name":"U-Haul Holding Company"
+   },
+   {
+      "symbol":"UHS",
+      "name":"Universal Health Services Inc - Class B"
+   },
+   {
+      "symbol":"UHT",
+      "name":"Universal Health Realty Income Trust"
+   },
+   {
+      "symbol":"UI",
+      "name":"Ubiquiti Inc"
+   },
+   {
+      "symbol":"UIS",
+      "name":"Unisys Corp"
+   },
+   {
+      "symbol":"UL",
+      "name":"Unilever plc"
+   },
+   {
+      "symbol":"UMC",
+      "name":"United Micro Electronics"
+   },
+   {
+      "symbol":"UMH",
+      "name":"UMH Properties Inc"
+   },
+   {
+      "symbol":"UNF",
+      "name":"Unifirst Corp"
+   },
+   {
+      "symbol":"UNFI",
+      "name":"United Natural Foods Inc"
+   },
+   {
+      "symbol":"UNH",
+      "name":"Unitedhealth Group Inc"
+   },
+   {
+      "symbol":"UNM",
+      "name":"Unum Group"
+   },
+   {
+      "symbol":"UNMA",
+      "name":"Unum Group 6250 Junior Subordinated Notes due 2058"
+   },
+   {
+      "symbol":"UNP",
+      "name":"Union Pacific Corp"
+   },
+   {
+      "symbol":"UP",
+      "name":"Wheels Up Experience Inc - Class A"
+   },
+   {
+      "symbol":"UPH",
+      "name":"UpHealth Inc"
+   },
+   {
+      "symbol":"UPS",
+      "name":"United Parcel Service Inc - Class B"
+   },
+   {
+      "symbol":"URI",
+      "name":"United Rentals Inc"
+   },
+   {
+      "symbol":"USA",
+      "name":"Liberty All-Star Equity Fund"
+   },
+   {
+      "symbol":"USAC",
+      "name":"USA Compression Partners LP"
+   },
+   {
+      "symbol":"USB",
+      "name":"U.S. Bancorp."
+   },
+   {
+      "symbol":"USFD",
+      "name":"US Foods Holding Corp"
+   },
+   {
+      "symbol":"USM",
+      "name":"United States Cellular Corporation"
+   },
+   {
+      "symbol":"USNA",
+      "name":"Usana Health Sciences Inc"
+   },
+   {
+      "symbol":"USPH",
+      "name":"U.S. Physical Therapy Inc"
+   },
+   {
+      "symbol":"USX",
+      "name":"U.S. Xpress Enterprises Inc - Class A"
+   },
+   {
+      "symbol":"UTF",
+      "name":"Cohen & Steers Infrastructure Fund Inc"
+   },
+   {
+      "symbol":"UTI",
+      "name":"Universal Technical Institute Inc"
+   },
+   {
+      "symbol":"UTL",
+      "name":"Unitil Corp"
+   },
+   {
+      "symbol":"UTZ",
+      "name":"Utz Brands Inc - Class A"
+   },
+   {
+      "symbol":"UVE",
+      "name":"Universal Insurance Holdings Inc"
+   },
+   {
+      "symbol":"UVV",
+      "name":"Universal Corp"
+   },
+   {
+      "symbol":"UWMC",
+      "name":"UWM Holdings Corporation Class A"
+   },
+   {
+      "symbol":"V",
+      "name":"Visa Inc - Class A"
+   },
+   {
+      "symbol":"VAC",
+      "name":"Marriott Vacations Worldwide Corp"
+   },
+   {
+      "symbol":"VAL",
+      "name":"Valaris Ltd"
+   },
+   {
+      "symbol":"VALE",
+      "name":"Vale S.A."
+   },
+   {
+      "symbol":"VAPO",
+      "name":"Vapotherm Inc"
+   },
+   {
+      "symbol":"VATE",
+      "name":"Innovate Corp"
+   },
+   {
+      "symbol":"VBF",
+      "name":"Invesco Bond Fund"
+   },
+   {
+      "symbol":"VCV",
+      "name":"Invesco California Value Municipal Income Trust"
+   },
+   {
+      "symbol":"VEEV",
+      "name":"Veeva Systems Inc - Class A"
+   },
+   {
+      "symbol":"VEL",
+      "name":"Velocity Financial Inc"
+   },
+   {
+      "symbol":"VET",
+      "name":"Vermilion Energy Inc"
+   },
+   {
+      "symbol":"VFC",
+      "name":"VF Corp"
+   },
+   {
+      "symbol":"VGI",
+      "name":"Virtus Global Multi-Sector Income Fund"
+   },
+   {
+      "symbol":"VGM",
+      "name":"Invesco Trust for Investment Grade Municipals"
+   },
+   {
+      "symbol":"VGR",
+      "name":"Vector Group Ltd"
+   },
+   {
+      "symbol":"VHC",
+      "name":"Virnetx Holding Corp"
+   },
+   {
+      "symbol":"VHI",
+      "name":"Valhi Inc"
+   },
+   {
+      "symbol":"VIAO",
+      "name":"VIA optronics AG"
+   },
+   {
+      "symbol":"VICI",
+      "name":"VICI Properties Inc"
+   },
+   {
+      "symbol":"VIPS",
+      "name":"Vipshop Holdings Ltd"
+   },
+   {
+      "symbol":"VIST",
+      "name":"Vista Energy S.A.B. de C.V"
+   },
+   {
+      "symbol":"VIV",
+      "name":"Telefonica Brasil S.A."
+   },
+   {
+      "symbol":"VKQ",
+      "name":"Invesco Municipal Trust"
+   },
+   {
+      "symbol":"VLD",
+      "name":"Velo3D Inc - New"
+   },
+   {
+      "symbol":"VLN",
+      "name":"Valens Semiconductor Ltd"
+   },
+   {
+      "symbol":"VLO",
+      "name":"Valero Energy Corp"
+   },
+   {
+      "symbol":"VLRS",
+      "name":"Controladora Vuela Cia De Aviacion"
+   },
+   {
+      "symbol":"VLT",
+      "name":"Invesco High Income Trust II"
+   },
+   {
+      "symbol":"VLTO",
+      "name":"Veralto Corp"
+   },
+   {
+      "symbol":"VMC",
+      "name":"Vulcan Materials Company"
+   },
+   {
+      "symbol":"VMI",
+      "name":"Valmont Industries Inc"
+   },
+   {
+      "symbol":"VMO",
+      "name":"Invesco Municipal Opportunity Trust"
+   },
+   {
+      "symbol":"VMW",
+      "name":"Vmware Inc - Class A"
+   },
+   {
+      "symbol":"VNCE",
+      "name":"Vince Holding Corp"
+   },
+   {
+      "symbol":"VNO",
+      "name":"Vornado Realty Trust"
+   },
+   {
+      "symbol":"VNT",
+      "name":"Vontier Corporation"
+   },
+   {
+      "symbol":"VOC",
+      "name":"VOC Energy Trust"
+   },
+   {
+      "symbol":"VOYA",
+      "name":"Voya Financial Inc"
+   },
+   {
+      "symbol":"VPG",
+      "name":"Vishay Precision Group Inc"
+   },
+   {
+      "symbol":"VPV",
+      "name":"Invesco Pennsylvania Value Municipal Income Trust"
+   },
+   {
+      "symbol":"VRE",
+      "name":"Veris Residential Inc"
+   },
+   {
+      "symbol":"VRT",
+      "name":"Vertiv Holdings Co - Class A"
+   },
+   {
+      "symbol":"VSCO",
+      "name":"Victoria`s Secret & Company"
+   },
+   {
+      "symbol":"VSH",
+      "name":"Vishay Intertechnology Inc"
+   },
+   {
+      "symbol":"VST",
+      "name":"Vistra Corp"
+   },
+   {
+      "symbol":"VSTO",
+      "name":"Vista Outdoor Inc"
+   },
+   {
+      "symbol":"VSTS",
+      "name":"Vestis Corporation"
+   },
+   {
+      "symbol":"VTA",
+      "name":"Invesco Dynamic Credit Opportu"
+   },
+   {
+      "symbol":"VTEX",
+      "name":"Vtex - Class A"
+   },
+   {
+      "symbol":"VTLE",
+      "name":"Vital Energy Inc"
+   },
+   {
+      "symbol":"VTMX",
+      "name":"Corporacion Inmobiliaria Vesta Sab"
+   },
+   {
+      "symbol":"VTN",
+      "name":"Invesco Trust For Investment Grade New York Municipals"
+   },
+   {
+      "symbol":"VTOL",
+      "name":"Bristow Group Inc"
+   },
+   {
+      "symbol":"VTR",
+      "name":"Ventas Inc"
+   },
+   {
+      "symbol":"VTS",
+      "name":"Vitesse Energy Inc"
+   },
+   {
+      "symbol":"VVI",
+      "name":"Viad Corp"
+   },
+   {
+      "symbol":"VVR",
+      "name":"Invesco Senior Income Trust"
+   },
+   {
+      "symbol":"VVV",
+      "name":"Valvoline Inc"
+   },
+   {
+      "symbol":"VVX",
+      "name":"V2X Inc"
+   },
+   {
+      "symbol":"VYX",
+      "name":"NCR Voyix Corp"
+   },
+   {
+      "symbol":"VZ",
+      "name":"Verizon Communications Inc"
+   },
+   {
+      "symbol":"VZIO",
+      "name":"VIZIO Holding Corp - Class A"
+   },
+   {
+      "symbol":"W",
+      "name":"Wayfair Inc - Class A"
+   },
+   {
+      "symbol":"WAB",
+      "name":"Westinghouse Air Brake Technologies Corp"
+   },
+   {
+      "symbol":"WAL",
+      "name":"Western Alliance Bancorp"
+   },
+   {
+      "symbol":"WAT",
+      "name":"Waters Corp"
+   },
+   {
+      "symbol":"WBS",
+      "name":"Webster Financial Corp"
+   },
+   {
+      "symbol":"WBX",
+      "name":"Wallbox N.V - Class A"
+   },
+   {
+      "symbol":"WCC",
+      "name":"Wesco International Inc"
+   },
+   {
+      "symbol":"WCN",
+      "name":"Waste Connections Inc"
+   },
+   {
+      "symbol":"WD",
+      "name":"Walker & Dunlop Inc"
+   },
+   {
+      "symbol":"WDH",
+      "name":"Waterdrop Inc"
+   },
+   {
+      "symbol":"WDI",
+      "name":"Western Asset Diversified Income Fund"
+   },
+   {
+      "symbol":"WDS",
+      "name":"Woodside Energy Group Ltd"
+   },
+   {
+      "symbol":"WEA",
+      "name":"Western Asset Premier Bond Fund"
+   },
+   {
+      "symbol":"WEAV",
+      "name":"Weave Communications Inc"
+   },
+   {
+      "symbol":"WEC",
+      "name":"WEC Energy Group Inc"
+   },
+   {
+      "symbol":"WEL",
+      "name":"Integrated Wellness Acquisition Corp - Class A"
+   },
+   {
+      "symbol":"WELL",
+      "name":"Welltower Inc"
+   },
+   {
+      "symbol":"WES",
+      "name":"Western Midstream Partners LP"
+   },
+   {
+      "symbol":"WEX",
+      "name":"WEX Inc"
+   },
+   {
+      "symbol":"WF",
+      "name":"Woori Financial Group Inc"
+   },
+   {
+      "symbol":"WFC",
+      "name":"Wells Fargo & Company"
+   },
+   {
+      "symbol":"WFG",
+      "name":"West Fraser Timber Co. Ltd"
+   },
+   {
+      "symbol":"WGO",
+      "name":"Winnebago Industries Inc"
+   },
+   {
+      "symbol":"WH",
+      "name":"Wyndham Hotels & Resorts Inc"
+   },
+   {
+      "symbol":"WHD",
+      "name":"Cactus Inc - Class A"
+   },
+   {
+      "symbol":"WHG",
+      "name":"Westwood Holdings Group Inc"
+   },
+   {
+      "symbol":"WHR",
+      "name":"Whirlpool Corp"
+   },
+   {
+      "symbol":"WIA",
+      "name":"Western Asset Inflation-Linked Income Fund"
+   },
+   {
+      "symbol":"WINN",
+      "name":"Harbor Long-Term Growers ETF"
+   },
+   {
+      "symbol":"WIT",
+      "name":"Wipro Ltd"
+   },
+   {
+      "symbol":"WIW",
+      "name":"Western Asset Inflation-Linked Opportunities & Income Fund"
+   },
+   {
+      "symbol":"WK",
+      "name":"Workiva Inc - Class A"
+   },
+   {
+      "symbol":"WKC",
+      "name":"World Kinect Corp"
+   },
+   {
+      "symbol":"WLK",
+      "name":"Westlake Corporation"
+   },
+   {
+      "symbol":"WLKP",
+      "name":"Westlake Chemical Partners LP"
+   },
+   {
+      "symbol":"WLY",
+      "name":"John Wiley & Sons Inc - Class A"
+   },
+   {
+      "symbol":"WLYB",
+      "name":"John Wiley & Sons Inc - Class B"
+   },
+   {
+      "symbol":"WM",
+      "name":"Waste Management Inc"
+   },
+   {
+      "symbol":"WMB",
+      "name":"Williams Cos Inc"
+   },
+   {
+      "symbol":"WMC",
+      "name":"Western Asset Mortgage Capital Corp"
+   },
+   {
+      "symbol":"WMK",
+      "name":"Weis Markets Inc"
+   },
+   {
+      "symbol":"WMS",
+      "name":"Advanced Drainage Systems Inc"
+   },
+   {
+      "symbol":"WMT",
+      "name":"Walmart Inc"
+   },
+   {
+      "symbol":"WNC",
+      "name":"Wabash National Corp"
+   },
+   {
+      "symbol":"WNNR",
+      "name":"Andretti Acquisition Corp - Class A"
+   },
+   {
+      "symbol":"WNS",
+      "name":"WNS Holdings Ltd"
+   },
+   {
+      "symbol":"WOLF",
+      "name":"Wolfspeed Inc"
+   },
+   {
+      "symbol":"WOR",
+      "name":"Worthington Industries Inc"
+   },
+   {
+      "symbol":"WOW",
+      "name":"WideOpenWest Inc"
+   },
+   {
+      "symbol":"WPC",
+      "name":"W. P. Carey Inc"
+   },
+   {
+      "symbol":"WPM",
+      "name":"Wheaton Precious Metals Corp"
+   },
+   {
+      "symbol":"WPP",
+      "name":"WPP Plc."
+   },
+   {
+      "symbol":"WRB",
+      "name":"W.R. Berkley Corp"
+   },
+   {
+      "symbol":"WRBY",
+      "name":"Warby Parker Inc - Class A"
+   },
+   {
+      "symbol":"WRK",
+      "name":"WestRock Company"
+   },
+   {
+      "symbol":"WSM",
+      "name":"Williams-Sonoma Inc"
+   },
+   {
+      "symbol":"WSO",
+      "name":"Watsco Inc - Class A"
+   },
+   {
+      "symbol":"WSR",
+      "name":"Whitestone REIT"
+   },
+   {
+      "symbol":"WST",
+      "name":"West Pharmaceutical Services Inc"
+   },
+   {
+      "symbol":"WT",
+      "name":"WisdomTree Inc"
+   },
+   {
+      "symbol":"WTI",
+      "name":"W & T Offshore Inc"
+   },
+   {
+      "symbol":"WTM",
+      "name":"White Mountains Insurance Group Ltd"
+   },
+   {
+      "symbol":"WTRG",
+      "name":"Essential Utilities Inc"
+   },
+   {
+      "symbol":"WTS",
+      "name":"Watts Water Technologies Inc - Class A"
+   },
+   {
+      "symbol":"WTTR",
+      "name":"Select Water Solutions Inc - Class A"
+   },
+   {
+      "symbol":"WU",
+      "name":"Western Union Company"
+   },
+   {
+      "symbol":"WWW",
+      "name":"Wolverine World Wide Inc"
+   },
+   {
+      "symbol":"WY",
+      "name":"Weyerhaeuser Company"
+   },
+   {
+      "symbol":"X",
+      "name":"United States Steel Corp"
+   },
+   {
+      "symbol":"XFLT",
+      "name":"XAI Octagon Floating Rate & Alternative Income Term Trust"
+   },
+   {
+      "symbol":"XHR",
+      "name":"Xenia Hotels & Resorts Inc"
+   },
+   {
+      "symbol":"XIN",
+      "name":"Xinyuan Real Estate Co. Ltd"
+   },
+   {
+      "symbol":"XOM",
+      "name":"Exxon Mobil Corp"
+   },
+   {
+      "symbol":"XPER",
+      "name":"Xperi Inc"
+   },
+   {
+      "symbol":"XPEV",
+      "name":"XPeng Inc"
+   },
+   {
+      "symbol":"XPO",
+      "name":"XPO Inc"
+   },
+   {
+      "symbol":"XPOF",
+      "name":"Xponential Fitness Inc - Class A"
+   },
+   {
+      "symbol":"XPRO",
+      "name":"Expro Group Holdings N.V."
+   },
+   {
+      "symbol":"XYF",
+      "name":"X Financial"
+   },
+   {
+      "symbol":"XYL",
+      "name":"Xylem Inc"
+   },
+   {
+      "symbol":"YALA",
+      "name":"Yalla Group Ltd"
+   },
+   {
+      "symbol":"YELP",
+      "name":"Yelp Inc"
+   },
+   {
+      "symbol":"YETI",
+      "name":"YETI Holdings Inc"
+   },
+   {
+      "symbol":"YEXT",
+      "name":"Yext Inc"
+   },
+   {
+      "symbol":"YMM",
+      "name":"Full Truck Alliance Co Ltd"
+   },
+   {
+      "symbol":"YOU",
+      "name":"Clear Secure Inc Class A"
+   },
+   {
+      "symbol":"YPF",
+      "name":"YPF"
+   },
+   {
+      "symbol":"YRD",
+      "name":"Yiren Digital Ltd"
+   },
+   {
+      "symbol":"YSG",
+      "name":"Yatsen Holding Ltd"
+   },
+   {
+      "symbol":"YUM",
+      "name":"Yum Brands Inc"
+   },
+   {
+      "symbol":"YUMC",
+      "name":"Yum China Holdings Inc"
+   },
+   {
+      "symbol":"ZBH",
+      "name":"Zimmer Biomet Holdings Inc"
+   },
+   {
+      "symbol":"ZEPP",
+      "name":"Zepp Health Corporation"
+   },
+   {
+      "symbol":"ZETA",
+      "name":"Zeta Global Holdings Corp - Class A"
+   },
+   {
+      "symbol":"ZGN",
+      "name":"Ermenegildo Zegna N.V."
+   },
+   {
+      "symbol":"ZH",
+      "name":"Zhihu Inc"
+   },
+   {
+      "symbol":"ZIM",
+      "name":"Zim Integrated Shipping Services Ltd"
+   },
+   {
+      "symbol":"ZIP",
+      "name":"ZipRecruiter Inc - Class A"
+   },
+   {
+      "symbol":"ZTO",
+      "name":"ZTO Express (Cayman) Inc"
+   },
+   {
+      "symbol":"ZTR",
+      "name":"Virtus Total Return Fund Inc"
+   },
+   {
+      "symbol":"ZTS",
+      "name":"Zoetis Inc - Class A"
+   },
+   {
+      "symbol":"ZUO",
+      "name":"Zuora Inc - Class A"
+   },
+   {
+      "symbol":"ZVIA",
+      "name":"Zevia PBC - Class A"
+   },
+   {
+      "symbol":"ZWS",
+      "name":"Zurn Elkay Water Solutions Corp"
+   }
+]
