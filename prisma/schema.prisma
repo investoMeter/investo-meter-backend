@@ -10,39 +10,57 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Player {
-  id       String @id @default(uuid())
-  email    String @unique
-  username String @unique
-
-  createdAt DateTime  @default(now())
-  updatedAt DateTime? @updatedAt
-
+model User {
+  id                 String    @unique @id @default(uuid())
+  email              String    @unique
+  username           String    @unique
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime? @updatedAt
   hashedPassword     String
   salt               String
   hashedRefreshToken String?
+  
+  // relations
+  player             Player?
+  admin              Admin?
 
+  @@map("users")
+}
+
+model Player {
+  userId             String    @unique
+
+  // relations
+  user               User      @relation(fields: [userId], references: [id])
   @@map("players")
 }
 
-model StockPrice {
-  id           Int      @id @default(autoincrement())
-  openPrice    Decimal
-  closePrice   Decimal
-  highestPrice Decimal
-  lowestPrice  Decimal
-  volume       BigInt
-  timeStamp    DateTime
+model Admin {
+  userId             String    @unique
 
-  createdAt DateTime  @default(now())
-  updatedAt DateTime? @updatedAt
-  Stock     Stock     @relation(fields: [stockId], references: [id], onDelete: Cascade)
-  stockId   Int
+  // relations
+  user               User     @relation(fields: [userId], references: [id])
+  @@map("admins")
+}
+
+model StockPrice {
+  id                 Int       @id @default(autoincrement())
+  openPrice          Decimal
+  closePrice         Decimal
+  highestPrice       Decimal
+  lowestPrice        Decimal
+  volume             BigInt
+  timeStamp          DateTime
+
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime? @updatedAt
+  Stock              Stock     @relation(fields: [stockId], references: [id], onDelete: Cascade)
+  stockId            Int
 }
 
 model Stock {
-  id           Int          @id @default(autoincrement())
-  name         String
-  symbol       String       @unique
-  priceHistory StockPrice[]
+  id                 Int       @id @default(autoincrement())
+  name               String
+  symbol             String    @unique
+  priceHistory       StockPrice[]
 }

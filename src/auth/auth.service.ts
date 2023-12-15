@@ -27,36 +27,41 @@ export class AuthService {
   ): Promise<RegisterResponseDto> {
     const hashPassword = await this.hashPassword(registerDto.password);
 
-    const newPlayer = await this.prisma.player.create({
+    const newUser = await this.prisma.user.create({
       data: {
         username: registerDto.username,
-        createdAt: new Date(),
+        email: registerDto.email,
         salt: hashPassword.salt,
         hashedPassword: hashPassword.hash,
-        email: registerDto.email,
       },
       select: { id: true, username: true, email: true },
     });
 
+    await this.prisma.player.create({
+      data: {
+        userId: newUser.id,
+      },
+    });
+
     const tokens = await this.getTokens(
-      newPlayer.id,
-      newPlayer.username,
-      newPlayer.email,
+      newUser.id,
+      newUser.username,
+      newUser.email,
     );
 
-    this.updateRtToken(newPlayer.id, tokens.refreshToken);
+    this.updateRtToken(newUser.id, tokens.refreshToken);
 
     return {
-      id: newPlayer.id,
-      username: newPlayer.username,
-      email: newPlayer.email,
+      id: newUser.id,
+      username: newUser.username,
+      email: newUser.email,
       access_token: tokens.accessToken,
       refresh_token: tokens.refreshToken,
     };
   }
 
   async login(loginDto: LoginRequestDto): Promise<LoginResponseDto> {
-    const player = await this.prisma.player.findUnique({
+    const user = await this.prisma.user.findUnique({
       where: { username: loginDto.username },
       select: {
         id: true,
@@ -67,37 +72,33 @@ export class AuthService {
       },
     });
 
-    if (!player) {
+    if (!user) {
       throw new NotFoundException(
-        `player with username: ${loginDto.username} is not found`,
+        `user with username: ${loginDto.username} is not found`,
       );
     }
 
-    const inputPasswordHash = await bcrypt.hash(loginDto.password, player.salt);
+    const inputPasswordHash = await bcrypt.hash(loginDto.password, user.salt);
 
-    if (inputPasswordHash !== player.hashedPassword) {
+    if (inputPasswordHash !== user.hashedPassword) {
       throw new ForbiddenException(`Access denied.`);
     }
 
-    const tokens = await this.getTokens(
-      player.id,
-      player.username,
-      player.email,
-    );
+    const tokens = await this.getTokens(user.id, user.username, user.email);
 
-    this.updateRtToken(player.id, tokens.refreshToken);
+    this.updateRtToken(user.id, tokens.refreshToken);
 
     return {
-      id: player.id,
+      id: user.id,
       username: loginDto.username,
-      email: player.email,
+      email: user.email,
       accessToken: tokens.accessToken,
       refreshToken: tokens.refreshToken,
     };
   }
 
   async logout(userId: string): Promise<LogoutResponseDto> {
-    await this.prisma.player.update({
+    await this.prisma.user.update({
       where: { id: userId, hashedRefreshToken: { not: null } },
       data: { hashedRefreshToken: null },
     });
@@ -106,7 +107,7 @@ export class AuthService {
   }
 
   async refresh(userId: string, rt: string): Promise<RefreshResponseDto> {
-    const player = await this.prisma.player.findUnique({
+    const user = await this.prisma.user.findUnique({
       where: { id: userId },
       select: {
         hashedRefreshToken: true,
@@ -115,21 +116,21 @@ export class AuthService {
         salt: true,
       },
     });
-    if (!player) {
-      throw new NotFoundException(`player with id: ${userId} is not found`);
+    if (!user) {
+      throw new NotFoundException(`user with id: ${userId} is not found`);
     }
 
-    const hashedRefreshToken = await bcrypt.hash(rt, player.salt);
+    const hashedRefreshToken = await bcrypt.hash(rt, user.salt);
 
-    if (hashedRefreshToken !== player.hashedRefreshToken) {
+    if (hashedRefreshToken !== user.hashedRefreshToken) {
       throw new ForbiddenException(`Access denied.`);
     }
 
-    const tokens = await this.getTokens(userId, player.username, player.email);
+    const tokens = await this.getTokens(userId, user.username, user.email);
     return {
       id: userId,
-      username: player.username,
-      email: player.email,
+      username: user.username,
+      email: user.email,
       ...tokens,
     };
   }
@@ -178,7 +179,7 @@ export class AuthService {
   private async updateRtToken(userId: string, rt: string) {
     try {
       const salt = (
-        await this.prisma.player.findUnique({
+        await this.prisma.user.findUnique({
           where: {
             id: userId,
           },
@@ -187,7 +188,7 @@ export class AuthService {
 
       const rtHash = await bcrypt.hash(rt, salt);
 
-      await this.prisma.player.update({
+      await this.prisma.user.update({
         where: {
           id: userId,
         },
