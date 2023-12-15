@@ -1,4 +1,5 @@
 import {
+  BadRequestException,
   ForbiddenException,
   Injectable,
   NotFoundException,
@@ -25,6 +26,23 @@ export class AuthService {
   async register(
     registerDto: RegisterRequestDto,
   ): Promise<RegisterResponseDto> {
+    if (
+      await this.prisma.user.findFirst({
+        where: {
+          OR: [
+            {
+              username: registerDto.username,
+            },
+            {
+              email: registerDto.email,
+            },
+          ],
+        },
+      })
+    ) {
+      throw new BadRequestException('username or email already exist');
+    }
+
     const hashPassword = await this.hashPassword(registerDto.password);
 
     const newUser = await this.prisma.user.create({
