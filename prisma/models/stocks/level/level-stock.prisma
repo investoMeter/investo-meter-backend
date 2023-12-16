@@ -1,0 +1,8 @@
+import { LevelStockPrice } from "./level-stock-price"
+
+model LevelStock {
+  id           Int          @id @default(autoincrement())
+  name         String
+  symbol       String       @unique
+  priceHistory LevelStockPrice[]
+}
