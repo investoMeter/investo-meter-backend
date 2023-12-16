@@ -202,9 +202,9 @@ export class AuthService {
             id: userId,
           },
         })
-      ).salt;
+      )?.salt;
 
-      const rtHash = await bcrypt.hash(rt, salt);
+      const rtHash = await bcrypt.hash(rt, salt ? salt : '');
 
       await this.prisma.user.update({
         where: {
