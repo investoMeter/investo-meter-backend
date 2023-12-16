@@ -154,12 +154,12 @@ export class AuthService {
   }
 
   // Utils
-  private async hashPassword(password: string) {
+  public async hashPassword(password: string) {
     const salt = await bcrypt.genSalt(10);
     return { salt, hash: await bcrypt.hash(password, salt) };
   }
 
-  private async getTokens(
+  public async getTokens(
     userId: string,
     username: string,
     email: string,
@@ -194,7 +194,7 @@ export class AuthService {
     };
   }
 
-  private async updateRtToken(userId: string, rt: string) {
+  public async updateRtToken(userId: string, rt: string) {
     try {
       const salt = (
         await this.prisma.user.findUnique({

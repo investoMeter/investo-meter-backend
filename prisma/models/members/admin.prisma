@@ -1,0 +1,9 @@
+import { User } from "./user"
+model Admin {
+  userId String @unique
+
+  // relations
+  user User @relation(fields: [userId], references: [id])
+
+  @@map("admins")
+}

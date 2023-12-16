@@ -1,0 +1,15 @@
+import { ContestStock } from "./contest-stock"
+model ContestStockPrice {
+  id           Int      @id @default(autoincrement())
+  openPrice    Float
+  closePrice   Float
+  highestPrice Float
+  lowestPrice  Float
+  volume       BigInt
+  timeStamp    DateTime
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime? @updatedAt
+  Stock     ContestStock     @relation(fields: [contestStockId], references: [id], onDelete: Cascade)
+  contestStockId   Int
+}

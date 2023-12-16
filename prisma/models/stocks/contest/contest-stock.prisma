@@ -1,0 +1,8 @@
+import { ContestStockPrice } from "./contest-stock-price"
+
+model ContestStock {
+  id           Int          @id @default(autoincrement())
+  name         String
+  symbol       String       @unique
+  priceHistory ContestStockPrice[]
+}
