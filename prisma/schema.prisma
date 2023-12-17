@@ -33,6 +33,17 @@ model Player {
 }
 
 //
+// reset-password.prisma
+//
+
+model PasswordReset {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  token     String   @unique
+  createdAt DateTime @default(now()) @updatedAt
+}
+
+//
 // user.prisma
 //
 
