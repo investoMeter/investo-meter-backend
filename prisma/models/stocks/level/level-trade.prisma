@@ -1,0 +1,16 @@
+import { LevelStock } from "./level-stock"
+
+model LevelTrade {
+    id        Int      @id @default(autoincrement())
+    quantity  Int
+    tradetype TradeType
+    
+    // relations
+    stockId   Int
+    stock     LevelStock    @relation(fields: [stockId], references: [id])
+}
+
+enum TradeType {
+    BUY
+    SELL
+}

@@ -1,10 +1,12 @@
 import { User } from "./user"
-
+import { LevelMembership } from "..\stocks\level\level-membership"
 model Player {
   userId String @unique
 
   // relations
   user User @relation(fields: [userId], references: [id])
-
+  
+  levelMemberships LevelMembership[]
+  
   @@map("players")
 }

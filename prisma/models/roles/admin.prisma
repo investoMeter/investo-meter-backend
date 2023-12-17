@@ -1,9 +1,13 @@
 import { User } from "./user"
-model Admin {
-  userId String @unique
+import { Tutorial } from "..\stocks\level\tutorial"
 
+model Admin {
+  
   // relations
+  userId String @unique
   user User @relation(fields: [userId], references: [id])
+  
+  Tutorials Tutorial[]
 
   @@map("admins")
 }
