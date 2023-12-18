@@ -4,18 +4,26 @@ import {
   HttpCode,
   HttpStatus,
   Post,
+  Put,
   Req,
   UseGuards,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { LoginRequestDto, RegisterRequestDto } from './dto/request';
+import {
+  RegisterRequestDto,
+  LoginRequestDto,
+  NewPasswordRequestDto,
+  ValidateOtpTokenDto,
+  ForgotPasswordRequestDto,
+} from './dto/request';
 import {
   LoginResponseDto,
   LogoutResponseDto,
   RefreshResponseDto,
   RegisterResponseDto,
 } from './dto/response';
-import { AuthGuard } from '@nestjs/passport';
+import { RtGuard } from './guards';
+import { AtGuard } from './guards';
 
 @Controller('auth')
 export class AuthController {
@@ -37,7 +45,7 @@ export class AuthController {
 
   @Post('logout')
   @HttpCode(HttpStatus.OK)
-  @UseGuards(AuthGuard('jwt'))
+  @UseGuards(AtGuard)
   async logout(@Req() req: Request): Promise<LogoutResponseDto> {
     const user = (req as any).user;
     return this.authService.logout(user['sub']);
@@ -45,9 +53,34 @@ export class AuthController {
 
   @Post('refresh')
   @HttpCode(HttpStatus.OK)
-  @UseGuards(AuthGuard('jwt-refresh'))
+  @UseGuards(RtGuard)
   async refresh(@Req() req: Request): Promise<RefreshResponseDto> {
     const user = (req as any).user;
     return this.authService.refresh(user['sub'], user['refreshToken']);
+  }
+
+  @Post('forgot-password')
+  @HttpCode(HttpStatus.OK)
+  async forgetPassword(
+    @Body() forgotPasswordDto: ForgotPasswordRequestDto,
+  ): Promise<any> {
+    return this.authService.forgotPassword(forgotPasswordDto);
+  }
+
+  @Post('validate-otp-token')
+  @HttpCode(HttpStatus.FOUND)
+  @HttpCode(HttpStatus.NOT_FOUND)
+  async validateOtpToken(
+    @Body() validateOtpTokenDto: ValidateOtpTokenDto,
+  ): Promise<any> {
+    return this.authService.validateOtpToken(validateOtpTokenDto);
+  }
+
+  @Put('new-password')
+  @HttpCode(HttpStatus.OK)
+  async newPassword(
+    @Body() newPasswordDto: NewPasswordRequestDto,
+  ): Promise<any> {
+    return this.authService.setNewPassword(newPasswordDto);
   }
 }

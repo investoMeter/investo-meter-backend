@@ -5,7 +5,13 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { RegisterRequestDto, LoginRequestDto } from './dto/request';
+import {
+  RegisterRequestDto,
+  LoginRequestDto,
+  NewPasswordRequestDto,
+  ValidateOtpTokenDto,
+  ForgotPasswordRequestDto,
+} from './dto/request';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 import { Tokens } from './types';
@@ -15,12 +21,14 @@ import {
   RefreshResponseDto,
   RegisterResponseDto,
 } from './dto/response';
+import { MailerService } from '@nestjs-modules/mailer';
 
 @Injectable()
 export class AuthService {
   constructor(
     private prisma: PrismaService,
     private jwt: JwtService,
+    private mailerService: MailerService,
   ) {}
 
   async register(
@@ -151,6 +159,108 @@ export class AuthService {
       email: user.email,
       ...tokens,
     };
+  }
+
+  async forgotPassword(
+    forgotPasswordDto: ForgotPasswordRequestDto,
+  ): Promise<any> {
+    if (
+      await this.prisma.user.count({
+        where: { email: forgotPasswordDto.email },
+      })
+    ) {
+      const OtpToken = Math.floor(Math.random() * 10000)
+        .toString()
+        .padStart(4, '0');
+
+      await this.prisma.passwordReset.upsert({
+        where: {
+          email: forgotPasswordDto.email,
+        },
+        update: {
+          token: OtpToken,
+        },
+        create: {
+          email: forgotPasswordDto.email,
+          token: OtpToken,
+        },
+      });
+
+      await this.mailerService.sendMail({
+        to: forgotPasswordDto.email,
+        subject: 'Password Reset',
+        html: `
+        <h1>Password Reset</h1>
+        <br/>
+        <p>If you have asked for a password recovery please enter this token: ${OtpToken}</p>
+        <br/>
+        <p>If you did not please ignore this email.</p>`,
+      });
+    }
+
+    return {
+      message: `If the email ${forgotPasswordDto.email} exists, you will receive an email with a token to reset your password.`,
+    };
+  }
+
+  async validateOtpToken(validateOtpTokenDto: ValidateOtpTokenDto) {
+    const passwordReset = await this.prisma.passwordReset.findUnique({
+      where: { email: validateOtpTokenDto.email },
+      select: { token: true, createdAt: true },
+    });
+
+    if (
+      !passwordReset ||
+      new Date().getTime() - passwordReset.createdAt.getTime() > 60 * 60 * 1000
+    ) {
+      throw new BadRequestException('Token expired');
+    }
+
+    if (passwordReset.token === validateOtpTokenDto.token) {
+      return {
+        message: 'Otp is valid',
+      };
+    }
+    throw new NotFoundException('Otp is not valid');
+  }
+
+  async setNewPassword(newPasswordDto: NewPasswordRequestDto) {
+    const passwordReset = await this.prisma.passwordReset.findUnique({
+      where: {
+        email: newPasswordDto.email,
+      },
+    });
+
+    if (!passwordReset) {
+      throw new NotFoundException(`user is not found`);
+    }
+
+    if (
+      passwordReset.token !== newPasswordDto.token ||
+      new Date().getTime() - passwordReset.createdAt.getTime() > 60 * 60 * 1000
+    ) {
+      throw new ForbiddenException(`Token expired`);
+    }
+
+    const hashPassword = await this.hashPassword(newPasswordDto.newPassword);
+
+    await this.prisma.user.update({
+      where: {
+        email: newPasswordDto.email,
+      },
+      data: {
+        salt: hashPassword.salt,
+        hashedPassword: hashPassword.hash,
+      },
+    });
+
+    await this.prisma.passwordReset.delete({
+      where: {
+        email: newPasswordDto.email,
+      },
+    });
+
+    return { message: 'Password is reset successfully!' };
   }
 
   // Utils
