@@ -1,8 +1,20 @@
 import { LevelStockPrice } from "./level-stock-price"
+import { Level } from "./level"
+import { LevelTrade } from "level-trade"
 
 model LevelStock {
   id           Int          @id @default(autoincrement())
   name         String
-  symbol       String       @unique
+  symbol       String       
+
+  // relations
+  levelId      Int
+  level        Level        @relation(fields: [levelId], references: [id])
+
   priceHistory LevelStockPrice[]
+
+  tradeHistory LevelTrade[]
+  
+  @@map("level_stocks")
+  @@index([levelId], name: "level_stocks_level_id_idx")
 }

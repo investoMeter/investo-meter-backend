@@ -1,0 +1,18 @@
+import { Level } from "./level"
+import { Player } from "..\..\roles\player"
+
+model LevelMembership {
+    id         Int       @id @default(autoincrement())
+    failuresCount Int
+    starsCount   Int
+    passedAt     DateTime
+
+    // relations
+    playerId   String
+    player     Player    @relation(fields: [playerId], references: [userId])
+
+    levelId    Int
+    level      Level     @relation(fields: [levelId], references: [id])
+
+    @@unique([levelId, playerId])
+}

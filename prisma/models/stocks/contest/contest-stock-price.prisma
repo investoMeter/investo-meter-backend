@@ -10,6 +10,11 @@ model ContestStockPrice {
 
   createdAt DateTime  @default(now())
   updatedAt DateTime? @updatedAt
-  Stock     ContestStock     @relation(fields: [contestStockId], references: [id], onDelete: Cascade)
+
+  // relations
   contestStockId   Int
+  Stock     ContestStock     @relation(fields: [contestStockId], references: [id], onDelete: Cascade)
+
+  @@map("contest_stock_price")
+  @@index([contestStockId], name: "contest_stock_price_contest_stock_id_foreign")
 }

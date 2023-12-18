@@ -1,0 +1,23 @@
+import { LevelStock } from "./level-stock"
+import { Tutorial } from "tutorial"
+import { LevelMembership } from "level-membership"
+
+model Level {
+    id             Int       @id @default(autoincrement())
+    name           String
+    startingBudget Float
+    firstGoal      Int
+    secondGoal     Int
+    thirdGoal      Int
+    isActive       Boolean
+
+    // relations
+    tutorial       Tutorial?
+
+    stocks         LevelStock[]
+
+    memberships    LevelMembership[]
+    
+    @@map("levels")
+    @@index([name], name: "name")
+}

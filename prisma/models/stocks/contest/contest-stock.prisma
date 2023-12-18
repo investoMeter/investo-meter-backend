@@ -4,5 +4,10 @@ model ContestStock {
   id           Int          @id @default(autoincrement())
   name         String
   symbol       String       @unique
+
+  // relations
   priceHistory ContestStockPrice[]
+
+  @@map("contest_stocks")
+  @@index([symbol], name: "symbol")
 }

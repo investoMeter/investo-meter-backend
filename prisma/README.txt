@@ -1,19 +1,11 @@
-run the next commands while you are inside this folder in the terminal: "investo-meter-backend"
+run the next commands while you are inside the main project folder in the terminal: "investo-meter-backend"
 
-after adding a model you have to run this command first so all the models are combined into the schema:
-
-"npx prisma-import -o "./prisma/schema.prisma" -s "./prisma/models/**/*.prisma" --force"
-
-then go to schema.prisma and paste this code
+after adding a model you have to run these commands in their order
 ```
-generator client {
-  provider = "prisma-client-js"
-}
+npx prisma-import -o './prisma/schema.prisma' -s './prisma/models/**/*.prisma' --force
 
-datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
-}
+cat prisma/schema-connection.txt >> prisma/schema.prisma
 
+npm run start
 ```
 then run the application using "npm run start"
