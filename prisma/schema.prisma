@@ -18,6 +18,17 @@ model Admin {
 }
 
 //
+// password-reset.prisma
+//
+
+model PasswordReset {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  token     String   @unique
+  createdAt DateTime @default(now()) @updatedAt
+}
+
+//
 // player.prisma
 //
 
@@ -30,17 +41,6 @@ model Player {
   levelMemberships LevelMembership[]
 
   @@map("players")
-}
-
-//
-// reset-password.prisma
-//
-
-model PasswordReset {
-  id        Int      @id @default(autoincrement())
-  email     String   @unique
-  token     String   @unique
-  createdAt DateTime @default(now()) @updatedAt
 }
 
 //
@@ -196,9 +196,9 @@ model Level {
   id             Int     @id @default(autoincrement())
   name           String
   startingBudget Float
-  firstGoal      Int
-  secondGoal     Int
-  thirdGoal      Int
+  firstStar      Int
+  secondStar     Int
+  thirdStar      Int
   isActive       Boolean
 
   // relations

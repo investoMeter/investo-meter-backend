@@ -6,9 +6,9 @@ model Level {
     id             Int       @id @default(autoincrement())
     name           String
     startingBudget Float
-    firstGoal      Int
-    secondGoal     Int
-    thirdGoal      Int
+    firstStar      Int
+    secondStar     Int
+    thirdStar      Int
     isActive       Boolean
 
     // relations
