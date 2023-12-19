@@ -1,5 +1,5 @@
 import { LevelStock } from "./level-stock"
-
+import { LevelTradeHistory } from "./level-trade-history"
 model LevelTrade {
     id        Int      @id @default(autoincrement())
     quantity  Int
@@ -8,6 +8,9 @@ model LevelTrade {
     // relations
     stockId   Int
     stock     LevelStock    @relation(fields: [stockId], references: [id])
+
+    tradeHistoryId Int
+    tradeHistory   LevelTradeHistory @relation(fields: [tradeHistoryId], references: [id])
 }
 
 enum TradeType {

@@ -13,7 +13,7 @@ model LevelStock {
 
   priceHistory LevelStockPrice[]
 
-  tradeHistory LevelTrade[]
+  stockTrades LevelTrade[]
   
   @@map("level_stocks")
   @@index([levelId], name: "level_stocks_level_id_idx")
