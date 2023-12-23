@@ -5,12 +5,14 @@ import { LevelMembership } from "level-membership"
 model Level {
     id             Int       @id @default(autoincrement())
     name           String
+    patternName    String
     startingBudget Float
     firstStar      Int
     secondStar     Int
     thirdStar      Int
     isActive       Boolean
-
+    createdAt      DateTime @default(now())
+    updatedAt      DateTime @updatedAt
     // relations
     tutorial       Tutorial?
 

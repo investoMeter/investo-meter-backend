@@ -1,5 +1,6 @@
 import { Level } from "./level"
 import { Player } from "..\..\roles\player"
+import { LevelTradeHistory } from "./level-trade-history"
 
 model LevelMembership {
     id         Int       @id @default(autoincrement())
@@ -13,6 +14,8 @@ model LevelMembership {
 
     levelId    Int
     level      Level     @relation(fields: [levelId], references: [id])
+
+    LevelTradingHistory LevelTradeHistory[]
 
     @@unique([levelId, playerId])
 }
