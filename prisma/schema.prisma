@@ -151,6 +151,20 @@ model LevelStockPrice {
 }
 
 //
+// level-stock-question.prisma
+//
+
+model LevelStockQuestion {
+  id        Int       @id @default(autoincrement())
+  answer    TradeType
+  timestamp DateTime
+
+  // relations
+  levelStockId Int        @unique
+  levelStock   LevelStock @relation(fields: [levelStockId], references: [id])
+}
+
+//
 // level-stock.prisma
 //
 
@@ -162,6 +176,9 @@ model LevelStock {
   // relations
   levelId Int
   level   Level @relation(fields: [levelId], references: [id])
+
+  questionId Int
+  question   LevelStockQuestion?
 
   priceHistory LevelStockPrice[]
 
