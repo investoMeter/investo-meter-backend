@@ -1,17 +1,52 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
-import { BasicLevelInfo, GetLevelTutorialDto } from './dto';
+import { GetLevelTutorialDto, getQuestionDto } from './dto';
 import { PaginatedList } from 'src/common/paginated-list.dto';
+import { Player, TradeType as dbTradeType } from '@prisma/client';
+import { TradeType } from 'src/common';
+import { BasicLevelInfo } from '../level/models';
 
 @Injectable()
 export class LevelService {
   constructor(private prisma: PrismaService) {}
 
+  async initializeLevelsMode(player: { userId: string }) {
+    const pastLevels = await this.prisma.levelMembership.count({
+      where: {
+        playerId: player.userId,
+      },
+    });
+
+    if (pastLevels === 0) {
+      await this.prisma.levelMembership.create({
+        data: {
+          levelId: 1,
+          playerId: player.userId,
+          failuresCount: 0,
+          passedAt: null,
+        },
+      });
+    }
+  }
+
   async getAllLevels(
     page: number,
     take: number,
+    player: Player,
   ): Promise<PaginatedList<BasicLevelInfo>> {
-    const allLevels: BasicLevelInfo[] = await this.prisma.level.findMany({
+    const pastLevels = await this.prisma.levelMembership.findMany({
+      where: {
+        playerId: player.userId,
+      },
+      select: {
+        passedAt: true,
+      },
+      orderBy: {
+        passedAt: `desc`,
+      },
+    });
+
+    const allLevels = await this.prisma.level.findMany({
       orderBy: {
         createdAt: `asc`,
       },
@@ -19,25 +54,40 @@ export class LevelService {
       take: take,
       select: {
         id: true,
-        name: true,
+        number: true,
         patternName: true,
       },
     });
 
     const result: PaginatedList<BasicLevelInfo> = {
-      list: allLevels,
+      list: allLevels.map((level) => {
+        return {
+          id: level.id,
+          name: `Level ${level.number}`,
+          patternName: level.patternName,
+          isActive: pastLevels.length >= level.id,
+        };
+      }),
       isLastPage: allLevels.length < take,
     };
 
     return result;
   }
 
-  async getTutorial(levelId: string): Promise<GetLevelTutorialDto> {
+  async getTutorial(
+    levelId: string,
+    player: Player,
+  ): Promise<GetLevelTutorialDto> {
     const level = await this.prisma.level.findUnique({
       where: {
         id: parseInt(levelId),
+        memberships: {
+          some: {
+            playerId: player.userId,
+          },
+        },
       },
-      select: { id: true, name: true, patternName: true, tutorial: true },
+      select: { id: true, number: true, patternName: true, tutorial: true },
     });
 
     if (!level || !level.tutorial) {
@@ -47,8 +97,9 @@ export class LevelService {
     const result: GetLevelTutorialDto = {
       levelInfo: {
         id: level.id,
-        name: level.name,
+        name: `Level ${level.number}`,
         patternName: level.patternName,
+        isActive: true,
       },
       tutorialInfo: {
         id: level.tutorial.id,
@@ -60,5 +111,86 @@ export class LevelService {
     };
 
     return result;
+  }
+
+  async getQuestion(
+    levelId: string,
+    questionId: string,
+    player: Player,
+  ): Promise<getQuestionDto> {
+    const level = await this.prisma.level.findUnique({
+      where: {
+        id: parseInt(levelId),
+      },
+      select: {
+        id: true,
+        questions: {
+          where: { id: parseInt(questionId) },
+
+          select: {
+            id: true,
+            answer: true,
+            timestamp: true,
+            levelStock: {
+              select: {
+                id: true,
+                name: true,
+                symbol: true,
+                priceHistory: {
+                  orderBy: {
+                    timeStamp: `asc`,
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+    });
+
+    if (!level) {
+      throw new NotFoundException(`level with id: ${levelId} does not exist`);
+    }
+
+    if (level.questions.length === 0) {
+      throw new NotFoundException(
+        `question with id: ${questionId} does not exist`,
+      );
+    }
+
+    let nextQuestion = level.questions[0];
+
+    if (
+      !nextQuestion.levelStock ||
+      !nextQuestion.levelStock.priceHistory ||
+      nextQuestion.levelStock.priceHistory.length === 0
+    ) {
+      throw new NotFoundException(`question is missing its data`);
+    }
+
+    return {
+      id: nextQuestion.id,
+      answer:
+        nextQuestion.answer == dbTradeType.BUY ? TradeType.BUY : TradeType.SELL,
+      timestamp: level.questions[0].timestamp,
+
+      levelStock: {
+        id: nextQuestion.levelStock.id,
+        name: nextQuestion.levelStock.name,
+        symbol: nextQuestion.levelStock.symbol,
+
+        priceHistory: nextQuestion.levelStock.priceHistory.map((price) => {
+          return {
+            id: price.id,
+            openPrice: price.openPrice,
+            closePrice: price.closePrice,
+            lowestPrice: price.lowestPrice,
+            highestPrice: price.highestPrice,
+            volume: parseInt(String(price.volume)),
+            timeStamp: price.timeStamp,
+          };
+        }),
+      },
+    };
   }
 }

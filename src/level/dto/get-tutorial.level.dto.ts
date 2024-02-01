@@ -1,5 +1,5 @@
-import { BasicLevelInfo } from './basic-level-info.level.dto';
-import { TutorialInfo } from './tutorial-info.level.dto';
+import { BasicLevelInfo } from '../models/basic-level-info.level';
+import { TutorialInfo } from '../models/tutorial-info.level';
 
 export class GetLevelTutorialDto {
   levelInfo: BasicLevelInfo;

@@ -1,7 +1,6 @@
-import { LevelStockPrice } from "./level-stock-price"
-import { Level } from "./level"
-import { LevelTrade } from "level-trade"
-import { LevelStockQuestion } from "level-stock-question"
+import { LevelStockPrice } from "level-stock-price"
+import { Level } from "level"
+import { LevelQuestion } from "level-question"
 
 model LevelStock {
   id           Int          @id @default(autoincrement())
@@ -9,16 +8,10 @@ model LevelStock {
   symbol       String       
 
   // relations
-  levelId      Int
-  level        Level        @relation(fields: [levelId], references: [id])
-
-  questionId Int
-  question   LevelStockQuestion?
+  questionId Int @unique
+  question   LevelQuestion @relation(fields: [questionId], references: [id])
   
   priceHistory LevelStockPrice[]
 
-  stockTrades LevelTrade[]
-  
   @@map("level_stocks")
-  @@index([levelId], name: "level_stocks_level_id_idx")
 }

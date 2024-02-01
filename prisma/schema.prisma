@@ -109,21 +109,39 @@ model ContestStock {
 //
 
 model LevelMembership {
-  id            Int      @id @default(autoincrement())
+  id            Int       @id @default(autoincrement())
   failuresCount Int
-  starsCount    Int
-  passedAt      DateTime
-
+  passedAt      DateTime?
   // relations
-  playerId String
-  player   Player @relation(fields: [playerId], references: [userId])
+  playerId      String
+  player        Player    @relation(fields: [playerId], references: [userId])
 
   levelId Int
   level   Level @relation(fields: [levelId], references: [id])
 
-  LevelTradingHistory LevelTradeHistory[]
-
   @@unique([levelId, playerId])
+}
+
+//
+// level-question.prisma
+//
+
+model LevelQuestion {
+  id        Int       @id @default(autoincrement())
+  answer    TradeType
+  timestamp DateTime
+
+  // relations
+  levelId Int
+  level   Level @relation(fields: [levelId], references: [id])
+
+  levelStockId Int
+  levelStock   LevelStock?
+}
+
+enum TradeType {
+  BUY
+  SELL
 }
 
 //
@@ -151,20 +169,6 @@ model LevelStockPrice {
 }
 
 //
-// level-stock-question.prisma
-//
-
-model LevelStockQuestion {
-  id        Int       @id @default(autoincrement())
-  answer    TradeType
-  timestamp DateTime
-
-  // relations
-  levelStockId Int        @unique
-  levelStock   LevelStock @relation(fields: [levelStockId], references: [id])
-}
-
-//
 // level-stock.prisma
 //
 
@@ -174,56 +178,12 @@ model LevelStock {
   symbol String
 
   // relations
-  levelId Int
-  level   Level @relation(fields: [levelId], references: [id])
-
-  questionId Int
-  question   LevelStockQuestion?
+  questionId Int           @unique
+  question   LevelQuestion @relation(fields: [questionId], references: [id])
 
   priceHistory LevelStockPrice[]
 
-  stockTrades LevelTrade[]
-
-  @@index([levelId], name: "level_stocks_level_id_idx")
   @@map("level_stocks")
-}
-
-//
-// level-trade-history.prisma
-//
-
-model LevelTradeHistory {
-  id        Int      @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  // relations
-  LevelMembershipId Int
-  levelMembership   LevelMembership @relation(fields: [LevelMembershipId], references: [id])
-
-  trades LevelTrade[]
-}
-
-//
-// level-trade.prisma
-//
-
-model LevelTrade {
-  id        Int       @id @default(autoincrement())
-  quantity  Int
-  tradetype TradeType
-
-  // relations
-  stockId Int
-  stock   LevelStock @relation(fields: [stockId], references: [id])
-
-  tradeHistoryId Int
-  tradeHistory   LevelTradeHistory @relation(fields: [tradeHistoryId], references: [id])
-}
-
-enum TradeType {
-  BUY
-  SELL
 }
 
 //
@@ -231,24 +191,20 @@ enum TradeType {
 //
 
 model Level {
-  id             Int       @id @default(autoincrement())
-  name           String
-  patternName    String
-  startingBudget Float
-  firstStar      Int
-  secondStar     Int
-  thirdStar      Int
-  isActive       Boolean
-  createdAt      DateTime  @default(now())
-  updatedAt      DateTime  @updatedAt
+  id          Int       @id @default(autoincrement())
+  number      Int       @unique
+  patternName String
+  isActive    Boolean
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
   // relations
-  tutorial       Tutorial?
+  tutorial    Tutorial?
 
-  stocks LevelStock[]
+  questions LevelQuestion[]
 
   memberships LevelMembership[]
 
-  @@index([name], name: "name")
+  @@index([number])
   @@map("levels")
 }
 

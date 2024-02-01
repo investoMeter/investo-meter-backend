@@ -1,0 +1,20 @@
+import { LevelStock } from "./level-stock"
+import { Level } from "./level"
+
+model LevelQuestion {
+    id           Int      @id @default(autoincrement())
+    answer       TradeType
+    timestamp    DateTime
+
+    // relations
+    levelId Int
+    level   Level @relation(fields: [levelId], references: [id])
+
+    levelStockId Int
+    levelStock   LevelStock? 
+}
+
+enum TradeType {
+    BUY
+    SELL
+}
