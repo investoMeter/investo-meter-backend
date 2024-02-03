@@ -328,4 +328,22 @@ export class AuthService {
       throw err;
     }
   }
+
+  public async playerResolver(playerId?: string) {
+    if (playerId === undefined || playerId === null) {
+      throw new BadRequestException(`playerId is not provided`);
+    }
+
+    const player = await this.prisma.player.findUnique({
+      where: {
+        userId: playerId,
+      },
+    });
+
+    if (!player) {
+      throw new NotFoundException(`player with id: ${playerId} is not found`);
+    }
+
+    return player;
+  }
 }

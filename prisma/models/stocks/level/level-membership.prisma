@@ -1,21 +1,16 @@
 import { Level } from "./level"
 import { Player } from "..\..\roles\player"
-import { LevelTradeHistory } from "./level-trade-history"
 
 model LevelMembership {
     id         Int       @id @default(autoincrement())
     failuresCount Int
-    starsCount   Int
-    passedAt     DateTime
-
+    passedAt     DateTime?
     // relations
     playerId   String
     player     Player    @relation(fields: [playerId], references: [userId])
 
     levelId    Int
     level      Level     @relation(fields: [levelId], references: [id])
-
-    LevelTradingHistory LevelTradeHistory[]
 
     @@unique([levelId, playerId])
 }
