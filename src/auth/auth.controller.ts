@@ -24,10 +24,12 @@ import {
 } from './dto/response';
 import { RtGuard } from './guards';
 import { AtGuard } from './guards';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
 @Controller('auth')
+@ApiTags('Authentication')
 export class AuthController {
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService) { }
 
   @Post('local/register')
   @HttpCode(HttpStatus.CREATED)
@@ -44,6 +46,7 @@ export class AuthController {
   }
 
   @Post('logout')
+  @ApiBearerAuth()
   @HttpCode(HttpStatus.OK)
   @UseGuards(AtGuard)
   async logout(@Req() req: Request): Promise<LogoutResponseDto> {
@@ -53,6 +56,7 @@ export class AuthController {
 
   @Post('refresh')
   @HttpCode(HttpStatus.OK)
+  @ApiBearerAuth()
   @UseGuards(RtGuard)
   async refresh(@Req() req: Request): Promise<RefreshResponseDto> {
     const user = (req as any).user;
@@ -61,6 +65,7 @@ export class AuthController {
 
   @Post('forgot-password')
   @HttpCode(HttpStatus.OK)
+  @ApiBearerAuth()
   async forgetPassword(
     @Body() forgotPasswordDto: ForgotPasswordRequestDto,
   ): Promise<any> {
@@ -68,6 +73,7 @@ export class AuthController {
   }
 
   @Post('validate-otp-token')
+  @ApiBearerAuth()
   @HttpCode(HttpStatus.FOUND)
   @HttpCode(HttpStatus.NOT_FOUND)
   async validateOtpToken(
@@ -78,6 +84,7 @@ export class AuthController {
 
   @Put('new-password')
   @HttpCode(HttpStatus.OK)
+  @ApiBearerAuth()
   async newPassword(
     @Body() newPasswordDto: NewPasswordRequestDto,
   ): Promise<any> {

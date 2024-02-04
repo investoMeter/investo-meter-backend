@@ -11,14 +11,17 @@ import { LevelService } from './level.service';
 import { AtGuard } from 'src/auth/guards';
 import { BasicLevelInfo, GetLevelTutorialDto } from './dto';
 import { PaginatedList } from 'src/common/paginated-list.dto';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
 @Controller('level')
+@ApiTags('Levels')
 export class LevelController {
-  constructor(private levelService: LevelService) {}
+  constructor(private levelService: LevelService) { }
 
   @Get('basic-levels-info')
   @HttpCode(HttpStatus.OK)
   @UseGuards(AtGuard)
+  @ApiBearerAuth()
   async getAllLevels(
     @Query('page') page: number,
     @Query('take') take: number,
@@ -28,6 +31,7 @@ export class LevelController {
 
   @Get(':levelId/tutorial')
   @UseGuards(AtGuard)
+  @ApiBearerAuth()
   async getTutorial(
     @Param('levelId') levelId: string,
   ): Promise<GetLevelTutorialDto> {
