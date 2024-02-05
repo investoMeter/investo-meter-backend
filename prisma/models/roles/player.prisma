@@ -1,5 +1,7 @@
 import { User } from "./user"
 import { LevelMembership } from "..\stocks\level\level-membership"
+import { Level } from "..\stocks\level\level"
+
 model Player {
   userId String @unique
 

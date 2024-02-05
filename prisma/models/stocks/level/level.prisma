@@ -1,25 +1,22 @@
 import { LevelStock } from "./level-stock"
 import { Tutorial } from "tutorial"
 import { LevelMembership } from "level-membership"
-
+import { LevelQuestion } from "./level-question"
+import { Player } from "..\..\roles\player"
 model Level {
     id             Int       @id @default(autoincrement())
-    name           String
+    number         Int       @unique
     patternName    String
-    startingBudget Float
-    firstStar      Int
-    secondStar     Int
-    thirdStar      Int
     isActive       Boolean
     createdAt      DateTime @default(now())
     updatedAt      DateTime @updatedAt
     // relations
     tutorial       Tutorial?
 
-    stocks         LevelStock[]
+    questions         LevelQuestion[]
 
     memberships    LevelMembership[]
     
     @@map("levels")
-    @@index([name], name: "name")
+    @@index([number])
 }
