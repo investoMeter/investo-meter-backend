@@ -3,6 +3,7 @@ import { Level } from "./level"
 
 model LevelQuestion {
     id           Int      @id @default(autoincrement())
+    position        Int
     answer       TradeType
     timestamp    DateTime
 

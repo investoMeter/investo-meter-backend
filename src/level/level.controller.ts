@@ -58,7 +58,7 @@ export class LevelController {
   @UseGuards(AtGuard)
   async getQuestion(
     @Param('levelId') levelId: string,
-    @Param('questionId') questionId: string,
+    @Param('questionPosition') questionId: number,
     @Req() req: Request,
   ): Promise<getQuestionDto> {
     var player = await this.authService.playerResolver((req as any)['sub']);

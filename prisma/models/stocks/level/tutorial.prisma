@@ -1,20 +1,18 @@
 import { Admin } from "..\..\roles\admin"
 import { Level } from "./level"
+import { Content } from "./tutorial-content"
 model Tutorial {
     id              Int     @id @default(autoincrement())
     title           String
-    description     String
     imageStorageId  String?
     published       Boolean @default(false)
 
     // relations
-    authorId        String
-    author          Admin   @relation(fields: [authorId], references: [userId])
-
     levelId         Int     @unique
     level           Level   @relation(fields: [levelId], references: [id])
 
+    content         Content[]
+
     @@map("tutorials")
-    @@index([authorId], name: "authorId")
     @@index([levelId], name: "levelId")
 }

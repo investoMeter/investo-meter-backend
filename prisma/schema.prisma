@@ -12,8 +12,6 @@ model Admin {
   userId String @unique
   user   User   @relation(fields: [userId], references: [id])
 
-  Tutorials Tutorial[]
-
   @@map("admins")
 }
 
@@ -209,24 +207,33 @@ model Level {
 }
 
 //
+// tutorial-content.prisma
+//
+
+model Content {
+  id          Int      @id @default(autoincrement())
+  subTitle    String
+  description String[]
+  tutorial    Tutorial @relation(fields: [tutorialId], references: [id])
+  tutorialId  Int
+}
+
+//
 // tutorial.prisma
 //
 
 model Tutorial {
   id             Int     @id @default(autoincrement())
   title          String
-  description    String
   imageStorageId String?
   published      Boolean @default(false)
 
   // relations
-  authorId String
-  author   Admin  @relation(fields: [authorId], references: [userId])
-
   levelId Int   @unique
   level   Level @relation(fields: [levelId], references: [id])
 
-  @@index([authorId], name: "authorId")
+  content Content[]
+
   @@index([levelId], name: "levelId")
   @@map("tutorials")
 }
