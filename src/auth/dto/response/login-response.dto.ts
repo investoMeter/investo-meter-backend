@@ -7,6 +7,10 @@ export class LoginResponseDto {
 
   @IsNotEmpty()
   @IsString()
+  readonly name: string;
+
+  @IsNotEmpty()
+  @IsString()
   readonly username: string;
 
   @IsNotEmpty()

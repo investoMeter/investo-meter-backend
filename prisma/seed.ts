@@ -36,6 +36,7 @@ async function seedContestStocksData() {
         const newUser = await prisma.user.create({
           data: {
             username: user.username,
+            name: user.username,
             email: user.email,
             salt: hash.salt,
             hashedPassword: hash.hash,
