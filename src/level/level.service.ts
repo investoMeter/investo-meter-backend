@@ -30,19 +30,25 @@ export class LevelService {
   }
 
   async getAllLevels(
-    page: number,
-    take: number,
+    page: number = 0,
+    take: number = 4,
     player: Player,
   ): Promise<PaginatedList<BasicLevelInfo>> {
-    const pastLevels = await this.prisma.levelMembership.findMany({
+    const pastLevel = await this.prisma.levelMembership.findFirstOrThrow({
       where: {
         playerId: player.userId,
       },
       select: {
-        passedAt: true,
+        level: {
+          select: {
+            number: true,
+          },
+        },
       },
       orderBy: {
-        passedAt: `desc`,
+        level: {
+          number: `desc`,
+        },
       },
     });
 
@@ -65,7 +71,7 @@ export class LevelService {
           id: level.id,
           name: `Level ${level.number}`,
           patternName: level.patternName,
-          isActive: pastLevels.length >= level.id,
+          isActive: pastLevel?.level.number >= level.number,
         };
       }),
       isLastPage: allLevels.length < take,
@@ -116,7 +122,7 @@ export class LevelService {
 
   async getQuestion(
     levelId: string,
-    questionPosition: number,
+    questionPosition: string,
     player: Player,
   ): Promise<getQuestionDto> {
     const level = await this.prisma.level.findUnique({
@@ -131,7 +137,7 @@ export class LevelService {
       select: {
         id: true,
         questions: {
-          where: { id: questionPosition },
+          where: { id: parseInt(questionPosition) },
           include: {
             levelStock: {
               include: {

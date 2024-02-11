@@ -11,11 +11,10 @@ model LevelQuestion {
     levelId Int
     level   Level @relation(fields: [levelId], references: [id])
 
-    levelStockId Int
     levelStock   LevelStock? 
 }
 
 enum TradeType {
-    BUY
     SELL
+    BUY
 }

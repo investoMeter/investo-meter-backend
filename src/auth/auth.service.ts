@@ -351,7 +351,7 @@ export class AuthService {
   }
 
   public async playerResolver(playerId?: string) {
-    if (playerId === undefined || playerId === null) {
+    if (!!!playerId) {
       throw new BadRequestException(`playerId is not provided`);
     }
 

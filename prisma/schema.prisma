@@ -135,8 +135,7 @@ model LevelQuestion {
   levelId Int
   level   Level @relation(fields: [levelId], references: [id])
 
-  levelStockId Int
-  levelStock   LevelStock?
+  levelStock LevelStock?
 }
 
 enum TradeType {
