@@ -12,8 +12,6 @@ model Admin {
   userId String @unique
   user   User   @relation(fields: [userId], references: [id])
 
-  Tutorials Tutorial[]
-
   @@map("admins")
 }
 
@@ -49,12 +47,13 @@ model Player {
 
 model User {
   id                 String    @id @unique @default(cuid())
-  email              String    @unique
+  name               String
   username           String    @unique
+  email              String    @unique
   createdAt          DateTime  @default(now())
   updatedAt          DateTime? @updatedAt
-  hashedPassword     String
   salt               String
+  hashedPassword     String
   hashedRefreshToken String?
 
   // relations
@@ -128,6 +127,7 @@ model LevelMembership {
 
 model LevelQuestion {
   id        Int       @id @default(autoincrement())
+  position  Int
   answer    TradeType
   timestamp DateTime
 
@@ -135,13 +135,12 @@ model LevelQuestion {
   levelId Int
   level   Level @relation(fields: [levelId], references: [id])
 
-  levelStockId Int
-  levelStock   LevelStock?
+  levelStock LevelStock?
 }
 
 enum TradeType {
-  BUY
   SELL
+  BUY
 }
 
 //
@@ -209,24 +208,33 @@ model Level {
 }
 
 //
+// tutorial-content.prisma
+//
+
+model Content {
+  id          Int      @id @default(autoincrement())
+  subTitle    String
+  description String[]
+  tutorial    Tutorial @relation(fields: [tutorialId], references: [id])
+  tutorialId  Int
+}
+
+//
 // tutorial.prisma
 //
 
 model Tutorial {
   id             Int     @id @default(autoincrement())
   title          String
-  description    String
   imageStorageId String?
   published      Boolean @default(false)
 
   // relations
-  authorId String
-  author   Admin  @relation(fields: [authorId], references: [userId])
-
   levelId Int   @unique
   level   Level @relation(fields: [levelId], references: [id])
 
-  @@index([authorId], name: "authorId")
+  content Content[]
+
   @@index([levelId], name: "levelId")
   @@map("tutorials")
 }

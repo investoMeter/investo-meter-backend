@@ -7,6 +7,10 @@ export class RegisterResponseDto {
 
   @IsNotEmpty()
   @IsString()
+  name: string;
+
+  @IsNotEmpty()
+  @IsString()
   username: string;
 
   @IsEmail()

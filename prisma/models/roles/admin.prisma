@@ -6,8 +6,6 @@ model Admin {
   // relations
   userId String @unique
   user User @relation(fields: [userId], references: [id])
-  
-  Tutorials Tutorial[]
 
   @@map("admins")
 }

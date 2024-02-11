@@ -56,11 +56,12 @@ export class AuthService {
     const newUser = await this.prisma.user.create({
       data: {
         username: registerDto.username,
+        name: registerDto.name,
         email: registerDto.email,
         salt: hashPassword.salt,
         hashedPassword: hashPassword.hash,
       },
-      select: { id: true, username: true, email: true },
+      select: { id: true, name: true, username: true, email: true },
     });
 
     await this.prisma.player.create({
@@ -71,6 +72,7 @@ export class AuthService {
 
     const tokens = await this.getTokens(
       newUser.id,
+      newUser.name,
       newUser.username,
       newUser.email,
     );
@@ -79,6 +81,7 @@ export class AuthService {
 
     return {
       id: newUser.id,
+      name: newUser.name,
       username: newUser.username,
       email: newUser.email,
       access_token: tokens.accessToken,
@@ -91,10 +94,11 @@ export class AuthService {
       where: { username: loginDto.username },
       select: {
         id: true,
-        salt: true,
-        hashedPassword: true,
+        name: true,
         username: true,
         email: true,
+        salt: true,
+        hashedPassword: true,
       },
     });
 
@@ -110,12 +114,18 @@ export class AuthService {
       throw new ForbiddenException(`Access denied.`);
     }
 
-    const tokens = await this.getTokens(user.id, user.username, user.email);
+    const tokens = await this.getTokens(
+      user.id,
+      user.name,
+      user.username,
+      user.email,
+    );
 
     this.updateRtToken(user.id, tokens.refreshToken);
 
     return {
       id: user.id,
+      name: user.name,
       username: loginDto.username,
       email: user.email,
       accessToken: tokens.accessToken,
@@ -136,9 +146,10 @@ export class AuthService {
     const user = await this.prisma.user.findUnique({
       where: { id: userId },
       select: {
-        hashedRefreshToken: true,
+        name: true,
         username: true,
         email: true,
+        hashedRefreshToken: true,
         salt: true,
       },
     });
@@ -152,9 +163,16 @@ export class AuthService {
       throw new ForbiddenException(`Access denied.`);
     }
 
-    const tokens = await this.getTokens(userId, user.username, user.email);
+    const tokens = await this.getTokens(
+      userId,
+      user.name,
+      user.username,
+      user.email,
+    );
+
     return {
       id: userId,
+      name: user.name,
       username: user.username,
       email: user.email,
       ...tokens,
@@ -271,6 +289,7 @@ export class AuthService {
 
   public async getTokens(
     userId: string,
+    name: string,
     username: string,
     email: string,
   ): Promise<Tokens> {
@@ -278,6 +297,7 @@ export class AuthService {
       this.jwt.signAsync(
         {
           sub: userId,
+          name,
           username,
           email,
         },
@@ -289,6 +309,7 @@ export class AuthService {
       this.jwt.signAsync(
         {
           sub: userId,
+          name,
           username,
           email,
         },
@@ -330,7 +351,7 @@ export class AuthService {
   }
 
   public async playerResolver(playerId?: string) {
-    if (playerId === undefined || playerId === null) {
+    if (!!!playerId) {
       throw new BadRequestException(`playerId is not provided`);
     }
 

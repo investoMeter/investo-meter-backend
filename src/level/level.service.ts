@@ -30,19 +30,25 @@ export class LevelService {
   }
 
   async getAllLevels(
-    page: number,
-    take: number,
+    page: number = 0,
+    take: number = 4,
     player: Player,
   ): Promise<PaginatedList<BasicLevelInfo>> {
-    const pastLevels = await this.prisma.levelMembership.findMany({
+    const pastLevel = await this.prisma.levelMembership.findFirstOrThrow({
       where: {
         playerId: player.userId,
       },
       select: {
-        passedAt: true,
+        level: {
+          select: {
+            number: true,
+          },
+        },
       },
       orderBy: {
-        passedAt: `desc`,
+        level: {
+          number: `desc`,
+        },
       },
     });
 
@@ -65,7 +71,7 @@ export class LevelService {
           id: level.id,
           name: `Level ${level.number}`,
           patternName: level.patternName,
-          isActive: pastLevels.length >= level.id,
+          isActive: pastLevel?.level.number >= level.number,
         };
       }),
       isLastPage: allLevels.length < take,
@@ -87,7 +93,7 @@ export class LevelService {
           },
         },
       },
-      select: { id: true, number: true, patternName: true, tutorial: true },
+      include: { tutorial: { include: { content: true } } },
     });
 
     if (!level || !level.tutorial) {
@@ -104,9 +110,10 @@ export class LevelService {
       tutorialInfo: {
         id: level.tutorial.id,
         title: level.tutorial.title,
-        description: level.tutorial.description,
+
         published: level.tutorial.published,
         imageStorageId: level.tutorial.imageStorageId || undefined,
+        content: level.tutorial.content,
       },
     };
 
@@ -115,32 +122,26 @@ export class LevelService {
 
   async getQuestion(
     levelId: string,
-    questionId: string,
+    questionPosition: string,
     player: Player,
   ): Promise<getQuestionDto> {
     const level = await this.prisma.level.findUnique({
       where: {
         id: parseInt(levelId),
+        memberships: {
+          some: {
+            playerId: player.userId,
+          },
+        },
       },
       select: {
         id: true,
         questions: {
-          where: { id: parseInt(questionId) },
-
-          select: {
-            id: true,
-            answer: true,
-            timestamp: true,
+          where: { id: parseInt(questionPosition) },
+          include: {
             levelStock: {
-              select: {
-                id: true,
-                name: true,
-                symbol: true,
-                priceHistory: {
-                  orderBy: {
-                    timeStamp: `asc`,
-                  },
-                },
+              include: {
+                priceHistory: { orderBy: { timeStamp: 'asc' } },
               },
             },
           },
@@ -153,12 +154,10 @@ export class LevelService {
     }
 
     if (level.questions.length === 0) {
-      throw new NotFoundException(
-        `question with id: ${questionId} does not exist`,
-      );
+      throw new NotFoundException(`question does not exist`);
     }
 
-    let nextQuestion = level.questions[0];
+    let nextQuestion = { ...level.questions[0] };
 
     if (
       !nextQuestion.levelStock ||
@@ -172,7 +171,7 @@ export class LevelService {
       id: nextQuestion.id,
       answer:
         nextQuestion.answer == dbTradeType.BUY ? TradeType.BUY : TradeType.SELL,
-      timestamp: level.questions[0].timestamp,
+      timestamp: nextQuestion.timestamp,
 
       levelStock: {
         id: nextQuestion.levelStock.id,

@@ -1,0 +1,17 @@
+[
+  { "level": 1, "timestamp": 1696377600000, "symbol": "BETZ", "answer": 0 },
+  { "level": 1, "timestamp": 1697587200000, "symbol": "PGEN", "answer": 0 },
+  { "level": 1, "timestamp": 1702512000000, "symbol": "FRHC", "answer": 0 },
+  { "level": 1, "timestamp": 1702512000000, "symbol": "FNDC", "answer": 1 },
+  { "level": 1, "timestamp": 1702598400000, "symbol": "SNCE", "answer": 0 },
+  { "level": 2, "timestamp": 1698710400000, "symbol": "TTI", "answer": 0 },
+  { "level": 2, "timestamp": 1697587200000, "symbol": "CARR", "answer": 0 },
+  { "level": 2, "timestamp": 1699315200000, "symbol": "CPG", "answer": 0 },
+  { "level": 2, "timestamp": 1699833600000, "symbol": "CULP", "answer": 0 },
+  { "level": 2, "timestamp": 1701043200000, "symbol": "CRK", "answer": 0 },
+  { "level": 3, "timestamp": 1704672000000, "symbol": "SAGE", "answer": 1 },
+  { "level": 3, "timestamp": 1700006400000, "symbol": "RMD", "answer": 1 },
+  { "level": 3, "timestamp": 1699315200000, "symbol": "ALTR", "answer": 1 },
+  { "level": 3, "timestamp": 1697500800000, "symbol": "API", "answer": 1 },
+  { "level": 3, "timestamp": 1698710400000, "symbol": "NSP", "answer": 1 }
+]

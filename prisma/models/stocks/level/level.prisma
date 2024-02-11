@@ -13,10 +13,10 @@ model Level {
     // relations
     tutorial       Tutorial?
 
-    questions         LevelQuestion[]
+    questions      LevelQuestion[]
 
     memberships    LevelMembership[]
-    
+
     @@map("levels")
     @@index([number])
 }

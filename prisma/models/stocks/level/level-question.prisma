@@ -3,6 +3,7 @@ import { Level } from "./level"
 
 model LevelQuestion {
     id           Int      @id @default(autoincrement())
+    position        Int
     answer       TradeType
     timestamp    DateTime
 
@@ -10,11 +11,10 @@ model LevelQuestion {
     levelId Int
     level   Level @relation(fields: [levelId], references: [id])
 
-    levelStockId Int
     levelStock   LevelStock? 
 }
 
 enum TradeType {
-    BUY
     SELL
+    BUY
 }

@@ -20,7 +20,19 @@ import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 @Controller('level')
 @ApiTags('Levels')
 export class LevelController {
-  constructor(private levelService: LevelService) { }
+  constructor(
+    private levelService: LevelService,
+    private authService: AuthService,
+  ) { }
+
+  @Post('initialize-levels')
+  @HttpCode(HttpStatus.OK)
+  @UseGuards(AtGuard)
+  async initializeLevelsModel(@Req() req: Request): Promise<void> {
+    var player = await this.authService.playerResolver((req as any)['sub']);
+    await this.levelService.initializeLevelsMode(player);
+    return;
+  }
 
   @Get('basic-levels-info')
   @HttpCode(HttpStatus.OK)
@@ -31,7 +43,7 @@ export class LevelController {
     @Query('take') take: number,
     @Req() req: Request,
   ): Promise<PaginatedList<BasicLevelInfo>> {
-    var player = await this.authService.playerResolver((req as any)['sub']);
+    var player = await this.authService.playerResolver((req as any).user.sub);
     return this.levelService.getAllLevels(page, take, player);
   }
 
@@ -42,18 +54,18 @@ export class LevelController {
     @Param('levelId') levelId: string,
     @Req() req: Request,
   ): Promise<GetLevelTutorialDto> {
-    var player = await this.authService.playerResolver((req as any)['sub']);
+    var player = await this.authService.playerResolver((req as any).user.sub);
     return this.levelService.getTutorial(levelId, player);
   }
 
-  @Get(':levelId/question/:questionId')
+  @Get(':levelId/question/:questionPosition')
   @UseGuards(AtGuard)
   async getQuestion(
     @Param('levelId') levelId: string,
-    @Param('questionId') questionId: string,
+    @Param('questionPosition') questionPosition: string,
     @Req() req: Request,
   ): Promise<getQuestionDto> {
-    var player = await this.authService.playerResolver((req as any)['sub']);
-    return this.levelService.getQuestion(levelId, questionId, player);
+    var player = await this.authService.playerResolver((req as any).user.sub);
+    return this.levelService.getQuestion(levelId, questionPosition, player);
   }
 }
