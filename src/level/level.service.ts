@@ -16,8 +16,8 @@ export class LevelService {
   constructor(private prisma: PrismaService) {}
 
   async getAllLevels(
-    page: number = 0,
-    take: number = 4,
+    page: string = '0',
+    take: string = '4',
     player: Player,
   ): Promise<PaginatedList<BasicLevelInfo>> {
     const pastLevel = await this.prisma.levelMembership.findFirstOrThrow({
@@ -42,8 +42,8 @@ export class LevelService {
       orderBy: {
         createdAt: `asc`,
       },
-      skip: page * take,
-      take: take,
+      skip: parseInt(page) * parseInt(take),
+      take: parseInt(take),
       select: {
         id: true,
         number: true,
@@ -60,7 +60,7 @@ export class LevelService {
           isActive: pastLevel?.level.number >= level.number,
         };
       }),
-      isLastPage: allLevels.length < take,
+      isLastPage: allLevels.length < parseInt(take),
     };
 
     return result;

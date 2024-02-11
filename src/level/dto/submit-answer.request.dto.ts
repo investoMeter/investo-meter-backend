@@ -1,4 +1,3 @@
-import { ApiProperty } from '@nestjs/swagger';
 import { TradeType } from '@prisma/client';
 import { IsEnum, IsNumber } from 'class-validator';
 
