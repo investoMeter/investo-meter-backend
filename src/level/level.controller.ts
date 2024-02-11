@@ -36,12 +36,16 @@ export class LevelController {
   @UseGuards(AtGuard)
   @ApiBearerAuth()
   async getAllLevels(
-    @Query('page') page: string,
-    @Query('take') take: string,
+    @Query('page') page: string = '0',
+    @Query('take') take: string = '4',
     @Req() req: Request,
   ): Promise<PaginatedList<BasicLevelInfo>> {
     var player = await this.authService.playerResolver((req as any).user.sub);
-    return this.levelService.getAllLevels(page, take, player);
+    return this.levelService.getAllLevels(
+      parseInt(page),
+      parseInt(take),
+      player,
+    );
   }
 
   @Get(':levelId/tutorial')
