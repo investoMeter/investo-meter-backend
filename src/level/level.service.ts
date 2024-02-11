@@ -206,6 +206,7 @@ export class LevelService {
         );
       }
     }
+    const win = correctAnswers === levelQuestions.length;
     await this.prisma.levelMembership.update({
       where: {
         levelId_playerId: {
@@ -215,11 +216,24 @@ export class LevelService {
       },
       data: {
         failuresCount: {
-          increment: correctAnswers === levelQuestions.length ? 0 : 1,
+          increment: win ? 0 : 1,
         },
-        passedAt: correctAnswers === levelQuestions.length ? new Date() : null,
+        passedAt: win ? new Date() : null,
       },
     });
+
+    const levelsCount = await this.prisma.level.count();
+
+    if (win && parseInt(levelId) < levelsCount) {
+      await this.prisma.levelMembership.create({
+        data: {
+          levelId: parseInt(levelId) + 1,
+          playerId: player.userId,
+          failuresCount: 0,
+          passedAt: null,
+        },
+      });
+    }
 
     return {
       correctAnswers,
