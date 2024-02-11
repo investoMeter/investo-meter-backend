@@ -67,6 +67,12 @@ export class AuthService {
     await this.prisma.player.create({
       data: {
         userId: newUser.id,
+        levelMemberships: {
+          create: {
+            levelId: 1,
+            failuresCount: 0,
+          },
+        },
       },
     });
 

@@ -1,4 +1,5 @@
 import {
+  Body,
   Controller,
   Get,
   HttpCode,
@@ -11,7 +12,12 @@ import {
 } from '@nestjs/common';
 import { LevelService } from './level.service';
 import { AtGuard } from 'src/auth/guards';
-import { GetLevelTutorialDto, getQuestionDto } from './dto';
+import {
+  GetLevelTutorialDto,
+  SubmitAnswerRequestDto,
+  SubmitAnswerResponseDto,
+  getQuestionDto,
+} from './dto';
 import { PaginatedList } from 'src/common';
 import { BasicLevelInfo } from './models';
 import { AuthService } from 'src/auth/auth.service';
@@ -23,16 +29,7 @@ export class LevelController {
   constructor(
     private levelService: LevelService,
     private authService: AuthService,
-  ) { }
-
-  @Post('initialize-levels')
-  @HttpCode(HttpStatus.OK)
-  @UseGuards(AtGuard)
-  async initializeLevelsModel(@Req() req: Request): Promise<void> {
-    var player = await this.authService.playerResolver((req as any)['sub']);
-    await this.levelService.initializeLevelsMode(player);
-    return;
-  }
+  ) {}
 
   @Get('basic-levels-info')
   @HttpCode(HttpStatus.OK)
@@ -60,6 +57,7 @@ export class LevelController {
 
   @Get(':levelId/question/:questionPosition')
   @UseGuards(AtGuard)
+  @ApiBearerAuth()
   async getQuestion(
     @Param('levelId') levelId: string,
     @Param('questionPosition') questionPosition: string,
@@ -67,5 +65,17 @@ export class LevelController {
   ): Promise<getQuestionDto> {
     var player = await this.authService.playerResolver((req as any).user.sub);
     return this.levelService.getQuestion(levelId, questionPosition, player);
+  }
+
+  @Post(`:levelId`)
+  @UseGuards(AtGuard)
+  @ApiBearerAuth()
+  async submitAnswer(
+    @Param('levelId') levelId: string,
+    @Req() req: Request,
+    @Body() answers: SubmitAnswerRequestDto[],
+  ): Promise<SubmitAnswerResponseDto> {
+    var player = await this.authService.playerResolver((req as any).user.sub);
+    return this.levelService.submitAnswer(levelId, player, answers);
   }
 }

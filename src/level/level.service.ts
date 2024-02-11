@@ -1,6 +1,11 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
-import { GetLevelTutorialDto, getQuestionDto } from './dto';
+import {
+  GetLevelTutorialDto,
+  SubmitAnswerRequestDto,
+  SubmitAnswerResponseDto,
+  getQuestionDto,
+} from './dto';
 import { PaginatedList } from 'src/common/paginated-list.dto';
 import { Player, TradeType as dbTradeType } from '@prisma/client';
 import { TradeType } from 'src/common';
@@ -9,25 +14,6 @@ import { BasicLevelInfo } from '../level/models';
 @Injectable()
 export class LevelService {
   constructor(private prisma: PrismaService) {}
-
-  async initializeLevelsMode(player: { userId: string }) {
-    const pastLevels = await this.prisma.levelMembership.count({
-      where: {
-        playerId: player.userId,
-      },
-    });
-
-    if (pastLevels === 0) {
-      await this.prisma.levelMembership.create({
-        data: {
-          levelId: 1,
-          playerId: player.userId,
-          failuresCount: 0,
-          passedAt: null,
-        },
-      });
-    }
-  }
 
   async getAllLevels(
     page: number = 0,
@@ -190,6 +176,55 @@ export class LevelService {
           };
         }),
       },
+    };
+  }
+  async submitAnswer(
+    levelId: string,
+    player: { userId: string },
+    answers: SubmitAnswerRequestDto[],
+  ): Promise<SubmitAnswerResponseDto> {
+    const levelQuestions = await this.prisma.levelQuestion.findMany({
+      where: {
+        levelId: parseInt(levelId),
+      },
+      select: {
+        id: true,
+        answer: true,
+      },
+    });
+
+    let correctAnswers = 0;
+    for (let question of levelQuestions) {
+      const answer = answers.find((a) => a.questionId === question.id);
+      if (!!answer) {
+        if (question.answer === answer.tradeType) {
+          correctAnswers++;
+        }
+      } else {
+        throw new NotFoundException(
+          `question with id: ${question.id} does not exist`,
+        );
+      }
+    }
+    await this.prisma.levelMembership.update({
+      where: {
+        levelId_playerId: {
+          levelId: parseInt(levelId),
+          playerId: player.userId,
+        },
+      },
+      data: {
+        failuresCount: {
+          increment: correctAnswers === levelQuestions.length ? 0 : 1,
+        },
+        passedAt: correctAnswers === levelQuestions.length ? new Date() : null,
+      },
+    });
+
+    return {
+      correctAnswers,
+      wrongAnswers: levelQuestions.length - correctAnswers,
+      totalQuestions: levelQuestions.length,
     };
   }
 }
