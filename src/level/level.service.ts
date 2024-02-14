@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import {
   GetLevelTutorialDto,
@@ -13,7 +13,7 @@ import { BasicLevelInfo } from '../level/models';
 
 @Injectable()
 export class LevelService {
-  constructor(private prisma: PrismaService) {}
+  constructor(private prisma: PrismaService) { }
 
   async getAllLevels(
     page: number,
@@ -178,6 +178,7 @@ export class LevelService {
       },
     };
   }
+
   async submitAnswer(
     levelId: string,
     player: { userId: string },
@@ -192,6 +193,12 @@ export class LevelService {
         answer: true,
       },
     });
+
+    if (levelQuestions.length !== answers.length) {
+      throw new BadRequestException(
+        `answers count does not match the questions count`,
+      );
+    }
 
     let correctAnswers = 0;
     for (let question of levelQuestions) {

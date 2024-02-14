@@ -21,7 +21,7 @@ import {
 import { PaginatedList } from 'src/common';
 import { BasicLevelInfo } from './models';
 import { AuthService } from 'src/auth/auth.service';
-import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiBody, ApiTags } from '@nestjs/swagger';
 
 @Controller('level')
 @ApiTags('Levels')
@@ -29,7 +29,7 @@ export class LevelController {
   constructor(
     private levelService: LevelService,
     private authService: AuthService,
-  ) {}
+  ) { }
 
   @Get('basic-levels-info')
   @HttpCode(HttpStatus.OK)
@@ -74,6 +74,7 @@ export class LevelController {
   @Post(`:levelId`)
   @UseGuards(AtGuard)
   @ApiBearerAuth()
+  @ApiBody({ type: [SubmitAnswerRequestDto] })
   async submitAnswer(
     @Param('levelId') levelId: string,
     @Req() req: Request,
@@ -82,4 +83,5 @@ export class LevelController {
     var player = await this.authService.playerResolver((req as any).user.sub);
     return this.levelService.submitAnswer(levelId, player, answers);
   }
+
 }
