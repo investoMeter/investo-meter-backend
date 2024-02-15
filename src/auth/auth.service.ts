@@ -17,7 +17,6 @@ import { JwtService } from '@nestjs/jwt';
 import { Tokens } from './types';
 import {
   LoginResponseDto,
-  LogoutResponseDto,
   RefreshResponseDto,
   RegisterResponseDto,
 } from './dto/response';
@@ -139,7 +138,7 @@ export class AuthService {
     };
   }
 
-  async logout(userId: string): Promise<LogoutResponseDto> {
+  async logout(userId: string) {
     await this.prisma.user.update({
       where: { id: userId, hashedRefreshToken: { not: null } },
       data: { hashedRefreshToken: null },
@@ -288,7 +287,7 @@ export class AuthService {
   }
 
   // Utils
-  public async hashPassword(password: string) {
+  private async hashPassword(password: string) {
     const salt = await bcrypt.genSalt(10);
     return { salt, hash: await bcrypt.hash(password, salt) };
   }

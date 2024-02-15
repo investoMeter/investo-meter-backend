@@ -19,9 +19,9 @@ export class RefreshResponseDto {
 
   @IsNotEmpty()
   @IsString()
-  refreshToken: string;
+  readonly refreshToken: string;
 
   @IsNotEmpty()
   @IsString()
-  accessToken: string;
+  readonly accessToken: string;
 }

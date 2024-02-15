@@ -18,7 +18,6 @@ import {
 } from './dto/request';
 import {
   LoginResponseDto,
-  LogoutResponseDto,
   RefreshResponseDto,
   RegisterResponseDto,
 } from './dto/response';
@@ -29,7 +28,7 @@ import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 @Controller('auth')
 @ApiTags('Authentication')
 export class AuthController {
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService) {}
 
   @Post('local/register')
   @HttpCode(HttpStatus.CREATED)
@@ -49,7 +48,7 @@ export class AuthController {
   @ApiBearerAuth()
   @HttpCode(HttpStatus.OK)
   @UseGuards(AtGuard)
-  async logout(@Req() req: Request): Promise<LogoutResponseDto> {
+  async logout(@Req() req: Request) {
     const user = (req as any).user;
     return this.authService.logout(user['sub']);
   }
