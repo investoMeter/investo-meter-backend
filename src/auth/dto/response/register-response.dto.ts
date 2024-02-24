@@ -15,13 +15,13 @@ export class RegisterResponseDto {
 
   @IsEmail()
   @IsNotEmpty()
-  email: string;
+  readonly email: string;
 
   @IsNotEmpty()
   @IsString()
-  access_token: string;
+  readonly access_token: string;
 
   @IsNotEmpty()
   @IsString()
-  refresh_token: string;
+  readonly refresh_token: string;
 }

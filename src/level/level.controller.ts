@@ -13,7 +13,7 @@ import {
 import { LevelService } from './level.service';
 import { AtGuard } from 'src/auth/guards';
 import {
-  GetLevelTutorialDto,
+  GetTutorialDto,
   SubmitAnswerRequestDto,
   SubmitAnswerResponseDto,
   getQuestionDto,
@@ -54,7 +54,7 @@ export class LevelController {
   async getTutorial(
     @Param('levelId') levelId: string,
     @Req() req: Request,
-  ): Promise<GetLevelTutorialDto> {
+  ): Promise<GetTutorialDto> {
     var player = await this.authService.playerResolver((req as any).user.sub);
     return this.levelService.getTutorial(levelId, player);
   }

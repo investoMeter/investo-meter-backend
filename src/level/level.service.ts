@@ -1,7 +1,11 @@
-import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import {
-  GetLevelTutorialDto,
+  GetTutorialDto,
   SubmitAnswerRequestDto,
   SubmitAnswerResponseDto,
   getQuestionDto,
@@ -13,7 +17,7 @@ import { BasicLevelInfo } from '../level/models';
 
 @Injectable()
 export class LevelService {
-  constructor(private prisma: PrismaService) { }
+  constructor(private prisma: PrismaService) {}
 
   async getAllLevels(
     page: number,
@@ -38,7 +42,7 @@ export class LevelService {
       },
     });
 
-    const allLevels = await this.prisma.level.findMany({
+    const levels = await this.prisma.level.findMany({
       orderBy: {
         createdAt: `asc`,
       },
@@ -50,9 +54,10 @@ export class LevelService {
         patternName: true,
       },
     });
+    const levelsCount = await this.prisma.level.count();
 
     const result: PaginatedList<BasicLevelInfo> = {
-      list: allLevels.map((level) => {
+      list: levels.map((level) => {
         return {
           id: level.id,
           name: `Level ${level.number}`,
@@ -60,16 +65,13 @@ export class LevelService {
           isActive: pastLevel?.level.number >= level.number,
         };
       }),
-      isLastPage: allLevels.length < take,
+      isLastPage: levels.length < take || levelsCount <= page * take + take,
     };
 
     return result;
   }
 
-  async getTutorial(
-    levelId: string,
-    player: Player,
-  ): Promise<GetLevelTutorialDto> {
+  async getTutorial(levelId: string, player: Player): Promise<GetTutorialDto> {
     const level = await this.prisma.level.findUnique({
       where: {
         id: parseInt(levelId),
@@ -86,21 +88,11 @@ export class LevelService {
       throw new NotFoundException(`level with id: ${levelId} does not exist`);
     }
 
-    const result: GetLevelTutorialDto = {
-      levelInfo: {
-        id: level.id,
-        name: `Level ${level.number}`,
-        patternName: level.patternName,
-        isActive: true,
-      },
-      tutorialInfo: {
-        id: level.tutorial.id,
-        title: level.tutorial.title,
-
-        published: level.tutorial.published,
-        imageStorageId: level.tutorial.imageStorageId || undefined,
-        content: level.tutorial.content,
-      },
+    const result: GetTutorialDto = {
+      id: level.tutorial.id,
+      title: level.tutorial.title,
+      imageStorageId: level.tutorial.imageStorageId || undefined,
+      content: level.tutorial.content,
     };
 
     return result;
@@ -146,9 +138,9 @@ export class LevelService {
     let nextQuestion = { ...level.questions[0] };
 
     if (
-      !nextQuestion.levelStock ||
-      !nextQuestion.levelStock.priceHistory ||
-      nextQuestion.levelStock.priceHistory.length === 0
+      !!!nextQuestion.levelStock ||
+      !!!nextQuestion.levelStock.priceHistory ||
+      !!!nextQuestion.levelStock.priceHistory.length
     ) {
       throw new NotFoundException(`question is missing its data`);
     }

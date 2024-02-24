@@ -12,31 +12,6 @@ async function hashPassword(password: string) {
 
 async function seedData() {
   try {
-    if ((await prisma.user.count()) == 0) {
-      const jsonPath = path.join(__dirname, '../player_data.json');
-      const jsonData = await fs.readFile(jsonPath, 'utf-8');
-      const playersData = JSON.parse(jsonData);
-      for (const user of playersData) {
-        const hash = await hashPassword(user.password);
-        const newUser = await prisma.user.create({
-          data: {
-            username: user.username,
-            name: user.username,
-            email: user.email,
-            salt: hash.salt,
-            hashedPassword: hash.hash,
-          },
-          select: { id: true, username: true, email: true },
-        });
-
-        await prisma.player.create({
-          data: {
-            userId: newUser.id,
-          },
-        });
-      }
-    }
-    console.log('players seeding is done');
     if ((await prisma.contestStock.count()) == 0) {
       const jsonPath = path.join(__dirname, '../stock_data.json');
       const jsonData = await fs.readFile(jsonPath, 'utf-8');
@@ -135,6 +110,39 @@ async function seedData() {
       }
     }
     console.log('levels seeding is done');
+
+    if ((await prisma.user.count()) == 0) {
+      const jsonPath = path.join(__dirname, '../player_data.json');
+      const jsonData = await fs.readFile(jsonPath, 'utf-8');
+      const playersData = JSON.parse(jsonData);
+      for (const user of playersData) {
+        const hash = await hashPassword(user.password);
+        const newUser = await prisma.user.create({
+          data: {
+            username: user.username,
+            name: user.username,
+            email: user.email,
+            salt: hash.salt,
+            hashedPassword: hash.hash,
+          },
+          select: { id: true, username: true, email: true },
+        });
+
+        await prisma.player.create({
+          data: {
+            userId: newUser.id,
+            levelMemberships: {
+              create: {
+                level: { connect: { number: 1 } },
+                failuresCount: 0,
+                passedAt: null,
+              },
+            },
+          },
+        });
+      }
+    }
+    console.log('players seeding is done');
   } catch (error) {
     console.error('Error seeding data:', error);
   } finally {

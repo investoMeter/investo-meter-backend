@@ -1,7 +1,11 @@
-import { BasicLevelInfo } from '../models/basic-level-info.level';
-import { TutorialInfo } from '../models/tutorial-info.level';
+import { ContentItem } from '../models/content-item.level';
 
-export class GetLevelTutorialDto {
-  levelInfo: BasicLevelInfo;
-  tutorialInfo: TutorialInfo;
+export class GetTutorialDto {
+  id: number;
+
+  title: string;
+
+  content: ContentItem[];
+
+  imageStorageId?: string;
 }
