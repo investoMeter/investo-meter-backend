@@ -1,6 +1,6 @@
 import { Admin } from "..\..\roles\admin"
 import { Level } from "./level"
-import { Content } from "./tutorial-content"
+import { Content } from "./content"
 model Tutorial {
     id              Int     @id @default(autoincrement())
     title           String
