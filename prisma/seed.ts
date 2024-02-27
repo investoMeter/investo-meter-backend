@@ -98,10 +98,10 @@ async function seedData() {
                 levelStockId: question_db.levelStock.id,
                 timeStamp: new Date(ph.Date),
                 volume: ph.Volume,
-                closePrice: ph.Close,
-                highestPrice: ph.High,
-                lowestPrice: ph.Low,
-                openPrice: ph.Open,
+                close: ph.Close,
+                highest: ph.High,
+                lowest: ph.Low,
+                open: ph.Open,
               },
             });
           }

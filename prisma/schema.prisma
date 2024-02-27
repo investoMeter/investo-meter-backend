@@ -33,10 +33,12 @@ model PasswordReset {
 model Player {
   userId String @unique
 
+  coinsCount Int  @default(0)
   // relations
-  user User @relation(fields: [userId], references: [id])
+  user       User @relation(fields: [userId], references: [id])
 
-  levelMemberships LevelMembership[]
+  levelMemberships   LevelMembership[]
+  contestMemberships ContestMembership[]
 
   @@map("players")
 }
@@ -57,10 +59,33 @@ model User {
   hashedRefreshToken String?
 
   // relations
-  player Player?
-  admin  Admin?
+  player          Player?
+  admin           Admin?
+  createdContests Contest[]
 
   @@map("users")
+}
+
+//
+// contest-membership.prisma
+//
+
+model ContestMembership {
+  id Int @id @default(autoincrement())
+
+  roomId             Int
+  currentMoneyAmount Int @default(0)
+
+  // relations
+  playerId String
+  player   Player @relation(fields: [playerId], references: [userId])
+
+  contestId Int
+  contest   Contest @relation(fields: [contestId], references: [id])
+
+  tradingHistory Trade[]
+
+  @@unique([contestId, playerId])
 }
 
 //
@@ -68,16 +93,13 @@ model User {
 //
 
 model ContestStockPrice {
-  id           Int      @id @default(autoincrement())
-  openPrice    Float
-  closePrice   Float
-  highestPrice Float
-  lowestPrice  Float
-  volume       BigInt
-  timeStamp    DateTime
-
-  createdAt DateTime  @default(now())
-  updatedAt DateTime? @updatedAt
+  id        Int      @id @default(autoincrement())
+  open      Float
+  close     Float
+  highest   Float
+  lowest    Float
+  volume    BigInt
+  timeStamp DateTime @default(now())
 
   // relations
   contestStockId Int
@@ -97,10 +119,51 @@ model ContestStock {
   symbol String @unique
 
   // relations
-  priceHistory ContestStockPrice[]
+  relatedTrades Trade[]
+  priceHistory  ContestStockPrice[]
 
   @@index([symbol], name: "symbol")
   @@map("contest_stocks")
+}
+
+//
+// contest.prisma
+//
+
+model Contest {
+  id Int @id @default(autoincrement())
+
+  name  String
+  rooms Int
+
+  startDate DateTime
+  endDate   DateTime
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime? @updatedAt
+
+  // relations
+  creatorId String
+  creator   User   @relation(fields: [creatorId], references: [id])
+
+  memberships ContestMembership[]
+}
+
+//
+// trade.prisma
+//
+
+model Trade {
+  id         Int       @id @default(autoincrement())
+  type       TradeType
+  stockCount Int       @default(1)
+
+  // relations
+  stockId Int
+  stock   ContestStock @relation(fields: [stockId], references: [id])
+
+  memberId Int
+  member   ContestMembership @relation(fields: [memberId], references: [id])
 }
 
 //
@@ -138,26 +201,18 @@ model LevelQuestion {
   levelStock LevelStock?
 }
 
-enum TradeType {
-  SELL
-  BUY
-}
-
 //
 // level-stock-price.prisma
 //
 
 model LevelStockPrice {
-  id           Int      @id @default(autoincrement())
-  openPrice    Float
-  closePrice   Float
-  highestPrice Float
-  lowestPrice  Float
-  volume       BigInt
-  timeStamp    DateTime
-
-  createdAt DateTime  @default(now())
-  updatedAt DateTime? @updatedAt
+  id        Int      @id @default(autoincrement())
+  open      Float
+  close     Float
+  highest   Float
+  lowest    Float
+  volume    BigInt
+  timeStamp DateTime @default(now())
 
   // relations
   levelStockId Int
@@ -237,6 +292,15 @@ model Tutorial {
 
   @@index([levelId], name: "levelId")
   @@map("tutorials")
+}
+
+//
+// tradeType.prisma
+//
+
+enum TradeType {
+  SELL
+  BUY
 }
 
 generator client {

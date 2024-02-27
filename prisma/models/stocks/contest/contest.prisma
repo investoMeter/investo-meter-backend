@@ -1,0 +1,21 @@
+import { User } from "..\..\roles\user"
+import { ContestMembership } from "contest-membership"
+
+model Contest {
+    id          Int @id @default(autoincrement())
+
+    name        String
+    rooms       Int
+    
+    startDate   DateTime
+    endDate     DateTime
+    
+    createdAt   DateTime  @default(now())
+    updatedAt   DateTime? @updatedAt
+
+    // relations
+    creatorId   String
+    creator     User @relation(fields: [creatorId], references: [id])
+
+    memberships ContestMembership[]
+}

@@ -1,19 +1,16 @@
 import { ContestStock } from "./contest-stock"
 model ContestStockPrice {
-  id           Int      @id @default(autoincrement())
-  openPrice    Float
-  closePrice   Float
-  highestPrice Float
-  lowestPrice  Float
-  volume       BigInt
-  timeStamp    DateTime
-
-  createdAt DateTime  @default(now())
-  updatedAt DateTime? @updatedAt
+  id        Int      @id @default(autoincrement())
+  open      Float
+  close     Float
+  highest   Float
+  lowest    Float
+  volume    BigInt
+  timeStamp DateTime @default(now())
 
   // relations
   contestStockId   Int
-  Stock     ContestStock     @relation(fields: [contestStockId], references: [id], onDelete: Cascade)
+  Stock            ContestStock     @relation(fields: [contestStockId], references: [id], onDelete: Cascade)
 
   @@map("contest_stock_price")
   @@index([contestStockId], name: "contest_stock_price_contest_stock_id_foreign")

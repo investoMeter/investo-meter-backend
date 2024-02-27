@@ -1,5 +1,6 @@
 import { Player } from "./player"
 import { Admin } from "./admin"
+import { Contest } from "..\stocks\contest\contest"
 
 model User {
   id                 String    @id @unique @default(cuid())
@@ -15,6 +16,7 @@ model User {
   // relations
   player Player?
   admin  Admin?
+  createdContests    Contest[]
 
   @@map("users")
 }
