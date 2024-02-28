@@ -1,10 +1,10 @@
 import { Player } from "..\..\roles\player"
 import { Contest } from "./contest"
 import { Trade } from "./trade"
+import { Room } from "./room"
 model ContestMembership {
     id         Int       @id @default(autoincrement())
 
-    roomId     Int
     currentMoneyAmount Int @default(0)
 
 
@@ -13,7 +13,8 @@ model ContestMembership {
     player     Player    @relation(fields: [playerId], references: [userId])
 
     contestId  Int
-    contest    Contest     @relation(fields: [contestId], references: [id])
+    roomId     Int
+    room       Room     @relation(fields: [contestId, roomId], references:[contestId, id])
 
     tradingHistory Trade[]
     

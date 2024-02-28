@@ -1,0 +1,16 @@
+import { Contest } from "./contest"
+import { ContestMembership } from "./contest-membership"
+
+model Room {
+  id Int @unique @default(autoincrement())
+  
+  number Int
+
+  // relations
+  contestId  Int @unique
+  contest    Contest @relation(fields: [contestId], references: [id])
+ 
+  memberships    ContestMembership[]
+
+  @@id([contestId, id])
+}

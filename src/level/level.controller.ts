@@ -20,7 +20,7 @@ import {
 } from './dto';
 import { PaginatedList } from 'src/common';
 import { BasicLevelInfo } from './models';
-import { AuthService } from 'src/auth/auth.service';
+import { AuthService } from 'src/auth';
 import { ApiBearerAuth, ApiBody, ApiTags } from '@nestjs/swagger';
 
 @Controller('level')
@@ -29,7 +29,7 @@ export class LevelController {
   constructor(
     private levelService: LevelService,
     private authService: AuthService,
-  ) { }
+  ) {}
 
   @Get('basic-levels-info')
   @HttpCode(HttpStatus.OK)
@@ -40,7 +40,7 @@ export class LevelController {
     @Query('take') take: string = '4',
     @Req() req: Request,
   ): Promise<PaginatedList<BasicLevelInfo>> {
-    var player = await this.authService.playerResolver((req as any).user.sub);
+    const player = await this.authService.playerResolver((req as any).user.sub);
     return this.levelService.getAllLevels(
       parseInt(page),
       parseInt(take),
@@ -55,7 +55,7 @@ export class LevelController {
     @Param('levelId') levelId: string,
     @Req() req: Request,
   ): Promise<GetTutorialDto> {
-    var player = await this.authService.playerResolver((req as any).user.sub);
+    const player = await this.authService.playerResolver((req as any).user.sub);
     return this.levelService.getTutorial(levelId, player);
   }
 
@@ -67,7 +67,7 @@ export class LevelController {
     @Param('questionPosition') questionPosition: string,
     @Req() req: Request,
   ): Promise<getQuestionDto> {
-    var player = await this.authService.playerResolver((req as any).user.sub);
+    const player = await this.authService.playerResolver((req as any).user.sub);
     return this.levelService.getQuestion(levelId, questionPosition, player);
   }
 
@@ -80,8 +80,7 @@ export class LevelController {
     @Req() req: Request,
     @Body() answers: SubmitAnswerRequestDto[],
   ): Promise<SubmitAnswerResponseDto> {
-    var player = await this.authService.playerResolver((req as any).user.sub);
+    const player = await this.authService.playerResolver((req as any).user.sub);
     return this.levelService.submitAnswer(levelId, player, answers);
   }
-
 }
