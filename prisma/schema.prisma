@@ -73,7 +73,6 @@ model User {
 model ContestMembership {
   id Int @id @default(autoincrement())
 
-  roomId             Int
   currentMoneyAmount Int @default(0)
 
   // relations
@@ -81,7 +80,8 @@ model ContestMembership {
   player   Player @relation(fields: [playerId], references: [userId])
 
   contestId Int
-  contest   Contest @relation(fields: [contestId], references: [id])
+  roomId    Int
+  room      Room @relation(fields: [contestId, roomId], references: [contestId, id])
 
   tradingHistory Trade[]
 
@@ -133,8 +133,9 @@ model ContestStock {
 model Contest {
   id Int @id @default(autoincrement())
 
-  name  String
-  rooms Int
+  name            String
+  maxRoomCapacity Int
+  startingMoney   Int
 
   startDate DateTime
   endDate   DateTime
@@ -146,7 +147,25 @@ model Contest {
   creatorId String
   creator   User   @relation(fields: [creatorId], references: [id])
 
+  rooms Room[]
+}
+
+//
+// room.prisma
+//
+
+model Room {
+  id Int @unique @default(autoincrement())
+
+  number Int
+
+  // relations
+  contestId Int     @unique
+  contest   Contest @relation(fields: [contestId], references: [id])
+
   memberships ContestMembership[]
+
+  @@id([contestId, id])
 }
 
 //

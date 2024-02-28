@@ -1,12 +1,14 @@
 import { User } from "..\..\roles\user"
 import { ContestMembership } from "contest-membership"
+import { Room } from "./room"
 
 model Contest {
     id          Int @id @default(autoincrement())
 
-    name        String
-    rooms       Int
-    
+    name            String
+    maxRoomCapacity Int
+    startingMoney   Int
+
     startDate   DateTime
     endDate     DateTime
     
@@ -17,5 +19,5 @@ model Contest {
     creatorId   String
     creator     User @relation(fields: [creatorId], references: [id])
 
-    memberships ContestMembership[]
+    rooms       Room[]
 }

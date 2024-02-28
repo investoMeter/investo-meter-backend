@@ -3,17 +3,17 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
-import { PrismaService } from '../prisma/prisma.service';
+import { PrismaService } from 'src/prisma';
 import {
   GetTutorialDto,
   SubmitAnswerRequestDto,
   SubmitAnswerResponseDto,
   getQuestionDto,
 } from './dto';
-import { PaginatedList } from 'src/common/paginated-list.dto';
+import { PaginatedList } from 'src/common';
 import { Player, TradeType as dbTradeType } from '@prisma/client';
 import { TradeType } from 'src/common';
-import { BasicLevelInfo } from '../level/models';
+import { BasicLevelInfo } from 'src/level/models';
 
 @Injectable()
 export class LevelService {
