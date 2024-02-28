@@ -1,9 +1,10 @@
 import { LevelStock } from "./level-stock"
 import { Level } from "./level"
+import { TradeType } from "..\tradeType"
 
 model LevelQuestion {
     id           Int      @id @default(autoincrement())
-    position        Int
+    position     Int
     answer       TradeType
     timestamp    DateTime
 
@@ -14,7 +15,3 @@ model LevelQuestion {
     levelStock   LevelStock? 
 }
 
-enum TradeType {
-    SELL
-    BUY
-}

@@ -1,4 +1,5 @@
 import { ContestStockPrice } from "./contest-stock-price"
+import { Trade } from "trade"
 
 model ContestStock {
   id           Int          @id @default(autoincrement())
@@ -6,7 +7,8 @@ model ContestStock {
   symbol       String       @unique
 
   // relations
-  priceHistory ContestStockPrice[]
+  relatedTrades Trade[]
+  priceHistory  ContestStockPrice[]
 
   @@map("contest_stocks")
   @@index([symbol], name: "symbol")

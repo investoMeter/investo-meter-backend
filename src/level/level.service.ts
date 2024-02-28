@@ -159,10 +159,10 @@ export class LevelService {
         priceHistory: nextQuestion.levelStock.priceHistory.map((price) => {
           return {
             id: price.id,
-            openPrice: price.openPrice,
-            closePrice: price.closePrice,
-            lowestPrice: price.lowestPrice,
-            highestPrice: price.highestPrice,
+            openPrice: price.open,
+            closePrice: price.close,
+            lowestPrice: price.lowest,
+            highestPrice: price.highest,
             volume: parseInt(String(price.volume)),
             timeStamp: price.timeStamp,
           };

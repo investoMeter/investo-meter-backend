@@ -1,0 +1,21 @@
+import { Player } from "..\..\roles\player"
+import { Contest } from "./contest"
+import { Trade } from "./trade"
+model ContestMembership {
+    id         Int       @id @default(autoincrement())
+
+    roomId     Int
+    currentMoneyAmount Int @default(0)
+
+
+    // relations
+    playerId   String
+    player     Player    @relation(fields: [playerId], references: [userId])
+
+    contestId  Int
+    contest    Contest     @relation(fields: [contestId], references: [id])
+
+    tradingHistory Trade[]
+    
+    @@unique([contestId, playerId])
+}

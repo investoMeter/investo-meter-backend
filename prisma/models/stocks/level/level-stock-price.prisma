@@ -1,20 +1,17 @@
 import { LevelStock } from "level-stock"
 
 model LevelStockPrice {
-  id           Int      @id @default(autoincrement())
-  openPrice    Float
-  closePrice   Float
-  highestPrice Float
-  lowestPrice  Float
-  volume       BigInt
-  timeStamp    DateTime
-
-  createdAt DateTime  @default(now())
-  updatedAt DateTime? @updatedAt
+  id        Int      @id @default(autoincrement())
+  open      Float
+  close     Float
+  highest   Float
+  lowest    Float
+  volume    BigInt
+  timeStamp DateTime @default(now())
 
   // relations
   levelStockId   Int
-  Stock     LevelStock     @relation(fields: [levelStockId], references: [id], onDelete: Cascade)
+  Stock          LevelStock     @relation(fields: [levelStockId], references: [id], onDelete: Cascade)
 
   @@map("level_stock_price")
   @@index([levelStockId], name: "level_stock_price_level_stock_id_idx")
