@@ -1,16 +1,16 @@
-import { TradeType } from "..\tradeType"
-import { ContestStock } from "./contest-stock"
 import { ContestMembership } from "contest-membership"
+import { TradeType }from "../tradeType"
+import { ContestStock } from "./contest-stock"
 
 model Trade {
-    id Int @id @default(autoincrement())
-    type TradeType
-    stockCount Int @default(1)
+  id         Int       @id @default(autoincrement())
+  type       TradeType
+  stockCount Int       @default(1)
 
-    // relations
-    stockId Int
-    stock ContestStock @relation(fields: [stockId], references: [id])
+  // relations
+  stockId Int
+  stock   ContestStock @relation(fields: [stockId], references: [id])
 
-    memberId Int
-    member ContestMembership @relation(fields: [memberId], references: [id])
+  memberId Int
+  member   ContestMembership @relation(fields: [memberId], references: [id])
 }

@@ -1,23 +1,24 @@
 import { User } from "..\..\roles\user"
-import { ContestMembership } from "contest-membership"
+import { ContestMembership }from "contest-membership"
 import { Room } from "./room"
-
+import { ContestStock }from "./contest-stock"
 model Contest {
-    id          Int @id @default(autoincrement())
+  id Int @id @default(autoincrement())
 
-    name            String
-    maxRoomCapacity Int
-    startingMoney   Int
+  name            String
+  maxRoomCapacity Int
+  startingMoney   Float
 
-    startDate   DateTime
-    endDate     DateTime
-    
-    createdAt   DateTime  @default(now())
-    updatedAt   DateTime? @updatedAt
+  startDate DateTime
+  endDate   DateTime
 
-    // relations
-    creatorId   String
-    creator     User @relation(fields: [creatorId], references: [id])
+  createdAt DateTime  @default(now())
+  updatedAt DateTime? @updatedAt
 
-    rooms       Room[]
+  // relations
+  creatorId String
+  creator   User   @relation(fields: [creatorId], references: [id])
+
+  rooms         Room[]
+  contestStocks ContestStock[]
 }
