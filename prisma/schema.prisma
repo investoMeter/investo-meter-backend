@@ -79,10 +79,9 @@ model ContestMembership {
   playerId String
   player   Player @relation(fields: [playerId], references: [userId])
 
-  contestId Int
-  roomId    Int
-  room      Room @relation(fields: [contestId, roomId], references: [contestId, id])
-
+  contestId      Int
+  roomId         Int
+  room           Room    @relation(fields: [contestId, roomId], references: [contestId, id])
   tradingHistory Trade[]
 
   @@unique([contestId, playerId])
@@ -103,7 +102,8 @@ model ContestStockPrice {
 
   // relations
   contestStockId Int
-  Stock          ContestStock @relation(fields: [contestStockId], references: [id], onDelete: Cascade)
+  StockHistory   StockHistory? @relation(fields: [stockHistoryId], references: [id])
+  stockHistoryId Int?
 
   @@index([contestStockId], name: "contest_stock_price_contest_stock_id_foreign")
   @@map("contest_stock_price")
@@ -119,8 +119,11 @@ model ContestStock {
   symbol String @unique
 
   // relations
-  relatedTrades Trade[]
-  priceHistory  ContestStockPrice[]
+  contestId Int?
+  Contest   Contest? @relation(fields: [contestId], references: [id])
+
+  Trade        Trade[]
+  StockHistory StockHistory[]
 
   @@index([symbol], name: "symbol")
   @@map("contest_stocks")
@@ -135,7 +138,7 @@ model Contest {
 
   name            String
   maxRoomCapacity Int
-  startingMoney   Int
+  startingMoney   Float
 
   startDate DateTime
   endDate   DateTime
@@ -147,7 +150,8 @@ model Contest {
   creatorId String
   creator   User   @relation(fields: [creatorId], references: [id])
 
-  rooms Room[]
+  rooms         Room[]
+  contestStocks ContestStock[]
 }
 
 //
@@ -157,15 +161,36 @@ model Contest {
 model Room {
   id Int @unique @default(autoincrement())
 
-  number Int
+  roomNumber      Int
+  currentCapacity Int @default(0)
 
   // relations
-  contestId Int     @unique
+  contestId Int
   contest   Contest @relation(fields: [contestId], references: [id])
 
-  memberships ContestMembership[]
+  memberships     ContestMembership[]
+  stocksHistories StockHistory[]
 
   @@id([contestId, id])
+}
+
+//
+// stock-history.prisma
+//
+
+model StockHistory {
+  id Int @id @default(autoincrement())
+
+  // relations 
+  contestStockId    Int
+  ContestStock      ContestStock        @relation(fields: [contestStockId], references: [id])
+  ContestStockPrice ContestStockPrice[]
+
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime? @updatedAt
+  Room          Room?     @relation(fields: [roomContestId, roomId], references: [contestId, id])
+  roomContestId Int
+  roomId        Int
 }
 
 //
@@ -183,6 +208,18 @@ model Trade {
 
   memberId Int
   member   ContestMembership @relation(fields: [memberId], references: [id])
+}
+
+//
+// content.prisma
+//
+
+model Content {
+  id          Int      @id @default(autoincrement())
+  subTitle    String
+  description String[]
+  tutorial    Tutorial @relation(fields: [tutorialId], references: [id])
+  tutorialId  Int
 }
 
 //
@@ -279,18 +316,6 @@ model Level {
 
   @@index([number])
   @@map("levels")
-}
-
-//
-// tutorial-content.prisma
-//
-
-model Content {
-  id          Int      @id @default(autoincrement())
-  subTitle    String
-  description String[]
-  tutorial    Tutorial @relation(fields: [tutorialId], references: [id])
-  tutorialId  Int
 }
 
 //

@@ -17,6 +17,8 @@ import { PaginatedList } from 'src/common';
 import { ContestRow } from './models/ContestRow';
 import { ContestDetailsDialog } from './models';
 import { JoinContestDto } from './dto';
+import { CreateContestDto } from './dto/createContest.dto';
+import { ContestResponseDto } from './dto/contestResponse.dto';
 
 @Controller('contest')
 @ApiTags('contests')
@@ -24,7 +26,7 @@ export class ContestController {
   constructor(
     private contestService: ContestService,
     private authService: AuthService,
-  ) {}
+  ) { }
 
   @Get('get-all-contests')
   @HttpCode(HttpStatus.OK)
@@ -57,5 +59,14 @@ export class ContestController {
   ): Promise<void> {
     const player = await this.authService.playerResolver((req as any).user.sub);
     return this.contestService.joinContest(player, requestDto);
+  }
+
+  @Post('create-contest')
+  @HttpCode(HttpStatus.CREATED)
+  @UseGuards(AtGuard)
+  @ApiBearerAuth()
+  // TODO: Admin role 
+  async createContest(@Body() createContestDto: CreateContestDto): Promise<ContestResponseDto> {
+    return await this.contestService.createContest(createContestDto);
   }
 }

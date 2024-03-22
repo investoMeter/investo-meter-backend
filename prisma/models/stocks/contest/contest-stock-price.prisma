@@ -1,4 +1,5 @@
 import { ContestStock } from "./contest-stock"
+import { StockHistory } from "./stock-history"
 model ContestStockPrice {
   id        Int      @id @default(autoincrement())
   open      Float
@@ -9,9 +10,10 @@ model ContestStockPrice {
   timeStamp DateTime @default(now())
 
   // relations
-  contestStockId   Int
-  Stock            ContestStock     @relation(fields: [contestStockId], references: [id], onDelete: Cascade)
+  contestStockId Int
+  StockHistory   StockHistory? @relation(fields: [stockHistoryId], references: [id])
+  stockHistoryId Int?
 
-  @@map("contest_stock_price")
   @@index([contestStockId], name: "contest_stock_price_contest_stock_id_foreign")
+  @@map("contest_stock_price")
 }
