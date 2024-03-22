@@ -26,7 +26,7 @@ async function seedData() {
         });
       }
     }
-    console.log('contest data seeding is done');
+    console.log('contest stocks seeding is done');
     if ((await prisma.level.count()) == 0) {
       const jsonPath1 = path.join(__dirname, '../tutorials_data.json');
       const jsonData1 = await fs.readFile(jsonPath1, 'utf-8');
@@ -143,6 +143,23 @@ async function seedData() {
       }
     }
     console.log('players seeding is done');
+    if ((await prisma.contest.count()) > 0) {
+      const contestCreator = await prisma.user.findFirst({
+        select: { id: true },
+      });
+
+      await prisma.contest.create({
+        data: {
+          name: 'Test Contest',
+          maxRoomCapacity: 10,
+          startingMoney: 10000,
+          startDate: new Date('2024-03-22T15:36:00'),
+          endDate: new Date('2024-03-22T15:50:00'),
+          creator: { connect: { id: contestCreator?.id } },
+        },
+      });
+    }
+    console.log('contest seeding is done');
   } catch (error) {
     console.error('Error seeding data:', error);
   } finally {
