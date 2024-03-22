@@ -79,9 +79,10 @@ model ContestMembership {
   playerId String
   player   Player @relation(fields: [playerId], references: [userId])
 
-  contestId      Int
-  roomId         Int
-  room           Room    @relation(fields: [contestId, roomId], references: [contestId, id])
+  contestId Int
+  roomId    Int
+  room      Room @relation(fields: [contestId, roomId], references: [contestId, id])
+
   tradingHistory Trade[]
 
   @@unique([contestId, playerId])
@@ -145,6 +146,8 @@ model Contest {
 
   createdAt DateTime  @default(now())
   updatedAt DateTime? @updatedAt
+
+  started Boolean @default(false)
 
   // relations
   creatorId String
