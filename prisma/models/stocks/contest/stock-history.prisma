@@ -1,0 +1,20 @@
+import { ContestStock }from "./contest-stock"
+import { ContestStockPrice } from "./contest-stock-price"
+import { Room } from "./room"
+
+model StockHistory {
+    id Int @id @default(autoincrement())
+
+    // relations 
+    contestStockId    Int
+    ContestStock      ContestStock        @relation(fields: [contestStockId], references: [id])
+    ContestStockPrice ContestStockPrice[]
+
+    createdAt     DateTime  @default(now())
+    updatedAt     DateTime? @updatedAt
+    Room          Room?     @relation(fields: [roomContestId, roomId], references: [contestId, id])
+    roomContestId Int
+    roomId        Int
+}
+
+

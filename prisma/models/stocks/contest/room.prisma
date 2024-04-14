@@ -1,16 +1,19 @@
 import { Contest } from "./contest"
-import { ContestMembership } from "./contest-membership"
+import { ContestMembership }from "./contest-membership"
+import { StockHistory } from "stock-history"
 
 model Room {
-  id Int @unique @default(autoincrement())
-  
-  number Int
+    id Int @unique @default(autoincrement())
 
-  // relations
-  contestId  Int @unique
-  contest    Contest @relation(fields: [contestId], references: [id])
- 
-  memberships    ContestMembership[]
+    roomNumber      Int
+    currentCapacity Int @default(0)
 
-  @@id([contestId, id])
+    // relations
+    contestId Int
+    contest   Contest @relation(fields: [contestId], references: [id])
+
+    memberships     ContestMembership[]
+    stocksHistories StockHistory[]
+
+    @@id([contestId, id])
 }
