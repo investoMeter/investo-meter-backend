@@ -1,0 +1,31 @@
+import { Player } from "..\..\roles\player"
+import { ContestStock } from ".\contest-stock"
+import {  RequestStatus } from ".\RequestStatus"
+import { Contest } from ".\contest"
+import { Room } from ".\room"
+
+model SellRequest {
+  id Int @id @default(autoincrement())
+
+  quantity  Int
+  Price     Float
+  timestamp DateTime      @default(now())
+  status    RequestStatus
+
+  // relations
+  player   Player @relation(fields: [playerId], references: [userId])
+  playerId String
+
+  stock          ContestStock @relation(fields: [contestStockId], references: [id])
+  contestStockId Int
+
+  room          Room @relation(fields: [roomContestId, roomId], references: [contestId, id])
+  roomContestId Int
+  roomId        Int
+
+  Contest   Contest @relation(fields: [contestId], references: [id])
+  contestId Int
+}
+
+
+

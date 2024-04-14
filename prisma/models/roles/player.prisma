@@ -1,17 +1,21 @@
-import { User } from "./user"
+import { User } from ".\user"
 import { LevelMembership } from "..\stocks\level\level-membership"
 import { ContestMembership } from "..\stocks\contest\contest-membership"
 import { Level } from "..\stocks\level\level"
+import { BuyRequest } from "..\stocks\contest\buy-request"
+import { SellRequest } from "..\stocks\contest\sell-request"
 
 model Player {
   userId String @unique
 
-  coinsCount Int @default(0)
+  coinsCount Int  @default(0)
   // relations
-  user User @relation(fields: [userId], references: [id])
-  
-  levelMemberships LevelMembership[]
+  user       User @relation(fields: [userId], references: [id])
+
+  levelMemberships   LevelMembership[]
   contestMemberships ContestMembership[]
+  BuyRequest         BuyRequest[]
+  SellRequest        SellRequest[]
 
   @@map("players")
 }

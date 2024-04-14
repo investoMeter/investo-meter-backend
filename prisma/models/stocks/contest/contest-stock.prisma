@@ -1,24 +1,24 @@
 import { Contest } from "./contest"
 import { Trade } from "./trade"
 import { StockHistory } from "./stock-history"
+import { BuyRequest } from "./buy-request"
+import { SellRequest } from "./sell-request"
 
 model ContestStock {
-  id     Int    @id @default(autoincrement())
-  name   String
-  symbol String @unique
+    id     Int    @id @default(autoincrement())
+    name   String
+    symbol String @unique
 
-  // relations
-  contestId Int?
-  Contest   Contest? @relation(fields: [contestId], references: [id])
+    // relations
+    contestId Int?
+    Contest   Contest? @relation(fields: [contestId], references: [id])
 
-  Trade        Trade[]
-  StockHistory StockHistory[]
+    Trade        Trade[]
+    StockHistory StockHistory[]
+    BuyRequest   BuyRequest[]
+    SellRequest  SellRequest[]
 
-  @@index([symbol], name: "symbol")
-  @@map("contest_stocks")
+    @@index([symbol], name: "symbol")
+    @@map("contest_stocks")
 }
-
-
-
-
 

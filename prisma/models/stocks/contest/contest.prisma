@@ -2,6 +2,9 @@ import { User } from "..\..\roles\user"
 import { ContestMembership }from "contest-membership"
 import { Room } from "./room"
 import { ContestStock }from "./contest-stock"
+import { BuyRequest } from "./buy-request"
+import { SellRequest } from "./sell-request"
+
 model Contest {
   id Int @id @default(autoincrement())
 
@@ -17,11 +20,15 @@ model Contest {
 
   started Boolean @default(false)
 
-
   // relations
   creatorId String
   creator   User   @relation(fields: [creatorId], references: [id])
 
   rooms         Room[]
   contestStocks ContestStock[]
+  BuyRequest    BuyRequest[]
+  SellRequest   SellRequest[]
 }
+
+
+
