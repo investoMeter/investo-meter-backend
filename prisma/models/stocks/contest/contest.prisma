@@ -17,6 +17,7 @@ model Contest {
 
   started Boolean @default(false)
 
+
   // relations
   creatorId String
   creator   User   @relation(fields: [creatorId], references: [id])

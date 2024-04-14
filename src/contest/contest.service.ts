@@ -214,12 +214,15 @@ export class ContestService {
   async createContest(createContestDto: CreateContestDto) {
     const { name, maxRoomCapacity, startingMoney, startDate, endDate, creatorId, numberOfRooms, stocksIds } = createContestDto;
 
+    const startDateObject = new Date(startDate);
+    const endDateObject = new Date(endDate);
+
     const contestData = {
       name,
       maxRoomCapacity,
       startingMoney,
-      startDate,
-      endDate,
+      startDate: startDateObject,
+      endDate: endDateObject,
       creatorId,
       contestStocks: {
         connect: stocksIds.map(id => ({ id }))
