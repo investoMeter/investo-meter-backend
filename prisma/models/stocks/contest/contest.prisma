@@ -11,6 +11,7 @@ model Contest {
   name            String
   maxRoomCapacity Int
   startingMoney   Float
+  startingShares  Int
 
   startDate DateTime
   endDate   DateTime
@@ -29,6 +30,3 @@ model Contest {
   BuyRequest    BuyRequest[]
   SellRequest   SellRequest[]
 }
-
-
-
