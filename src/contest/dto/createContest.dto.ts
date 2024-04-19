@@ -33,16 +33,19 @@ export class CreateContestDto {
     @ApiProperty({ example: '2024-04-10T12:30:00', description: 'The end date in the format YYYY-MM-DDTHH:MM:SS' })
     endDate: string;
 
-
-    @IsString({ message: 'invalid creator id' })
-    creatorId: string;
-
     @IsNotEmpty()
     @IsPositive()
     @IsInt()
     numberOfRooms: number;
 
+    @IsNotEmpty()
+    @IsPositive()
+    @IsInt()
+    stocksShares: number;
+
     @ArrayNotEmpty()
     @ArrayMinSize(5)
     stocksIds: number[];
+
+
 }

@@ -24,11 +24,12 @@ import { MailerService } from '@nestjs-modules/mailer';
 
 @Injectable()
 export class AuthService {
+
   constructor(
     private prisma: PrismaService,
     private jwt: JwtService,
     private mailerService: MailerService,
-  ) {}
+  ) { }
 
   async register(
     registerDto: RegisterRequestDto,
@@ -371,5 +372,21 @@ export class AuthService {
     }
 
     return player;
+  }
+
+  public async AdminResolver(adminId?: string) {
+    if (!!!adminId) {
+      throw new BadRequestException(`adminId is not provided`);
+    }
+
+    const admin = await this.prisma.admin.findUnique({
+      where: {
+        userId: adminId,
+      },
+    })
+    if (!admin) {
+      throw new NotFoundException(`player with id: ${adminId} is not found`);
+    }
+    return admin;
   }
 }

@@ -156,6 +156,7 @@ async function seedData() {
           startDate: new Date('2024-03-22T15:36:00'),
           endDate: new Date('2024-03-22T15:50:00'),
           creator: { connect: { id: contestCreator?.id } },
+          startingShares: 1000
         },
       });
     }
