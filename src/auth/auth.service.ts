@@ -385,7 +385,7 @@ export class AuthService {
       },
     })
     if (!admin) {
-      throw new NotFoundException(`player with id: ${adminId} is not found`);
+      throw new NotFoundException(`admin with id: ${adminId} is not found`);
     }
     return admin;
   }
