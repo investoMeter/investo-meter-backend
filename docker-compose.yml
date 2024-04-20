@@ -1,7 +1,7 @@
 version: '3.8'
 
 services:
-  db:
+  investo_meter-db:
     image: postgres
     restart: always
     ports:
@@ -10,3 +10,23 @@ services:
       POSTGRES_USER: investo_meter
       POSTGRES_PASSWORD: 123
       POSTGRES_DB: investo_meter_db
+    networks:
+      - investo_meter_network
+ 
+  contests:
+    image: contest-server
+    ports:
+      - "3005:3005"
+    networks:
+      - investo_meter_network
+  
+  hints:
+    image: hint-server
+    ports:
+      - "3006:3006"
+    networks:
+      - investo_meter_network
+
+networks:
+  investo_meter_network:
+    driver: bridge

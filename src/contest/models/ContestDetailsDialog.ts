@@ -3,7 +3,6 @@ export class ContestDetailsDialog {
   duration: number;
   creator: string;
   availableRooms: {
-    id: number;
     roomNumber: number;
     _count: { memberships: number };
   }[];

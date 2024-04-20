@@ -10,8 +10,7 @@ import { ContestResponseDto } from './dto/contestResponse.dto';
 
 @Injectable()
 export class ContestService {
-
-  constructor(private prisma: PrismaService) { }
+  constructor(private prisma: PrismaService) {}
 
   async getAllContests(
     page: number = 0,
@@ -75,7 +74,6 @@ export class ContestService {
         maxRoomCapacity: true,
         rooms: {
           select: {
-            id: true,
             roomNumber: true,
             _count: {
               select: {
@@ -137,8 +135,8 @@ export class ContestService {
           rooms: {
             some: {
               AND: {
-                id: {
-                  equals: requestDto.roomId,
+                roomNumber: {
+                  equals: requestDto.roomNumber,
                 },
                 contestId: {
                   equals: requestDto.contestId,
@@ -156,12 +154,11 @@ export class ContestService {
         startingMoney: true,
         rooms: {
           where: {
-            id: {
-              equals: requestDto.roomId,
+            roomNumber: {
+              equals: requestDto.roomNumber,
             },
           },
           select: {
-            id: true,
             roomNumber: true,
             _count: {
               select: {
@@ -171,7 +168,6 @@ export class ContestService {
           },
         },
       },
-
     });
 
     if (contest.endDate < new Date()) {
@@ -200,8 +196,8 @@ export class ContestService {
         },
         room: {
           connect: {
-            contestId_id: {
-              id: requestDto.roomId,
+            contestId_roomNumber: {
+              roomNumber: requestDto.roomNumber,
               contestId: requestDto.contestId,
             },
           },
@@ -212,7 +208,16 @@ export class ContestService {
   }
 
   async createContest(createContestDto: CreateContestDto) {
-    const { name, maxRoomCapacity, startingMoney, startDate, endDate, creatorId, numberOfRooms, stocksIds } = createContestDto;
+    const {
+      name,
+      maxRoomCapacity,
+      startingMoney,
+      startDate,
+      endDate,
+      creatorId,
+      numberOfRooms,
+      stocksIds,
+    } = createContestDto;
 
     const startDateObject = new Date(startDate);
     const endDateObject = new Date(endDate);
@@ -225,18 +230,18 @@ export class ContestService {
       endDate: endDateObject,
       creatorId,
       contestStocks: {
-        connect: stocksIds.map(id => ({ id }))
+        connect: stocksIds.map((id) => ({ id })),
       },
       rooms: {
         create: Array.from({ length: numberOfRooms }, (_, i) => ({
           roomNumber: i + 1,
           stocksHistories: {
-            create: stocksIds.map(id => ({
-              contestStockId: id
-            }))
-          }
-        }))
-      }
+            create: stocksIds.map((id) => ({
+              contestStockId: id,
+            })),
+          },
+        })),
+      },
     };
 
     const newContest = await this.prisma.contest.create({
@@ -248,11 +253,11 @@ export class ContestService {
               select: {
                 contestStockId: true,
                 ContestStockPrice: true,
-              }
-            }
-          }
-        }
-      }
+              },
+            },
+          },
+        },
+      },
     });
 
     const contestResponseDto: ContestResponseDto = {
@@ -262,7 +267,7 @@ export class ContestService {
       startingMoney: newContest.startingMoney,
       startDate: newContest.startDate,
       endDate: newContest.endDate,
-      rooms: newContest.rooms
+      rooms: newContest.rooms,
     };
 
     return contestResponseDto;

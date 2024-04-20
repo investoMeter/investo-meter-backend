@@ -21,6 +21,7 @@ import {
   RegisterResponseDto,
 } from './dto/response';
 import { MailerService } from '@nestjs-modules/mailer';
+import { Player } from '@prisma/client';
 
 @Injectable()
 export class AuthService {
@@ -355,7 +356,7 @@ export class AuthService {
     }
   }
 
-  public async playerResolver(playerId?: string) {
+  public async playerResolver(playerId?: string): Promise<Player> {
     if (!!!playerId) {
       throw new BadRequestException(`playerId is not provided`);
     }
@@ -364,6 +365,7 @@ export class AuthService {
       where: {
         userId: playerId,
       },
+      include: { user: true, contestMemberships: true, levelMemberships: true },
     });
 
     if (!player) {
