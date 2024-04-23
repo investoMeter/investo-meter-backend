@@ -30,7 +30,18 @@ export class TradeController {
     async createBuyRequest(@Req() req: any,
         @Body() requestDto: TradeRequestDto) {
         const player = await this.authService.playerResolver((req as any).user.sub);
-        return this.tradeService.createBuyRequest(player, requestDto);
+        return await this.tradeService.createBuyRequest(player, requestDto);
+    }
+
+    @Post('sell')
+    @HttpCode(HttpStatus.OK)
+    @UseGuards(AtGuard)
+    @ApiBearerAuth()
+    @HttpCode(HttpStatus.CREATED)
+    async createSellRequest(@Req() req: any,
+        @Body() requestDto: TradeRequestDto) {
+        const player = await this.authService.playerResolver((req as any).user.sub);
+        return await this.tradeService.createSellRequest(player, requestDto);
     }
 
 }
