@@ -11,9 +11,10 @@ model StockHistory {
   ContestStock      ContestStock        @relation(fields: [contestStockId], references: [id])
   ContestStockPrice ContestStockPrice[]
 
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime? @updatedAt
-  Room          Room?     @relation(fields: [roomContestId, roomId], references: [contestId, id])
+  createdAt DateTime  @default(now())
+  updatedAt DateTime? @updatedAt
+
+  Room          Room? @relation(fields: [roomContestId, roomId], references: [contestId, id])
   roomContestId Int
   roomId        Int
 }

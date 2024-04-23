@@ -5,20 +5,21 @@ import { BuyRequest } from "./buy-request"
 import { SellRequest } from "./sell-request"
 
 model Room {
-  id Int @unique @default(autoincrement())
+    id Int @unique @default(autoincrement())
 
-  roomNumber      Int
-  currentCapacity Int @default(0)
+    roomNumber      Int
+    currentCapacity Int @default(0)
 
-  // relations
-  contestId Int
-  contest   Contest @relation(fields: [contestId], references: [id])
+    // relations
+    contestId Int
+    contest   Contest @relation(fields: [contestId], references: [id])
 
-  memberships     ContestMembership[]
-  stocksHistories StockHistory[]
-  BuyRequest      BuyRequest[]
-  SellRequest     SellRequest[]
+    memberships     ContestMembership[]
+    stocksHistories StockHistory[]
+    BuyRequest      BuyRequest[]
+    SellRequest     SellRequest[]
 
-  @@id([contestId, id])
+    @@id([contestId, id])
 }
+
 

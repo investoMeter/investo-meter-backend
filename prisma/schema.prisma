@@ -76,7 +76,7 @@ model BuyRequest {
   id Int @id @default(autoincrement())
 
   quantity  Int
-  Price     Float
+  price     Float
   timestamp DateTime      @default(now())
   status    RequestStatus
 
@@ -87,11 +87,10 @@ model BuyRequest {
   stock          ContestStock @relation(fields: [contestStockId], references: [id])
   contestStockId Int
 
-  room          Room @relation(fields: [roomContestId, roomId], references: [contestId, id])
-  roomContestId Int
-  roomId        Int
+  room   Room @relation(fields: [contestId, roomId], references: [contestId, id])
+  roomId Int
 
-  Contest   Contest @relation(fields: [contestId], references: [id])
+  contest   Contest @relation(fields: [contestId], references: [id])
   contestId Int
 }
 
@@ -113,6 +112,7 @@ model ContestMembership {
   room      Room @relation(fields: [contestId, roomId], references: [contestId, id])
 
   tradingHistory Trade[]
+  ownedStocks    OwnedStock[]
 
   @@unique([contestId, playerId])
 }
@@ -150,12 +150,13 @@ model ContestStock {
 
   // relations
   contestId Int?
-  Contest   Contest? @relation(fields: [contestId], references: [id])
+  contest   Contest? @relation(fields: [contestId], references: [id])
 
   Trade        Trade[]
   StockHistory StockHistory[]
   BuyRequest   BuyRequest[]
   SellRequest  SellRequest[]
+  OwnedStock   OwnedStock[]
 
   @@index([symbol], name: "symbol")
   @@map("contest_stocks")
@@ -189,6 +190,23 @@ model Contest {
   contestStocks ContestStock[]
   BuyRequest    BuyRequest[]
   SellRequest   SellRequest[]
+}
+
+//
+// owned-stock.prisma
+//
+
+model OwnedStock {
+  id      Int          @id @default(autoincrement())
+  stockId Int
+  stock   ContestStock @relation(fields: [stockId], references: [id])
+
+  currentShares Int @default(0)
+
+  ContestMembership   ContestMembership @relation(fields: [contestMembershipId], references: [id], onDelete: Cascade)
+  contestMembershipId Int
+
+  @@unique([stockId, contestMembershipId])
 }
 
 //
@@ -231,7 +249,7 @@ model SellRequest {
   id Int @id @default(autoincrement())
 
   quantity  Int
-  Price     Float
+  price     Float
   timestamp DateTime      @default(now())
   status    RequestStatus
 
@@ -242,11 +260,10 @@ model SellRequest {
   stock          ContestStock @relation(fields: [contestStockId], references: [id])
   contestStockId Int
 
-  room          Room @relation(fields: [roomContestId, roomId], references: [contestId, id])
-  roomContestId Int
-  roomId        Int
+  room   Room @relation(fields: [contestId, roomId], references: [contestId, id])
+  roomId Int
 
-  Contest   Contest @relation(fields: [contestId], references: [id])
+  contest   Contest @relation(fields: [contestId], references: [id])
   contestId Int
 }
 
