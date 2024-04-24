@@ -12,6 +12,7 @@ import { TradeService } from './trade.service';
 import { AuthService } from 'src/auth';
 import { TradeRequestDto } from './dto/trades dto/trade-request.dto';
 import { AtGuard } from 'src/auth/guards';
+import { CancelRequestDto } from './dto/trades dto/cancel-request.dto';
 
 @Controller('contest-trade')
 @ApiTags('Trades')
@@ -23,7 +24,6 @@ export class TradeController {
     ) { }
 
     @Post('buy')
-    @HttpCode(HttpStatus.OK)
     @UseGuards(AtGuard)
     @ApiBearerAuth()
     @HttpCode(HttpStatus.CREATED)
@@ -34,7 +34,6 @@ export class TradeController {
     }
 
     @Post('sell')
-    @HttpCode(HttpStatus.OK)
     @UseGuards(AtGuard)
     @ApiBearerAuth()
     @HttpCode(HttpStatus.CREATED)
@@ -42,6 +41,24 @@ export class TradeController {
         @Body() requestDto: TradeRequestDto) {
         const player = await this.authService.playerResolver((req as any).user.sub);
         return await this.tradeService.createSellRequest(player, requestDto);
+    }
+
+    @Post('cancel-sell')
+    @HttpCode(HttpStatus.OK)
+    @UseGuards(AtGuard)
+    @ApiBearerAuth()
+    async cancelSellRequest(@Req() req: any, @Body() requestDto: CancelRequestDto) {
+        const player = await this.authService.playerResolver((req as any).user.sub);
+        return await this.tradeService.cancelSellRequest(player, requestDto);
+    }
+
+    @Post('cancel-buy')
+    @HttpCode(HttpStatus.OK)
+    @UseGuards(AtGuard)
+    @ApiBearerAuth()
+    async cancelBuyRequest(@Req() req: any, @Body() requestDto: CancelRequestDto) {
+        const player = await this.authService.playerResolver((req as any).user.sub);
+        return this.tradeService.cancelBuyRequest(player, requestDto);
     }
 
 }
