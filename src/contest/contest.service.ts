@@ -215,10 +215,10 @@ export class ContestService {
     const { name, maxRoomCapacity, startingMoney, startDate, endDate, numberOfRooms, stocksShares, stocksIds } = createContestDto;
 
     const startDateObject = new Date(startDate);
-    startDateObject.setUTCHours(startDateObject.getUTCHours() + 2);
+    startDateObject.setUTCHours(startDateObject.getUTCHours() + 3);
 
     const endDateObject = new Date(endDate);
-    endDateObject.setUTCHours(endDateObject.getUTCHours() + 2);
+    endDateObject.setUTCHours(endDateObject.getUTCHours() + 3);
 
 
     const contestData = {

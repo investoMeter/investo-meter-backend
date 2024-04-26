@@ -1,156 +1,218 @@
-import {
-  Player,
-  RequestStatus,
-  TradeType,
-  ContestMembership,
-  Trade,
-  BuyRequest,
-} from "@prisma/client";
-import { TradeRequestDto } from "./dto/trades dto/trade-request.dto";
-import { PrismaService } from "src/prisma";
+import { Player, TradeType, BuyRequest, RequestStatus } from '@prisma/client';
+import { TradeRequestDto } from './dto/trades dto/trade-request.dto';
+import { PrismaService } from 'src/prisma';
 import {
   BadRequestException,
   Injectable,
   NotFoundException,
-} from "@nestjs/common";
-import { CancelRequestDto } from "./dto/trades dto/cancel-request.dto";
+} from '@nestjs/common';
+import { CancelRequestDto } from './dto/trades dto/cancel-request.dto';
+import { MatchingService } from './matching.service';
+import { TradeRequest } from './models/TradeRequest';
+import { TradingUtilityService } from './trade.utility.service';
 
 @Injectable()
 export class TradeService {
-  
-  private prismaModels: any;
-  constructor(private prisma: PrismaService) {
-    this.prismaModels = {
-      contest: this.prisma.contest,
-      room: this.prisma.room,
-      contestMembership: this.prisma.contestMembership,
-      contestStock: this.prisma.contestStock,
-    };
-  }
+  constructor(
+    private prisma: PrismaService,
+    private matchingService: MatchingService,
+    private tradingUtilityService: TradingUtilityService,
+  ) {}
 
   async createBuyRequest(player: Player, requestDto: TradeRequestDto) {
-    return this.prisma.$transaction(async (prisma) => {
-      const { quantity, price } = requestDto;
-      const { contest, room, membership, stock, timestampDate } =
-        await this.validateRequest(player, requestDto);
 
-      const totalCost = quantity * price;
-      this.checkSufficientCoins(membership.currentMoneyAmount, totalCost);
+    const { quantity, price } = requestDto;
+    const { contest, room, membership, stock, timestampDate } =
+      await this.validateRequest(player, requestDto);
 
-      const stockHistory = await this.getStockHistory(
-        stock.id,
-        room.id,
-        contest.id
-      );
-      const currentShares = stockHistory?.currentShares ?? 0;
-      const sharesToTrade = Math.min(currentShares, quantity);
+    const requestCost = quantity * price;
 
-      let trade;
-      const NO_SHARES = 0;
+    const pendingRequestCost: any = await this.prisma.$queryRaw`
+        SELECT Sum(quantity * price) as total_cost
+        FROM "BuyRequest"
+        WHERE "contestId" = ${contest.id}
+          AND "roomId" = ${room.id}
+          AND "playerId" = ${player.userId}
+          AND "status" = 'PENDING'
+      `;
+
+    const totalPendingCost = pendingRequestCost[0].total_cost;
+    const currentMoney = membership.currentMoneyAmount;
+    if (currentMoney < requestCost + totalPendingCost) {
+      throw new BadRequestException('No Sufficient coins');
+    }
+
+    const stockHistory = await this.getStockHistory(
+      stock.id,
+      room.id,
+      contest.id,
+    );
+    const currentShares = stockHistory?.currentShares ?? 0;
+    const sharesToTrade = Math.min(currentShares, quantity);
+
+    let trade: any;
+    const NO_SHARES = 0;
+
+    return await this.prisma.$transaction(async (prisma) => {
       if (currentShares != NO_SHARES) {
-          await this.updateStockHistory(
-            stockHistory,
-            contest.id,
-            stock.id,
-            room.id,
-            sharesToTrade
-          );
-          
-          await this.updateOwnedStock(membership.id, stock.id, sharesToTrade);
-          trade = await this.createTrade(
-            sharesToTrade,
-            price,
-            timestampDate,
-            stock.id,
-            membership.id,
-            TradeType.BUY
-          );
-      }
-
-      let buyRequest;
-      if (quantity > currentShares) {
-        buyRequest = await this.createNewBuyRequest(
-          quantity - sharesToTrade,
-          price,
-          player.userId,
+        await this.updateStockHistory(
+          stockHistory,
           contest.id,
-          room.id,
           stock.id,
-          timestampDate
+          room.id,
+          sharesToTrade,
+        );
+
+        await this.tradingUtilityService.updateOwnedStock(
+          membership.id,
+          stock.id,
+          sharesToTrade,
+        );
+
+        trade = await this.tradingUtilityService.createTrade(
+          sharesToTrade,
+          price,
+          timestampDate,
+          stock.id,
+          membership.id,
+          TradeType.BUY,
+        );
+
+        await this.tradingUtilityService.updateMembershipCoins(
+          room.id,
+          contest.id,
+          membership,
+          -(sharesToTrade * price),
         );
       }
 
-      await this.updateMembershipCoins(
-        room.id,
-        contest.id,
-        membership,
-        -totalCost
-      );
-      return { buyRequest, trade };
+      let buyRequestData: TradeRequest;
+      let newBuyRequest;
 
+      if (quantity > currentShares) {
+        buyRequestData = {
+          quantity: quantity - sharesToTrade,
+          price,
+          userId: player.userId,
+          timestamp: timestampDate,
+          contestId: contest.id,
+          roomId: room.id,
+          stockId: stock.id,
+        };
+
+        const matchingSellRequests =
+          await this.matchingService.findMatchingSellRequests(buyRequestData);
+
+        if (matchingSellRequests == null) {
+          newBuyRequest = await this.createNewBuyRequest(buyRequestData);
+        } else {
+          const { requestedQuantity, buyTrades, sellTrades } =
+            await this.matchingService.matchBuyRequest(
+              buyRequestData,
+              matchingSellRequests,
+            );
+
+          // if not all shares in the request is satisfied, then create a new buy request with the remaining shares
+          if (requestedQuantity > 0) {
+            newBuyRequest = await this.createNewBuyRequest({
+              quantity: requestedQuantity,
+              price,
+              userId: player.userId,
+              timestamp: timestampDate,
+              contestId: contest.id,
+              roomId: room.id,
+              stockId: stock.id,
+            });
+          }
+
+          console.log({ requestedQuantity, buyTrades, sellTrades });
+        }
+      }
+
+      return { newBuyRequest, trade };
     });
   }
 
   async createSellRequest(
     player: { userId: string; coinsCount: number },
-    requestDto: TradeRequestDto
+    requestDto: TradeRequestDto,
   ) {
-    return this.prisma.$transaction(async (prisma) => {
-      const { quantity, price } = requestDto;
+    const { quantity, price } = requestDto;
 
-      const { contest, room, membership, stock, timestampDate } =
-        await this.validateRequest(player, requestDto);
+    const { contest, room, membership, stock, timestampDate } =
+      await this.validateRequest(player, requestDto);
 
-      // check if the player has enough shares to sell
-      const ownedStock = await this.prisma.ownedStock.findFirst({
-        where: { contestMembershipId: membership.id, stockId: stock.id },
-      });
-
-      if (!ownedStock || ownedStock.currentShares < quantity) {
-        throw new BadRequestException(
-          "Player does not have enough shares to sell"
-        );
-      }
-
-      this.updateOwnedStock(membership.id, stock.id, -quantity);
-
-      // create a new sell request
-      return await this.prisma.sellRequest.create({
-        data: {
-          quantity,
-          price,
-          timestamp: timestampDate,
-          status: RequestStatus.PENDING,
-          player: {
-            connect: {
-              userId: player.userId,
-            },
-          },
-          stock: {
-            connect: {
-              id: stock.id,
-            },
-          },
-          contest: {
-            connect: {
-              id: contest.id,
-            },
-          },
-          room: {
-            connect: {
-              contestId: contest.id,
-              id: room.id,
-            },
-          },
-        },
-      });
+    // check if the player has enough shares to sell
+    const ownedStock = await this.prisma.ownedStock.findFirst({
+      where: { contestMembershipId: membership.id, stockId: stock.id },
     });
-  }
 
-  checkSufficientCoins(currentMoney: number, totalCost: number) {
-    if (currentMoney < totalCost) {
-      throw new BadRequestException("No Sufficient coins");
+    // check if the pending sell requests for this stock doesn't exceed the limit he has 
+    const pendingSellShares = await this.prisma.buyRequest.aggregate({
+      _sum: {
+        quantity: true,
+      },
+      where: {
+        contestId: contest.id,
+        roomId: room.id,
+        playerId: player.userId,
+        contestStockId: stock.id,
+        status: 'PENDING',
+      },
+    });
+
+    const totalPendingShares = pendingSellShares._sum.quantity ?? 0;
+
+    if (!ownedStock || ownedStock.currentShares < quantity + totalPendingShares) {
+      throw new BadRequestException(
+        'Player does not have enough shares to sell',
+      );
     }
+
+    return await this.prisma.$transaction(async (prisma) => {
+      const sellRequestData = {
+        quantity,
+        price,
+        userId: player.userId,
+        timestamp: timestampDate,
+        contestId: contest.id,
+        roomId: room.id,
+        stockId: stock.id,
+      };
+
+      let newSellRequest;
+      let buyTrades, sellTrades;
+      const matchingBuyRequests =
+        await this.matchingService.findMatchingBuyRequests(sellRequestData);
+
+      if (matchingBuyRequests == null) {
+        newSellRequest = await this.createNewSellRequest(sellRequestData);
+      } else {
+        let result = await this.matchingService.matchSellRequest(
+          sellRequestData,
+          matchingBuyRequests,
+        );
+
+        buyTrades = result.buyTrades;
+        sellTrades = result.sellTrades;
+
+        // if not all shares in the request is sold, then create a new sell request with the remaining shares
+
+        if (result.quantityToSell != 0) {
+          await this.createNewSellRequest({
+            quantity: result.quantityToSell,
+            price,
+            userId: player.userId,
+            timestamp: timestampDate,
+            contestId: contest.id,
+            roomId: room.id,
+            stockId: stock.id,
+          });
+        }
+        console.log({ result });
+      }
+      return { newSellRequest, buyTrades, sellTrades };
+    });
   }
 
   async getStockHistory(stockId: number, roomId: number, contestId: number) {
@@ -169,52 +231,56 @@ export class TradeService {
 
   async validateRequest(
     player: Player,
-    { contestId, roomId, stockId, timestamp }: any
+    { contestId, roomId, stockId, timestamp }: any,
   ) {
-    const contest = await this.validateModel(
-      "contest",
-      { id: contestId },
-      "Contest is not found"
-    );
-    const room = await this.validateModel(
-      "room",
-      { id: roomId, contestId },
-      "Room is not found"
-    );
-    const membership = await this.validateModel(
-      "contestMembership",
-      { playerId: player.userId, roomId, contestId },
-      "Player is not a member in this room"
-    );
-    const stock = await this.validateModel(
-      "contestStock",
-      { id: stockId, contestId },
-      "Stock is not found"
-    );
+    const contest = await this.prisma.contest.findFirst({
+      where: { id: contestId },
+      select: {
+        id: true,
+        startDate: true,
+        endDate: true,
+        contestStocks: {
+          where: { id: stockId },
+        },
+        rooms: {
+          where: { id: roomId },
+          select: {
+            id: true,
+            memberships: {
+              where: { playerId: player.userId },
+            },
+          },
+        },
+      },
+    });
+
+    if (!contest) {
+      throw new NotFoundException('Contest not found');
+    }
+    const room = contest.rooms[0];
+    if (!room) {
+      throw new NotFoundException('Room not found');
+    }
+    const stock = contest.contestStocks[0];
+    if (!stock) {
+      throw new NotFoundException('Stock not found');
+    }
+    const membership = room.memberships[0];
+
+    if (!membership) {
+      throw new NotFoundException('Player is not a member in this room');
+    }
 
     const timestampDate = new Date(timestamp);
-    timestampDate.setUTCHours(timestampDate.getUTCHours() + 2);
+    timestampDate.setUTCHours(timestampDate.getUTCHours() + 3);
     const contestStartDate = new Date(contest.startDate);
     const contestEndDate = new Date(contest.endDate);
 
     if (timestampDate < contestStartDate || timestampDate > contestEndDate) {
-      throw new BadRequestException("Request time is invalid");
+      throw new BadRequestException('Request time is invalid');
     }
 
     return { contest, room, membership, stock, timestampDate };
-  }
-
-  async validateModel(modelName: any, where: any, errorMessage: string) {
-    const model = this.prismaModels[modelName];
-
-    if (!model) {
-      throw new Error(`Model ${modelName} not found`);
-    }
-    const result = await model.findFirst({ where });
-    if (!result) {
-      throw new NotFoundException(errorMessage);
-    }
-    return result;
   }
 
   async updateStockHistory(
@@ -222,7 +288,7 @@ export class TradeService {
     contestId: number,
     stockId: number,
     roomId: number,
-    quantity: number
+    quantity: number,
   ): Promise<void> {
     await this.prisma.stockHistory.update({
       where: {
@@ -237,102 +303,18 @@ export class TradeService {
     });
   }
 
-  async updateOwnedStock(
-    membershipId: number,
-    stockId: number,
-    quantity: number
-  ): Promise<void> {
-    const ownedStock = await this.prisma.ownedStock.findFirst({
-      where: { contestMembershipId: membershipId, stockId },
-    });
-    if (ownedStock) {
-      const newShares = ownedStock.currentShares + quantity;
-
-      if (newShares === 0) {
-        await this.prisma.ownedStock.delete({
-          where: { id: ownedStock.id },
-        });
-      } else {
-        await this.prisma.ownedStock.update({
-          where: { id: ownedStock.id },
-          data: { currentShares: newShares },
-        });
-      }
-    } else {
-      await this.prisma.ownedStock.create({
-        data: {
-          contestMembershipId: membershipId,
-          stockId,
-          currentShares: quantity,
-        },
-      });
-    }
-  }
-
-  async createTrade(
-    quantity: number,
-    price: number,
-    timestampDate: Date,
-    stockId: number,
-    membershipId: number,
-    tradeType: TradeType
-  ): Promise<Trade> {
-    return await this.prisma.trade.create({
-      data: {
-        quantity,
-        price,
-        tradeType,
-        timestamp: timestampDate,
-        stock: {
-          connect: {
-            id: stockId,
-          },
-        },
-        member: {
-          connect: {
-            id: membershipId,
-          },
-        },
-      },
-    });
-  }
-
-  async updateMembershipCoins(
-    roomId: number,
-    contestId: number,
-    membership: ContestMembership,
-    totalCost: number
-  ) {
-    await this.prisma.contestMembership.update({
-      where: {
-        roomId,
-        contestId,
-        id: membership.id,
-      },
-      data: {
-        currentMoneyAmount: membership.currentMoneyAmount + totalCost,
-      },
-    });
-  }
-
-  async createNewBuyRequest(
-    quantity: number,
-    price: number,
-    playerId: string,
-    contestId: number,
-    roomId: number,
-    stockId: number,
-    timestampDate: Date
-  ): Promise <BuyRequest>{
+  async createNewBuyRequest(BuyRequestData: TradeRequest): Promise<BuyRequest> {
+    const { quantity, price, userId, timestamp, contestId, roomId, stockId } =
+      BuyRequestData;
     return await this.prisma.buyRequest.create({
       data: {
         quantity,
         price,
-        timestamp: timestampDate,
+        timestamp,
         status: RequestStatus.PENDING,
         player: {
           connect: {
-            userId: playerId,
+            userId: userId,
           },
         },
         stock: {
@@ -355,6 +337,40 @@ export class TradeService {
     });
   }
 
+  async createNewSellRequest(sellRequestData: TradeRequest) {
+    const { quantity, price, userId, timestamp, contestId, roomId, stockId } =
+      sellRequestData;
+    return await this.prisma.sellRequest.create({
+      data: {
+        quantity,
+        price,
+        timestamp,
+        status: RequestStatus.PENDING,
+        player: {
+          connect: {
+            userId: userId,
+          },
+        },
+        stock: {
+          connect: {
+            id: stockId,
+          },
+        },
+        contest: {
+          connect: {
+            id: contestId,
+          },
+        },
+        room: {
+          connect: {
+            contestId: contestId,
+            id: roomId,
+          },
+        },
+      },
+    });
+  }
+
   async cancelBuyRequest(player: Player, requestDto: CancelRequestDto) {
     const { requestId, contestId, roomId } = requestDto;
     const data = await this.validateRequest(player, requestDto);
@@ -369,21 +385,29 @@ export class TradeService {
       },
     });
     if (!buyRequest) {
-      throw new NotFoundException("Buy request not found");
+      throw new NotFoundException('Buy request not found');
     }
     if (buyRequest.status !== RequestStatus.PENDING) {
-      throw new BadRequestException("Buy request is already processed");
+      throw new BadRequestException('Buy request is already processed');
     }
 
     const cost = buyRequest.quantity * buyRequest.price;
 
-    await this.updateMembershipCoins(roomId, contestId, data.membership, cost);
-    await this.prisma.buyRequest.delete({ where: { id: requestId } });
+    await this.tradingUtilityService.updateMembershipCoins(
+      roomId,
+      contestId,
+      data.membership,
+      cost,
+    );
+    return await this.prisma.buyRequest.update({
+      where: { id: requestId },
+      data: { status: RequestStatus.CANCELLED },
+    });
   }
 
   async cancelSellRequest(
     player: { userId: string; coinsCount: number },
-    requestDto: CancelRequestDto
+    requestDto: CancelRequestDto,
   ) {
     const { requestId, contestId, roomId } = requestDto;
 
@@ -401,17 +425,24 @@ export class TradeService {
     });
 
     if (!sellRequest) {
-      throw new NotFoundException("Sell request not found");
+      throw new NotFoundException('Sell request not found');
     }
     if (sellRequest.status !== RequestStatus.PENDING) {
-      throw new BadRequestException("Sell request is already processed");
+      throw new BadRequestException('Sell request is already processed');
     }
 
     const membershipId = data.membership.id;
     const quantity = sellRequest.quantity;
     const stockId = sellRequest.contestStockId;
 
-    await this.updateOwnedStock(membershipId, stockId, quantity);
-    await this.prisma.sellRequest.delete({ where: { id: requestId } });
+    await this.tradingUtilityService.updateOwnedStock(
+      membershipId,
+      stockId,
+      quantity,
+    );
+    return await this.prisma.sellRequest.update({
+      where: { id: requestId },
+      data: { status: RequestStatus.CANCELLED },
+    });
   }
 }
