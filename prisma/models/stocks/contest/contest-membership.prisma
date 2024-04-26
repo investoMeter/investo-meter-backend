@@ -1,22 +1,23 @@
 import { Player } from "..\..\roles\player"
-import { Contest } from "./contest"
+import { Contest }from "./contest"
 import { Trade } from "./trade"
-import { Room } from "./room"
+import { Room }from "./room"
+import {OwnedStock} from "./owned-stock"
 model ContestMembership {
-    id         Int       @id @default(autoincrement())
+    id Int @id @default(autoincrement())
 
-    currentMoneyAmount Int @default(0)
-
+    currentMoneyAmount Float @default(0.0)
 
     // relations
-    playerId   String
-    player     Player    @relation(fields: [playerId], references: [userId])
+    playerId String
+    player   Player @relation(fields: [playerId], references: [userId])
 
-    contestId  Int
-    roomId     Int
-    room       Room     @relation(fields: [contestId, roomId], references:[contestId, id])
+    contestId Int
+    roomId    Int
+    room      Room @relation(fields: [contestId, roomId], references: [contestId, id])
 
     tradingHistory Trade[]
-    
+    ownedStocks    OwnedStock[]
+
     @@unique([contestId, playerId])
 }
