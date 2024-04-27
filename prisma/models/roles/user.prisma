@@ -14,9 +14,9 @@ model User {
   hashedRefreshToken String?
 
   // relations
-  player Player?
-  admin  Admin?
-  createdContests    Contest[]
+  player          Player?
+  admin           Admin?
+  createdContests Contest[]
 
   @@map("users")
 }

@@ -2,27 +2,33 @@ import { User } from "..\..\roles\user"
 import { ContestMembership }from "contest-membership"
 import { Room } from "./room"
 import { ContestStock }from "./contest-stock"
+import { BuyRequest } from "./buy-request"
+import { SellRequest } from "./sell-request"
 
 model Contest {
-  id Int @id @default(autoincrement())
+    id Int @id @default(autoincrement())
 
-  name            String
-  maxRoomCapacity Int
-  startingMoney   Float
-  startingShares  Int
+    name            String
+    maxRoomCapacity Int
+    startingMoney   Float
+    startingShares  Int
 
-  startDate DateTime
-  endDate   DateTime
+    startDate DateTime
+    endDate   DateTime
 
-  createdAt DateTime  @default(now())
-  updatedAt DateTime? @updatedAt
+    createdAt DateTime  @default(now())
+    updatedAt DateTime? @updatedAt
 
-  started Boolean @default(false)
+    started Boolean @default(false)
 
-  // relations
-  creatorId String
-  creator   User   @relation(fields: [creatorId], references: [id])
+    // relations
+    creatorId String
+    creator   User   @relation(fields: [creatorId], references: [id])
 
-  rooms         Room[]
-  contestStocks ContestStock[]
+    rooms         Room[]
+    contestStocks ContestStock[]
+    BuyRequest    BuyRequest[]
+    SellRequest   SellRequest[]
 }
+
+
