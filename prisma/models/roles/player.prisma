@@ -2,6 +2,7 @@ import { User } from ".\user"
 import { LevelMembership } from "..\stocks\level\level-membership"
 import { ContestMembership } from "..\stocks\contest\contest-membership"
 import { Level } from "..\stocks\level\level"
+import { feedback } from "..\feedback"
 import { BuyRequest } from "..\stocks\contest\buy-request"
 import { SellRequest } from "..\stocks\contest\sell-request"
 
@@ -14,8 +15,10 @@ model Player {
 
   levelMemberships   LevelMembership[]
   contestMemberships ContestMembership[]
+  feedbacks feedback[]
   BuyRequest         BuyRequest[]
   SellRequest        SellRequest[]
+
 
   @@map("players")
 }
