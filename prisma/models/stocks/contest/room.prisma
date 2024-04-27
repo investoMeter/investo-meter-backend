@@ -1,6 +1,8 @@
 import { Contest } from "./contest"
 import { ContestMembership }from "./contest-membership"
-import { StockHistory } from "stock-history"
+import { StockHistory } from "./stock-history"
+import { BuyRequest } from "./buy-request"
+import { SellRequest } from "./sell-request"
 
 model Room {
     roomNumber      Int
@@ -12,6 +14,10 @@ model Room {
 
     memberships     ContestMembership[]
     stocksHistories StockHistory[]
+    BuyRequest      BuyRequest[]
+    SellRequest     SellRequest[]
 
     @@id([contestId, roomNumber])
 }
+
+

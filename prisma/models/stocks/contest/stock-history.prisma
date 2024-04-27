@@ -1,9 +1,10 @@
 import { ContestStock }from "./contest-stock"
-import { ContestStockPrice } from "./contest-stock-price"
+import { ContestStockPrice }from "./contest-stock-price"
 import { Room } from "./room"
 
 model StockHistory {
-    id Int @id @default(autoincrement())
+  id            Int @id @default(autoincrement())
+  currentShares Int
 
     // relations 
     contestStockId    Int @unique
@@ -18,5 +19,3 @@ model StockHistory {
     createdAt     DateTime  @default(now())
     updatedAt     DateTime? @updatedAt
 }
-
-

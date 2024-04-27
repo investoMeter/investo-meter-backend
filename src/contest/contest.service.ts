@@ -3,7 +3,7 @@ import { PaginatedList } from 'src/common';
 import { PrismaService } from 'src/prisma';
 import { ContestRow } from './models/ContestRow';
 import { ContestDetailsDialog } from './models';
-import { Player } from '@prisma/client';
+import { Admin, Player } from '@prisma/client';
 import { JoinContestDto } from './dto';
 import { CreateContestDto } from './dto/createContest.dto';
 import { ContestResponseDto } from './dto/contestResponse.dto';
@@ -207,20 +207,23 @@ export class ContestService {
     });
   }
 
-  async createContest(createContestDto: CreateContestDto) {
+  async createContest(admin: Admin, createContestDto: CreateContestDto) {
     const {
       name,
       maxRoomCapacity,
       startingMoney,
       startDate,
       endDate,
-      creatorId,
       numberOfRooms,
+      stocksShares,
       stocksIds,
     } = createContestDto;
 
     const startDateObject = new Date(startDate);
+    startDateObject.setUTCHours(startDateObject.getUTCHours() + 3);
+
     const endDateObject = new Date(endDate);
+    endDateObject.setUTCHours(endDateObject.getUTCHours() + 3);
 
     const contestData = {
       name,
@@ -228,7 +231,8 @@ export class ContestService {
       startingMoney,
       startDate: startDateObject,
       endDate: endDateObject,
-      creatorId,
+      creatorId: admin.userId,
+      startingShares: stocksShares,
       contestStocks: {
         connect: stocksIds.map((id) => ({ id })),
       },
@@ -238,6 +242,7 @@ export class ContestService {
           stocksHistories: {
             create: stocksIds.map((id) => ({
               contestStockId: id,
+              currentShares: stocksShares,
             })),
           },
         })),
@@ -252,6 +257,7 @@ export class ContestService {
             stocksHistories: {
               select: {
                 contestStockId: true,
+                currentShares: true,
                 ContestStockPrice: true,
               },
             },
@@ -267,6 +273,7 @@ export class ContestService {
       startingMoney: newContest.startingMoney,
       startDate: newContest.startDate,
       endDate: newContest.endDate,
+      startingShares: newContest.startingShares,
       rooms: newContest.rooms,
     };
 

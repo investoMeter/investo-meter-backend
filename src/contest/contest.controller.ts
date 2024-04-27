@@ -66,7 +66,9 @@ export class ContestController {
   @UseGuards(AtGuard)
   @ApiBearerAuth()
   // TODO: Admin role 
-  async createContest(@Body() createContestDto: CreateContestDto): Promise<ContestResponseDto> {
-    return await this.contestService.createContest(createContestDto);
+  async createContest(@Req() req: any,
+    @Body() createContestDto: CreateContestDto): Promise<ContestResponseDto> {
+    const admin = await this.authService.AdminResolver((req as any).user.sub);
+    return await this.contestService.createContest(admin, createContestDto);
   }
 }

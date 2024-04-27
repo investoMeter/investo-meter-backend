@@ -1,6 +1,9 @@
 import { Contest } from "./contest"
 import { Trade } from "./trade"
 import { StockHistory } from "./stock-history"
+import { BuyRequest } from "./buy-request"
+import { SellRequest } from "./sell-request"
+import { OwnedStock } from "./owned-stock"
 
 model ContestStock {
   id     Int    @id @default(autoincrement())
@@ -9,16 +12,16 @@ model ContestStock {
 
   // relations
   contestId Int?
-  Contest   Contest? @relation(fields: [contestId], references: [id])
+  contest   Contest? @relation(fields: [contestId], references: [id])
 
   Trade        Trade[]
   StockHistory StockHistory[]
+  BuyRequest   BuyRequest[]
+  SellRequest  SellRequest[]
+  OwnedStock   OwnedStock[]
 
   @@index([symbol], name: "symbol")
   @@map("contest_stocks")
 }
-
-
-
 
 
