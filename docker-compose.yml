@@ -14,14 +14,14 @@ services:
       - investo_meter_network
  
   contests:
-    image: contest-server
+    image: contest-broadcast-microservice
     ports:
       - "3005:3005"
     networks:
       - investo_meter_network
   
   hints:
-    image: hint-server
+    image: hints-microservice
     ports:
       - "3006:3006"
     networks:
