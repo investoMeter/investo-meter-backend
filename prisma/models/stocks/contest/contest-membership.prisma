@@ -12,9 +12,9 @@ model ContestMembership {
     playerId String
     player   Player @relation(fields: [playerId], references: [userId])
 
-    contestId Int
-    roomId    Int
-    room      Room @relation(fields: [contestId, roomId], references: [contestId, id])
+    contestId  Int
+    roomNumber Int
+    room       Room     @relation(fields: [contestId, roomNumber], references:[contestId, roomNumber])
 
     tradingHistory Trade[]
     ownedStocks    OwnedStock[]

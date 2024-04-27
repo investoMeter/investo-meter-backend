@@ -20,7 +20,6 @@ export class TradeService {
   ) {}
 
   async createBuyRequest(player: Player, requestDto: TradeRequestDto) {
-
     const { quantity, price } = requestDto;
     const { contest, room, membership, stock, timestampDate } =
       await this.validateRequest(player, requestDto);
@@ -31,7 +30,7 @@ export class TradeService {
         SELECT Sum(quantity * price) as total_cost
         FROM "BuyRequest"
         WHERE "contestId" = ${contest.id}
-          AND "roomId" = ${room.id}
+          AND "roomNumber" = ${room.roomNumber}
           AND "playerId" = ${player.userId}
           AND "status" = 'PENDING'
       `;
@@ -44,7 +43,7 @@ export class TradeService {
 
     const stockHistory = await this.getStockHistory(
       stock.id,
-      room.id,
+      room.roomNumber,
       contest.id,
     );
     const currentShares = stockHistory?.currentShares ?? 0;
@@ -59,7 +58,7 @@ export class TradeService {
           stockHistory,
           contest.id,
           stock.id,
-          room.id,
+          room.roomNumber,
           sharesToTrade,
         );
 
@@ -79,7 +78,7 @@ export class TradeService {
         );
 
         await this.tradingUtilityService.updateMembershipCoins(
-          room.id,
+          room.roomNumber,
           contest.id,
           membership,
           -(sharesToTrade * price),
@@ -96,7 +95,7 @@ export class TradeService {
           userId: player.userId,
           timestamp: timestampDate,
           contestId: contest.id,
-          roomId: room.id,
+          roomNumber: room.roomNumber,
           stockId: stock.id,
         };
 
@@ -120,7 +119,7 @@ export class TradeService {
               userId: player.userId,
               timestamp: timestampDate,
               contestId: contest.id,
-              roomId: room.id,
+              roomNumber: room.roomNumber,
               stockId: stock.id,
             });
           }
@@ -147,14 +146,14 @@ export class TradeService {
       where: { contestMembershipId: membership.id, stockId: stock.id },
     });
 
-    // check if the pending sell requests for this stock doesn't exceed the limit he has 
+    // check if the pending sell requests for this stock doesn't exceed the limit he has
     const pendingSellShares = await this.prisma.buyRequest.aggregate({
       _sum: {
         quantity: true,
       },
       where: {
         contestId: contest.id,
-        roomId: room.id,
+        roomNumber: room.roomNumber,
         playerId: player.userId,
         contestStockId: stock.id,
         status: 'PENDING',
@@ -163,7 +162,10 @@ export class TradeService {
 
     const totalPendingShares = pendingSellShares._sum.quantity ?? 0;
 
-    if (!ownedStock || ownedStock.currentShares < quantity + totalPendingShares) {
+    if (
+      !ownedStock ||
+      ownedStock.currentShares < quantity + totalPendingShares
+    ) {
       throw new BadRequestException(
         'Player does not have enough shares to sell',
       );
@@ -176,7 +178,7 @@ export class TradeService {
         userId: player.userId,
         timestamp: timestampDate,
         contestId: contest.id,
-        roomId: room.id,
+        roomNumber: room.roomNumber,
         stockId: stock.id,
       };
 
@@ -205,7 +207,7 @@ export class TradeService {
             userId: player.userId,
             timestamp: timestampDate,
             contestId: contest.id,
-            roomId: room.id,
+            roomNumber: room.roomNumber,
             stockId: stock.id,
           });
         }
@@ -215,11 +217,15 @@ export class TradeService {
     });
   }
 
-  async getStockHistory(stockId: number, roomId: number, contestId: number) {
+  async getStockHistory(
+    stockId: number,
+    roomNumber: number,
+    contestId: number,
+  ) {
     return await this.prisma.stockHistory.findFirst({
       where: {
         contestStockId: stockId,
-        roomId,
+        roomNumber,
         roomContestId: contestId,
       },
       select: {
@@ -231,7 +237,7 @@ export class TradeService {
 
   async validateRequest(
     player: Player,
-    { contestId, roomId, stockId, timestamp }: any,
+    { contestId, roomNumber, stockId, timestamp }: any,
   ) {
     const contest = await this.prisma.contest.findFirst({
       where: { id: contestId },
@@ -243,9 +249,9 @@ export class TradeService {
           where: { id: stockId },
         },
         rooms: {
-          where: { id: roomId },
+          where: { roomNumber: roomNumber },
           select: {
-            id: true,
+            roomNumber: true,
             memberships: {
               where: { playerId: player.userId },
             },
@@ -287,14 +293,14 @@ export class TradeService {
     stockHistory: any,
     contestId: number,
     stockId: number,
-    roomId: number,
+    roomNumber: number,
     quantity: number,
   ): Promise<void> {
     await this.prisma.stockHistory.update({
       where: {
         id: stockHistory.id,
         contestStockId: stockId,
-        roomId,
+        roomNumber,
         roomContestId: contestId,
       },
       data: {
@@ -304,8 +310,15 @@ export class TradeService {
   }
 
   async createNewBuyRequest(BuyRequestData: TradeRequest): Promise<BuyRequest> {
-    const { quantity, price, userId, timestamp, contestId, roomId, stockId } =
-      BuyRequestData;
+    const {
+      quantity,
+      price,
+      userId,
+      timestamp,
+      contestId,
+      roomNumber,
+      stockId,
+    } = BuyRequestData;
     return await this.prisma.buyRequest.create({
       data: {
         quantity,
@@ -329,8 +342,10 @@ export class TradeService {
         },
         room: {
           connect: {
-            contestId,
-            id: roomId,
+            contestId_roomNumber: {
+              contestId,
+              roomNumber,
+            },
           },
         },
       },
@@ -338,8 +353,15 @@ export class TradeService {
   }
 
   async createNewSellRequest(sellRequestData: TradeRequest) {
-    const { quantity, price, userId, timestamp, contestId, roomId, stockId } =
-      sellRequestData;
+    const {
+      quantity,
+      price,
+      userId,
+      timestamp,
+      contestId,
+      roomNumber,
+      stockId,
+    } = sellRequestData;
     return await this.prisma.sellRequest.create({
       data: {
         quantity,
@@ -363,8 +385,10 @@ export class TradeService {
         },
         room: {
           connect: {
-            contestId: contestId,
-            id: roomId,
+            contestId_roomNumber: {
+              contestId,
+              roomNumber,
+            },
           },
         },
       },
@@ -372,13 +396,13 @@ export class TradeService {
   }
 
   async cancelBuyRequest(player: Player, requestDto: CancelRequestDto) {
-    const { requestId, contestId, roomId } = requestDto;
+    const { requestId, contestId, roomNumber } = requestDto;
     const data = await this.validateRequest(player, requestDto);
     const buyRequest = await this.prisma.buyRequest.findFirst({
       where: {
         id: requestId,
         contestId,
-        roomId,
+        roomNumber,
         player: {
           userId: player.userId,
         },
@@ -394,7 +418,7 @@ export class TradeService {
     const cost = buyRequest.quantity * buyRequest.price;
 
     await this.tradingUtilityService.updateMembershipCoins(
-      roomId,
+      roomNumber,
       contestId,
       data.membership,
       cost,
@@ -409,7 +433,7 @@ export class TradeService {
     player: { userId: string; coinsCount: number },
     requestDto: CancelRequestDto,
   ) {
-    const { requestId, contestId, roomId } = requestDto;
+    const { requestId, contestId, roomNumber } = requestDto;
 
     const data = await this.validateRequest(player, requestDto);
 
@@ -417,7 +441,7 @@ export class TradeService {
       where: {
         id: requestId,
         contestId,
-        roomId,
+        roomNumber,
         player: {
           userId: player.userId,
         },

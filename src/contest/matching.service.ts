@@ -13,11 +13,11 @@ export class MatchingService {
   ) {}
 
   async findMatchingSellRequests(buyRequest: TradeRequest) {
-    const { contestId, roomId, stockId } = buyRequest;
+    const { contestId, roomNumber, stockId } = buyRequest;
     const sellRequests = await this.prisma.sellRequest.findMany({
       where: {
         contestId,
-        roomId,
+        roomNumber,
         contestStockId: stockId,
         status: RequestStatus.PENDING,
         price: { lte: buyRequest.price },
@@ -35,7 +35,7 @@ export class MatchingService {
     const buyerMembership = await this.prisma.contestMembership.findFirst({
       where: {
         playerId: buyRequest.userId,
-        roomId: buyRequest.roomId,
+        roomNumber: buyRequest.roomNumber,
         contestId: buyRequest.contestId,
       },
     });
@@ -53,7 +53,7 @@ export class MatchingService {
       const sellerMembership = await this.prisma.contestMembership.findFirst({
         where: {
           playerId: sellRequest.userId,
-          roomId: buyRequest.roomId,
+          roomNumber: buyRequest.roomNumber,
           contestId: buyRequest.contestId,
         },
       });
@@ -100,11 +100,11 @@ export class MatchingService {
   }
 
   async findMatchingBuyRequests(sellRequest: TradeRequest) {
-    const { contestId, roomId, stockId } = sellRequest;
+    const { contestId, roomNumber, stockId } = sellRequest;
     const buyRequests = await this.prisma.buyRequest.findMany({
       where: {
         contestId,
-        roomId,
+        roomNumber,
         contestStockId: stockId,
         status: RequestStatus.PENDING,
         price: { gte: sellRequest.price },
@@ -121,7 +121,7 @@ export class MatchingService {
     const sellerMembership = await this.prisma.contestMembership.findFirst({
       where: {
         playerId: sellRequest.userId,
-        roomId: sellRequest.roomId,
+        roomNumber: sellRequest.roomNumber,
         contestId: sellRequest.contestId,
       },
     });
@@ -139,7 +139,7 @@ export class MatchingService {
       const buyerMembership = await this.prisma.contestMembership.findFirst({
         where: {
           playerId: buyRequest.userId,
-          roomId: buyRequest.roomId,
+          roomNumber: buyRequest.roomNumber,
           contestId: buyRequest.contestId,
         },
       });
@@ -194,56 +194,56 @@ export class MatchingService {
     tradeQuantity: number,
   ) {
     return await this.prisma.$transaction(async (prisma) => {
-    const stockId = buyRequest.stockId || buyRequest.contestStockId;
-    const contestId = buyRequest.contestId;
-    const roomId = buyRequest.roomId; 
-    await this.tradingUtilityService.updateMembershipCoins(
-      roomId,
-      contestId,
-      buyerMembership,
-      -cost,
-    );
+      const stockId = buyRequest.stockId || buyRequest.contestStockId;
+      const contestId = buyRequest.contestId;
+      const roomNumber = buyRequest.roomNumber;
+      await this.tradingUtilityService.updateMembershipCoins(
+        roomNumber,
+        contestId,
+        buyerMembership,
+        -cost,
+      );
 
-    await this.tradingUtilityService.updateMembershipCoins(
-      roomId,
-      contestId,
-      sellerMembership,
-      cost,
-    );
+      await this.tradingUtilityService.updateMembershipCoins(
+        roomNumber,
+        contestId,
+        sellerMembership,
+        cost,
+      );
 
-    // add the stock to the buyer and remove it from the seller
-    await this.tradingUtilityService.updateOwnedStock(
-      buyerMembership.id,
-     stockId,
-      tradeQuantity,
-    );
+      // add the stock to the buyer and remove it from the seller
+      await this.tradingUtilityService.updateOwnedStock(
+        buyerMembership.id,
+        stockId,
+        tradeQuantity,
+      );
 
-    await this.tradingUtilityService.updateOwnedStock(
-      sellerMembership.id,
-      stockId,
-      -tradeQuantity,
-    );
+      await this.tradingUtilityService.updateOwnedStock(
+        sellerMembership.id,
+        stockId,
+        -tradeQuantity,
+      );
 
-    // Make the trade
-    const buyTrade = await this.tradingUtilityService.createTrade(
-      tradeQuantity,
-      sellRequest.price,
-      new Date(),
-      stockId,
-      buyerMembership.id,
-      'BUY',
-    );
+      // Make the trade
+      const buyTrade = await this.tradingUtilityService.createTrade(
+        tradeQuantity,
+        sellRequest.price,
+        new Date(),
+        stockId,
+        buyerMembership.id,
+        'BUY',
+      );
 
-    const sellTrade = await this.tradingUtilityService.createTrade(
-      tradeQuantity,
-      sellRequest.price,
-      new Date(),
-      stockId,
-      sellerMembership.id,
-      'SELL',
-    );
+      const sellTrade = await this.tradingUtilityService.createTrade(
+        tradeQuantity,
+        sellRequest.price,
+        new Date(),
+        stockId,
+        sellerMembership.id,
+        'SELL',
+      );
 
-    return { buyTrade, sellTrade };
-  });
+      return { buyTrade, sellTrade };
+    });
   }
 }
