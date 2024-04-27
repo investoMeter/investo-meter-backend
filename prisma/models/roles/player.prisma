@@ -2,6 +2,7 @@ import { User } from "./user"
 import { LevelMembership } from "..\stocks\level\level-membership"
 import { ContestMembership } from "..\stocks\contest\contest-membership"
 import { Level } from "..\stocks\level\level"
+import { feedback } from "..\feedback"
 
 model Player {
   userId String @unique
@@ -12,6 +13,7 @@ model Player {
   
   levelMemberships LevelMembership[]
   contestMemberships ContestMembership[]
+  feedbacks feedback[]
 
   @@map("players")
 }
