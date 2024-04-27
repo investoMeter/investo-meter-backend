@@ -27,8 +27,10 @@ $ npm install -g npm
 #### 5-4) run this command
 
 ```bash
-$ docker build -t hints-microservices .
-$ docker build -t contest-broadcast-microservices .
+//inside the investo-meter-hints-service project
+$ docker build -t hints-microservice .
+//inside the investo-meter-contests-service project 
+$ docker build -t contest-broadcast-microservice .
 ```
 
 ### 6) open terminal inside investo-meter-backend folder
