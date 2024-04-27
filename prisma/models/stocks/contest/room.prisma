@@ -18,6 +18,7 @@ model Room {
     SellRequest     SellRequest[]
 
     @@id([contestId, roomNumber])
+    @@unique([contestId, roomNumber])
 }
 
 

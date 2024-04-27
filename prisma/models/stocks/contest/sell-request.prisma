@@ -19,8 +19,8 @@ model SellRequest {
     stock          ContestStock @relation(fields: [contestStockId], references: [id])
     contestStockId Int
 
-    room   Room @relation(fields: [contestId, roomId], references: [contestId, id])
-    roomId Int
+    room   Room @relation(fields: [contestId, roomNumber], references: [contestId, roomNumber])
+    roomNumber Int
 
     contest   Contest @relation(fields: [contestId], references: [id])
     contestId Int
