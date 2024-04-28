@@ -1,0 +1,17 @@
+
+import { ReportSeverity }from /reportSeverity"
+import { ReportType }from /reportType"
+import { ReportState }from /reportState"
+model Report {
+  id         Int      @id @default(autoincrement())
+  content    String
+  creatorId  String   // Match the type with the User id
+  creator    User     @relation(fields: [creatorId], references: [id])
+  title      String
+  type       ReportType
+  severity   ReportSeverity
+  createdAt  DateTime @default(now())
+  state      ReportState   
+
+  @@map("report")
+}

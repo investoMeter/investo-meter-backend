@@ -1,0 +1,7 @@
+enum ReportType {
+    Level
+    Contest
+    Community
+    Other
+
+}
