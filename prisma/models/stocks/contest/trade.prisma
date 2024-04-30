@@ -7,14 +7,16 @@ model Trade {
 
     quantity  Int
     price     Float
-    tradeType TradeType
     timestamp DateTime  @default(now())
 
     // relations
     stockId Int
     stock   ContestStock @relation(fields: [stockId], references: [id])
 
-    memberId Int
-    member   ContestMembership @relation(fields: [memberId], references: [id])
+    buyerMembershipId Int
+    buyerMembership   ContestMembership @relation(fields: [buyerMembershipId], references: [id],name: "buyerMembership")
+
+    sellerMembershipId Int
+    sellerMembership ContestMembership @relation(fields: [sellerMembershipId],  references: [id], name: "sellerMembership")
 }
 

@@ -44,8 +44,7 @@ export class MatchingService {
       throw new NotFoundException("Buyer's membership not found");
     }
 
-    let buyTrades: Trade[] = [];
-    let sellTrades: Trade[] = [];
+    let trades: Trade[] = [];
 
     for (const sellRequest of sellRequests) {
       if (requestedQuantity === 0) break;
@@ -65,7 +64,7 @@ export class MatchingService {
       const tradeQuantity = Math.min(requestedQuantity, sellRequest.quantity);
       const cost = sellRequest.price * tradeQuantity;
 
-      const { buyTrade, sellTrade } = await this.processTrade(
+      const trade = await this.processTrade(
         buyRequest,
         sellRequest,
         buyerMembership,
@@ -74,9 +73,7 @@ export class MatchingService {
         tradeQuantity,
       );
 
-      buyTrades.push(buyTrade);
-      sellTrades.push(sellTrade);
-      console.log(buyTrades, sellTrades);
+      trades.push(trade);
 
       // Update the sell request quantity
       if (sellRequest.quantity > tradeQuantity) {
@@ -96,7 +93,7 @@ export class MatchingService {
       requestedQuantity -= tradeQuantity;
     }
 
-    return { requestedQuantity, buyTrades, sellTrades };
+    return { requestedQuantity, trades };
   }
 
   async findMatchingBuyRequests(sellRequest: TradeRequest) {
@@ -130,8 +127,7 @@ export class MatchingService {
       throw new NotFoundException("Seller's membership not found");
     }
 
-    let buyTrades: Trade[] = [];
-    let sellTrades: Trade[] = [];
+    let trades: Trade[] = [];
 
     for (const buyRequest of buyRequests) {
       if (quantityToSell === 0) break;
@@ -154,7 +150,7 @@ export class MatchingService {
       // deduct the money from the buyer and add it to the sellers
       const cost = buyRequest.price * tradeQuantity;
 
-      const { buyTrade, sellTrade } = await this.processTrade(
+      const trade = await this.processTrade(
         buyRequest,
         sellRequest,
         buyerMembership,
@@ -163,9 +159,7 @@ export class MatchingService {
         tradeQuantity,
       );
 
-      buyTrades.push(buyTrade);
-      sellTrades.push(sellTrade);
-      console.log(buyTrades, sellTrades);
+      trades.push(trade);
 
       // Update the buy request quantity
       if (buyRequest.quantity > tradeQuantity) {
@@ -182,7 +176,7 @@ export class MatchingService {
 
       quantityToSell -= tradeQuantity;
     }
-    return { quantityToSell, buyTrades, sellTrades };
+    return { quantityToSell, trades };
   }
 
   async processTrade(
@@ -225,25 +219,16 @@ export class MatchingService {
       );
 
       // Make the trade
-      const buyTrade = await this.tradingUtilityService.createTrade(
+      const trade = await this.tradingUtilityService.createTrade(
         tradeQuantity,
         sellRequest.price,
         new Date(),
         stockId,
         buyerMembership.id,
-        'BUY',
-      );
-
-      const sellTrade = await this.tradingUtilityService.createTrade(
-        tradeQuantity,
-        sellRequest.price,
-        new Date(),
-        stockId,
         sellerMembership.id,
-        'SELL',
       );
 
-      return { buyTrade, sellTrade };
+      return trade ;
     });
   }
 }

@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { ContestMembership, Trade, TradeType } from '@prisma/client';
+import { ContestMembership, Trade } from '@prisma/client';
 import { PrismaService } from 'src/prisma';
 
 @Injectable()
@@ -43,24 +43,28 @@ export class TradingUtilityService {
     price: number,
     timestampDate: Date,
     stockId: number,
-    membershipId: number,
-    tradeType: TradeType,
+    buyerMembershipId: number,
+    sellerMembershipId: number,
   ): Promise<Trade> {
     return await this.prisma.trade.create({
       data: {
         quantity,
         price,
-        tradeType,
         timestamp: timestampDate,
         stock: {
           connect: {
             id: stockId,
           },
         },
-        member: {
+        buyerMembership: {
           connect: {
-            id: membershipId,
+            id: buyerMembershipId,
           },
+        },
+          sellerMembership: {
+            connect: {
+              id: sellerMembershipId,
+            },
         },
       },
     });
