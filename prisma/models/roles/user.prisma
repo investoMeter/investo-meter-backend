@@ -18,7 +18,7 @@ model User {
   player Player?
   admin  Admin?
   createdContests    Contest[]
-  reports         Report[]
+  
 
   @@map("users")
 }

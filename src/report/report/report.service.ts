@@ -19,7 +19,9 @@ export class ReportService {
         const { title, content, type,  severity } = createReportDto;
         
        
-        const dateObject = Date.now();
+        const dateObject = new Date(Date.now());
+        dateObject.setHours(dateObject.getHours() + 3);
+       
         
         const reportData = {
             content,
@@ -58,10 +60,6 @@ export class ReportService {
         page: number = 0,
         take: number = 8,
       ): Promise<PaginatedList<ReportRow>> {
-
-        console.log("Creator ID:", creatortId);
-        console.log("Page:", page);
-        console.log("Take:", take);
             
         const reports = await this.prisma.report.findMany({
             where: {
@@ -89,12 +87,6 @@ export class ReportService {
               },
             },
           });
-
-          console.log("reportsCount:", reportsCount);
-          console.log("Creator ID:", creatortId);
-          console.log("Page:", page);
-          console.log("Take:", take);
-          console.log("skip:",  page * take);
       
           const result: PaginatedList<ReportRow> = {
             list: reports.map((report) => {
@@ -108,28 +100,22 @@ export class ReportService {
             }),
             isLastPage: reports.length < take || reportsCount <= page * take + take,
           };
-
-          console.log("results",result)
-      
           return result;
     }
 
     async getReportDetails(reportId: number): Promise<ReportDetailsDialog> {
         const reportDetails = await this.prisma.report.findFirstOrThrow({
-          where: {
-            id: {
-              equals: reportId,
-            },
-          },
+    
           select: {
             id         :true,
             content    :true,
             creator    :true,
             title      :true,
-            type      :true,
+            type       :true,
             severity   :true,
             createdAt  :true,
-            state      :true
+            state      :true,
+            adminId      :true,
           },
         });
     
@@ -140,9 +126,80 @@ export class ReportService {
             state: reportDetails.state,
             type: reportDetails.type,
             severity: reportDetails.severity,
-            content: reportDetails.content
+            content: reportDetails.content,
+            adminId: reportDetails.adminId,
         };
     
         return result;
       }
+
+      //admin side 
+
+      async getAllReports(
+        page: number = 0,
+        take: number = 8,
+      ): Promise<PaginatedList<ReportRow>> {
+
+   
+        const reports = await this.prisma.report.findMany({
+            orderBy: {
+              createdAt: 'desc',
+            },
+            select: {
+              id: true,
+              title: true,
+              type: true,
+              createdAt: true,
+              state: true,
+            },
+            skip: page * take,
+            take: take,
+          });
+          const reportsCount = await this.prisma.report.count({});
+          const result: PaginatedList<ReportRow> = {
+            list: reports.map((report) => {
+              return {
+              id: report.id,
+              createdAt: report.createdAt,
+              title: report.title,
+              state: report.state,
+              type: report.type,
+              };
+            }),
+            isLastPage: reports.length < take || reportsCount <= page * take + take,
+          };
+      
+          return result;
+    }
+
+    async closeReport(adminId:string,reportId:number)
+    {
+
+      await this.prisma.report.update({
+        where: {
+          id: reportId
+        },
+        data: {
+          state:ReportState.close,
+          adminId:adminId,
+        },
+      });
+    }
+
+
+    async openReport(adminId:string,reportId:number)
+      {
+  
+        await this.prisma.report.update({
+          where: {
+            id: reportId
+          },
+          data: {
+            state:ReportState.open,
+            adminId:null,
+          },
+        });
+      
+      }
+
 }

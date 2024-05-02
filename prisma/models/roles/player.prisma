@@ -12,6 +12,7 @@ model Player {
   
   levelMemberships LevelMembership[]
   contestMemberships ContestMembership[]
+  reports         Report[]
 
   @@map("players")
 }

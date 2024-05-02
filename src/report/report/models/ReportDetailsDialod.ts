@@ -8,5 +8,6 @@ export class ReportDetailsDialog {
     createdAt: Date
     type: ReportType
     content:string
+    adminId:string |null
   }
   

@@ -1,4 +1,3 @@
-
 import {
     Body,
     Controller,
@@ -6,6 +5,7 @@ import {
     HttpCode,
     HttpStatus,
     Post,
+    Put,
     Query,
     Req,
     UseGuards,
@@ -31,7 +31,6 @@ export class ReportController {
     @HttpCode(HttpStatus.CREATED)
     @UseGuards(AtGuard)
     @ApiBearerAuth()
-    // TODO: Admin role 
     async createReport(@Req() req: Request,
         @Body() createReportDto: CreateReportDto): Promise<ReportResponseDto> {
         const player = await this.authService.playerResolver((req as any).user.sub);
@@ -55,10 +54,44 @@ export class ReportController {
     @UseGuards(AtGuard)
     @ApiBearerAuth()
     async getReportDetails(
-      @Query('id') contestId: string,
+      @Query('id') reportId: string,
     ): Promise<ReportDetailsDialog> {
-      return this.reportService.getReportDetails(parseInt(contestId));
+      return this.reportService.getReportDetails(parseInt(reportId));
     }
 
+    @Get('get-reports')
+    @HttpCode(HttpStatus.OK)
+    @UseGuards(AtGuard)
+    @ApiBearerAuth()
+    // TODO: Admin role 
+    async getAllReports( @Req() req: any,
+      @Query('page') page: string,
+      @Query('take') take: string,
+    ): Promise<PaginatedList<ReportRow>> {
+      return this.reportService.getAllReports(parseInt(page), parseInt(take));
+    }
+
+    @Put('close-report')
+    @HttpCode(HttpStatus.CREATED)
+    @UseGuards(AtGuard)
+    @ApiBearerAuth()
+    // TODO: Admin role 
+    async closeReport(@Req() req: Request,
+       @Query('id') reportId: string,): Promise<void> {
+        const admin = await this.authService.AdminResolver((req as any).user.sub);
+        return await this.reportService.closeReport(admin.userId, parseInt(reportId));
+    }
+
+    @Put('open-report')
+    @HttpCode(HttpStatus.CREATED)
+    @UseGuards(AtGuard)
+    @ApiBearerAuth()
+    // TODO: Admin role 
+    async openReport(@Req() req: Request,
+       @Query('id') reportId: string,): Promise<void> {
+        const admin = await this.authService.AdminResolver((req as any).user.sub);
+        return await this.reportService.openReport(admin.userId, parseInt(reportId));
+    }
+    
     
 }
