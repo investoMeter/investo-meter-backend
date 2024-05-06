@@ -1,5 +1,4 @@
 interface RoomDto {
-    id: number;
-    roomNumber: number;
-    currentCapacity: number;
+  roomNumber: number;
+  currentCapacity: number;
 }

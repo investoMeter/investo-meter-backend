@@ -5,23 +5,49 @@
 ## Installation
 
 ### 1) install docker
+
 ### 2) install node version v20.9.0
+
 ### 3) install npm version 10.2.3
+
 ### 4) if node isn't installed in c Directory run this command
+
 ```bash
 $ npm install -g npm
 ```
-### 5) open terminal inside project folder
+
+### 5) building docker images
+
+#### 5-1) clone investo-meter-hints-service
+
+#### 5-2) clone investo-meter-contests-service
+
+#### 5-3) open a bash terminal inside each one of them
+
+#### 5-4) run this command
+
 ```bash
-$ docker-compose up
+//inside the investo-meter-hints-service project
+$ docker build -t hints-microservice .
+//inside the investo-meter-contests-service project 
+$ docker build -t contest-broadcast-microservice .
+```
+
+### 6) open terminal inside investo-meter-backend folder
+
+```bash
+$ docker-compose up -d
 $ npm install
 $ npx prisma generate
 $ npx prisma db push
 ```
-### after running docker compose up don't wait for the terminal to stop it won't open a new tab and continue the steps because the docker image will be running in this tab till you close it
-### you can close the tab after running the docker compose up command and then run the image from docker desktop as it will appear
+
+### after finishing all of those commands go to docker desktop application and if any image is not running run them manually again
+
+### "sometimes this happens because the db didnt run and they need to connect to db so they fail and exit"
 
 ## Running the app
+
 ```bash
 # development
 $ npm run start

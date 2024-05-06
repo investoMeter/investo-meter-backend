@@ -10,5 +10,5 @@ export class JoinContestDto {
   @ApiProperty()
   @IsNumber()
   @IsNotEmpty()
-  roomId: number;
+  roomNumber: number;
 }
