@@ -15,10 +15,11 @@ model Player {
 
   levelMemberships   LevelMembership[]
   contestMemberships ContestMembership[]
+
+  reports         Report[]
   feedbacks feedback[]
   BuyRequest         BuyRequest[]
   SellRequest        SellRequest[]
-
 
   @@map("players")
 }

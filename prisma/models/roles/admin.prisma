@@ -6,5 +6,7 @@ model Admin {
   userId String @unique
   user   User   @relation(fields: [userId], references: [id])
 
+  reports         Report[]
+
   @@map("admins")
 }
