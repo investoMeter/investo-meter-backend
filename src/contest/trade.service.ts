@@ -1,4 +1,4 @@
-import { Player, TradeType, BuyRequest, RequestStatus } from '@prisma/client';
+import { Player, BuyRequest, RequestStatus, Trade } from '@prisma/client';
 import { TradeRequestDto } from './dto/trades dto/trade-request.dto';
 import { PrismaService } from 'src/prisma';
 import {
@@ -49,11 +49,23 @@ export class TradeService {
     const currentShares = stockHistory?.currentShares ?? 0;
     const sharesToTrade = Math.min(currentShares, quantity);
 
-    let trade: any;
+    let newtrades: Trade[] = [];
     const NO_SHARES = 0;
+
 
     return await this.prisma.$transaction(async (prisma) => {
       if (currentShares != NO_SHARES) {
+        const trade = await this.tradingUtilityService.createTrade(
+          sharesToTrade,
+          price,
+          timestampDate,
+          stock.id,
+          membership.id,
+          undefined,
+          contest.id,
+          room.roomNumber,
+        );
+
         await this.updateStockHistory(
           stockHistory,
           contest.id,
@@ -68,14 +80,7 @@ export class TradeService {
           sharesToTrade,
         );
 
-        trade = await this.tradingUtilityService.createTrade(
-          sharesToTrade,
-          price,
-          timestampDate,
-          stock.id,
-          membership.id,
-          TradeType.BUY,
-        );
+        newtrades.push(trade);
 
         await this.tradingUtilityService.updateMembershipCoins(
           room.roomNumber,
@@ -105,11 +110,13 @@ export class TradeService {
         if (matchingSellRequests == null) {
           newBuyRequest = await this.createNewBuyRequest(buyRequestData);
         } else {
-          const { requestedQuantity, buyTrades, sellTrades } =
+          const { requestedQuantity, trades } =
             await this.matchingService.matchBuyRequest(
               buyRequestData,
               matchingSellRequests,
             );
+          newtrades.push(...trades)
+
 
           // if not all shares in the request is satisfied, then create a new buy request with the remaining shares
           if (requestedQuantity > 0) {
@@ -123,12 +130,10 @@ export class TradeService {
               stockId: stock.id,
             });
           }
-
-          console.log({ requestedQuantity, buyTrades, sellTrades });
         }
       }
 
-      return { newBuyRequest, trade };
+      return { newBuyRequest, trades: newtrades };
     });
   }
 
@@ -147,7 +152,7 @@ export class TradeService {
     });
 
     // check if the pending sell requests for this stock doesn't exceed the limit he has
-    const pendingSellShares = await this.prisma.buyRequest.aggregate({
+    const pendingSellShares = await this.prisma.sellRequest.aggregate({
       _sum: {
         quantity: true,
       },
@@ -183,7 +188,7 @@ export class TradeService {
       };
 
       let newSellRequest;
-      let buyTrades, sellTrades;
+      let trade;
       const matchingBuyRequests =
         await this.matchingService.findMatchingBuyRequests(sellRequestData);
 
@@ -195,8 +200,7 @@ export class TradeService {
           matchingBuyRequests,
         );
 
-        buyTrades = result.buyTrades;
-        sellTrades = result.sellTrades;
+        trade = result.trades;
 
         // if not all shares in the request is sold, then create a new sell request with the remaining shares
 
@@ -213,7 +217,7 @@ export class TradeService {
         }
         console.log({ result });
       }
-      return { newSellRequest, buyTrades, sellTrades };
+      return { newSellRequest, trade };
     });
   }
 

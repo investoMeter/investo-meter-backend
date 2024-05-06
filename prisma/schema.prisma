@@ -181,8 +181,10 @@ model ContestMembership {
   roomNumber Int
   room       Room @relation(fields: [contestId, roomNumber], references: [contestId, roomNumber])
 
-  tradingHistory Trade[]
-  ownedStocks    OwnedStock[]
+  buyerTrades  Trade[] @relation("buyerMembership")
+  sellerTrades Trade[] @relation("sellerMembership")
+
+  ownedStocks OwnedStock[]
 
   @@unique([contestId, playerId])
 }
@@ -201,11 +203,9 @@ model ContestStockPrice {
   timeStamp DateTime @default(now())
 
   // relations
-  contestStockId Int
-  StockHistory   StockHistory? @relation(fields: [stockHistoryId], references: [id])
-  stockHistoryId Int?
+  StockHistory   StockHistory @relation(fields: [stockHistoryId], references: [id])
+  stockHistoryId Int
 
-  @@index([contestStockId], name: "contest_stock_price_contest_stock_id_foreign")
   @@map("contest_stock_price")
 }
 
@@ -258,8 +258,9 @@ model Contest {
 
   rooms         Room[]
   contestStocks ContestStock[]
-  BuyRequest    BuyRequest[]
-  SellRequest   SellRequest[]
+  buyRequests   BuyRequest[]
+  sellRequests  SellRequest[]
+  trades        Trade[]
 }
 
 //
@@ -305,8 +306,10 @@ model Room {
   stocksHistories StockHistory[]
   BuyRequest      BuyRequest[]
   SellRequest     SellRequest[]
+  trades          Trade[]
 
   @@id([contestId, roomNumber])
+  @@unique([contestId, roomNumber])
 }
 
 //
@@ -340,11 +343,10 @@ model SellRequest {
 //
 
 model StockHistory {
-  id            Int @id @default(autoincrement())
-  currentShares Int
-
+  id             Int          @id @default(autoincrement())
+  currentShares  Int
   // relations 
-  contestStockId Int          @unique
+  contestStockId Int
   ContestStock   ContestStock @relation(fields: [contestStockId], references: [id])
 
   roomNumber    Int
@@ -355,6 +357,8 @@ model StockHistory {
 
   createdAt DateTime  @default(now())
   updatedAt DateTime? @updatedAt
+
+  @@unique([roomContestId, roomNumber, contestStockId])
 }
 
 //
@@ -366,15 +370,23 @@ model Trade {
 
   quantity  Int
   price     Float
-  tradeType TradeType
-  timestamp DateTime  @default(now())
+  timestamp DateTime @default(now())
 
   // relations
   stockId Int
   stock   ContestStock @relation(fields: [stockId], references: [id])
 
-  memberId Int
-  member   ContestMembership @relation(fields: [memberId], references: [id])
+  buyerMembershipId Int
+  buyerMembership   ContestMembership @relation(fields: [buyerMembershipId], references: [id], name: "buyerMembership")
+
+  sellerMembershipId Int?
+  sellerMembership   ContestMembership? @relation(fields: [sellerMembershipId], references: [id], name: "sellerMembership")
+
+  room       Room @relation(fields: [contestId, roomNumber], references: [contestId, roomNumber])
+  roomNumber Int
+
+  contest   Contest @relation(fields: [contestId], references: [id])
+  contestId Int
 }
 
 //

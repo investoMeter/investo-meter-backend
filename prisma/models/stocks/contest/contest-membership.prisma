@@ -16,7 +16,9 @@ model ContestMembership {
     roomNumber Int
     room       Room     @relation(fields: [contestId, roomNumber], references:[contestId, roomNumber])
 
-    tradingHistory Trade[]
+    buyerTrades Trade[] @relation("buyerMembership")
+    sellerTrades Trade[] @relation("sellerMembership")
+
     ownedStocks    OwnedStock[]
 
     @@unique([contestId, playerId])

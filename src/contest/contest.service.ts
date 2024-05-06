@@ -279,4 +279,38 @@ export class ContestService {
 
     return contestResponseDto;
   }
+
+  async getRunningContests() {
+
+    const now = new Date();
+    now.setUTCHours(now.getUTCHours() + 3);
+    return  await this.prisma.contest.findMany({
+      orderBy: {
+        startDate: 'asc',
+      },
+      where: {
+        AND: {
+          startDate: {
+            lte: new Date(now.getTime() + 60000),
+          },
+          endDate: {
+            gte: new Date(now.getTime() + 60000),
+          },
+        },
+      },
+      select: {
+        id: true,
+        contestStocks: { select: { id: true, symbol: true } },
+        rooms: {
+          select: {
+            roomNumber: true,
+            stocksHistories: {
+              select: { id: true, contestStockId: true, ContestStockPrice: true },
+            },
+          },
+        },
+      },
+    });
+  }
+  
 }

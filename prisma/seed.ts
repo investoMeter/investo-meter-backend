@@ -143,7 +143,7 @@ async function seedData() {
       }
     }
     console.log('players seeding is done');
-    if ((await prisma.contest.count()) > 0) {
+    if ((await prisma.contest.count()) == 0) {
       const contestCreator = await prisma.user.findFirst({
         select: { id: true },
       });
