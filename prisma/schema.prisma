@@ -69,57 +69,6 @@ model feedback {
 }
 
 //
-// report.prisma
-//
-
-model Report {
-  id        Int            @id @default(autoincrement())
-  content   String
-  adminId   String?
-  creatorId String
-  creator   Player         @relation(fields: [creatorId], references: [userId])
-  admin     Admin?         @relation(fields: [adminId], references: [userId])
-  title     String
-  type      ReportType
-  severity  ReportSeverity
-  createdAt DateTime       @default(now())
-  state     ReportState
-
-  @@map("report")
-}
-
-//
-// reportSeverity.prisma
-//
-
-enum ReportSeverity {
-  low
-  medium
-  high
-  critical
-}
-
-//
-// reportState.prisma
-//
-
-enum ReportState {
-  open
-  close
-}
-
-//
-// reportType.prisma
-//
-
-enum ReportType {
-  Level
-  Contest
-  Community
-  Other
-}
-
-//
 // admin.prisma
 //
 
@@ -157,7 +106,6 @@ model Player {
 
   levelMemberships   LevelMembership[]
   contestMemberships ContestMembership[]
-  reports            Report[]
 
   reports            Report[]
   feedbacks          feedback[]

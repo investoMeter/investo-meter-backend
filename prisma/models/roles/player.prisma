@@ -15,7 +15,6 @@ model Player {
 
   levelMemberships   LevelMembership[]
   contestMemberships ContestMembership[]
-  reports         Report[]
 
   reports         Report[]
   feedbacks feedback[]
