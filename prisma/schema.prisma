@@ -3,7 +3,56 @@
 // Any modifications will be overwritten on subsequent runs.
 //
 
+// report.prisma
 //
+
+model Report {
+  id        Int            @id @default(autoincrement())
+  content   String
+  adminId   String?
+  creatorId String
+  creator   Player         @relation(fields: [creatorId], references: [userId])
+  admin     Admin?         @relation(fields: [adminId], references: [userId])
+  title     String
+  type      ReportType
+  severity  ReportSeverity
+  createdAt DateTime       @default(now())
+  state     ReportState
+
+  @@map("report")
+}
+
+//
+// reportSeverity.prisma
+//
+
+enum ReportSeverity {
+  low
+  medium
+  high
+  critical
+}
+
+//
+// reportState.prisma
+//
+
+enum ReportState {
+  open
+  close
+}
+
+//
+// reportType.prisma
+//
+
+enum ReportType {
+  Level
+  Contest
+  Community
+  Other
+}
+
 // feedback.prisma
 //
 
@@ -27,6 +76,8 @@ model Admin {
   // relations
   userId String @unique
   user   User   @relation(fields: [userId], references: [id])
+
+  reports Report[]
 
   @@map("admins")
 }
@@ -55,10 +106,11 @@ model Player {
 
   levelMemberships   LevelMembership[]
   contestMemberships ContestMembership[]
+
+  reports            Report[]
   feedbacks          feedback[]
   BuyRequest         BuyRequest[]
   SellRequest        SellRequest[]
-
 
   @@map("players")
 }

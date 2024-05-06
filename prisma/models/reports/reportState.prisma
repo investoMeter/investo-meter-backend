@@ -1,0 +1,4 @@
+enum ReportState{
+    open
+    close
+}
