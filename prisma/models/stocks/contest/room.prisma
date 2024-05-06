@@ -1,10 +1,11 @@
 import { Contest } from "./contest"
 import { ContestMembership }from "./contest-membership"
-import { StockHistory } from "stock-history"
+import { StockHistory } from "./stock-history"
+import { BuyRequest } from "./buy-request"
+import { SellRequest } from "./sell-request"
+import { Trade } from "./trade"
 
 model Room {
-    id Int @unique @default(autoincrement())
-
     roomNumber      Int
     currentCapacity Int @default(0)
 
@@ -14,6 +15,12 @@ model Room {
 
     memberships     ContestMembership[]
     stocksHistories StockHistory[]
+    BuyRequest      BuyRequest[]
+    SellRequest     SellRequest[]
+    trades          Trade[]
 
-    @@id([contestId, id])
+    @@id([contestId, roomNumber])
+    @@unique([contestId, roomNumber])
 }
+
+

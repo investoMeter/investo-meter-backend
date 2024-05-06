@@ -21,6 +21,7 @@ import {
   RegisterResponseDto,
 } from './dto/response';
 import { MailerService } from '@nestjs-modules/mailer';
+import { Player } from '@prisma/client';
 
 @Injectable()
 export class AuthService {
@@ -356,7 +357,7 @@ export class AuthService {
     }
   }
 
-  public async playerResolver(playerId?: string) {
+  public async playerResolver(playerId?: string): Promise<Player> {
     if (!!!playerId) {
       throw new BadRequestException(`playerId is not provided`);
     }
@@ -365,6 +366,7 @@ export class AuthService {
       where: {
         userId: playerId,
       },
+      include: { user: true, contestMemberships: true, levelMemberships: true },
     });
 
     if (!player) {
@@ -385,8 +387,70 @@ export class AuthService {
       },
     })
     if (!admin) {
-      throw new NotFoundException(`player with id: ${adminId} is not found`);
+      throw new NotFoundException(`admin with id: ${adminId} is not found`);
     }
     return admin;
   }
+
+
+  async adminRegister(
+    registerDto: RegisterRequestDto,
+  ): Promise<RegisterResponseDto> {
+    if (
+      await this.prisma.user.findFirst({
+        where: {
+          OR: [
+            {
+              username: registerDto.username,
+            },
+            {
+              email: registerDto.email,
+            },
+          ],
+        },
+      })
+    ) {
+      throw new BadRequestException('username or email already exist');
+    }
+
+    const hashPassword = await this.hashPassword(registerDto.password);
+
+    const newUser = await this.prisma.user.create({
+      data: {
+        username: registerDto.username,
+        name: registerDto.name,
+        email: registerDto.email,
+        salt: hashPassword.salt,
+        hashedPassword: hashPassword.hash,
+      },
+      select: { id: true, name: true, username: true, email: true },
+    });
+
+    await this.prisma.admin.create({
+      data: {
+        userId: newUser.id,
+      },
+    });
+
+    const tokens = await this.getTokens(
+      newUser.id,
+      newUser.name,
+      newUser.username,
+      newUser.email,
+    );
+
+    this.updateRtToken(newUser.id, tokens.refreshToken);
+
+    return {
+      id: newUser.id,
+      name: newUser.name,
+      username: newUser.username,
+      email: newUser.email,
+      access_token: tokens.accessToken,
+      refresh_token: tokens.refreshToken,
+    };
+  }
+
 }
+
+

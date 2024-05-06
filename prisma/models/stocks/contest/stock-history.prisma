@@ -5,15 +5,18 @@ import { Room } from "./room"
 model StockHistory {
   id            Int @id @default(autoincrement())
   currentShares Int
+    // relations 
+    contestStockId    Int 
+    ContestStock      ContestStock        @relation(fields: [contestStockId], references: [id])
 
-  // relations 
-  contestStockId    Int
-  ContestStock      ContestStock        @relation(fields: [contestStockId], references: [id])
-  ContestStockPrice ContestStockPrice[]
+    roomNumber        Int
+    roomContestId Int
+    Room          Room?     @relation(fields: [roomContestId, roomNumber], references: [contestId, roomNumber])
 
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime? @updatedAt
-  Room          Room?     @relation(fields: [roomContestId, roomId], references: [contestId, id])
-  roomContestId Int
-  roomId        Int
+    ContestStockPrice ContestStockPrice[]
+
+    createdAt     DateTime  @default(now())
+    updatedAt     DateTime? @updatedAt
+
+    @@unique([roomContestId, roomNumber, contestStockId])
 }
