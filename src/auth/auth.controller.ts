@@ -89,4 +89,13 @@ export class AuthController {
   ): Promise<any> {
     return this.authService.setNewPassword(newPasswordDto);
   }
+
+
+  @Post('local/admin-register')
+  @HttpCode(HttpStatus.CREATED)
+  async adminRegister(
+    @Body() registerDto: RegisterRequestDto,
+  ): Promise<RegisterResponseDto> {
+    return this.authService.adminRegister(registerDto);
+  }
 }
