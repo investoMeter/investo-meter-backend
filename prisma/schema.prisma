@@ -205,8 +205,9 @@ model Contest {
 
   rooms         Room[]
   contestStocks ContestStock[]
-  BuyRequest    BuyRequest[]
-  SellRequest   SellRequest[]
+  buyRequests   BuyRequest[]
+  sellRequests  SellRequest[]
+  trades        Trade[]
 }
 
 //
@@ -252,6 +253,7 @@ model Room {
   stocksHistories StockHistory[]
   BuyRequest      BuyRequest[]
   SellRequest     SellRequest[]
+  trades          Trade[]
 
   @@id([contestId, roomNumber])
   @@unique([contestId, roomNumber])
@@ -288,9 +290,8 @@ model SellRequest {
 //
 
 model StockHistory {
-  id            Int @id @default(autoincrement())
-  currentShares Int
-
+  id             Int          @id @default(autoincrement())
+  currentShares  Int
   // relations 
   contestStockId Int
   ContestStock   ContestStock @relation(fields: [contestStockId], references: [id])
@@ -325,8 +326,14 @@ model Trade {
   buyerMembershipId Int
   buyerMembership   ContestMembership @relation(fields: [buyerMembershipId], references: [id], name: "buyerMembership")
 
-  sellerMembershipId Int
-  sellerMembership   ContestMembership @relation(fields: [sellerMembershipId], references: [id], name: "sellerMembership")
+  sellerMembershipId Int?
+  sellerMembership   ContestMembership? @relation(fields: [sellerMembershipId], references: [id], name: "sellerMembership")
+
+  room       Room @relation(fields: [contestId, roomNumber], references: [contestId, roomNumber])
+  roomNumber Int
+
+  contest   Contest @relation(fields: [contestId], references: [id])
+  contestId Int
 }
 
 //
