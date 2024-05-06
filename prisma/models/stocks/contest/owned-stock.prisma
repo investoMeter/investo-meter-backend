@@ -1,0 +1,15 @@
+import { ContestStock } from ".\contest-stock"
+import {ContestMembership} from ".\contest-membership"
+
+model OwnedStock {
+    id      Int          @id @default(autoincrement())
+    stockId Int
+    stock   ContestStock @relation(fields: [stockId], references: [id])
+
+    currentShares Int @default(0)
+
+    ContestMembership   ContestMembership @relation(fields: [contestMembershipId], references: [id], onDelete: Cascade)
+    contestMembershipId Int
+
+    @@unique([stockId, contestMembershipId])
+}

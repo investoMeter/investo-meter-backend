@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+service HintModel{
+    rpc getPrediction (Stock) returns (Prediction);
+}
+
+message Stock{
+    float Open = 1;
+    float Close = 2;
+    float Close_Price_2min_Ago = 3;
+    float MA_3min = 4;
+    int32 Volume = 5;
+}
+
+message Prediction{
+    float Close_Next_5mins = 1;
+}
+
