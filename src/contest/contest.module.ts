@@ -6,10 +6,17 @@ import { TradeController } from './trade.controller';
 import { TradeService } from './trade.service';
 import { MatchingService } from './matching.service';
 import { TradingUtilityService } from './trade.utility.service';
+import { StocksService } from './stocks.service';
 
 @Module({
   imports: [AuthModule],
-  providers: [ContestService, TradeService, MatchingService, TradingUtilityService],
+  providers: [
+    ContestService,
+    TradeService,
+    MatchingService,
+    TradingUtilityService,
+    StocksService,
+  ],
   controllers: [ContestController, TradeController],
 })
-export class ContestModule { }
+export class ContestModule {}

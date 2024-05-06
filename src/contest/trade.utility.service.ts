@@ -41,33 +41,58 @@ export class TradingUtilityService {
   async createTrade(
     quantity: number,
     price: number,
-    timestampDate: Date,
+    timestamp: Date,
     stockId: number,
     buyerMembershipId: number,
-    sellerMembershipId: number,
+    sellerMembershipId: number | undefined,
+    contestId: number,
+    roomNumber: number,
   ): Promise<Trade> {
-    return await this.prisma.trade.create({
-      data: {
-        quantity,
-        price,
-        timestamp: timestampDate,
-        stock: {
-          connect: {
-            id: stockId,
-          },
-        },
-        buyerMembership: {
-          connect: {
-            id: buyerMembershipId,
-          },
-        },
-          sellerMembership: {
-            connect: {
-              id: sellerMembershipId,
-            },
+    let data: {
+      quantity: number;
+      price: number;
+      timestamp: Date;
+      stock: { connect: { id: number } };
+      buyerMembership: { connect: { id: number } };
+      contest: { connect: { id: number } };
+      room: { connect: { contestId_roomNumber: { contestId: number; roomNumber: number } } };
+      sellerMembership?: { connect: { id: number } };
+      } = {
+      quantity, price, timestamp,
+      stock: {
+        connect: {
+          id: stockId,
         },
       },
-    });
+      buyerMembership: {
+        connect: {
+          id: buyerMembershipId,
+        },
+      },
+      contest: {
+        connect: {
+          id: contestId,
+        },
+      },
+      room: {
+        connect: {
+          contestId_roomNumber: {
+            contestId,
+            roomNumber,
+          },
+        },
+      },
+    };
+
+    if (sellerMembershipId !== undefined) {
+      data.sellerMembership = {
+        connect: {
+          id: sellerMembershipId,
+        },
+      };
+    }
+
+    return await this.prisma.trade.create({ data });
   }
 
   async updateMembershipCoins(

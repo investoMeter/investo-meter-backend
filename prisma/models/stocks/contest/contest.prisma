@@ -4,6 +4,7 @@ import { Room } from "./room"
 import { ContestStock }from "./contest-stock"
 import { BuyRequest } from "./buy-request"
 import { SellRequest } from "./sell-request"
+import { Trade } from "./trade"
 
 model Contest {
     id Int @id @default(autoincrement())
@@ -27,8 +28,9 @@ model Contest {
 
     rooms         Room[]
     contestStocks ContestStock[]
-    BuyRequest    BuyRequest[]
-    SellRequest   SellRequest[]
+    buyRequests    BuyRequest[]
+    sellRequests   SellRequest[]
+    trades          Trade[]
 }
 
 

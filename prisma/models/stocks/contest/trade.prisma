@@ -1,6 +1,9 @@
 import { ContestMembership } from "contest-membership"
 import { TradeType }from "../tradeType"
 import { ContestStock } from "./contest-stock"
+import { Room } from "./room"
+import { Contest } from "./contest"
+
 
 model Trade {
     id Int @id @default(autoincrement())
@@ -16,7 +19,14 @@ model Trade {
     buyerMembershipId Int
     buyerMembership   ContestMembership @relation(fields: [buyerMembershipId], references: [id],name: "buyerMembership")
 
-    sellerMembershipId Int
-    sellerMembership ContestMembership @relation(fields: [sellerMembershipId],  references: [id], name: "sellerMembership")
+    sellerMembershipId Int?
+    sellerMembership ContestMembership? @relation(fields: [sellerMembershipId],  references: [id], name: "sellerMembership")
+
+    room   Room @relation(fields: [contestId, roomNumber], references: [contestId, roomNumber])
+    roomNumber Int
+
+    contest   Contest @relation(fields: [contestId], references: [id])
+    contestId Int
+    
 }
 

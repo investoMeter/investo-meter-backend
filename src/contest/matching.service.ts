@@ -51,7 +51,7 @@ export class MatchingService {
 
       const sellerMembership = await this.prisma.contestMembership.findFirst({
         where: {
-          playerId: sellRequest.userId,
+          playerId: sellRequest.playerId,
           roomNumber: buyRequest.roomNumber,
           contestId: buyRequest.contestId,
         },
@@ -63,10 +63,11 @@ export class MatchingService {
 
       const tradeQuantity = Math.min(requestedQuantity, sellRequest.quantity);
       const cost = sellRequest.price * tradeQuantity;
-
+      
       const trade = await this.processTrade(
         buyRequest,
         sellRequest,
+        sellRequest.price,
         buyerMembership,
         sellerMembership,
         cost,
@@ -105,6 +106,8 @@ export class MatchingService {
         contestStockId: stockId,
         status: RequestStatus.PENDING,
         price: { gte: sellRequest.price },
+        playerId: { not: sellRequest.userId },
+
       },
       orderBy: [{ price: 'desc' }, { timestamp: 'asc' }],
     });
@@ -134,7 +137,7 @@ export class MatchingService {
 
       const buyerMembership = await this.prisma.contestMembership.findFirst({
         where: {
-          playerId: buyRequest.userId,
+          playerId: buyRequest.playerId,
           roomNumber: buyRequest.roomNumber,
           contestId: buyRequest.contestId,
         },
@@ -145,7 +148,7 @@ export class MatchingService {
       }
 
       // Determine the trade quantity
-      const tradeQuantity = Math.min(quantityToSell, sellRequest.quantity);
+      const tradeQuantity = Math.min(quantityToSell, buyRequest.quantity);
 
       // deduct the money from the buyer and add it to the sellers
       const cost = buyRequest.price * tradeQuantity;
@@ -153,6 +156,7 @@ export class MatchingService {
       const trade = await this.processTrade(
         buyRequest,
         sellRequest,
+        buyRequest.price,
         buyerMembership,
         sellerMembership,
         cost,
@@ -182,15 +186,18 @@ export class MatchingService {
   async processTrade(
     buyRequest: any,
     sellRequest: any,
+    tradePrice: number,
     buyerMembership: any,
     sellerMembership: any,
     cost: number,
     tradeQuantity: number,
   ) {
     return await this.prisma.$transaction(async (prisma) => {
+      
       const stockId = buyRequest.stockId || buyRequest.contestStockId;
       const contestId = buyRequest.contestId;
       const roomNumber = buyRequest.roomNumber;
+
       await this.tradingUtilityService.updateMembershipCoins(
         roomNumber,
         contestId,
@@ -219,13 +226,17 @@ export class MatchingService {
       );
 
       // Make the trade
+      const date = new Date();
+      date.setUTCHours(date.getUTCHours() + 3);
       const trade = await this.tradingUtilityService.createTrade(
         tradeQuantity,
-        sellRequest.price,
-        new Date(),
+        tradePrice,
+        date, 
         stockId,
         buyerMembership.id,
         sellerMembership.id,
+        contestId,
+        roomNumber
       );
 
       return trade ;
