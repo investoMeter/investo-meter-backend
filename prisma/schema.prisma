@@ -3,6 +3,23 @@
 // Any modifications will be overwritten on subsequent runs.
 //
 
+//
+// feedback.prisma
+//
+
+model feedback {
+  id        Int      @id @default(autoincrement())
+  about     String
+  content   String
+  rating    Int
+  createdAt DateTime @default(now())
+
+  // relations
+  playerId String
+  player   Player @relation(fields: [playerId], references: [userId])
+}
+
+//
 // report.prisma
 //
 
@@ -53,21 +70,6 @@ enum ReportType {
   Other
 }
 
-// feedback.prisma
-//
-
-model feedback {
-  id        Int      @id @default(autoincrement())
-  about     String
-  content   String
-  rating    Int
-  createdAt DateTime @default(now())
-
-  // relations
-  playerId String
-  player   Player @relation(fields: [playerId], references: [userId])
-}
-
 //
 // admin.prisma
 //
@@ -107,10 +109,10 @@ model Player {
   levelMemberships   LevelMembership[]
   contestMemberships ContestMembership[]
 
-  reports            Report[]
-  feedbacks          feedback[]
-  BuyRequest         BuyRequest[]
-  SellRequest        SellRequest[]
+  reports     Report[]
+  feedbacks   feedback[]
+  BuyRequest  BuyRequest[]
+  SellRequest SellRequest[]
 
   @@map("players")
 }

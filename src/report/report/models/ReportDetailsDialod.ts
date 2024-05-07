@@ -9,5 +9,6 @@ export class ReportDetailsDialog {
     type: ReportType
     content:string
     adminId:string |null
+    creatorId:string
   }
   
