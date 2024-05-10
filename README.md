@@ -13,7 +13,7 @@
 ### 4) if node isn't installed in c Directory run this command
 
 ```bash
-$ 
+$ npm install -g npm
 ```
 
 ### 5) building docker images
