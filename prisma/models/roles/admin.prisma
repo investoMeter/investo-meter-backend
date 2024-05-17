@@ -1,5 +1,6 @@
 import { User } from "./user"
 import { Tutorial } from "..\stocks\level\tutorial"
+import { Report } from "..\reports\report"
 
 model Admin {
   // relations
