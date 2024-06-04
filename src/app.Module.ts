@@ -7,6 +7,7 @@ import { FeedbackModule } from './feedback/feedback.module';
 import { HintModule } from './hint';
 import { ReportModule } from './report/report/report.module';
 import { ScheduleModule } from '@nestjs/schedule';
+import { ProfileModule } from './profile/profile.module';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { ScheduleModule } from '@nestjs/schedule';
     HintModule,
     FeedbackModule,
     ReportModule,
+    ProfileModule,
     ScheduleModule.forRoot(),
   ],
 })

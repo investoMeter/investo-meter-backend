@@ -136,7 +136,7 @@ export class TradeService {
   }
 
   async createSellRequest(
-    player: { userId: string; coinsCount: number },
+    player: { userId: string; coins: number },
     requestDto: TradeRequestDto,
   ) {
     const { quantity, price } = requestDto;
@@ -432,7 +432,7 @@ export class TradeService {
   }
 
   async cancelSellRequest(
-    player: { userId: string; coinsCount: number },
+    player: { userId: string; coins: number },
     requestDto: CancelRequestDto,
   ) {
     const { requestId, contestId, roomNumber } = requestDto;
