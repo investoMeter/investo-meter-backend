@@ -281,10 +281,9 @@ export class ContestService {
   }
 
   async getRunningContests() {
-
     const now = new Date();
     now.setUTCHours(now.getUTCHours() + 3);
-    return  await this.prisma.contest.findMany({
+    return await this.prisma.contest.findMany({
       orderBy: {
         startDate: 'asc',
       },
@@ -305,12 +304,15 @@ export class ContestService {
           select: {
             roomNumber: true,
             stocksHistories: {
-              select: { id: true, contestStockId: true, ContestStockPrice: true },
+              select: {
+                id: true,
+                contestStockId: true,
+                ContestStockPrice: true,
+              },
             },
           },
         },
       },
     });
   }
-  
 }
