@@ -5,17 +5,19 @@ import { SubmitFeedbackDto } from './dto/submit-feedback.dto';
 
 @Injectable()
 export class FeedbackService {
+  constructor(private prisma: PrismaService) {}
 
-    constructor(private prisma: PrismaService) { }
-
-    async submitFeedback(player: Player, requestDto: SubmitFeedbackDto): Promise<void> {
-        await this.prisma.feedback.create({
-            data: {
-                about: requestDto.about,
-                content: requestDto.content,
-                rating: requestDto.rating,
-                playerId: player.userId,
-            },
-        });
-    }
+  async submitFeedback(
+    player: Player,
+    requestDto: SubmitFeedbackDto,
+  ): Promise<void> {
+    await this.prisma.feedback.create({
+      data: {
+        about: requestDto.about,
+        content: requestDto.content,
+        rating: requestDto.rating,
+        playerId: player.userId,
+      },
+    });
+  }
 }

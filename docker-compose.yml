@@ -17,6 +17,8 @@ services:
     image: contest-broadcast-microservice
     ports:
       - "3005:3005"
+    depends_on:
+      - investo_meter-db
     networks:
       - investo_meter_network
   

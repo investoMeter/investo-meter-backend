@@ -28,7 +28,7 @@ import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 @Controller('auth')
 @ApiTags('Authentication')
 export class AuthController {
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService) {}
 
   @Post('local/register')
   @HttpCode(HttpStatus.CREATED)
@@ -89,7 +89,6 @@ export class AuthController {
   ): Promise<any> {
     return this.authService.setNewPassword(newPasswordDto);
   }
-
 
   @Post('local/admin-register')
   @HttpCode(HttpStatus.CREATED)

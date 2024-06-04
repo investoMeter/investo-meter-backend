@@ -55,10 +55,16 @@ export class TradingUtilityService {
       stock: { connect: { id: number } };
       buyerMembership: { connect: { id: number } };
       contest: { connect: { id: number } };
-      room: { connect: { contestId_roomNumber: { contestId: number; roomNumber: number } } };
+      room: {
+        connect: {
+          contestId_roomNumber: { contestId: number; roomNumber: number };
+        };
+      };
       sellerMembership?: { connect: { id: number } };
-      } = {
-      quantity, price, timestamp,
+    } = {
+      quantity,
+      price,
+      timestamp,
       stock: {
         connect: {
           id: stockId,

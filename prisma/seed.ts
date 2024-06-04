@@ -153,10 +153,10 @@ async function seedData() {
           name: 'Test Contest',
           maxRoomCapacity: 10,
           startingMoney: 10000,
-          startDate: new Date('2024-03-22T15:36:00'),
-          endDate: new Date('2024-03-22T15:50:00'),
+          startDate: new Date(),
+          endDate: new Date(new Date().setDate(new Date().getDate() + 2)),
           creator: { connect: { id: contestCreator?.id } },
-          startingShares: 1000
+          startingShares: 1000,
         },
       });
     }
