@@ -8,7 +8,7 @@ import { playerDataDto } from './dto/playerData.dto';
 export class ProfileService {
   constructor(private prisma: PrismaService) {}
 
-  async getContestsHistory(player: Player): Promise<ContestDataDto[]> {
+  async getPreviousContests(player: Player): Promise<ContestDataDto[]> {
     const contestHistories = await this.prisma.contestMembership.findMany({
       where: {
         playerId: player.userId,
@@ -28,10 +28,15 @@ export class ProfileService {
         },
       },
       take: 5,
-      include: {
+      select: {
         room: {
-          include: {
-            contest: true,
+          select: {
+            contest: {
+              select: {
+                name: true,
+                startDate: true,
+              },
+            },
           },
         },
       },
@@ -39,11 +44,12 @@ export class ProfileService {
     const mappedContests: ContestDataDto[] = contestHistories.map(
       (history) => ({
         name: history.room.contest.name,
-        date: history.room.contest.endDate,
+        date: history.room.contest.startDate,
       }),
     );
     return mappedContests;
   }
+
   async getUpcomingContests(player: Player): Promise<ContestDataDto[]> {
     const upcomingContests = await this.prisma.contestMembership.findMany({
       where: {
@@ -64,10 +70,15 @@ export class ProfileService {
         },
       },
       take: 5,
-      include: {
+      select: {
         room: {
-          include: {
-            contest: true,
+          select: {
+            contest: {
+              select: {
+                name: true,
+                startDate: true,
+              },
+            },
           },
         },
       },
@@ -75,15 +86,16 @@ export class ProfileService {
     const mappedContests: ContestDataDto[] = upcomingContests.map(
       (upcoming) => ({
         name: upcoming.room.contest.name,
-        date: upcoming.room.contest.endDate,
+        date: upcoming.room.contest.startDate,
       }),
     );
     return mappedContests;
   }
+
   async getPlayerInfo(player: Player): Promise<playerDataDto> {
     const playerData: playerDataDto = {
       id: player.userId,
-      Budget: player.coinsCount,
+      coins: player.coins,
     };
     return playerData;
   }

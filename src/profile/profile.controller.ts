@@ -25,9 +25,9 @@ export class ProfileController {
   @HttpCode(HttpStatus.OK)
   @UseGuards(AtGuard)
   @ApiBearerAuth()
-  async getContestsHistory(@Req() req: Request): Promise<ContestDataDto[]> {
+  async getPreviousContests(@Req() req: Request): Promise<ContestDataDto[]> {
     const player = await this.authService.playerResolver((req as any).user.sub);
-    return this.profileService.getContestsHistory(player);
+    return this.profileService.getPreviousContests(player);
   }
 
   @Get('get-upcoming-contests')
