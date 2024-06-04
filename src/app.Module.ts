@@ -5,7 +5,7 @@ import { LevelModule } from './level';
 import { ContestModule } from './contest';
 import { FeedbackModule } from './feedback/feedback.module';
 import { HintModule } from './hint';
-import { ReportModule } from './report/report/report.module';
+import { ReportModule } from './report/report.module';
 import { ScheduleModule } from '@nestjs/schedule';
 import { ProfileModule } from './profile/profile.module';
 
