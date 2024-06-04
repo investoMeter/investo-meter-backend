@@ -1,4 +1,4 @@
-export interface playerDataDto{
-    id : string;
-    Budget : number;
+export interface playerDataDto {
+  id: string;
+  Budget: number;
 }

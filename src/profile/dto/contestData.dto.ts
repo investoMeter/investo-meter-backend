@@ -1,4 +1,4 @@
 export interface ContestDataDto {
-    name: string;
-    date: Date;
-  }
+  name: string;
+  date: Date;
+}
