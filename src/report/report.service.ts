@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { Player } from '@prisma/client';
 import { CreateReportDto } from './dto/CreateReportDto';
 import { ReportResponseDto } from './dto/reportResponse.dto';
@@ -68,9 +68,13 @@ export class ReportService {
       select: {
         id: true,
         title: true,
-        type: true,
+        content: true,
         createdAt: true,
+        type: true,
         state: true,
+        severity: true,
+        creatorId: true,
+        adminId: true,
       },
       skip: page * take,
       take: take,
@@ -91,6 +95,8 @@ export class ReportService {
           title: report.title,
           state: report.state,
           type: report.type,
+          adminId: report.adminId,
+          creatorId: report.creatorId,
         };
       }),
       isLastPage: reports.length < take || reportsCount <= page * take + take,
@@ -99,22 +105,32 @@ export class ReportService {
   }
 
   async getReportDetails(reportId: number): Promise<ReportDetailsDialog> {
-    const reportDetails = await this.prisma.report.findFirstOrThrow({
+    const reportDetails = await this.prisma.report.findUnique({
+      where: {
+        id: reportId,
+      },
       select: {
         id: true,
-        content: true,
-        creator: true,
         title: true,
-        type: true,
-        severity: true,
+        content: true,
         createdAt: true,
+        type: true,
         state: true,
+        severity: true,
+        creatorId: true,
         adminId: true,
       },
     });
 
+    if (!reportDetails) {
+      throw new NotFoundException(
+        'The report you are seeking with ID ' + reportId + ' does not exist.',
+      );
+    }
+
     const result: ReportDetailsDialog = {
       id: reportDetails.id,
+
       createdAt: reportDetails.createdAt,
       title: reportDetails.title,
       state: reportDetails.state,
@@ -122,6 +138,7 @@ export class ReportService {
       severity: reportDetails.severity,
       content: reportDetails.content,
       adminId: reportDetails.adminId,
+      creatorId: reportDetails.creatorId,
     };
 
     return result;
@@ -137,13 +154,7 @@ export class ReportService {
       orderBy: {
         createdAt: 'desc',
       },
-      select: {
-        id: true,
-        title: true,
-        type: true,
-        createdAt: true,
-        state: true,
-      },
+
       skip: page * take,
       take: take,
     });
