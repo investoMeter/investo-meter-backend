@@ -3,8 +3,15 @@ import { Player } from "..\..\roles\player"
 
 model LevelMembership {
     id         Int       @id @default(autoincrement())
+    
     failuresCount Int
+    
     passedAt     DateTime?
+    
+    createdAt DateTime @default(now())
+    
+    updatedAt DateTime? @updatedAt
+    
     // relations
     playerId   String
     player     Player    @relation(fields: [playerId], references: [userId])

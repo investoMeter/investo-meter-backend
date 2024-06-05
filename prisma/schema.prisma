@@ -3,6 +3,23 @@
 // Any modifications will be overwritten on subsequent runs.
 //
 
+//
+// feedback.prisma
+//
+
+model feedback {
+  id        Int      @id @default(autoincrement())
+  about     String
+  content   String
+  rating    Int
+  createdAt DateTime @default(now())
+
+  // relations
+  playerId String
+  player   Player @relation(fields: [playerId], references: [userId])
+}
+
+//
 // report.prisma
 //
 
@@ -53,21 +70,6 @@ enum ReportType {
   Other
 }
 
-// feedback.prisma
-//
-
-model feedback {
-  id        Int      @id @default(autoincrement())
-  about     String
-  content   String
-  rating    Int
-  createdAt DateTime @default(now())
-
-  // relations
-  playerId String
-  player   Player @relation(fields: [playerId], references: [userId])
-}
-
 //
 // admin.prisma
 //
@@ -102,15 +104,15 @@ model Player {
 
   coins Int  @default(0)
   // relations
-  user       User @relation(fields: [userId], references: [id])
+  user  User @relation(fields: [userId], references: [id])
 
   levelMemberships   LevelMembership[]
   contestMemberships ContestMembership[]
 
-  reports            Report[]
-  feedbacks          feedback[]
-  BuyRequest         BuyRequest[]
-  SellRequest        SellRequest[]
+  reports     Report[]
+  feedbacks   feedback[]
+  BuyRequest  BuyRequest[]
+  SellRequest SellRequest[]
 
   @@map("players")
 }
@@ -172,6 +174,10 @@ model ContestMembership {
   id Int @id @default(autoincrement())
 
   currentMoneyAmount Float @default(0.0)
+
+  createdAt DateTime @default(now())
+
+  updatedAt DateTime? @updatedAt
 
   // relations
   playerId String
@@ -406,12 +412,19 @@ model Content {
 //
 
 model LevelMembership {
-  id            Int       @id @default(autoincrement())
+  id Int @id @default(autoincrement())
+
   failuresCount Int
-  passedAt      DateTime?
+
+  passedAt DateTime?
+
+  createdAt DateTime @default(now())
+
+  updatedAt DateTime? @updatedAt
+
   // relations
-  playerId      String
-  player        Player    @relation(fields: [playerId], references: [userId])
+  playerId String
+  player   Player @relation(fields: [playerId], references: [userId])
 
   levelId Int
   level   Level @relation(fields: [levelId], references: [id])
@@ -485,7 +498,7 @@ model Level {
   patternName String
   isActive    Boolean
   createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
+  updatedAt   DateTime? @updatedAt
   // relations
   tutorial    Tutorial?
 
