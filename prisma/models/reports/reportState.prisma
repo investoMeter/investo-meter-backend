@@ -1,4 +1,4 @@
-enum ReportState{
+enum ReportState {
     open
     close
 }

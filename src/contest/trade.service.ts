@@ -52,7 +52,6 @@ export class TradeService {
     let newtrades: Trade[] = [];
     const NO_SHARES = 0;
 
-
     return await this.prisma.$transaction(async (prisma) => {
       if (currentShares != NO_SHARES) {
         const trade = await this.tradingUtilityService.createTrade(
@@ -115,8 +114,7 @@ export class TradeService {
               buyRequestData,
               matchingSellRequests,
             );
-          newtrades.push(...trades)
-
+          newtrades.push(...trades);
 
           // if not all shares in the request is satisfied, then create a new buy request with the remaining shares
           if (requestedQuantity > 0) {
@@ -138,7 +136,7 @@ export class TradeService {
   }
 
   async createSellRequest(
-    player: { userId: string; coinsCount: number },
+    player: { userId: string; coins: number },
     requestDto: TradeRequestDto,
   ) {
     const { quantity, price } = requestDto;
@@ -434,7 +432,7 @@ export class TradeService {
   }
 
   async cancelSellRequest(
-    player: { userId: string; coinsCount: number },
+    player: { userId: string; coins: number },
     requestDto: CancelRequestDto,
   ) {
     const { requestId, contestId, roomNumber } = requestDto;

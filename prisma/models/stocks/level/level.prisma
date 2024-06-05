@@ -9,7 +9,7 @@ model Level {
     patternName    String
     isActive       Boolean
     createdAt      DateTime @default(now())
-    updatedAt      DateTime @updatedAt
+    updatedAt      DateTime? @updatedAt
     // relations
     tutorial       Tutorial?
 

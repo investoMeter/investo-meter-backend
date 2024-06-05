@@ -54,7 +54,7 @@ export class StocksService {
             );
 
             // update stock history list of prices
-             await this.prisma.stockHistory.update({
+            await this.prisma.stockHistory.update({
               where: {
                 id: stockHistory.id,
               },
