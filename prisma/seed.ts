@@ -3,7 +3,6 @@ import * as path from 'path';
 import * as fs from 'fs/promises';
 import * as bcrypt from 'bcrypt';
 
-
 const prisma = new PrismaClient();
 
 async function hashPassword(password: string) {
@@ -142,11 +141,11 @@ async function seedData() {
           },
         });
 
-        console.log('player '+newUser.id+' seeded.')
+        console.log('player ' + newUser.id + ' seeded.');
       }
     }
     console.log('players seeding is done');
-    
+
     if ((await prisma.admin.count()) == 0) {
       const jsonPath = path.join(__dirname, '../admin_data.json');
       const jsonData = await fs.readFile(jsonPath, 'utf-8');
@@ -174,18 +173,17 @@ async function seedData() {
 
     console.log('admins seeding is done');
 
-    if (((await prisma.report.count()) == 0)) {
+    if ((await prisma.report.count()) == 0) {
       const jsonPath = path.join(__dirname, '../tech-reports_data.json');
       const jsonData = await fs.readFile(jsonPath, 'utf-8');
       const techReportsData = JSON.parse(jsonData);
 
+      let i = 1;
+
       for (const tech_report of techReportsData) {
-
-        console.log(tech_report)
-
         const players = await prisma.player.findMany();
-        const playerIds = players.map(player => player.userId);
-       
+        const playerIds = players.map((player) => player.userId);
+
         const dateObject = new Date(Date.now());
         dateObject.setHours(dateObject.getHours() + 3);
         await prisma.report.create({
@@ -195,23 +193,16 @@ async function seedData() {
             title: tech_report.title,
             type: tech_report.type,
             severity: tech_report.severity,
-            createdAt: new Date(dateObject), // Convert timestamp to Date object
-            state:ReportState.open
+            createdAt: dateObject,
+            state: ReportState.open,
           },
-
         });
-        var i=1
-        console.log('player '+i+' seeded.')
-        i=i+1
-
-        
+        console.log('technical report' + i + ' seeded.');
+        i += 1;
       }
     }
 
     console.log('technical reports seeding is done');
-
-
-
 
     if ((await prisma.contest.count()) == 0) {
       const contestCreator = await prisma.user.findFirst({
