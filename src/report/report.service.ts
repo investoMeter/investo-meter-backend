@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { Player } from '@prisma/client';
 import { CreateReportDto } from './dto/CreateReportDto';
 import { ReportResponseDto } from './dto/reportResponse.dto';
@@ -47,7 +51,7 @@ export class ReportService {
     } catch (error) {
       // Handle any errors that might occur during report creation
       console.error('Error creating report:', error);
-      throw new Error('Failed to create report');
+      throw new BadRequestException('Failed to create report');
     }
   }
 

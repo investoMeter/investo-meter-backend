@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { PaginatedList } from 'src/common';
 import { PrismaService } from 'src/prisma';
 import { ContestRow } from './models/ContestRow';
@@ -123,7 +123,7 @@ export class ContestService {
         },
       })
     ) {
-      throw new Error('Player already joined contest');
+      throw new BadRequestException('Player already joined contest');
     }
 
     const contest = await this.prisma.contest.findFirstOrThrow({
@@ -171,20 +171,20 @@ export class ContestService {
     });
 
     if (contest.endDate < new Date()) {
-      throw new Error('Contest has already ended');
+      throw new BadRequestException('Contest has already ended');
     }
 
     if (contest.startDate < new Date()) {
-      throw new Error('Contest has already started');
+      throw new BadRequestException('Contest has already started');
     }
 
     const room = contest.rooms[0];
     if (!!!room) {
-      throw new Error("Room doesn't exist");
+      throw new BadRequestException("Room doesn't exist");
     }
 
     if (room._count.memberships >= contest.maxRoomCapacity) {
-      throw new Error('Room is full');
+      throw new BadRequestException('Room is full');
     }
 
     await this.prisma.contestMembership.create({

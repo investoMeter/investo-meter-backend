@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma';
 import { HintFacade } from './hint.facade';
 import { Player } from '@prisma/client';
@@ -29,7 +29,7 @@ export class HintService {
         },
       })) === null
     ) {
-      throw new Error('Player not in room or contest');
+      throw new BadRequestException('Player not in room or contest');
     }
 
     const fiveMinutesAgo = new Date();
@@ -54,7 +54,7 @@ export class HintService {
     });
 
     if (!stock || stock.ContestStockPrice.length < 3) {
-      throw new Error('Not enough data to make prediction');
+      throw new BadRequestException('Not enough data to make prediction');
     }
 
     const facadeModel: StockSummary = {
