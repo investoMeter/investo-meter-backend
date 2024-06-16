@@ -459,7 +459,7 @@ model LevelStockPrice {
   close     Float
   highest   Float
   lowest    Float
-  volume    BigInt
+  volume    Int
   timeStamp DateTime @default(now())
 
   // relations
