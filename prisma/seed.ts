@@ -205,21 +205,108 @@ async function seedData() {
     console.log('technical reports seeding is done');
 
     if ((await prisma.contest.count()) == 0) {
+      let jsonPath = path.join(__dirname, '../contests_data.json');
+      let jsonData = await fs.readFile(jsonPath, 'utf-8');
+      const contestsData = JSON.parse(jsonData);
       const contestCreator = await prisma.user.findFirst({
         select: { id: true },
       });
 
-      await prisma.contest.create({
-        data: {
-          name: 'Test Contest',
-          maxRoomCapacity: 10,
-          startingMoney: 10000,
-          startDate: new Date(),
-          endDate: new Date(new Date().setDate(new Date().getDate() + 2)),
-          creator: { connect: { id: contestCreator?.id } },
-          startingShares: 1000,
+      for (const contest of contestsData) {
+        await prisma.contest.create({
+          data: {
+            name: contest.name,
+            maxRoomCapacity: contest.maxRoomCapacity,
+            startingMoney: contest.startingMoney,
+            startDate: new Date(),
+            endDate: new Date(new Date().setDate(new Date().getDate() + 2)),
+            creator: { connect: { id: contestCreator?.id } },
+            startingShares: contest.startingShares,
+          },
+        });
+      }
+
+      jsonPath = path.join(__dirname, '../contests_rooms_data.json');
+      jsonData = await fs.readFile(jsonPath, 'utf-8');
+      const contestsRoomsData = JSON.parse(jsonData);
+      for (const contestRoom of contestsRoomsData) {
+        const contest = await prisma.contest.findFirst({
+          select: { id: true },
+        });
+        await prisma.room.create({
+          data: {
+            roomNumber: contestRoom.roomNumber,
+            contest: { connect: { id: contest?.id } },
+            currentCapacity: contestRoom.currentCapacity,
+          },
+        });
+      }
+
+      jsonPath = path.join(__dirname, '../contests_membership_data.json');
+      jsonData = await fs.readFile(jsonPath, 'utf-8');
+      const contestsMembershipData = JSON.parse(jsonData);
+      let i = 0;
+      for (const contestMembership of contestsMembershipData) {
+        const contest = await prisma.contest.findFirst({
+          select: { id: true },
+        });
+        if (!contest) throw new Error('Contest not found');
+        const players = await prisma.player.findMany();
+        const playerIds = players.map((player) => player.userId);
+        await prisma.contestMembership.create({
+          data: {
+            player: {
+              connect: { userId: playerIds[i] },
+            },
+            room: {
+              connect: {
+                contestId_roomNumber: {
+                  contestId: contest?.id,
+                  roomNumber: contestMembership.roomNumber,
+                },
+              },
+            },
+            currentMoneyAmount: contestMembership.currentMoneyAmount,
+          },
+        });
+        i++;
+      }
+      jsonPath = path.join(
+        __dirname,
+        '../initial_contests_stock_data_price.json',
+      );
+      jsonData = await fs.readFile(jsonPath, 'utf-8');
+      const initialContestStockPrices = JSON.parse(jsonData);
+      const contest = (await prisma.contest.findFirst({
+        select: {
+          id: true,
         },
-      });
+      })) || { id: 1 };
+      for (const contestStockPrice of initialContestStockPrices) {
+        await prisma.stockHistory.create({
+          data: {
+            ContestStockPrice: {
+              create: {
+                open: contestStockPrice.open,
+                close: contestStockPrice.close,
+                highest: contestStockPrice.highest,
+                lowest: contestStockPrice.lowest,
+                volume: contestStockPrice.volume,
+              },
+            },
+            Room: {
+              connect: {
+                contestId_roomNumber: {
+                  contestId: contest.id,
+                  roomNumber: contestStockPrice.roomNumber,
+                },
+              },
+            },
+            currentShares: 1000,
+            ContestStock: { connect: { id: contestStockPrice.contestStockId } },
+          },
+        });
+      }
     }
     console.log('contest seeding is done');
   } catch (error) {

@@ -1,0 +1,10 @@
+[
+  {
+    "roomNumber": 1,
+    "currentCapacity": 5
+  },
+  {
+    "roomNumber": 2,
+    "currentCapacity": 5
+  }
+]
