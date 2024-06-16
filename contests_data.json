@@ -1,0 +1,11 @@
+[
+  {
+    "name": "Spring Trading Contest",
+    "maxRoomCapacity": 50,
+    "startingMoney": 10000,
+    "startingShares": 1000,
+    "startDate": "2024-05-01T09:00:00Z",
+    "endDate": "2024-05-01T09:30:00Z",
+    "creatorId": "1"
+  }
+]

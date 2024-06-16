@@ -1,0 +1,27 @@
+[
+  {
+    "name": "Apple Inc.",
+    "symbol": "AAPL",
+    "contestId": 1
+  },
+  {
+    "name": "Microsoft Corporation",
+    "symbol": "MSFT",
+    "contestId": 1
+  },
+  {
+    "name": "Amazon.com Inc.",
+    "symbol": "AMZN",
+    "contestId": 1
+  },
+  {
+    "name": "Tesla Inc.",
+    "symbol": "TSLA",
+    "contestId": 1
+  },
+  {
+    "name": "Alphabet Inc.",
+    "symbol": "GOOGL",
+    "contestId": 1
+  }
+]
