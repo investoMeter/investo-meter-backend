@@ -18,7 +18,7 @@ export class MatchingService {
       where: {
         contestId,
         roomNumber,
-        contestStockId: stockId,
+        stockId: stockId,
         status: RequestStatus.PENDING,
         price: { lte: buyRequest.price },
         playerId: { not: buyRequest.userId },
@@ -103,7 +103,7 @@ export class MatchingService {
       where: {
         contestId,
         roomNumber,
-        contestStockId: stockId,
+        stockId: stockId,
         status: RequestStatus.PENDING,
         price: { gte: sellRequest.price },
         playerId: { not: sellRequest.userId },

@@ -10,6 +10,18 @@ export class TradingUtilityService {
     stockId: number,
     quantity: number,
   ): Promise<void> {
+    const contestMembership = await this.prisma.contestMembership.findFirst({
+      where: {
+        id: membershipId,
+      },
+      select: {
+        contestId: true,
+      },
+    });
+
+    if (!contestMembership) {
+      throw new Error('Membership not found');
+    }
     const ownedStock = await this.prisma.ownedStock.findFirst({
       where: { contestMembershipId: membershipId, stockId },
     });
@@ -32,6 +44,7 @@ export class TradingUtilityService {
         data: {
           contestMembershipId: membershipId,
           stockId,
+          contestId: contestMembership.contestId,
           currentShares: quantity,
         },
       });
@@ -52,7 +65,14 @@ export class TradingUtilityService {
       quantity: number;
       price: number;
       timestamp: Date;
-      stock: { connect: { id: number } };
+      stock: {
+        connect: {
+          contestId_contestStockId: {
+            contestId: number;
+            contestStockId: number;
+          };
+        };
+      };
       buyerMembership: { connect: { id: number } };
       contest: { connect: { id: number } };
       room: {
@@ -67,7 +87,10 @@ export class TradingUtilityService {
       timestamp,
       stock: {
         connect: {
-          id: stockId,
+          contestId_contestStockId: {
+            contestId: contestId,
+            contestStockId: stockId,
+          },
         },
       },
       buyerMembership: {

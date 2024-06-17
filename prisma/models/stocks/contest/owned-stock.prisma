@@ -1,15 +1,16 @@
 import { ContestStock } from ".\contest-stock"
 import {ContestMembership} from ".\contest-membership"
+import { ContestContestStock } from "./contest-contest-stock"
 
 model OwnedStock {
     id      Int          @id @default(autoincrement())
-    stockId Int
-    stock   ContestStock @relation(fields: [stockId], references: [id])
-
     currentShares Int @default(0)
 
-    ContestMembership   ContestMembership @relation(fields: [contestMembershipId], references: [id], onDelete: Cascade)
+    stockId Int
+    contestId Int
+    stock   ContestContestStock @relation(fields: [contestId,stockId], references: [contestId,contestStockId])
     contestMembershipId Int
+    ContestMembership   ContestMembership @relation(fields: [contestMembershipId], references: [id], onDelete: Cascade)
 
     @@unique([stockId, contestMembershipId])
 }

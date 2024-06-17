@@ -3,7 +3,7 @@ import { TradeType }from "../tradeType"
 import { ContestStock } from "./contest-stock"
 import { Room } from "./room"
 import { Contest } from "./contest"
-
+import { ContestContestStock } from "./contest-contest-stock"
 
 model Trade {
     id Int @id @default(autoincrement())
@@ -14,7 +14,8 @@ model Trade {
 
     // relations
     stockId Int
-    stock   ContestStock @relation(fields: [stockId], references: [id])
+    contestId Int
+    stock   ContestContestStock @relation(fields: [contestId,stockId], references: [contestId,contestStockId])
 
     buyerMembershipId Int
     buyerMembership   ContestMembership @relation(fields: [buyerMembershipId], references: [id],name: "buyerMembership")
@@ -24,9 +25,5 @@ model Trade {
 
     room   Room @relation(fields: [contestId, roomNumber], references: [contestId, roomNumber])
     roomNumber Int
-
-    contest   Contest @relation(fields: [contestId], references: [id])
-    contestId Int
-    
 }
 

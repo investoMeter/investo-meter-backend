@@ -1,10 +1,5 @@
 import { Contest } from "./contest"
-import { Trade } from "./trade"
-import { StockHistory } from "./stock-history"
-import { BuyRequest } from "./buy-request"
-import { SellRequest } from "./sell-request"
-import { OwnedStock } from "./owned-stock"
-import { Contest_ContestStock } from "contest-conteststock"
+import { ContestContestStock } from "contest-contest-stock"
 
 model ContestStock {
   id     Int    @id @default(autoincrement())
@@ -12,16 +7,10 @@ model ContestStock {
   symbol String @unique
 
   // relations
-  contests   Contest_ContestStock[]
-
-  Trade        Trade[]
-  StockHistory StockHistory[]
-  BuyRequest   BuyRequest[]
-  SellRequest  SellRequest[]
-  OwnedStock   OwnedStock[]
+  contests   ContestContestStock[]
 
   @@index([symbol], name: "symbol")
-  @@map("contest_stocks")
+  @@map("contest_stock")
 }
 
 
