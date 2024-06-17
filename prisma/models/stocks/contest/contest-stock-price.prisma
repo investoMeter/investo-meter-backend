@@ -6,14 +6,11 @@ model ContestStockPrice {
   close     Float
   highest   Float
   lowest    Float
-  volume    BigInt
+  volume    Int
   timeStamp DateTime @default(now())
 
   // relations
   StockHistory   StockHistory @relation(fields: [stockHistoryId], references: [id])
   stockHistoryId Int
-
-  
-
   @@map("contest_stock_price")
 }

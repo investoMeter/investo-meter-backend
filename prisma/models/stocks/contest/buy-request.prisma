@@ -3,7 +3,7 @@ import { ContestStock } from ".\contest-stock"
 import {  RequestStatus } from ".\RequestStatus"
 import { Contest } from ".\contest"
 import { Room } from ".\room"
-
+import { ContestContestStock } from "./contest-contest-stock"
 model BuyRequest {
     id Int @id @default(autoincrement())
 
@@ -16,12 +16,10 @@ model BuyRequest {
     player   Player @relation(fields: [playerId], references: [userId])
     playerId String
 
-    stock          ContestStock @relation(fields: [contestStockId], references: [id])
-    contestStockId Int
-
-    room   Room @relation(fields: [contestId, roomNumber], references: [contestId, roomNumber])
-    roomNumber Int
-
-    contest   Contest @relation(fields: [contestId], references: [id])
+    stockId Int
     contestId Int
+    stock   ContestContestStock @relation(fields: [contestId,stockId], references: [contestId,contestStockId])
+
+    roomNumber Int
+    room   Room @relation(fields: [contestId, roomNumber], references: [contestId, roomNumber])
 }

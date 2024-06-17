@@ -26,7 +26,7 @@ export class ContestController {
   constructor(
     private contestService: ContestService,
     private authService: AuthService,
-  ) { }
+  ) {}
 
   @Get('get-all-contests')
   @HttpCode(HttpStatus.OK)
@@ -65,9 +65,11 @@ export class ContestController {
   @HttpCode(HttpStatus.CREATED)
   @UseGuards(AtGuard)
   @ApiBearerAuth()
-  // TODO: Admin role 
-  async createContest(@Req() req: any,
-    @Body() createContestDto: CreateContestDto): Promise<ContestResponseDto> {
+  // TODO: Admin role
+  async createContest(
+    @Req() req: any,
+    @Body() createContestDto: CreateContestDto,
+  ): Promise<ContestResponseDto> {
     const admin = await this.authService.AdminResolver((req as any).user.sub);
     return await this.contestService.createContest(admin, createContestDto);
   }

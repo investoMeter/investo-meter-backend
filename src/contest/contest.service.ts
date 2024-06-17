@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { PaginatedList } from 'src/common';
 import { PrismaService } from 'src/prisma';
 import { ContestRow } from './models/ContestRow';
@@ -93,8 +93,8 @@ export class ContestService {
     const result: ContestDetailsDialog = {
       startDate: contestDetails.startDate,
       duration:
-        (contestDetails.startDate.getTime() -
-          contestDetails.endDate.getTime()) /
+        (contestDetails.endDate.getTime() -
+          contestDetails.startDate.getTime()) /
         (1000 * 60 * 60),
       creator: contestDetails.creator.name,
       availableRooms: contestDetails.rooms.filter((room) => {
@@ -123,7 +123,7 @@ export class ContestService {
         },
       })
     ) {
-      throw new Error('Player already joined contest');
+      throw new BadRequestException('Player already joined contest');
     }
 
     const contest = await this.prisma.contest.findFirstOrThrow({
@@ -171,20 +171,20 @@ export class ContestService {
     });
 
     if (contest.endDate < new Date()) {
-      throw new Error('Contest has already ended');
+      throw new BadRequestException('Contest has already ended');
     }
 
     if (contest.startDate < new Date()) {
-      throw new Error('Contest has already started');
+      throw new BadRequestException('Contest has already started');
     }
 
     const room = contest.rooms[0];
     if (!!!room) {
-      throw new Error("Room doesn't exist");
+      throw new BadRequestException("Room doesn't exist");
     }
 
     if (room._count.memberships >= contest.maxRoomCapacity) {
-      throw new Error('Room is full');
+      throw new BadRequestException('Room is full');
     }
 
     await this.prisma.contestMembership.create({
@@ -233,20 +233,6 @@ export class ContestService {
       endDate: endDateObject,
       creatorId: admin.userId,
       startingShares: stocksShares,
-      contestStocks: {
-        connect: stocksIds.map((id) => ({ id })),
-      },
-      rooms: {
-        create: Array.from({ length: numberOfRooms }, (_, i) => ({
-          roomNumber: i + 1,
-          stocksHistories: {
-            create: stocksIds.map((id) => ({
-              contestStockId: id,
-              currentShares: stocksShares,
-            })),
-          },
-        })),
-      },
     };
 
     const newContest = await this.prisma.contest.create({
@@ -256,7 +242,7 @@ export class ContestService {
           include: {
             stocksHistories: {
               select: {
-                contestStockId: true,
+                stockId: true,
                 currentShares: true,
                 ContestStockPrice: true,
               },
@@ -264,6 +250,27 @@ export class ContestService {
           },
         },
       },
+    });
+
+    await this.prisma.contestContestStock.createMany({
+      data: stocksIds.map((id) => ({
+        contestId: newContest.id,
+        contestStockId: id,
+      })),
+    });
+
+    await this.prisma.room.createMany({
+      data: Array.from({ length: numberOfRooms }, (_, i) => ({
+        roomNumber: i + 1,
+        stocksHistories: {
+          create: stocksIds.map((id) => ({
+            stockId: id,
+            contestId: newContest.id,
+            currentShares: stocksShares,
+          })),
+        },
+        contestId: newContest.id,
+      })),
     });
 
     const contestResponseDto: ContestResponseDto = {
@@ -281,10 +288,9 @@ export class ContestService {
   }
 
   async getRunningContests() {
-
     const now = new Date();
     now.setUTCHours(now.getUTCHours() + 3);
-    return  await this.prisma.contest.findMany({
+    return await this.prisma.contest.findMany({
       orderBy: {
         startDate: 'asc',
       },
@@ -300,17 +306,22 @@ export class ContestService {
       },
       select: {
         id: true,
-        contestStocks: { select: { id: true, symbol: true } },
+        contestStocks: {
+          select: { contestStock: { select: { id: true, symbol: true } } },
+        },
         rooms: {
           select: {
             roomNumber: true,
             stocksHistories: {
-              select: { id: true, contestStockId: true, ContestStockPrice: true },
+              select: {
+                id: true,
+                stockId: true,
+                ContestStockPrice: true,
+              },
             },
           },
         },
       },
     });
   }
-  
 }

@@ -18,7 +18,7 @@ export class StocksService {
     for (const contest of runningContests) {
       for (const room of contest.rooms) {
         for (const stockHistory of room.stocksHistories) {
-          const stockId = stockHistory.contestStockId;
+          const stockId = stockHistory.stockId;
 
           const oneMinuteAgo = new Date();
           oneMinuteAgo.setMinutes(oneMinuteAgo.getMinutes() - 1);
@@ -54,7 +54,7 @@ export class StocksService {
             );
 
             // update stock history list of prices
-             await this.prisma.stockHistory.update({
+            await this.prisma.stockHistory.update({
               where: {
                 id: stockHistory.id,
               },
