@@ -93,8 +93,8 @@ export class ContestService {
     const result: ContestDetailsDialog = {
       startDate: contestDetails.startDate,
       duration:
-        (contestDetails.startDate.getTime() -
-          contestDetails.endDate.getTime()) /
+        (contestDetails.endDate.getTime() -
+          contestDetails.startDate.getTime()) /
         (1000 * 60 * 60),
       creator: contestDetails.creator.name,
       availableRooms: contestDetails.rooms.filter((room) => {
