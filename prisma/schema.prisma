@@ -167,6 +167,20 @@ model BuyRequest {
 }
 
 //
+// contest-conteststock.prisma
+//
+
+model Contest_ContestStock {
+  contestId Int
+  contest   Contest @relation(fields: [contestId], references: [id])
+
+  contestStockId Int
+  contestStock   ContestStock @relation(fields: [contestStockId], references: [id])
+
+  @@id([contestId, contestStockId])
+}
+
+//
 // contest-membership.prisma
 //
 
@@ -205,7 +219,7 @@ model ContestStockPrice {
   close     Float
   highest   Float
   lowest    Float
-  volume    BigInt
+  volume    Int
   timeStamp DateTime @default(now())
 
   // relations
@@ -225,8 +239,7 @@ model ContestStock {
   symbol String @unique
 
   // relations
-  contestId Int?
-  contest   Contest? @relation(fields: [contestId], references: [id])
+  contests Contest_ContestStock[]
 
   Trade        Trade[]
   StockHistory StockHistory[]
@@ -263,7 +276,7 @@ model Contest {
   creator   User   @relation(fields: [creatorId], references: [id])
 
   rooms         Room[]
-  contestStocks ContestStock[]
+  contestStocks Contest_ContestStock[]
   buyRequests   BuyRequest[]
   sellRequests  SellRequest[]
   trades        Trade[]

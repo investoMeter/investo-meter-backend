@@ -233,9 +233,6 @@ export class ContestService {
       endDate: endDateObject,
       creatorId: admin.userId,
       startingShares: stocksShares,
-      contestStocks: {
-        connect: stocksIds.map((id) => ({ id })),
-      },
       rooms: {
         create: Array.from({ length: numberOfRooms }, (_, i) => ({
           roomNumber: i + 1,
@@ -264,6 +261,13 @@ export class ContestService {
           },
         },
       },
+    });
+
+    await this.prisma.contest_ContestStock.createMany({
+      data: stocksIds.map((id) => ({
+        contestId: newContest.id,
+        contestStockId: id,
+      })),
     });
 
     const contestResponseDto: ContestResponseDto = {
@@ -299,7 +303,9 @@ export class ContestService {
       },
       select: {
         id: true,
-        contestStocks: { select: { id: true, symbol: true } },
+        contestStocks: {
+          select: { contestStock: { select: { id: true, symbol: true } } },
+        },
         rooms: {
           select: {
             roomNumber: true,

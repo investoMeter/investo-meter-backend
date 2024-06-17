@@ -1,0 +1,12 @@
+import { Contest } from "./contest"
+import { ContestStock } from "./contest-stock"
+
+model Contest_ContestStock {
+  contestId     Int
+  contest       Contest @relation(fields: [contestId], references: [id])
+
+  contestStockId Int
+  contestStock ContestStock @relation(fields: [contestStockId], references: [id])
+
+  @@id([contestId, contestStockId])
+}

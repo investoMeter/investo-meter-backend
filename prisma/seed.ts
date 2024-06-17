@@ -213,7 +213,8 @@ async function seedData() {
       });
 
       for (const contest of contestsData) {
-        await prisma.contest.create({
+        const stocks = await prisma.contestStock.findMany({ take: 5 });
+        const contestx = await prisma.contest.create({
           data: {
             name: contest.name,
             maxRoomCapacity: contest.maxRoomCapacity,
@@ -223,6 +224,14 @@ async function seedData() {
             creator: { connect: { id: contestCreator?.id } },
             startingShares: contest.startingShares,
           },
+          select: { id: true },
+        });
+
+        await prisma.contest_ContestStock.createMany({
+          data: stocks.map((stock) => ({
+            contestId: contestx.id,
+            contestStockId: stock.id,
+          })),
         });
       }
 

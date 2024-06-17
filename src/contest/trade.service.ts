@@ -248,7 +248,8 @@ export class TradeService {
         startDate: true,
         endDate: true,
         contestStocks: {
-          where: { id: stockId },
+          where: { contestStockId: stockId },
+          select: { contestStock: true },
         },
         rooms: {
           where: { roomNumber: roomNumber },
@@ -269,7 +270,7 @@ export class TradeService {
     if (!room) {
       throw new NotFoundException('Room not found');
     }
-    const stock = contest.contestStocks[0];
+    const stock = contest.contestStocks[0].contestStock;
     if (!stock) {
       throw new NotFoundException('Stock not found');
     }
