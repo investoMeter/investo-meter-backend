@@ -227,7 +227,7 @@ async function seedData() {
           select: { id: true },
         });
 
-        await prisma.contest_ContestStock.createMany({
+        await prisma.contestContestStock.createMany({
           data: stocks.map((stock) => ({
             contestId: contestx.id,
             contestStockId: stock.id,
@@ -312,7 +312,14 @@ async function seedData() {
               },
             },
             currentShares: 1000,
-            ContestStock: { connect: { id: contestStockPrice.contestStockId } },
+            stock: {
+              connect: {
+                contestId_contestStockId: {
+                  contestId: contest.id,
+                  contestStockId: contestStockPrice.contestStockId,
+                },
+              },
+            },
           },
         });
       }

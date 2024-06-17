@@ -1,0 +1,23 @@
+import { Contest } from "./contest"
+import { ContestStock } from "./contest-stock"
+import { Trade } from "./trade"
+import { StockHistory } from "./stock-history"
+import { BuyRequest } from "./buy-request"
+import { SellRequest } from "./sell-request"
+import { OwnedStock } from "./owned-stock"
+
+model ContestContestStock {
+  contestId     Int
+  contestStockId Int
+
+  contest       Contest @relation(fields: [contestId], references: [id])
+  contestStock ContestStock @relation(fields: [contestStockId], references: [id])
+  Trade        Trade[]
+  StockHistory StockHistory[]
+  BuyRequest   BuyRequest[]
+  SellRequest  SellRequest[]
+  OwnedStock   OwnedStock[]
+
+  @@id([contestId, contestStockId])
+	@@map("Contest_ContestStock")
+}

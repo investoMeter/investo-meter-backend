@@ -233,17 +233,6 @@ export class ContestService {
       endDate: endDateObject,
       creatorId: admin.userId,
       startingShares: stocksShares,
-      rooms: {
-        create: Array.from({ length: numberOfRooms }, (_, i) => ({
-          roomNumber: i + 1,
-          stocksHistories: {
-            create: stocksIds.map((id) => ({
-              contestStockId: id,
-              currentShares: stocksShares,
-            })),
-          },
-        })),
-      },
     };
 
     const newContest = await this.prisma.contest.create({
@@ -253,7 +242,7 @@ export class ContestService {
           include: {
             stocksHistories: {
               select: {
-                contestStockId: true,
+                stockId: true,
                 currentShares: true,
                 ContestStockPrice: true,
               },
@@ -263,10 +252,24 @@ export class ContestService {
       },
     });
 
-    await this.prisma.contest_ContestStock.createMany({
+    await this.prisma.contestContestStock.createMany({
       data: stocksIds.map((id) => ({
         contestId: newContest.id,
         contestStockId: id,
+      })),
+    });
+
+    await this.prisma.room.createMany({
+      data: Array.from({ length: numberOfRooms }, (_, i) => ({
+        roomNumber: i + 1,
+        stocksHistories: {
+          create: stocksIds.map((id) => ({
+            stockId: id,
+            contestId: newContest.id,
+            currentShares: stocksShares,
+          })),
+        },
+        contestId: newContest.id,
       })),
     });
 
@@ -312,7 +315,7 @@ export class ContestService {
             stocksHistories: {
               select: {
                 id: true,
-                contestStockId: true,
+                stockId: true,
                 ContestStockPrice: true,
               },
             },

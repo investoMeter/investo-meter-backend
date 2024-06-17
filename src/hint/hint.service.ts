@@ -37,12 +37,11 @@ export class HintService {
 
     const stock = await this.prisma.stockHistory.findFirstOrThrow({
       where: {
-        contestStockId: model.stockId,
-        roomContestId: model.contestId,
+        stockId: model.stockId,
+        contestId: model.contestId,
         roomNumber: model.roomNumber,
       },
       select: {
-        ContestStock: true,
         ContestStockPrice: {
           where: {
             timeStamp: { gte: fiveMinutesAgo },

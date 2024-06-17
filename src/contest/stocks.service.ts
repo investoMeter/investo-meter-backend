@@ -18,7 +18,7 @@ export class StocksService {
     for (const contest of runningContests) {
       for (const room of contest.rooms) {
         for (const stockHistory of room.stocksHistories) {
-          const stockId = stockHistory.contestStockId;
+          const stockId = stockHistory.stockId;
 
           const oneMinuteAgo = new Date();
           oneMinuteAgo.setMinutes(oneMinuteAgo.getMinutes() - 1);
