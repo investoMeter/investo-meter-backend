@@ -3,6 +3,23 @@
 // Any modifications will be overwritten on subsequent runs.
 //
 
+//
+// feedback.prisma
+//
+
+model feedback {
+  id        Int      @id @default(autoincrement())
+  about     String
+  content   String
+  rating    Int
+  createdAt DateTime @default(now())
+
+  // relations
+  playerId String
+  player   Player @relation(fields: [playerId], references: [userId])
+}
+
+//
 // report.prisma
 //
 
@@ -53,21 +70,6 @@ enum ReportType {
   Other
 }
 
-// feedback.prisma
-//
-
-model feedback {
-  id        Int      @id @default(autoincrement())
-  about     String
-  content   String
-  rating    Int
-  createdAt DateTime @default(now())
-
-  // relations
-  playerId String
-  player   Player @relation(fields: [playerId], references: [userId])
-}
-
 //
 // admin.prisma
 //
@@ -100,17 +102,17 @@ model PasswordReset {
 model Player {
   userId String @unique
 
-  coinsCount Int  @default(0)
+  coins Int  @default(0)
   // relations
-  user       User @relation(fields: [userId], references: [id])
+  user  User @relation(fields: [userId], references: [id])
 
   levelMemberships   LevelMembership[]
   contestMemberships ContestMembership[]
 
-  reports            Report[]
-  feedbacks          feedback[]
-  BuyRequest         BuyRequest[]
-  SellRequest        SellRequest[]
+  reports     Report[]
+  feedbacks   feedback[]
+  BuyRequest  BuyRequest[]
+  SellRequest SellRequest[]
 
   @@map("players")
 }
@@ -154,14 +156,32 @@ model BuyRequest {
   player   Player @relation(fields: [playerId], references: [userId])
   playerId String
 
-  stock          ContestStock @relation(fields: [contestStockId], references: [id])
+  stockId   Int
+  contestId Int
+  stock     ContestContestStock @relation(fields: [contestId, stockId], references: [contestId, contestStockId])
+
+  roomNumber Int
+  room       Room @relation(fields: [contestId, roomNumber], references: [contestId, roomNumber])
+}
+
+//
+// contest-contest-stock.prisma
+//
+
+model ContestContestStock {
+  contestId      Int
   contestStockId Int
 
-  room       Room @relation(fields: [contestId, roomNumber], references: [contestId, roomNumber])
-  roomNumber Int
+  contest      Contest        @relation(fields: [contestId], references: [id])
+  contestStock ContestStock   @relation(fields: [contestStockId], references: [id])
+  Trade        Trade[]
+  StockHistory StockHistory[]
+  BuyRequest   BuyRequest[]
+  SellRequest  SellRequest[]
+  OwnedStock   OwnedStock[]
 
-  contest   Contest @relation(fields: [contestId], references: [id])
-  contestId Int
+  @@id([contestId, contestStockId])
+  @@map("Contest_ContestStock")
 }
 
 //
@@ -172,6 +192,10 @@ model ContestMembership {
   id Int @id @default(autoincrement())
 
   currentMoneyAmount Float @default(0.0)
+
+  createdAt DateTime @default(now())
+
+  updatedAt DateTime? @updatedAt
 
   // relations
   playerId String
@@ -199,7 +223,7 @@ model ContestStockPrice {
   close     Float
   highest   Float
   lowest    Float
-  volume    BigInt
+  volume    Int
   timeStamp DateTime @default(now())
 
   // relations
@@ -219,17 +243,10 @@ model ContestStock {
   symbol String @unique
 
   // relations
-  contestId Int?
-  contest   Contest? @relation(fields: [contestId], references: [id])
-
-  Trade        Trade[]
-  StockHistory StockHistory[]
-  BuyRequest   BuyRequest[]
-  SellRequest  SellRequest[]
-  OwnedStock   OwnedStock[]
+  contests ContestContestStock[]
 
   @@index([symbol], name: "symbol")
-  @@map("contest_stocks")
+  @@map("contest_stock")
 }
 
 //
@@ -257,10 +274,7 @@ model Contest {
   creator   User   @relation(fields: [creatorId], references: [id])
 
   rooms         Room[]
-  contestStocks ContestStock[]
-  buyRequests   BuyRequest[]
-  sellRequests  SellRequest[]
-  trades        Trade[]
+  contestStocks ContestContestStock[]
 }
 
 //
@@ -268,14 +282,14 @@ model Contest {
 //
 
 model OwnedStock {
-  id      Int          @id @default(autoincrement())
-  stockId Int
-  stock   ContestStock @relation(fields: [stockId], references: [id])
-
+  id            Int @id @default(autoincrement())
   currentShares Int @default(0)
 
-  ContestMembership   ContestMembership @relation(fields: [contestMembershipId], references: [id], onDelete: Cascade)
+  stockId             Int
+  contestId           Int
+  stock               ContestContestStock @relation(fields: [contestId, stockId], references: [contestId, contestStockId])
   contestMembershipId Int
+  ContestMembership   ContestMembership   @relation(fields: [contestMembershipId], references: [id], onDelete: Cascade)
 
   @@unique([stockId, contestMembershipId])
 }
@@ -328,14 +342,12 @@ model SellRequest {
   player   Player @relation(fields: [playerId], references: [userId])
   playerId String
 
-  stock          ContestStock @relation(fields: [contestStockId], references: [id])
-  contestStockId Int
-
-  room       Room @relation(fields: [contestId, roomNumber], references: [contestId, roomNumber])
-  roomNumber Int
-
-  contest   Contest @relation(fields: [contestId], references: [id])
+  stockId   Int
   contestId Int
+  stock     ContestContestStock @relation(fields: [contestId, stockId], references: [contestId, contestStockId])
+
+  roomNumber Int
+  room       Room @relation(fields: [contestId, roomNumber], references: [contestId, roomNumber])
 }
 
 //
@@ -343,22 +355,22 @@ model SellRequest {
 //
 
 model StockHistory {
-  id             Int          @id @default(autoincrement())
-  currentShares  Int
+  id            Int                 @id @default(autoincrement())
+  currentShares Int
   // relations 
-  contestStockId Int
-  ContestStock   ContestStock @relation(fields: [contestStockId], references: [id])
+  stockId       Int
+  contestId     Int
+  stock         ContestContestStock @relation(fields: [contestId, stockId], references: [contestId, contestStockId])
 
-  roomNumber    Int
-  roomContestId Int
-  Room          Room? @relation(fields: [roomContestId, roomNumber], references: [contestId, roomNumber])
+  roomNumber Int
+  Room       Room? @relation(fields: [contestId, roomNumber], references: [contestId, roomNumber])
 
   ContestStockPrice ContestStockPrice[]
 
   createdAt DateTime  @default(now())
   updatedAt DateTime? @updatedAt
 
-  @@unique([roomContestId, roomNumber, contestStockId])
+  @@unique([contestId, roomNumber, stockId])
 }
 
 //
@@ -373,8 +385,9 @@ model Trade {
   timestamp DateTime @default(now())
 
   // relations
-  stockId Int
-  stock   ContestStock @relation(fields: [stockId], references: [id])
+  stockId   Int
+  contestId Int
+  stock     ContestContestStock @relation(fields: [contestId, stockId], references: [contestId, contestStockId])
 
   buyerMembershipId Int
   buyerMembership   ContestMembership @relation(fields: [buyerMembershipId], references: [id], name: "buyerMembership")
@@ -384,9 +397,6 @@ model Trade {
 
   room       Room @relation(fields: [contestId, roomNumber], references: [contestId, roomNumber])
   roomNumber Int
-
-  contest   Contest @relation(fields: [contestId], references: [id])
-  contestId Int
 }
 
 //
@@ -406,12 +416,19 @@ model Content {
 //
 
 model LevelMembership {
-  id            Int       @id @default(autoincrement())
+  id Int @id @default(autoincrement())
+
   failuresCount Int
-  passedAt      DateTime?
+
+  passedAt DateTime?
+
+  createdAt DateTime @default(now())
+
+  updatedAt DateTime? @updatedAt
+
   // relations
-  playerId      String
-  player        Player    @relation(fields: [playerId], references: [userId])
+  playerId String
+  player   Player @relation(fields: [playerId], references: [userId])
 
   levelId Int
   level   Level @relation(fields: [levelId], references: [id])
@@ -446,7 +463,7 @@ model LevelStockPrice {
   close     Float
   highest   Float
   lowest    Float
-  volume    BigInt
+  volume    Int
   timeStamp DateTime @default(now())
 
   // relations
@@ -485,7 +502,7 @@ model Level {
   patternName String
   isActive    Boolean
   createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
+  updatedAt   DateTime? @updatedAt
   // relations
   tutorial    Tutorial?
 

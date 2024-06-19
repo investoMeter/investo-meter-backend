@@ -1,10 +1,12 @@
 import { User } from "./user"
 import { Tutorial } from "..\stocks\level\tutorial"
+import { Report } from "..\reports\report"
 
 model Admin {
   // relations
   userId String @unique
   user   User   @relation(fields: [userId], references: [id])
+
 
   reports         Report[]
 

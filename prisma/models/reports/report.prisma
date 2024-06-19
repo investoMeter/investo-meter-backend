@@ -1,7 +1,10 @@
+import { Player } from "..\roles\player"
+import { Admin } from "..\roles\admin"
+import { ReportType } from "reportType"
+import { ReportSeverity } from "reportSeverity"
+import { ReportState } from "..\..\schema"
+import { ReportState } from "reportState"
 
-import { ReportSeverity }from /reportSeverity"
-import { ReportType }from /reportType"
-import { ReportState }from /reportState"
 model Report {
   id         Int      @id @default(autoincrement())
   content    String

@@ -52,7 +52,6 @@ export class TradeService {
     let newtrades: Trade[] = [];
     const NO_SHARES = 0;
 
-
     return await this.prisma.$transaction(async (prisma) => {
       if (currentShares != NO_SHARES) {
         const trade = await this.tradingUtilityService.createTrade(
@@ -115,8 +114,7 @@ export class TradeService {
               buyRequestData,
               matchingSellRequests,
             );
-          newtrades.push(...trades)
-
+          newtrades.push(...trades);
 
           // if not all shares in the request is satisfied, then create a new buy request with the remaining shares
           if (requestedQuantity > 0) {
@@ -138,7 +136,7 @@ export class TradeService {
   }
 
   async createSellRequest(
-    player: { userId: string; coinsCount: number },
+    player: { userId: string; coins: number },
     requestDto: TradeRequestDto,
   ) {
     const { quantity, price } = requestDto;
@@ -160,7 +158,7 @@ export class TradeService {
         contestId: contest.id,
         roomNumber: room.roomNumber,
         playerId: player.userId,
-        contestStockId: stock.id,
+        stockId: stock.id,
         status: 'PENDING',
       },
     });
@@ -228,9 +226,9 @@ export class TradeService {
   ) {
     return await this.prisma.stockHistory.findFirst({
       where: {
-        contestStockId: stockId,
+        stockId: stockId,
         roomNumber,
-        roomContestId: contestId,
+        contestId: contestId,
       },
       select: {
         id: true,
@@ -250,7 +248,8 @@ export class TradeService {
         startDate: true,
         endDate: true,
         contestStocks: {
-          where: { id: stockId },
+          where: { contestStockId: stockId },
+          select: { contestStock: true },
         },
         rooms: {
           where: { roomNumber: roomNumber },
@@ -271,7 +270,7 @@ export class TradeService {
     if (!room) {
       throw new NotFoundException('Room not found');
     }
-    const stock = contest.contestStocks[0];
+    const stock = contest.contestStocks[0].contestStock;
     if (!stock) {
       throw new NotFoundException('Stock not found');
     }
@@ -303,9 +302,9 @@ export class TradeService {
     await this.prisma.stockHistory.update({
       where: {
         id: stockHistory.id,
-        contestStockId: stockId,
+        stockId: stockId,
         roomNumber,
-        roomContestId: contestId,
+        contestId: contestId,
       },
       data: {
         currentShares: stockHistory.currentShares - quantity,
@@ -336,12 +335,10 @@ export class TradeService {
         },
         stock: {
           connect: {
-            id: stockId,
-          },
-        },
-        contest: {
-          connect: {
-            id: contestId,
+            contestId_contestStockId: {
+              contestStockId: stockId,
+              contestId: contestId,
+            },
           },
         },
         room: {
@@ -379,12 +376,10 @@ export class TradeService {
         },
         stock: {
           connect: {
-            id: stockId,
-          },
-        },
-        contest: {
-          connect: {
-            id: contestId,
+            contestId_contestStockId: {
+              contestStockId: stockId,
+              contestId: contestId,
+            },
           },
         },
         room: {
@@ -434,7 +429,7 @@ export class TradeService {
   }
 
   async cancelSellRequest(
-    player: { userId: string; coinsCount: number },
+    player: { userId: string; coins: number },
     requestDto: CancelRequestDto,
   ) {
     const { requestId, contestId, roomNumber } = requestDto;
@@ -461,7 +456,7 @@ export class TradeService {
 
     const membershipId = data.membership.id;
     const quantity = sellRequest.quantity;
-    const stockId = sellRequest.contestStockId;
+    const stockId = sellRequest.stockId;
 
     await this.tradingUtilityService.updateOwnedStock(
       membershipId,

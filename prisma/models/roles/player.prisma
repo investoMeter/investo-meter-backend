@@ -5,19 +5,20 @@ import { Level } from "..\stocks\level\level"
 import { feedback } from "..\feedback"
 import { BuyRequest } from "..\stocks\contest\buy-request"
 import { SellRequest } from "..\stocks\contest\sell-request"
+import { Report } from "..\reports\report"
 
 model Player {
   userId String @unique
 
-  coinsCount Int  @default(0)
+  coins Int  @default(0)
   // relations
   user       User @relation(fields: [userId], references: [id])
 
   levelMemberships   LevelMembership[]
   contestMemberships ContestMembership[]
 
-  reports         Report[]
-  feedbacks feedback[]
+  reports            Report[]
+  feedbacks          feedback[]
   BuyRequest         BuyRequest[]
   SellRequest        SellRequest[]
 

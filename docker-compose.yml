@@ -13,19 +13,21 @@ services:
     networks:
       - investo_meter_network
  
-  contests:
-    image: contest-broadcast-microservice
-    ports:
-      - "3005:3005"
-    networks:
-      - investo_meter_network
+  # contests:
+  #   image: contest-broadcast-microservice
+  #   ports:
+  #     - "3005:3005"
+  #   depends_on:
+  #     - investo_meter-db
+  #   networks:
+  #     - investo_meter_network
   
-  hints:
-    image: hints-microservice
-    ports:
-      - "3006:3006"
-    networks:
-      - investo_meter_network
+  # hints:
+  #   image: hints-microservice
+  #   ports:
+  #     - "3006:3006"
+  #   networks:
+  #     - investo_meter_network
 
 networks:
   investo_meter_network:

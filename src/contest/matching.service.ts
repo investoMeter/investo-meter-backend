@@ -18,7 +18,7 @@ export class MatchingService {
       where: {
         contestId,
         roomNumber,
-        contestStockId: stockId,
+        stockId: stockId,
         status: RequestStatus.PENDING,
         price: { lte: buyRequest.price },
         playerId: { not: buyRequest.userId },
@@ -63,7 +63,7 @@ export class MatchingService {
 
       const tradeQuantity = Math.min(requestedQuantity, sellRequest.quantity);
       const cost = sellRequest.price * tradeQuantity;
-      
+
       const trade = await this.processTrade(
         buyRequest,
         sellRequest,
@@ -103,11 +103,10 @@ export class MatchingService {
       where: {
         contestId,
         roomNumber,
-        contestStockId: stockId,
+        stockId: stockId,
         status: RequestStatus.PENDING,
         price: { gte: sellRequest.price },
         playerId: { not: sellRequest.userId },
-
       },
       orderBy: [{ price: 'desc' }, { timestamp: 'asc' }],
     });
@@ -193,7 +192,6 @@ export class MatchingService {
     tradeQuantity: number,
   ) {
     return await this.prisma.$transaction(async (prisma) => {
-      
       const stockId = buyRequest.stockId || buyRequest.contestStockId;
       const contestId = buyRequest.contestId;
       const roomNumber = buyRequest.roomNumber;
@@ -231,15 +229,15 @@ export class MatchingService {
       const trade = await this.tradingUtilityService.createTrade(
         tradeQuantity,
         tradePrice,
-        date, 
+        date,
         stockId,
         buyerMembership.id,
         sellerMembership.id,
         contestId,
-        roomNumber
+        roomNumber,
       );
 
-      return trade ;
+      return trade;
     });
   }
 }

@@ -1,0 +1,102 @@
+[
+  {
+    "open": 150.0,
+    "close": 155.0,
+    "highest": 160.0,
+    "lowest": 148.0,
+    "volume": 100000,
+    "timeStamp": "2024-05-01T09:00:00Z",
+    "contestStockId": 1,
+    "roomNumber": 1
+  },
+  {
+    "open": 150.0,
+    "close": 155.0,
+    "highest": 160.0,
+    "lowest": 148.0,
+    "volume": 100000,
+    "timeStamp": "2024-05-01T09:00:00Z",
+    "contestStockId": 1,
+    "roomNumber": 2
+  },
+  {
+    "open": 245.0,
+    "close": 242.0,
+    "highest": 248.0,
+    "lowest": 240.0,
+    "volume": 60000,
+    "timeStamp": "2024-05-01T09:00:00Z",
+    "contestStockId": 2,
+    "roomNumber": 1
+  },
+  {
+    "open": 245.0,
+    "close": 242.0,
+    "highest": 248.0,
+    "lowest": 240.0,
+    "volume": 60000,
+    "timeStamp": "2024-05-01T09:00:00Z",
+    "contestStockId": 2,
+    "roomNumber": 2
+  },
+  {
+    "open": 3550.0,
+    "close": 3520.0,
+    "highest": 3600.0,
+    "lowest": 3500.0,
+    "volume": 75000,
+    "timeStamp": "2024-05-01T09:00:00Z",
+    "contestStockId": 3,
+    "roomNumber": 1
+  },
+  {
+    "open": 3550.0,
+    "close": 3520.0,
+    "highest": 3600.0,
+    "lowest": 3500.0,
+    "volume": 75000,
+    "timeStamp": "2024-05-01T09:00:00Z",
+    "contestStockId": 3,
+    "roomNumber": 2
+  },
+  {
+    "open": 720.0,
+    "close": 730.0,
+    "highest": 740.0,
+    "lowest": 710.0,
+    "volume": 110000,
+    "timeStamp": "2024-05-01T09:00:00Z",
+    "contestStockId": 4,
+    "roomNumber": 1
+  },
+  {
+    "open": 720.0,
+    "close": 730.0,
+    "highest": 740.0,
+    "lowest": 710.0,
+    "volume": 110000,
+    "timeStamp": "2024-05-01T09:00:00Z",
+    "contestStockId": 4,
+    "roomNumber": 2
+  },
+  {
+    "open": 2425.0,
+    "close": 2430.0,
+    "highest": 2450.0,
+    "lowest": 2400.0,
+    "volume": 80000,
+    "timeStamp": "2024-05-01T09:00:00Z",
+    "contestStockId": 5,
+    "roomNumber": 1
+  },
+  {
+    "open": 2425.0,
+    "close": 2430.0,
+    "highest": 2450.0,
+    "lowest": 2400.0,
+    "volume": 80000,
+    "timeStamp": "2024-05-01T09:00:00Z",
+    "contestStockId": 5,
+    "roomNumber": 2
+  }
+]

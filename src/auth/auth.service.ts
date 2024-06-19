@@ -25,12 +25,11 @@ import { Player } from '@prisma/client';
 
 @Injectable()
 export class AuthService {
-
   constructor(
     private prisma: PrismaService,
     private jwt: JwtService,
     private mailerService: MailerService,
-  ) { }
+  ) {}
 
   async register(
     registerDto: RegisterRequestDto,
@@ -385,13 +384,12 @@ export class AuthService {
       where: {
         userId: adminId,
       },
-    })
+    });
     if (!admin) {
       throw new NotFoundException(`admin with id: ${adminId} is not found`);
     }
     return admin;
   }
-
 
   async adminRegister(
     registerDto: RegisterRequestDto,
@@ -450,7 +448,4 @@ export class AuthService {
       refresh_token: tokens.refreshToken,
     };
   }
-
 }
-
-
