@@ -4,6 +4,7 @@ import { StockHistory } from "./stock-history"
 import { BuyRequest } from "./buy-request"
 import { SellRequest } from "./sell-request"
 import { Trade } from "./trade"
+import { Leaderboard } from "leaderboard"
 
 model Room {
     roomNumber      Int
@@ -18,6 +19,7 @@ model Room {
     BuyRequest      BuyRequest[]
     SellRequest     SellRequest[]
     trades          Trade[]
+    leaderboards Leaderboard[]
 
     @@id([contestId, roomNumber])
     @@unique([contestId, roomNumber])

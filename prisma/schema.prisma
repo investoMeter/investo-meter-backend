@@ -137,6 +137,7 @@ model User {
   admin           Admin?
   createdContests Contest[]
 
+  @@index([id, username])
   @@map("users")
 }
 
@@ -211,6 +212,8 @@ model ContestMembership {
   ownedStocks OwnedStock[]
 
   @@unique([contestId, playerId])
+  @@index([contestId])
+  @@index([contestId, roomNumber, currentMoneyAmount])
 }
 
 //
@@ -275,6 +278,30 @@ model Contest {
 
   rooms         Room[]
   contestStocks ContestContestStock[]
+  leaderboards   Leaderboard[]
+}
+
+//
+// leaderboard.prisma
+//
+
+model Leaderboard {
+  id       Int    @id @default(autoincrement())
+  username String
+  userId String
+  score    Int
+
+  // relations
+  contestId  Int
+  contest    Contest @relation(fields: [contestId], references: [id])
+  roomNumber Int
+  room       Room    @relation(fields: [contestId, roomNumber], references: [contestId, roomNumber])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([username, contestId, roomNumber])
+  @@index([contestId, roomNumber, score])
 }
 
 //
@@ -321,6 +348,7 @@ model Room {
   BuyRequest      BuyRequest[]
   SellRequest     SellRequest[]
   trades          Trade[]
+leaderboards     Leaderboard[]
 
   @@id([contestId, roomNumber])
   @@unique([contestId, roomNumber])

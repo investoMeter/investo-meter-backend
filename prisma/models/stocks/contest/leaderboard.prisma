@@ -1,0 +1,22 @@
+
+import { Room } from "./room"
+import { Contest } from "./contest"
+
+model Leaderboard {
+    id Int @id @default(autoincrement())
+    username String
+    userId String
+    score Float @default(0.0)
+
+    // relations
+    contest Contest @relation(fields: [contestId], references: [id])
+    contestId Int
+    room Room @relation(fields: [contestId,roomNumber], references: [contestId,roomNumber])
+    roomNumber Int
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    @@unique([username, contestId, roomNumber])
+    @@index([score, contestId, roomNumber])
+}

@@ -7,6 +7,7 @@ import { BuyRequest } from "./buy-request"
 import { SellRequest } from "./sell-request"
 import { Trade } from "./trade"
 import { ContestContestStock } from "contest-contest-stock"
+import { Leaderboard } from "leaderboard"
 
 model Contest {
     id Int @id @default(autoincrement())
@@ -30,6 +31,8 @@ model Contest {
 
     rooms         Room[]
     contestStocks ContestContestStock[]
+    leaderboards   Leaderboard[]
+
 }
 
 
