@@ -105,7 +105,7 @@ export class LevelController {
     return this.levelService.getContentSkelton();
   }
 
-  @Post('add-content')
+  @Post('add/content')
   @HttpCode(HttpStatus.CREATED)
   @UseGuards(AtGuard)
   @ApiBearerAuth()
