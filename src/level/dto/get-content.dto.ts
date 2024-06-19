@@ -1,4 +1,4 @@
-export class ContentItem {
+export class GetContentDto {
   id: number;
 
   subTitle: string;

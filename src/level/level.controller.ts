@@ -23,6 +23,8 @@ import { PaginatedList } from 'src/common';
 import { BasicLevelInfo } from './models';
 import { AuthService } from 'src/auth';
 import { ApiBearerAuth, ApiBody, ApiTags } from '@nestjs/swagger';
+import { GetContentDto } from './dto/get-content.dto';
+import { CreateContentDto } from './dto/createContent.dto';
 
 @Controller('level')
 @ApiTags('Levels')
@@ -92,5 +94,44 @@ export class LevelController {
 
     return this.levelService.editTutorial(getTutorialDto)
 
+  }
+
+  @Get('get-content-skelton')
+  @HttpCode(HttpStatus.OK)
+  @UseGuards(AtGuard)
+  @ApiBearerAuth()
+  async getContentSkelton(
+  ) {
+    return this.levelService.getContentSkelton();
+  }
+
+  @Post('add-content')
+  @HttpCode(HttpStatus.CREATED)
+  @UseGuards(AtGuard)
+  @ApiBearerAuth()
+  async addContent(
+    @Body() createContentDto: CreateContentDto,
+  ): Promise<GetContentDto> {
+    return await this.levelService.addContent(createContentDto);
+  }
+
+  @Get('get-content-details')
+  @HttpCode(HttpStatus.OK)
+  @UseGuards(AtGuard)
+  @ApiBearerAuth()
+  async getContent(
+    @Query('id') id: string,
+  ): Promise<GetContentDto> {
+    return this.levelService.getContent(parseInt(id));
+  }
+
+  @Put('delete-content')
+  @HttpCode(HttpStatus.CREATED)
+  @UseGuards(AtGuard)
+  @ApiBearerAuth()
+  async deleteContent(
+    @Query('id') contentId: string,
+  ) {
+    await this.levelService.deleteContent(parseInt(contentId));
   }
 }

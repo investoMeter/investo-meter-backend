@@ -1,13 +1,13 @@
 // import { Content } from '@prisma/client';
-import { ContentItem } from '../models/content-item.level';
+import { GetContentDto } from './get-content.dto';
 import { Type } from 'class-transformer';
 
 export class GetTutorialDto {
   id: number;
 
   title: string;
-  @Type(() => ContentItem)
-  content: ContentItem[];
+  @Type(() => GetContentDto)
+  content: GetContentDto[];
 
   imageStorageId?: string;
 }

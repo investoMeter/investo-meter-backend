@@ -14,6 +14,8 @@ import { PaginatedList } from 'src/common';
 import { Player, TradeType as dbTradeType } from '@prisma/client';
 import { TradeType } from 'src/common';
 import { BasicLevelInfo } from 'src/level/models';
+import { GetContentDto } from './dto/get-content.dto';
+import { CreateContentDto } from './dto/createContent.dto';
 
 @Injectable()
 export class LevelService {
@@ -289,6 +291,79 @@ export class LevelService {
     return result;
 
 
+  }
+
+
+  async getContentSkelton ()
+  {
+     const contentSkelton ={
+      subtitle:"",
+      description:[],
+      tutorialId:NaN
+     }
+     return contentSkelton 
+  }
+
+  async addContent(content : CreateContentDto) : Promise<GetContentDto>
+  {
+      const { subTitle, description, tutorialId } = content;
+      
+      const contentData = {
+        subTitle,
+        description,
+        tutorialId
+      };
+
+      try {
+        const newContent = await this.prisma.content.create({
+          data: contentData,
+        });
+  
+        const contentResponse: GetContentDto = {
+          id: newContent.id,
+          subTitle: newContent.subTitle,
+          description: newContent.description,
+          tutorialId: newContent.tutorialId,
+        };
+  
+        return contentResponse;
+      } catch (error) {
+        
+        console.error('Error adding content:', error);
+        throw new BadRequestException('Failed to add new cotent');
+      }
+
+  }
+
+  async getContent (id:number): Promise<GetContentDto>
+  {     
+       
+      const content= await this.prisma.content.findUnique({where:{id:id}})
+      if (!content) {
+        throw new NotFoundException(
+          'The content you are seeking with ID ' + id + ' does not exist.',
+        );
+      }
+      const contentDto : GetContentDto={
+        id: content.id,
+        subTitle: content.subTitle,
+        description: content.description,
+        tutorialId: content.tutorialId,
+      }
+      
+        return contentDto          
+
+  }
+
+  async deleteContent(id: number): Promise<void> {
+    try {
+      await this.prisma.content.delete({
+        where: { id: id },
+      });
+    } catch (error) {
+      console.error('Error deleting content:', error);
+      throw new BadRequestException('Failed to delete content');
+    }
   }
 
 }
