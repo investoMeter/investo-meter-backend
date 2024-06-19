@@ -5,6 +5,7 @@ import {
   BadRequestException,
   Injectable,
   NotFoundException,
+  UnauthorizedException,
 } from '@nestjs/common';
 import { CancelRequestDto } from './dto/trades dto/cancel-request.dto';
 import { MatchingService } from './matching.service';
@@ -467,5 +468,119 @@ export class TradeService {
       where: { id: requestId },
       data: { status: RequestStatus.CANCELLED },
     });
+  }
+
+  async getOpenTrades(
+    player: { userId: string; coins: number },
+    contestId: number,
+    roomNumber: number,
+  ) {
+    const membership = await this.prisma.contestMembership.findFirst({
+      where: {
+        playerId: player.userId,
+        contestId,
+        roomNumber,
+      },
+    });
+
+    if (!membership) {
+      throw new UnauthorizedException('Player is not a member in this room');
+    }
+
+    let buyRequests: any = await this.prisma.buyRequest.findMany({
+      where: {
+        contestId,
+        roomNumber,
+        playerId: player.userId,
+        status: RequestStatus.PENDING,
+      },
+      include: {
+        stock: true,
+      },
+    });
+
+    buyRequests = buyRequests.map((buyRequest: any) => ({
+      ...buyRequest,
+      stockSymbol: buyRequest.stock.symbol.toUpperCase(),
+      type: 'BUY',
+    }));
+
+    let sellRequests = await this.prisma.sellRequest.findMany({
+      where: {
+        contestId,
+        roomNumber,
+        playerId: player.userId,
+        status: RequestStatus.PENDING,
+      },
+      include: {
+        stock: true,
+      },
+    });
+
+    sellRequests = sellRequests.map((sellRequest: any) => ({
+      ...sellRequest,
+      stockSymbol: sellRequest.stock.symbol.toUpperCase(),
+      type: 'SELL',
+    }));
+
+    return [...buyRequests, ...sellRequests];
+  }
+
+  async getClosedTrades(
+    player: { userId: string; coins: number },
+    contestId: number,
+    roomNumber: number,
+  ) {
+    const membership = await this.prisma.contestMembership.findFirst({
+      where: {
+        playerId: player.userId,
+        contestId,
+        roomNumber,
+      },
+    });
+
+    if (!membership) {
+      throw new UnauthorizedException('Player is not a member in this room');
+    }
+
+    let buyTrades = await this.prisma.trade.findMany({
+      where: {
+        contestId,
+        roomNumber,
+        buyerMembershipId: membership.id,
+      },
+      include: {
+        stock: true,
+      },
+    });
+
+    const transformedBuyTrades = buyTrades.map((trade: any) => ({
+      quantity: trade.quantity,
+      price: trade.price,
+      stockId: trade.stockId,
+      stockSymbol: trade.stock.symbol.toUpperCase(),
+      type: 'BUY',
+    }));
+
+    let sellTrades = await this.prisma.trade.findMany({
+      where: {
+        contestId,
+        roomNumber,
+        sellerMembershipId: membership.id,
+      },
+      include: {
+        stock: true,
+      },
+    });
+
+    const transformedSellTrades = sellTrades.map((trade: any) => ({
+      quantity: trade.quantity,
+      price: trade.price,
+      stockId: trade.stockId,
+      stockSymbol: trade.stock.symbol.toUpperCase(),
+      type: 'SELL',
+    })); 
+
+    return [...transformedBuyTrades, ...transformedSellTrades];
   }
 }
