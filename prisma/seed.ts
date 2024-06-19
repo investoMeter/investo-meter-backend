@@ -340,26 +340,21 @@ async function seedData() {
           },
           select: { id: true },
         });
-        const createdRooms = [];
         for (const roomNumber of upcomingContest.rooms) {
-            const room = await prisma.room.create({
+            await prisma.room.create({
                 data: {
                     roomNumber:roomNumber,
                     contest: { connect: { id: currentContest.id } },
                 },
             });
-            createdRooms.push(room);
         }
-        const createdContestStocks = [];
         for (const stockId of upcomingContest.stocks) {
-            const contestStock = await prisma.contestContestStock.create({
+            await prisma.contestContestStock.create({
                 data: {
                     contest: { connect: { id: currentContest.id } },
                     contestStock: { connect: { id: stockId } },
                 },
             });
-            createdContestStocks.push(contestStock);
-            
         }
         counter++;
 
