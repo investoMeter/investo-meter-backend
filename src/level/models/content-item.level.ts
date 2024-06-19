@@ -4,4 +4,6 @@ export class ContentItem {
   subTitle: string;
 
   description: string[];
+
+  tutorialId: number;
 }

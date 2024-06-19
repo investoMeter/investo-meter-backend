@@ -6,6 +6,7 @@ import {
   HttpStatus,
   Param,
   Post,
+  Put,
   Query,
   Req,
   UseGuards,
@@ -82,5 +83,14 @@ export class LevelController {
   ): Promise<SubmitAnswerResponseDto> {
     const player = await this.authService.playerResolver((req as any).user.sub);
     return this.levelService.submitAnswer(levelId, player, answers);
+  }
+
+  @Put('edit-tutorial')
+  @UseGuards(AtGuard)
+  @ApiBearerAuth()
+  async editTutorial(@Body() getTutorialDto: GetTutorialDto): Promise<GetTutorialDto>{
+
+    return this.levelService.editTutorial(getTutorialDto)
+
   }
 }

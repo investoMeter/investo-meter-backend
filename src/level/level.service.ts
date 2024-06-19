@@ -240,4 +240,55 @@ export class LevelService {
       totalQuestions: levelQuestions.length,
     };
   }
+
+  ///////////////////////admin side//////////////////////////////////////////////////////////
+
+  async editTutorial(getTutorialDto:GetTutorialDto): Promise<GetTutorialDto>
+  {
+
+    for (const contentItem of getTutorialDto.content) {
+      await this.prisma.content.update({
+       where: { id: contentItem.id },
+       data: {
+         subTitle: contentItem.subTitle,
+         description: contentItem.description,
+       },
+     });
+   }
+    const tutorial=await this.prisma.tutorial.update({
+      where: {
+        id:getTutorialDto.id
+      },
+      select:{
+      id: true,
+      title:true,
+      imageStorageId: true,
+      content:true
+
+      },
+      data: {
+        title:getTutorialDto.title,
+      
+
+      },
+    });
+
+    if (!tutorial) {
+      throw new NotFoundException(`tutorial with id: ${getTutorialDto.id} does not exist`);
+    }
+
+
+    
+    const result: GetTutorialDto = {
+      id: tutorial.id,
+      title: tutorial.title,
+      imageStorageId: tutorial.imageStorageId || undefined,
+      content: tutorial.content,
+    };
+
+    return result;
+
+
+  }
+
 }
