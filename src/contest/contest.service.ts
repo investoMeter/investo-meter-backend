@@ -98,8 +98,9 @@ export class ContestService {
         (1000 * 60 * 60),
       creator: contestDetails.creator.name,
       availableRooms: contestDetails.rooms.filter((room) => {
-        room._count.memberships < contestDetails.maxRoomCapacity;
+       return room._count.memberships <= contestDetails.maxRoomCapacity;
       }),
+      
       totalJoinedPlayers: contestDetails.rooms
         .map((room) => room._count.memberships)
         .reduce((accumulator, currentValue) => accumulator + currentValue, 0),
