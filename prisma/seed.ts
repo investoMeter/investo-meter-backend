@@ -323,6 +323,48 @@ async function seedData() {
           },
         });
       }
+      jsonPath = path.join(__dirname, '../upcoming_contests.json');
+      jsonData = await fs.readFile(jsonPath, 'utf-8');
+      const upcomingContests = JSON.parse(jsonData);
+      let counter = 1;
+      for(const upcomingContest of upcomingContests){
+        const currentContest = await prisma.contest.create({
+          data: {
+            name: upcomingContest.name,
+            maxRoomCapacity: upcomingContest.room_capacity,
+            startingMoney: upcomingContest.starting_money,
+            startDate: new Date(new Date().setDate(new Date().getDate() + counter)),
+            endDate: new Date(new Date().setDate(new Date().getDate() + counter+1)),
+            creator: { connect: { id: contestCreator?.id } },
+            startingShares: upcomingContest.starting_shares,
+          },
+          select: { id: true },
+        });
+        const createdRooms = [];
+        for (const roomNumber of upcomingContest.rooms) {
+            const room = await prisma.room.create({
+                data: {
+                    roomNumber:roomNumber,
+                    contest: { connect: { id: currentContest.id } },
+                },
+            });
+            createdRooms.push(room);
+        }
+        const createdContestStocks = [];
+        for (const stockId of upcomingContest.stocks) {
+            const contestStock = await prisma.contestContestStock.create({
+                data: {
+                    contest: { connect: { id: currentContest.id } },
+                    contestStock: { connect: { id: stockId } },
+                },
+            });
+            createdContestStocks.push(contestStock);
+            
+        }
+        counter++;
+
+      }
+      
     }
     console.log('contest seeding is done');
   } catch (error) {
