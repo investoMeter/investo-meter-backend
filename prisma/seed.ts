@@ -204,6 +204,40 @@ async function seedData() {
 
     console.log('technical reports seeding is done');
 
+    ///
+       
+    if ((await prisma.feedback.count()) == 0) {
+      const jsonPath = path.join(__dirname, '../feedbacks_data.json');
+      const jsonData = await fs.readFile(jsonPath, 'utf-8');
+      const feedbacks = JSON.parse(jsonData);
+
+      let i = 1;
+
+      for (const feedback of feedbacks) {
+        const players = await prisma.player.findMany();
+        const playerIds = players.map((player) => player.userId);
+
+        const dateObject = new Date(Date.now());
+        dateObject.setHours(dateObject.getHours() + 3);
+        await prisma.feedback.create({
+          data: {
+            content: feedback.content,
+            playerId: playerIds[Math.floor(Math.random() * playerIds.length)],
+            about: feedback.about,
+            rating: feedback.rating,
+            createdAt: dateObject,
+           
+          },
+        });
+        console.log('feedback' + i + ' seeded.');
+        i += 1;
+      }
+    }
+
+    console.log('feedbacks seeding is done');
+
+    ///////
+
     if ((await prisma.contest.count()) == 0) {
       let jsonPath = path.join(__dirname, '../contests_data.json');
       let jsonData = await fs.readFile(jsonPath, 'utf-8');

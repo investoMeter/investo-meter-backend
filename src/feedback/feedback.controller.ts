@@ -1,9 +1,11 @@
 import {
   Body,
   Controller,
+  Get,
   HttpCode,
   HttpStatus,
   Post,
+  Query,
   Req,
   UseGuards,
 } from '@nestjs/common';
@@ -12,6 +14,8 @@ import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { AtGuard } from 'src/auth/guards';
 import { FeedbackService } from './feedback.service';
 import { SubmitFeedbackDto } from './dto/submit-feedback.dto';
+import { PaginatedList } from 'src/common';
+import { GetFeedbackDto } from './dto/get-feedback.dto';
 
 @Controller('feedback')
 @ApiTags('feedbacks')
@@ -31,5 +35,28 @@ export class FeedbackController {
   ): Promise<void> {
     const player = await this.authService.playerResolver((req as any).user.sub);
     return this.feedbackService.submitFeedback(player, requestDto);
+  }
+
+
+  @Get('get-feedback-details')
+  @HttpCode(HttpStatus.OK)
+  @UseGuards(AtGuard)
+  @ApiBearerAuth()
+  async getReportDetails(
+    @Query('id') feedbackId: string,
+  ): Promise<GetFeedbackDto> {
+    return this.feedbackService.getFeedbackDetails(parseInt(feedbackId));
+  }
+
+  @Get('get-feedbacks')
+  @HttpCode(HttpStatus.OK)
+  @UseGuards(AtGuard)
+  @ApiBearerAuth()
+  async getAllReports(
+    @Req() req: any,
+    @Query('page') page: string,
+    @Query('take') take: string,
+  ): Promise<PaginatedList<GetFeedbackDto>> {
+    return this.feedbackService.getAllFeedbacks(parseInt(page), parseInt(take));
   }
 }
