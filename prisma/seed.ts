@@ -326,41 +326,86 @@ async function seedData() {
       jsonPath = path.join(__dirname, '../upcoming_contests.json');
       jsonData = await fs.readFile(jsonPath, 'utf-8');
       const upcomingContests = JSON.parse(jsonData);
-      let counter = 1;
-      for(const upcomingContest of upcomingContests){
+      i = 1;
+      for (const upcomingContest of upcomingContests) {
         const currentContest = await prisma.contest.create({
           data: {
             name: upcomingContest.name,
             maxRoomCapacity: upcomingContest.room_capacity,
             startingMoney: upcomingContest.starting_money,
-            startDate: new Date(new Date().setDate(new Date().getDate() + counter)),
-            endDate: new Date(new Date().setDate(new Date().getDate() + counter+1)),
+            startDate: new Date(new Date().setDate(new Date().getDate() + i)),
+            endDate: new Date(new Date().setDate(new Date().getDate() + i + 1)),
             creator: { connect: { id: contestCreator?.id } },
             startingShares: upcomingContest.starting_shares,
           },
-          select: { id: true },
+          select: { id: true, startDate: true },
         });
-        for (const roomNumber of upcomingContest.rooms) {
-            await prisma.room.create({
-                data: {
-                    roomNumber:roomNumber,
-                    contest: { connect: { id: currentContest.id } },
-                },
-            });
-        }
+        const createdStocks = []
         for (const stockId of upcomingContest.stocks) {
-            await prisma.contestContestStock.create({
-                data: {
-                    contest: { connect: { id: currentContest.id } },
-                    contestStock: { connect: { id: stockId } },
-                },
-            });
+          const stock = await prisma.contestContestStock.create({
+            data: {
+              contest: { connect: { id: currentContest.id } },
+              contestStock: { connect: { id: stockId } },
+            },
+            select: { contestStockId: true }
+          });
+          createdStocks.push(stock)
         }
-        counter++;
+        const createdRooms = []
+        for (const roomNumber of upcomingContest.rooms) {
+          const room = await prisma.room.create({
+            data: {
+              roomNumber: roomNumber,
+              contest: { connect: { id: currentContest.id } },
+            },
+            select: { roomNumber: true }
+          });
+          createdRooms.push(room)
+        }
 
+        jsonPath = path.join(__dirname, '../initial_contests_stock_data_price.json');
+        jsonData = await fs.readFile(jsonPath, 'utf-8');
+        const initialPrices = JSON.parse(jsonData)[0];
+        for (const room of createdRooms) {
+          for (const stock of createdStocks) {
+            await prisma.stockHistory.create({
+              data: {
+                ContestStockPrice: {
+                  create: {
+                    open: initialPrices.open,
+                    close: initialPrices.close,
+                    highest: initialPrices.highest,
+                    lowest: initialPrices.lowest,
+                    volume: initialPrices.volume,
+                    timeStamp: currentContest.startDate,
+                  }
+                },
+                Room: {
+                  connect: {
+                    contestId_roomNumber: {
+                      contestId: currentContest.id,
+                      roomNumber: room.roomNumber,
+                    },
+                  },
+                },
+                currentShares: 1000,
+                stock: {
+                  connect: {
+                    contestId_contestStockId: {
+                      contestId: currentContest.id,
+                      contestStockId: stock.contestStockId,
+                    }
+                  }
+                }
+              },
+            });
+
+          }
+        }
+      i++;
       }
-      
     }
+
     console.log('contest seeding is done');
   } catch (error) {
     console.error('Error seeding data:', error);
