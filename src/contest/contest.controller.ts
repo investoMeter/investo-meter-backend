@@ -78,7 +78,7 @@ export class ContestController {
   @HttpCode(HttpStatus.OK)
   @UseGuards(AtGuard)
   @ApiBearerAuth()
-  async getLeaderboard(
+  async calculateLeaderboard(
     @Req() req: any,
     @Query('contestId') contestId: string,
     @Query('roomId') roomId: string,
@@ -86,5 +86,20 @@ export class ContestController {
     const player = await this.authService.playerResolver((req as any).user.sub);
     return this.contestService.calculateLeaderboard(player, parseInt(contestId), parseInt(roomId));
   }
+
+
+  @Get('leaderboard')
+  @HttpCode(HttpStatus.OK)
+  @UseGuards(AtGuard)
+  @ApiBearerAuth()
+  async getLeaderboard(
+    @Req() req: any,
+    @Query('contestId') contestId: string,
+    @Query('roomId') roomId: string,
+  ) {
+    const player = await this.authService.playerResolver((req as any).user.sub);
+    return this.contestService.getSavedLeaderboard(player, parseInt(contestId), parseInt(roomId));
+  }
+
 
 }

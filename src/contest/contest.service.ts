@@ -14,6 +14,7 @@ import { ContestResponseDto } from './dto/contestResponse.dto';
 
 @Injectable()
 export class ContestService {
+
   constructor(private prisma: PrismaService) {}
 
   async getAllContests(
@@ -410,5 +411,33 @@ export class ContestService {
     });
 
     await this.prisma.$transaction(updateOperations);
+  }
+
+  async getSavedLeaderboard(player: { userId: string; coins: number; }, contestId: number, roomNumber: number) {
+    const membership = await this.prisma.contestMembership.findFirst({
+      select: {
+        id: true,
+      },
+      where: {
+        playerId: player.userId,
+        contestId: contestId,
+        roomNumber: roomNumber,
+      },
+    });
+
+    if (!membership) {
+      throw new UnauthorizedException();
+    }
+
+    return await this.prisma.leaderboard.findMany({
+      where: {
+        contestId,
+        roomNumber,
+      },
+      select: {
+        username: true,
+        score: true,
+      },
+    });
   }
 }
