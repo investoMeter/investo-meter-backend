@@ -8,6 +8,7 @@ import { HintModule } from './hint';
 import { ReportModule } from './report/report.module';
 import { ScheduleModule } from '@nestjs/schedule';
 import { ProfileModule } from './profile/profile.module';
+import { ContestGrpcModule } from './contest-grpc/contest.grpc.module';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { ProfileModule } from './profile/profile.module';
     ReportModule,
     ProfileModule,
     ScheduleModule.forRoot(),
+    ContestGrpcModule,
   ],
 })
 export class AppModule {}

@@ -203,7 +203,7 @@ export class ContestService {
             },
           },
         },
-        currentMoneyAmount: contest.startingMoney,
+        currentBalance: contest.startingMoney,
       },
     });
   }
@@ -303,6 +303,7 @@ export class ContestService {
           endDate: {
             gte: new Date(now.getTime() + 60000),
           },
+          started: true,
         },
       },
       select: {

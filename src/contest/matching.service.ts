@@ -196,14 +196,14 @@ export class MatchingService {
       const contestId = buyRequest.contestId;
       const roomNumber = buyRequest.roomNumber;
 
-      await this.tradingUtilityService.updateMembershipCoins(
+      await this.tradingUtilityService.updateMembershipBalance(
         roomNumber,
         contestId,
         buyerMembership,
         -cost,
       );
 
-      await this.tradingUtilityService.updateMembershipCoins(
+      await this.tradingUtilityService.updateMembershipBalance(
         roomNumber,
         contestId,
         sellerMembership,
