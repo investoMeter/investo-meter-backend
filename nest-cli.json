@@ -5,7 +5,7 @@
   "compilerOptions": {
     "deleteOutDir": true,
     "plugins": ["@nestjs/swagger"],
-    "assets": ["protos/hint.proto"],
+    "assets": ["protos/hint.proto", "protos/contestStatus.proto"],
     "watchAssets": true
   }
 }

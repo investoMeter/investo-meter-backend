@@ -191,7 +191,7 @@ model ContestContestStock {
 model ContestMembership {
   id Int @id @default(autoincrement())
 
-  currentMoneyAmount Float @default(0.0)
+  currentBalance Float @default(0.0)
 
   createdAt DateTime @default(now())
 

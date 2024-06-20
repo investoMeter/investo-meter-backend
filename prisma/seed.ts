@@ -275,7 +275,7 @@ async function seedData() {
                 },
               },
             },
-            currentMoneyAmount: contestMembership.currentMoneyAmount,
+            currentBalance: contestMembership.currentBalance,
           },
         });
         i++;

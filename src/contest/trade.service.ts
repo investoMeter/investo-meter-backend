@@ -36,7 +36,7 @@ export class TradeService {
       `;
 
     const totalPendingCost = pendingRequestCost[0].total_cost;
-    const currentMoney = membership.currentMoneyAmount;
+    const currentMoney = membership.currentBalance;
     if (currentMoney < requestCost + totalPendingCost) {
       throw new BadRequestException('No Sufficient coins');
     }
@@ -81,7 +81,7 @@ export class TradeService {
 
         newtrades.push(trade);
 
-        await this.tradingUtilityService.updateMembershipCoins(
+        await this.tradingUtilityService.updateMembershipBalance(
           room.roomNumber,
           contest.id,
           membership,
@@ -322,6 +322,11 @@ export class TradeService {
       roomNumber,
       stockId,
     } = BuyRequestData;
+
+    if (!this.tradingUtilityService.validateContestRunning(contestId)) {
+      throw new NotFoundException('Contest ended');
+    }
+
     return await this.prisma.buyRequest.create({
       data: {
         quantity,
@@ -363,6 +368,11 @@ export class TradeService {
       roomNumber,
       stockId,
     } = sellRequestData;
+
+    if (!this.tradingUtilityService.validateContestRunning(contestId)) {
+      throw new NotFoundException('Contest ended');
+    }
+
     return await this.prisma.sellRequest.create({
       data: {
         quantity,
@@ -416,7 +426,7 @@ export class TradeService {
 
     const cost = buyRequest.quantity * buyRequest.price;
 
-    await this.tradingUtilityService.updateMembershipCoins(
+    await this.tradingUtilityService.updateMembershipBalance(
       roomNumber,
       contestId,
       data.membership,
