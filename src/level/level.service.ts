@@ -16,6 +16,7 @@ import { TradeType } from 'src/common';
 import { BasicLevelInfo } from 'src/level/models';
 import { GetContentDto } from './dto/get-content.dto';
 import { CreateContentDto } from './dto/createContent.dto';
+import { EditTutorialDto } from './dto/edit-tutorial.leveldto';
 
 @Injectable()
 export class LevelService {
@@ -245,10 +246,10 @@ export class LevelService {
 
   ///////////////////////admin side//////////////////////////////////////////////////////////
 
-  async editTutorial(getTutorialDto:GetTutorialDto): Promise<GetTutorialDto>
+  async editTutorial(editTutorialDto:EditTutorialDto): Promise<EditTutorialDto>
   {
 
-    for (const contentItem of getTutorialDto.content) {
+    for (const contentItem of editTutorialDto.content) {
       await this.prisma.content.update({
        where: { id: contentItem.id },
        data: {
@@ -259,33 +260,35 @@ export class LevelService {
    }
     const tutorial=await this.prisma.tutorial.update({
       where: {
-        id:getTutorialDto.id
+        id:editTutorialDto.id
       },
       select:{
       id: true,
       title:true,
       imageStorageId: true,
-      content:true
+      content:true,
+      levelId:true
 
       },
       data: {
-        title:getTutorialDto.title,
+        title:editTutorialDto.title,
       
 
       },
     });
 
     if (!tutorial) {
-      throw new NotFoundException(`tutorial with id: ${getTutorialDto.id} does not exist`);
+      throw new NotFoundException(`tutorial with id: ${editTutorialDto.id} does not exist`);
     }
 
 
     
-    const result: GetTutorialDto = {
+    const result: EditTutorialDto = {
       id: tutorial.id,
       title: tutorial.title,
       imageStorageId: tutorial.imageStorageId || undefined,
       content: tutorial.content,
+      levelId:tutorial.levelId
     };
 
     return result;
