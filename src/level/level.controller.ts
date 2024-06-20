@@ -25,6 +25,7 @@ import { AuthService } from 'src/auth';
 import { ApiBearerAuth, ApiBody, ApiTags } from '@nestjs/swagger';
 import { GetContentDto } from './dto/get-content.dto';
 import { CreateContentDto } from './dto/createContent.dto';
+import { EditTutorialDto } from './dto/edit-tutorial.leveldto';
 
 @Controller('level')
 @ApiTags('Levels')
@@ -90,9 +91,9 @@ export class LevelController {
   @Put('edit-tutorial')
   @UseGuards(AtGuard)
   @ApiBearerAuth()
-  async editTutorial(@Body() getTutorialDto: GetTutorialDto): Promise<GetTutorialDto>{
+  async editTutorial(@Body() editTutorialDto: EditTutorialDto): Promise<EditTutorialDto>{
 
-    return this.levelService.editTutorial(getTutorialDto)
+    return this.levelService.editTutorial(editTutorialDto)
 
   }
 
