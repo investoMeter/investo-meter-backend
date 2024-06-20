@@ -7,6 +7,8 @@ import { Admin, Player } from '@prisma/client';
 import { JoinContestDto } from './dto';
 import { CreateContestDto } from './dto/createContest.dto';
 import { ContestResponseDto } from './dto/contestResponse.dto';
+import { EditContestDto } from './dto/editContest.dto';
+import { EditContestStocksDto } from './dto/editContestStocks.dto';
 
 @Injectable()
 export class ContestService {
@@ -278,8 +280,8 @@ export class ContestService {
       name: newContest.name,
       maxRoomCapacity: newContest.maxRoomCapacity,
       startingMoney: newContest.startingMoney,
-      startDate: newContest.startDate,
-      endDate: newContest.endDate,
+      startDate: new Date(newContest.startDate),
+      endDate: new Date(newContest.endDate),
       startingShares: newContest.startingShares,
       rooms: newContest.rooms,
     };
@@ -324,5 +326,112 @@ export class ContestService {
         },
       },
     });
+  }
+
+  async editContest(admin: Admin, requestDto: EditContestDto): Promise<any> {
+    const contest = await this.prisma.contest.findUnique({
+      where: { id:requestDto.id},
+    });
+    if (!contest) {
+      throw new BadRequestException('Contest not found');
+    }
+    await this.prisma.contest.update({
+      where: { id:requestDto.id},
+      data: {
+        name: requestDto.name,
+        maxRoomCapacity: requestDto.maxRoomCapacity,
+        startingMoney: requestDto.startingMoney,
+        startingShares: requestDto.startingShares,
+        startDate: requestDto.startDate,
+        endDate: requestDto.endDate,
+      },
+    });
+  }
+
+  async addStocks(admin: Admin, requestDto: EditContestStocksDto){
+    const contest = await this.prisma.contest.findUnique({
+      where: { id:requestDto.id},
+    });
+    if (!contest) {
+      throw new BadRequestException('Contest not found');
+    }
+    const existingStocks = await this.prisma.contestContestStock.findMany({
+      where: { contestId: requestDto.id },
+      select: { contestStockId: true },
+    });
+
+    const existingStockIds = new Set(existingStocks.map(stock => stock.contestStockId));
+    const newStockIds = requestDto.stockIds.filter(stockId => !existingStockIds.has(stockId));
+
+    if (newStockIds.length === 0) {
+      throw new BadRequestException('All provided stock IDs are already associated with the contest');
+    }
+
+    await this.prisma.contestContestStock.createMany({
+      data: newStockIds.map(stockId => ({
+        contestId: requestDto.id,
+        contestStockId: stockId,
+      })),
+    });
+
+    return { message: 'Stocks added successfully', addedStockIds: newStockIds };
+
+  }
+
+  async removeStocks(admin: Admin, requestDto: EditContestStocksDto){
+    const contest = await this.prisma.contest.findUnique({
+      where: { id:requestDto.id},
+    });
+    if (!contest) {
+      throw new BadRequestException('Contest not found');
+    }
+    const existingStocks = await this.prisma.contestContestStock.findMany({
+      where: { contestId: requestDto.id },
+      select: { contestStockId: true },
+    });
+
+    const existingStockIds = new Set(existingStocks.map(stock => stock.contestStockId));
+    const stocksToRemove = requestDto.stockIds.filter(stockId => existingStockIds.has(stockId));
+
+    if (stocksToRemove.length === 0) {
+      throw new BadRequestException('None of the provided stock IDs are associated with the contest');
+    }
+
+    await this.prisma.contestContestStock.deleteMany({
+      where: {
+        contestId: requestDto.id,
+        contestStockId: {
+          in: stocksToRemove,
+        },
+      },
+    });
+
+    return { message: 'Stocks removed successfully', removedStockIds: stocksToRemove };
+  }
+
+  async getEditableContestData(admin: Admin, contestId: string){
+    const contest = await this.prisma.contest.findUnique({
+      where: { id: parseInt(contestId) },
+      select: {
+        id: true,
+        name: true,
+        maxRoomCapacity: true,
+        startingMoney: true,
+        startingShares: true,
+        startDate: true,
+        endDate: true,
+        contestStocks: {
+          select: {
+          contestStock: true,
+          }
+        }
+      },
+    });
+
+    if (!contest) {
+      throw new BadRequestException('Contest not found');
+    }
+
+    return contest;
   }
 }
