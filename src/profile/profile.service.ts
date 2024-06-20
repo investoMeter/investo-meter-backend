@@ -65,7 +65,7 @@ export class ProfileService {
       orderBy: {
         room: {
           contest: {
-            endDate: 'desc',
+            endDate: 'asc',
           },
         },
       },
