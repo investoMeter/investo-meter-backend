@@ -124,7 +124,7 @@ export class TradingUtilityService {
     return await this.prisma.trade.create({ data });
   }
 
-  async updateMembershipCoins(
+  async updateMembershipBalance(
     roomNumber: number,
     contestId: number,
     membership: ContestMembership,
@@ -137,8 +137,24 @@ export class TradingUtilityService {
         id: membership.id,
       },
       data: {
-        currentMoneyAmount: membership.currentMoneyAmount + totalCost,
+        currentBalance: membership.currentBalance + totalCost,
       },
     });
+  }
+
+  async validateContestRunning(conetstId: number): Promise<boolean> {
+    const isRunning =
+      (
+        await this.prisma.contest.findFirst({
+          where: {
+            id: conetstId,
+            started: true,
+          },
+          select: {
+            started: true,
+          },
+        })
+      )?.started || false;
+    return isRunning;
   }
 }

@@ -1,9 +1,9 @@
 import {
   Body,
   Controller,
-  Get,
   HttpCode,
   HttpStatus,
+  Post,
   Req,
   UseGuards,
 } from '@nestjs/common';
@@ -21,7 +21,7 @@ export class HintController {
     private service: HintService,
   ) {}
 
-  @Get('get-hint')
+  @Post('get-hint')
   @HttpCode(HttpStatus.OK)
   @UseGuards(AtGuard)
   @ApiBearerAuth()

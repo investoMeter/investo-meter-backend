@@ -1,83 +1,221 @@
 [
-  {
-    "pattern_name": "Head and Shoulders",
-    "sub_titles": [
-      "Understanding the Head and Shoulders Pattern in Stock Market Analysis",
-      "Key Elements",
-      "Interpreting the Head and Shoulders Pattern"
-    ],
-    "content": [
-      [
-        "The head and shoulders pattern is a significant technical analysis formation that provides valuable insights into potential trend reversals in stock prices. This pattern unfolds in four distinct components, offering traders a visual guide to anticipate market shifts."
+   {
+      "pattern_name":"Head and Shoulders",
+      "sub_titles":[
+         "Understanding the Head and Shoulders Pattern in Stock Market Analysis",
+         "Key Elements",
+         "Interpreting the Head and Shoulders Pattern"
       ],
-      [
-        "1. Left Shoulder Formation: The stock's price rises to a peak and then declines back to the base of the prior up-move.",
-        "2. Head Formation: Subsequently, the price rises above the previous peak to form the 'head.'",
-        "3. Right Shoulder Formation: The price then declines back to the original base, and finally, the stock price peaks again at about the level of the first peak of the formation.",
-        "4. Neckline: The connecting line between the first and second troughs is referred to as the neckline."
-      ],
-      [
-        "1. Reversal Signal: The pattern suggests the possibility of a reversal in the prevailing trend.",
-        "2. Bearish Selling Point: Traders often associate the formation of three peaks and troughs, with a larger peak in the middle (the head), as a signal for an imminent decline. The neckline serves as the point at which bearish traders initiate selling.",
-        "3. Continuation of Downtrend: The pattern indicates that the newly established downward trend is likely to persist until the right shoulder is breached, signified by prices moving higher than those at the right peak."
+      "content":[
+         [
+            "The head and shoulders pattern is a significant technical analysis formation that provides valuable insights into potential trend reversals in stock prices. This pattern unfolds in four distinct components, offering traders a visual guide to anticipate market shifts."
+         ],
+         [
+            "1. Left Shoulder Formation: The stock's price rises to a peak and then declines back to the base of the prior up-move.",
+            "2. Head Formation: Subsequently, the price rises above the previous peak to form the 'head.'",
+            "3. Right Shoulder Formation: The price then declines back to the original base, and finally, the stock price peaks again at about the level of the first peak of the formation.",
+            "4. Neckline: The connecting line between the first and second troughs is referred to as the neckline."
+         ],
+         [
+            "1. Reversal Signal: The pattern suggests the possibility of a reversal in the prevailing trend.",
+            "2. Bearish Selling Point: Traders often associate the formation of three peaks and troughs, with a larger peak in the middle (the head), as a signal for an imminent decline. The neckline serves as the point at which bearish traders initiate selling.",
+            "3. Continuation of Downtrend: The pattern indicates that the newly established downward trend is likely to persist until the right shoulder is breached, signified by prices moving higher than those at the right peak."
+         ]
       ]
-    ]
-  },
-  {
-    "pattern_name": "Double and Multiple Tops",
-    "sub_titles": [
-      "Understanding the Double and Multiple Tops Patterns in Stock Market Analysis",
-      "Key Elements",
-      "Trading Strategies"
-    ],
-    "content": [
-      [
-        "A double top is an extremely bearish (suggests a potential downward movement in the price of an asset) technical reversal pattern that forms after an asset reaches a high price two consecutive times with a moderate decline between the two highs. It is confirmed once the asset's price falls below a support level equal to the low between the two prior highs.",
-        "In the broader category of multiple tops, a double tops pattern is a specific instance, with both sharing the characteristic of similar price peaks but differing in the number of peaks involved."
+   },
+   {
+      "pattern_name":"Double and Multiple Tops",
+      "sub_titles":[
+         "Understanding the Double and Multiple Tops Patterns in Stock Market Analysis",
+         "Key Elements",
+         "Trading Strategies"
       ],
-      [
-        "Uptrend: Clear upward movement before the pattern formation.",
-        "Two Peaks: Identical or nearly identical peaks serving as resistance levels.",
-        "Trough or Valley: Formation of a trough or valley indicating a brief price decline or consolidation.",
-        "Neckline: Horizontal line connecting the low points of the troughs, providing essential pattern reference.",
-        "Break of Neckline: A key confirmation point, indicating a potential trend reversal.",
-        "Volume: Consider volume changes during pattern development for additional confirmation.",
-        "Verify Double Top Pattern: To verify the double-top pattern, watch for a price break below the neckline. Breaking below the neckline might be interpreted as a sell signal because it portends a potential trend reversal."
-      ],
-      [
-        "1. Wait for Breakout: When the price drops below the neckline, it may signal a trend change. Consider selling or placing a short trade.",
-        "2. Retest Confirmation: After the price breaks below the neckline, watch if it goes back up and then down again. If it does, it might be a good time to sell or go short."
+      "content":[
+         [
+            "A double top is an extremely bearish (suggests a potential downward movement in the price of an asset) technical reversal pattern that forms after an asset reaches a high price two consecutive times with a moderate decline between the two highs. It is confirmed once the asset's price falls below a support level equal to the low between the two prior highs.",
+            "In the broader category of multiple tops, a double tops pattern is a specific instance, with both sharing the characteristic of similar price peaks but differing in the number of peaks involved."
+         ],
+         [
+            "Uptrend: Clear upward movement before the pattern formation.",
+            "Two Peaks: Identical or nearly identical peaks serving as resistance levels.",
+            "Trough or Valley: Formation of a trough or valley indicating a brief price decline or consolidation.",
+            "Neckline: Horizontal line connecting the low points of the troughs, providing essential pattern reference.",
+            "Break of Neckline: A key confirmation point, indicating a potential trend reversal.",
+            "Volume: Consider volume changes during pattern development for additional confirmation.",
+            "Verify Double Top Pattern: To verify the double-top pattern, watch for a price break below the neckline. Breaking below the neckline might be interpreted as a sell signal because it portends a potential trend reversal."
+         ],
+         [
+            "1. Wait for Breakout: When the price drops below the neckline, it may signal a trend change. Consider selling or placing a short trade.",
+            "2. Retest Confirmation: After the price breaks below the neckline, watch if it goes back up and then down again. If it does, it might be a good time to sell or go short."
+         ]
       ]
-    ]
-  },
-  {
-    "pattern_name": "Double and Multiple Bottoms",
-    "sub_titles": [
-      "Understanding the Double and Multiple Bottoms Patterns in Market Analysis",
-      "Key Characteristics",
-      "Interpretation and Analysis",
-      "Trading Strategy"
-    ],
-    "content": [
-      [
-        "A double bottom pattern is a classic technical analysis formation signaling a significant change in trend and a reversal from a prior downward movement in market trading. This pattern involves a decline, a subsequent rebound, another drop to the same or similar level as the initial drop, and finally, another rebound resembling the letter 'W.' The twice-touched low becomes a crucial support level, and as long as these lows hold, there is potential for an upward move.",
-        "Multiple bottoms refer to a variation of the double bottom pattern where there are more than two troughs (or lows) forming a series of support levels. While the classic double bottom has two distinct troughs, multiple bottoms can exhibit additional lows, potentially strengthening the reversal signal."
+   },
+   {
+      "pattern_name":"Double and Multiple Bottoms",
+      "sub_titles":[
+         "Understanding the Double and Multiple Bottoms Patterns in Market Analysis",
+         "Key Characteristics",
+         "Interpretation and Analysis",
+         "Trading Strategy"
       ],
-      [
-        "1. Formation: The pattern always follows a major or minor downtrend, marking the reversal and the potential beginning of an uptrend.",
-        "2. Shape: Resembles the letter 'W' with two distinct troughs.",
-        "3. Support Level: The twice-touched low acts as a significant support level.",
-        "4. Profit Targets: Think of two goals - a safe one considering the distance between the lows and peak, and a riskier one by doubling that distance. These are where you might expect the price to go up after the pattern shows."
-      ],
-      [
-        "A double bottom is significant as it suggests a strong support level has been reached following a downtrend, indicating a potential reversal and the start of a new uptrend.",
-        "A drop below the double bottom lows suggests a resumption of the downtrend."
-      ],
-      [
-        "Buy Signal: When the price closes higher than the highest point after the first rebound, consider buying.",
-        "Risk Management: Set a stop loss just below the second low in the pattern.",
-        "Profit Goals: Aim for at least the distance between the lowest points and the middle high. For a bolder approach, target twice that distance for potentially larger gains."
+      "content":[
+         [
+            "A double bottom pattern is a classic technical analysis formation signaling a significant change in trend and a reversal from a prior downward movement in market trading. This pattern involves a decline, a subsequent rebound, another drop to the same or similar level as the initial drop, and finally, another rebound resembling the letter 'W.' The twice-touched low becomes a crucial support level, and as long as these lows hold, there is potential for an upward move.",
+            "Multiple bottoms refer to a variation of the double bottom pattern where there are more than two troughs (or lows) forming a series of support levels. While the classic double bottom has two distinct troughs, multiple bottoms can exhibit additional lows, potentially strengthening the reversal signal."
+         ],
+         [
+            "1. Formation: The pattern always follows a major or minor downtrend, marking the reversal and the potential beginning of an uptrend.",
+            "2. Shape: Resembles the letter 'W' with two distinct troughs.",
+            "3. Support Level: The twice-touched low acts as a significant support level.",
+            "4. Profit Targets: Think of two goals - a safe one considering the distance between the lows and peak, and a riskier one by doubling that distance. These are where you might expect the price to go up after the pattern shows."
+         ],
+         [
+            "A double bottom is significant as it suggests a strong support level has been reached following a downtrend, indicating a potential reversal and the start of a new uptrend.",
+            "A drop below the double bottom lows suggests a resumption of the downtrend."
+         ],
+         [
+            "Buy Signal: When the price closes higher than the highest point after the first rebound, consider buying.",
+            "Risk Management: Set a stop loss just below the second low in the pattern.",
+            "Profit Goals: Aim for at least the distance between the lowest points and the middle high. For a bolder approach, target twice that distance for potentially larger gains."
+         ]
       ]
-    ]
-  }
+   },
+   {
+      "pattern_name":"Ascending Triangle",
+      "sub_titles":[
+         "  What Is an Ascending Triangle?  ",
+         "  What Does the Ascending Triangle Tell You?  ",
+         "  Example of How to Interpret the Ascending Triangle  ",
+         "  The Difference Between an Ascending Triangle and a Descending Triangle  ",
+         "  Limitations of Trading the Ascending Triangle  ",
+         "  Psychology of the Ascending Triangle  ",
+         "  The Bottom Line  "
+      ],
+      "content":[
+         [
+            "An ascending triangle is a chart pattern used in technical analysis. It is created by price moves that allow for a horizontal line to be drawn along the swing highs and a rising trendline to be drawn along the swing lows. The two lines form a triangle. Traders often watch for breakouts from triangle patterns. The breakout can occur to the upside or downside.",
+            "Ascending triangles are often called continuation patterns since price will typically break out in the same direction as the trend that was in place just prior to the triangle forming.",
+            "An ascending triangle is tradable in that it provides a clear entry point, profit target, and stop-loss level. It may be contrasted with a descending triangle."
+         ],
+         [
+            "An ascending triangle is generally considered to be a continuation pattern, meaning that the pattern is significant if it occurs within an uptrend or downtrend. Once the breakout from the triangle occurs, traders tend to aggressively buy or sell the asset depending on which direction the price broke out.",
+            "Increasing volume helps to confirm the breakout, as it shows rising interest as the price moves out of the pattern.",
+            "A minimum of two swing highs and two swing lows are required to form the ascending triangle's trendlines. But a greater number of trendline touches tends to produce more reliable trading results. Since the trendlines are converging on one another, if the price continues to move within a triangle for multiple swings, the price action becomes more coiled, likely leading to a stronger eventual breakout.",
+            "Volume tends to be stronger during trending periods than during consolidation periods. A triangle is a type of consolidation, and therefore volume tends to contract during an ascending triangle. As mentioned, traders look for volume to increase on a breakout, as this helps confirm the price is likely to keep heading in the breakout direction. If the price breaks out on low volume, that is a warning sign that the breakout lacks strength. This could mean the price will move back into the pattern. This is called a false breakout.",
+            "For trading purposes, an entry is typically taken when the price breaks out. Buy if the breakout occurs to the upside, or short\/sell if a breakout occurs to the downside. A stop loss is placed just outside the opposite side of the pattern. For example, if a long trade is taken on an upside breakout, a stop loss is placed just below the lower trendline.",
+            "A profit target can be estimated based on the height of the triangle added or subtracted from the breakout price. The thickest part of the triangle is used. If the triangle is $5 high, add $5 to the upside breakout point to get the price target. If the price breaks lower, the profit target is the breakout point less $5."
+         ],
+         [
+            "Here an ascending triangle forms during a downtrend, and the price continues lower following the breakout. Once the breakout occurred, the profit target was attained. The short entry or sell signal occurred when the price broke below the lower trendline. A stop loss could be placed just above the upper trendline.",
+            "Wide patterns like this present a higher risk\/reward than patterns that get substantially narrower as time goes on. As a pattern narrows, the stop loss becomes smaller since the distance to the breakout point is smaller, yet the profit target is still based on the largest part of the pattern."
+         ],
+         [
+            "These two types of triangles are both continuation patterns, except they have a different look. The descending triangle has a horizontal lower line, while the upper trendline is descending. This is the opposite of the ascending triangle, which has a rising lower trendline and a horizontal upper trendline."
+         ],
+         [
+            "The main problem with triangles, and chart patterns in general, is the potential for false breakouts. The price may move out of the pattern only to move back into it, or the price may even proceed to break out the other side. A pattern may need to be redrawn several times as the price edges past the trendlines but fails to generate any momentum in the breakout direction.",
+            "While ascending triangles provide a profit target, that target is just an estimate. The price may far exceed that target, or fail to reach it."
+         ],
+         [
+            "Like other chart patterns, ascending triangles indicate the psychology of the market participants underlying the price action. In this case, buyers repeatedly drive the price higher until it reaches the horizontal line at the top of the ascending triangle. The horizontal line represents a level of resistance\u2014the point where sellers step in to return the price to lower levels.",
+            "As the price drops downward from the horizontal resistance level, buyers begin to show their resolve, and the price fails to reach the recent low, with the trend turning upward once again at a higher swing low. In other words, the upward-sloping trendline that forms the lower boundary of the ascending triangle is acting as support\u2014the level where buyers jump in and prevent the price from falling any lower.",
+            "In a well-defined ascending triangle pattern, the price bounces between the horizontal resistance line and the lower trendline. The lines of the triangle eventually converge, setting the stage for a showdown between upward and downward pressure that could determine which direction the price will move out of the pattern. As it approaches the vertex of the triangle, the price will either break out above the resistance level, suggesting additional gains ahead, or it will fall below the support level, increasing the likelihood that the price will decline."
+         ],
+         [
+            "An ascending triangle is a technical analysis chart pattern that occurs when the price of an asset fluctuates between a horizontal upper trendline and an upward-sloping lower trendline. Since the price has a tendency to break out in the same direction as the trend in place before the formation of the triangle, ascending triangles are often called continuation patterns. Traders often wait for the price to break above or below the pattern before entering a position. The ascending triangle pattern is particularly useful for traders because it suggests a clear entry point, profit target, and stop-loss level."
+         ]
+      ]
+   },
+   {
+      "pattern_name":"Descending Triangle",
+      "sub_titles":[
+         "  What Is a Descending Triangle?  ",
+         "  What Does a Descending Triangle Tell You?  ",
+         "  How to Identify a Descending Triangle  ",
+         "  How to Trade a Descending Triangle  ",
+         "  Descending Triangle Pattern Breakout Strategy  ",
+         "  Descending Triangles With Heikin-Ashi Charts  ",
+         "  Descending Triangle With Moving Averages  ",
+         "  Descending Triangle Reversal Pattern\u2014Top  ",
+         "  Descending Triangle Reversal Pattern\u2014Bottom  ",
+         "  Descending Triangles vs. Ascending Triangles  ",
+         "  The Limitations of a Descending Triangle  ",
+         "  The Bottom Line  "
+      ],
+      "content":[
+         [
+            "A descending triangle is a chart pattern used in technical analysis created by drawing one trend line connecting a series of lower highs and a second horizontaltrend line connecting a series of lows.",
+            "A regular descending triangle pattern is commonly considered a bearish chart pattern or a continuation pattern with an established downtrend. However, a descending triangle pattern can also be bullish, with a breakout in the opposite direction, and is known as a reversal pattern."
+         ],
+         [
+            "A popular chart pattern used by traders, descending triangles clearly show that demand for an asset, derivative, or commodity is weakening. When the price breaks below the lower support, it indicates that downward momentum is likely to continue.",
+            "Technical traders have the opportunity to make substantial profits over a brief period. They often watch for a move below the lower support trend line,suggesting that downward momentum is building and a breakdown is imminent. Traders often enter into short positions to further lower the asset's price."
+         ],
+         [
+            "The descending triangle is one of three triangle patterns used in technical analysis.",
+            "A descending triangle pattern has the following features:",
+            "An existing downtrend before the descending triangle pattern appears.A descending upper trendline can be drawn by connecting the upper points and indicates that the sellers are pushing prices downward.The lower horizontal trendline acts as support as prices approach this level until the breakout occurs.The downward trend continues after the breakout and is evident below the lower trendline."
+         ],
+         [
+            "Traders often initiate a short position following a high volume breakdown from lower trend line support in a descending triangle chart pattern.",
+            "In general, the price target for the chart pattern isequal to the entry price minus the vertical height between the two trend lines at the time of the breakdown. The upper trend line resistance also serves as a stop-loss level for traders to limit their potential losses.",
+            "Traders often choose the simplest way to use the descending triangle pattern and buy the breakout of the triangle, and it is one of several common strategies to take profits using this pattern."
+         ],
+         [
+            "This strategy anticipates a breakout from the descending triangle pattern and uses a combination of trading volumes and asserting the trend to capture short-term profits. When a stock is in adowntrendor a consolidation phase, traders watch for lower highs and lower lows being formed."
+         ],
+         [
+            "Heikin-Ashi charts can apply to any market and are a trading tool used in conjunction with technical analysis to assist in identifying trends. The Heikin Ashi candlesticks turn bullish before the breakout. In this strategy, traders watch for the descending triangle pattern to form and wait for the bullish trend to begin using the Heikin Ashi charts."
+         ],
+         [
+            "Traders can combine price techniques, like the moving average, andchart patternswith technical indicators. In this strategy, traders use the descending triangle pattern to anticipate potential breakouts, and the moving average indicators trigger the signal to initiate a trade."
+         ],
+         [
+            "This pattern emerges when volume declines and new stock price highs are limited. The pattern indicates that the bullish phase is ending. The trading period begins when the descending triangle reversal pattern is revealed ahead of the breakout."
+         ],
+         [
+            "The descending triangle reversal pattern at the bottom end of a downtrend is where the price action stalls and a horizontal support level mark a bottom. If the price action breaks to the upside from the descending triangle reversal pattern at the bottom, a trader can choose long positions."
+         ],
+         [
+            "Both the ascending and descending triangle are continuation patterns. The descending triangle has a horizontal lower trend line and a descending upper trend line. The ascending triangle has a horizontal trend line on the highs and a rising trend line on the lows.",
+            "Triangles reveal an opportunity to short and suggest a profit target, so both triangles are just different takes on a potential breakdown. Ascending triangles can also form at the reversal of a downtrend but are more commonly viewed as a bullish continuation pattern."
+         ],
+         [
+            "Since no chart pattern is perfect and analysis is often subjective, using descending triangles has limitations. A false breakdown may occur, or trend lines may need to be redrawn if the price action breaks out in the opposite direction. If a breakdown doesn't occur, the stock could rebound to re-test the upper trend line resistance before making another move lower to re-test lower trend line supportlevels. The more often that the price touches the support and resistance levels, the more reliable the chart pattern."
+         ],
+         [
+            "The descending triangle is a chart pattern used in technical analysis. The pattern usually forms at the end of a downtrend but can also occur as a consolidation in an uptrend. A regular descending triangle pattern is commonly considered a bearish chart pattern with an established downtrend. A descending triangle pattern, however, may be bullish, with a breakout in the opposite direction, known as a reversal pattern."
+         ]
+      ]
+   },
+   {
+      "pattern_name":"Wedge",
+      "sub_titles":[
+         "  What Is a Wedge?  ",
+         "  Understanding the Wedge Pattern  ",
+         "  Rising Wedge  ",
+         "  Falling Wedge  ",
+         "  Trading Advantages for Wedge Patterns  "
+      ],
+      "content":[
+         [
+            "A wedge is a price pattern marked by converging trend lines on a price chart. The two trend lines are drawn to connect the respective highs and lows of a price series over the course of 10 to 50 periods. The lines show that the highs and the lows are either rising or falling at differing rates, giving the appearance of a wedge as the lines approach a convergence. Wedge shaped trend lines are considered useful indicators of a potential reversal in price action by technical analysts."
+         ],
+         [
+            "A wedge pattern can signal either bullish or bearish price reversals. In either case, this pattern holds three common characteristics: first, the converging trend lines; second, a pattern of declining volume as the price progresses through the pattern; third, a breakout from one of the trend lines. The two forms of the wedge pattern are a rising wedge (which signals a bearish reversal) or a falling wedge (which signals a bullish reversal)."
+         ],
+         [
+            "This usually occurs when a security\u2019s price has been rising over time, but it can also occur in the midst of a downward trend as well.",
+            "The trend lines drawn above and below the price chart pattern can converge to help a trader or analyst anticipate a breakout reversal. While price can be out of either trend line, wedge patterns have a tendency to break in the opposite direction from the trend lines.",
+            "Therefore, rising wedge patterns indicate the more likely potential of falling prices after a breakout of the lower trend line. Traders can make bearish trades after the breakout by selling the security short or using derivatives such as futures or options, depending on the security being charted. These trades would seek to profit on the potential that prices will fall."
+         ],
+         [
+            "When a security's price has been falling over time, a wedge pattern can occur just as the trend makes its final downward move. The trend lines drawn above the highs and below the lows on the price chart pattern can converge as the price slide loses momentum and buyers step in to slow the rate of decline. Before the lines converge, the price may breakout above the upper trend line.",
+            "When the price breaks the upper trend line, the security is expected to reverse and trend higher. Traders identifying bullish reversal signals would want to look for trades that benefit from the security\u2019s rise in price."
+         ],
+         [
+            "Because wedge patterns converge to a smaller price channel, the distance between the price on entry of the trade and the price for a stop loss, is relatively smaller than the start of the pattern. This means that a stop loss can be placed close by at the time the trade begins, and if the trade is successful, the outcome can yield a greater return than the amount risked on the trade to begin with."
+         ]
+      ]
+   }
 ]
