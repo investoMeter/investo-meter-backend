@@ -3,13 +3,12 @@ import { AppModule } from './app.Module';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { ValidationPipe } from '@nestjs/common';
 import { ClientOptions, Transport } from '@nestjs/microservices';
-import { join } from 'path';
 
 const grpcClientOptions: ClientOptions = {
   transport: Transport.GRPC,
   options: {
     package: 'contestStatus',
-    protoPath: join(__dirname, '../protos/contestStatus.proto'),
+    protoPath: 'src/protos/contestStatus.proto',
   },
 };
 
