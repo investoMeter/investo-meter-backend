@@ -22,6 +22,16 @@ async function seedData() {
           data: {
             name: data.name,
             symbol: data.symbol,
+            initialPrice: {
+              create: {
+                open: data.initialPrice.open,
+                close: data.initialPrice.close,
+                highest: data.initialPrice.highest,
+                lowest: data.initialPrice.lowest,
+                volume: data.initialPrice.volume,
+                timeStamp: new Date(),
+              },
+            },
           },
         });
       }
@@ -38,7 +48,7 @@ async function seedData() {
       );
       const jsonData2 = await fs.readFile(jsonPath2, 'utf-8');
       const questions = JSON.parse(jsonData2);
-      
+
       // create level
       for (let i = 0; i < tutorials.length; i++) {
         const tutorial = tutorials[i];
@@ -324,7 +334,80 @@ async function seedData() {
           },
         });
       }
+      jsonPath = path.join(__dirname, '../upcoming_contests.json');
+      jsonData = await fs.readFile(jsonPath, 'utf-8');
+      const upcomingContests = JSON.parse(jsonData);
+      i = 1;
+      for (const upcomingContest of upcomingContests) {
+        const currentContest = await prisma.contest.create({
+          data: {
+            name: upcomingContest.name,
+            maxRoomCapacity: upcomingContest.room_capacity,
+            startingMoney: upcomingContest.starting_money,
+            startDate: new Date(new Date().setDate(new Date().getDate() + i)),
+            endDate: new Date(new Date().setDate(new Date().getDate() + i + 1)),
+            creator: { connect: { id: contestCreator?.id } },
+            startingShares: upcomingContest.starting_shares,
+          },
+          select: { id: true, startDate: true },
+        });
+        const createdStocks = [];
+        for (const stockId of upcomingContest.stocks) {
+          const stock = await prisma.contestContestStock.create({
+            data: {
+              contest: { connect: { id: currentContest.id } },
+              contestStock: { connect: { id: stockId } },
+            },
+            select: {
+              contestStock: { select: { id: true, initialPriceId: true } },
+            },
+          });
+          createdStocks.push(stock);
+        }
+        const createdRooms = [];
+        for (const roomNumber of upcomingContest.rooms) {
+          const room = await prisma.room.create({
+            data: {
+              roomNumber: roomNumber,
+              contest: { connect: { id: currentContest.id } },
+            },
+            select: { roomNumber: true },
+          });
+          createdRooms.push(room);
+        }
+
+        for (const room of createdRooms) {
+          for (const stock of createdStocks) {
+            await prisma.stockHistory.create({
+              data: {
+                ContestStockPrice: {
+                  connect: { id: stock.contestStock.initialPriceId },
+                },
+                Room: {
+                  connect: {
+                    contestId_roomNumber: {
+                      contestId: currentContest.id,
+                      roomNumber: room.roomNumber,
+                    },
+                  },
+                },
+                currentShares: 1000,
+                stock: {
+                  connect: {
+                    contestId_contestStockId: {
+                      contestId: currentContest.id,
+                      contestStockId: stock.contestStock.id,
+                    },
+                  },
+                },
+              },
+            });
+          }
+        }
+        i++;
+      }
     }
+
     console.log('contest seeding is done');
   } catch (error) {
     console.error('Error seeding data:', error);

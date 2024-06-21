@@ -1,82 +1,222 @@
 [
-   {
-      "symbol": "AAPL",
-      "name": "Apple Inc."
-   },
-   {
-      "symbol": "GOOGL",
-      "name": "Alphabet Inc."
-   },
-   {
-      "symbol": "MSFT",
-      "name": "Microsoft Corporation"
-   },
-   {
-      "symbol": "TSLA",
-      "name": "Tesla, Inc."
-   },
-   {
-      "symbol": "PG",
-      "name": "The Procter & Gamble Company"
-   },
-   {
-      "symbol": "AMZN",
-      "name": "Amazon.com, Inc."
-   },
-   {
-      "symbol": "JNJ",
-      "name": "Johnson & Johnson"
-   },
-   {
-      "symbol": "V",
-      "name": "Visa Inc."
-   },
-   {
-      "symbol": "META",
-      "name": "Meta Platforms, Inc."
-   },
-   {
-      "symbol": "UBER",
-      "name": "Uber Technologies, Inc."
-   },
-   {
-      "symbol": "NVDA",
-      "name": "NVIDIA Corporation"
-   },
-   {
-      "symbol": "NFLX",
-      "name": "Netflix, Inc."
-   },
-   {
-      "symbol": "XOM",
-      "name": "Exxon Mobil Corporation"
-   },
-   {
-      "symbol": "MA",
-      "name": "Mastercard Incorporated"
-   },
-   {
-      "symbol": "ADBE",
-      "name": "Adobe Inc."
-   },
-   {
-      "symbol": "CVX",
-      "name": "Chevron Corporation"
-   },
-   {
-      "symbol": "RIVN",
-      "name": "Rivian Automotive, Inc."
-   },
-   {
-      "symbol": "COST",
-      "name": "Costco Wholesale Corporation"
-   },
-   {
-      "symbol": "PEP",
-      "name": "PepsiCo, Inc."
-   },
-   {
-      "symbol": "HDB",
-      "name": "HDFC Bank Limited"
-   }
+  {
+    "symbol": "AAPL",
+    "name": "Apple Inc.",
+    "initialPrice": {
+      "open": 150.0,
+      "close": 155.0,
+      "highest": 160.0,
+      "lowest": 148.0,
+      "volume": 100000
+    }
+  },
+  {
+    "symbol": "GOOGL",
+    "name": "Alphabet Inc.",
+    "initialPrice": {
+      "open": 150.0,
+      "close": 155.0,
+      "highest": 160.0,
+      "lowest": 148.0,
+      "volume": 100000
+    }
+  },
+  {
+    "symbol": "MSFT",
+    "name": "Microsoft Corporation",
+    "initialPrice": {
+      "open": 150.0,
+      "close": 155.0,
+      "highest": 160.0,
+      "lowest": 148.0,
+      "volume": 100000
+    }
+  },
+  {
+    "symbol": "TSLA",
+    "name": "Tesla, Inc.",
+    "initialPrice": {
+      "open": 150.0,
+      "close": 155.0,
+      "highest": 160.0,
+      "lowest": 148.0,
+      "volume": 100000
+    }
+  },
+  {
+    "symbol": "PG",
+    "name": "The Procter & Gamble Company",
+    "initialPrice": {
+      "open": 150.0,
+      "close": 155.0,
+      "highest": 160.0,
+      "lowest": 148.0,
+      "volume": 100000
+    }
+  },
+  {
+    "symbol": "AMZN",
+    "name": "Amazon.com, Inc.",
+    "initialPrice": {
+      "open": 150.0,
+      "close": 155.0,
+      "highest": 160.0,
+      "lowest": 148.0,
+      "volume": 100000
+    }
+  },
+  {
+    "symbol": "JNJ",
+    "name": "Johnson & Johnson",
+    "initialPrice": {
+      "open": 150.0,
+      "close": 155.0,
+      "highest": 160.0,
+      "lowest": 148.0,
+      "volume": 100000
+    }
+  },
+  {
+    "symbol": "V",
+    "name": "Visa Inc.",
+    "initialPrice": {
+      "open": 150.0,
+      "close": 155.0,
+      "highest": 160.0,
+      "lowest": 148.0,
+      "volume": 100000
+    }
+  },
+  {
+    "symbol": "META",
+    "name": "Meta Platforms, Inc.",
+    "initialPrice": {
+      "open": 150.0,
+      "close": 155.0,
+      "highest": 160.0,
+      "lowest": 148.0,
+      "volume": 100000
+    }
+  },
+  {
+    "symbol": "UBER",
+    "name": "Uber Technologies, Inc.",
+    "initialPrice": {
+      "open": 150.0,
+      "close": 155.0,
+      "highest": 160.0,
+      "lowest": 148.0,
+      "volume": 100000
+    }
+  },
+  {
+    "symbol": "NVDA",
+    "name": "NVIDIA Corporation",
+    "initialPrice": {
+      "open": 150.0,
+      "close": 155.0,
+      "highest": 160.0,
+      "lowest": 148.0,
+      "volume": 100000
+    }
+  },
+  {
+    "symbol": "NFLX",
+    "name": "Netflix, Inc.",
+    "initialPrice": {
+      "open": 150.0,
+      "close": 155.0,
+      "highest": 160.0,
+      "lowest": 148.0,
+      "volume": 100000
+    }
+  },
+  {
+    "symbol": "XOM",
+    "name": "Exxon Mobil Corporation",
+    "initialPrice": {
+      "open": 150.0,
+      "close": 155.0,
+      "highest": 160.0,
+      "lowest": 148.0,
+      "volume": 100000
+    }
+  },
+  {
+    "symbol": "MA",
+    "name": "Mastercard Incorporated",
+    "initialPrice": {
+      "open": 150.0,
+      "close": 155.0,
+      "highest": 160.0,
+      "lowest": 148.0,
+      "volume": 100000
+    }
+  },
+  {
+    "symbol": "ADBE",
+    "name": "Adobe Inc.",
+    "initialPrice": {
+      "open": 150.0,
+      "close": 155.0,
+      "highest": 160.0,
+      "lowest": 148.0,
+      "volume": 100000
+    }
+  },
+  {
+    "symbol": "CVX",
+    "name": "Chevron Corporation",
+    "initialPrice": {
+      "open": 150.0,
+      "close": 155.0,
+      "highest": 160.0,
+      "lowest": 148.0,
+      "volume": 100000
+    }
+  },
+  {
+    "symbol": "RIVN",
+    "name": "Rivian Automotive, Inc.",
+    "initialPrice": {
+      "open": 150.0,
+      "close": 155.0,
+      "highest": 160.0,
+      "lowest": 148.0,
+      "volume": 100000
+    }
+  },
+  {
+    "symbol": "COST",
+    "name": "Costco Wholesale Corporation",
+    "initialPrice": {
+      "open": 150.0,
+      "close": 155.0,
+      "highest": 160.0,
+      "lowest": 148.0,
+      "volume": 100000
+    }
+  },
+  {
+    "symbol": "PEP",
+    "name": "PepsiCo, Inc.",
+    "initialPrice": {
+      "open": 150.0,
+      "close": 155.0,
+      "highest": 160.0,
+      "lowest": 148.0,
+      "volume": 100000
+    }
+  },
+  {
+    "symbol": "HDB",
+    "name": "HDFC Bank Limited",
+    "initialPrice": {
+      "open": 150.0,
+      "close": 155.0,
+      "highest": 160.0,
+      "lowest": 148.0,
+      "volume": 100000
+    }
+  }
 ]
