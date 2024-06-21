@@ -619,37 +619,7 @@ export class ContestService {
 
 
   async getEditableContestData(admin: Admin, contestId: string): Promise<ContestEditableData> {
-    const contest = await this.prisma.contest.findUnique({
-      where: { id: parseInt(contestId) },
-      select: {
-        id: true,
-        name: true,
-        maxRoomCapacity: true,
-        startingMoney: true,
-        startingShares: true,
-        startDate: true,
-        endDate: true,
-        contestStocks: {
-          select: {
-            contestStock: {
-              select: {
-                id: true,
-                name: true,
-                symbol: true,
-              }
-            },
-          }
-        }
-      },
-    });
-
-    if (!contest) {
-      throw new BadRequestException('Contest not found');
-    }
-
-
-
-    return this.mapContestToEditableData(contest.id);
+    return this.mapContestToEditableData(parseInt(contestId));
   }
 
   async mapContestToEditableData(contestId: number): Promise<ContestEditableData> {
