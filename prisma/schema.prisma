@@ -227,8 +227,9 @@ model ContestStockPrice {
   timeStamp DateTime @default(now())
 
   // relations
-  StockHistory   StockHistory @relation(fields: [stockHistoryId], references: [id])
-  stockHistoryId Int
+  stockHistoryId Int?
+  StockHistory   StockHistory? @relation(fields: [stockHistoryId], references: [id])
+  ContestStock   ContestStock?
 
   @@map("contest_stock_price")
 }
@@ -238,12 +239,13 @@ model ContestStockPrice {
 //
 
 model ContestStock {
-  id     Int    @id @default(autoincrement())
-  name   String
-  symbol String @unique
-
+  id             Int                   @id @default(autoincrement())
+  name           String
+  symbol         String                @unique
+  initialPriceId Int                   @unique
   // relations
-  contests ContestContestStock[]
+  contests       ContestContestStock[]
+  initialPrice   ContestStockPrice     @relation(fields: [initialPriceId], references: [id])
 
   @@index([symbol], name: "symbol")
   @@map("contest_stock")

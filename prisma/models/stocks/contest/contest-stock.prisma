@@ -1,13 +1,14 @@
 import { Contest } from "./contest"
 import { ContestContestStock } from "contest-contest-stock"
-
+import { ContestStockPrice } from "./contest-stock-price"
 model ContestStock {
   id     Int    @id @default(autoincrement())
   name   String
   symbol String @unique
-
+  initialPriceId Int @unique
   // relations
   contests   ContestContestStock[]
+  initialPrice ContestStockPrice @relation(fields: [initialPriceId], references: [id])
 
   @@index([symbol], name: "symbol")
   @@map("contest_stock")

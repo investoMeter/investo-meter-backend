@@ -207,7 +207,10 @@ export class ContestService {
     });
   }
 
-  async createContest(admin: Admin, createContestDto: CreateContestDto) {
+  async createContest(
+    admin: Admin,
+    createContestDto: CreateContestDto,
+  ): Promise<ContestResponseDto> {
     const {
       name,
       maxRoomCapacity,
@@ -237,40 +240,72 @@ export class ContestService {
 
     const newContest = await this.prisma.contest.create({
       data: contestData,
-      include: {
-        rooms: {
-          include: {
-            stocksHistories: {
-              select: {
-                stockId: true,
-                currentShares: true,
-                ContestStockPrice: true,
-              },
-            },
-          },
+    });
+    const contestStocks = await this.prisma.contestStock.findMany({
+      where: {
+        id: {
+          in: stocksIds,
         },
       },
+      select: {
+        initialPrice: true,
+        id: true,
+      },
     });
-
     await this.prisma.contestContestStock.createMany({
-      data: stocksIds.map((id) => ({
+      data: contestStocks.map((stock) => ({
         contestId: newContest.id,
-        contestStockId: id,
+        contestStockId: stock.id,
       })),
     });
 
-    await this.prisma.room.createMany({
-      data: Array.from({ length: numberOfRooms }, (_, i) => ({
-        roomNumber: i + 1,
-        stocksHistories: {
-          create: stocksIds.map((id) => ({
-            stockId: id,
-            contestId: newContest.id,
-            currentShares: stocksShares,
-          })),
+    // await this.prisma.room.createMany({
+    //   data: Array.from({ length: numberOfRooms }, (_, i) => ({
+    //     roomNumber: i + 1,
+    //     stocksHistories: {
+    //       create: stocksIds.map((id) => ({
+    //         stockId: id,
+    //         contestId: newContest.id,
+    //         currentShares: stocksShares,
+    //       })),
+    //     },
+    //     contestId: newContest.id,
+    //   })),
+    // });
+
+    const rooms = [];
+    for (let i = 1; i <= numberOfRooms; i++) {
+      let room = await this.prisma.room.create({
+        data: {
+          roomNumber: i,
+          contestId: newContest.id,
         },
-        contestId: newContest.id,
-      })),
+      });
+      rooms.push(room);
+    }
+
+    rooms.forEach(async (room) => {
+      for (const stock of contestStocks) {
+        await this.prisma.stockHistory.create({
+          data: {
+            contestId: newContest.id,
+            roomNumber: room.roomNumber,
+            stockId: stock.id,
+            ContestStockPrice: {
+              create: {
+                open: stock.initialPrice.open,
+                close: stock.initialPrice.close,
+                highest: stock.initialPrice.highest,
+                lowest: stock.initialPrice.lowest,
+                volume: stock.initialPrice.volume,
+                timeStamp: startDateObject,
+                ContestStock: { connect: { id: stock.id } },
+              },
+            },
+            currentShares: stocksShares,
+          },
+        });
+      }
     });
 
     const contestResponseDto: ContestResponseDto = {
@@ -281,7 +316,10 @@ export class ContestService {
       startDate: newContest.startDate,
       endDate: newContest.endDate,
       startingShares: newContest.startingShares,
-      rooms: newContest.rooms,
+      rooms: rooms.map((room) => ({
+        roomNumber: room.roomNumber,
+        currentCapacity: 0,
+      })),
     };
 
     return contestResponseDto;

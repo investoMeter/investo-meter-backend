@@ -22,6 +22,16 @@ async function seedData() {
           data: {
             name: data.name,
             symbol: data.symbol,
+            initialPrice: {
+              create: {
+                open: data.initialPrice.open,
+                close: data.initialPrice.close,
+                highest: data.initialPrice.highest,
+                lowest: data.initialPrice.lowest,
+                volume: data.initialPrice.volume,
+                timeStamp: new Date(),
+              },
+            },
           },
         });
       }
@@ -38,7 +48,7 @@ async function seedData() {
       );
       const jsonData2 = await fs.readFile(jsonPath2, 'utf-8');
       const questions = JSON.parse(jsonData2);
-      
+
       // create level
       for (let i = 0; i < tutorials.length; i++) {
         const tutorial = tutorials[i];
@@ -341,45 +351,37 @@ async function seedData() {
           },
           select: { id: true, startDate: true },
         });
-        const createdStocks = []
+        const createdStocks = [];
         for (const stockId of upcomingContest.stocks) {
           const stock = await prisma.contestContestStock.create({
             data: {
               contest: { connect: { id: currentContest.id } },
               contestStock: { connect: { id: stockId } },
             },
-            select: { contestStockId: true }
+            select: {
+              contestStock: { select: { id: true, initialPriceId: true } },
+            },
           });
-          createdStocks.push(stock)
+          createdStocks.push(stock);
         }
-        const createdRooms = []
+        const createdRooms = [];
         for (const roomNumber of upcomingContest.rooms) {
           const room = await prisma.room.create({
             data: {
               roomNumber: roomNumber,
               contest: { connect: { id: currentContest.id } },
             },
-            select: { roomNumber: true }
+            select: { roomNumber: true },
           });
-          createdRooms.push(room)
+          createdRooms.push(room);
         }
 
-        jsonPath = path.join(__dirname, '../initial_contests_stock_data_price.json');
-        jsonData = await fs.readFile(jsonPath, 'utf-8');
-        const initialPrices = JSON.parse(jsonData)[0];
         for (const room of createdRooms) {
           for (const stock of createdStocks) {
             await prisma.stockHistory.create({
               data: {
                 ContestStockPrice: {
-                  create: {
-                    open: initialPrices.open,
-                    close: initialPrices.close,
-                    highest: initialPrices.highest,
-                    lowest: initialPrices.lowest,
-                    volume: initialPrices.volume,
-                    timeStamp: currentContest.startDate,
-                  }
+                  connect: { id: stock.contestStock.initialPriceId },
                 },
                 Room: {
                   connect: {
@@ -394,16 +396,15 @@ async function seedData() {
                   connect: {
                     contestId_contestStockId: {
                       contestId: currentContest.id,
-                      contestStockId: stock.contestStockId,
-                    }
-                  }
-                }
+                      contestStockId: stock.contestStock.id,
+                    },
+                  },
+                },
               },
             });
-
           }
         }
-      i++;
+        i++;
       }
     }
 
