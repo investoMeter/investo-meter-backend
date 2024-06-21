@@ -14,7 +14,7 @@ import { ContestResponseDto } from './dto/contestResponse.dto';
 
 type LeaderboardEntry = {
   id: number;
-  currentMoneyAmount: number;
+  currentBalance: number;
   username: string;
   userid: string;
 };
@@ -345,12 +345,12 @@ export class ContestService {
   ): Promise<LeaderboardEntry[]> {
 
     return await this.prisma.$queryRaw`
-    SELECT cm.id, cm."currentMoneyAmount", u.username, u.id as userId
+    SELECT cm.id, cm."currentBalance", u.username, u.id as userId
     FROM "ContestMembership" cm
     JOIN "users" u ON cm."playerId" = u."id"
     WHERE cm."contestId" = ${contestId}
       AND cm."roomNumber" = ${roomNumber}
-    ORDER BY cm."currentMoneyAmount" DESC, u.username ASC
+    ORDER BY cm."currentBalance" DESC, u.username ASC
   `;
 
   }
@@ -398,12 +398,12 @@ export class ContestService {
     for (const player of topThree) {
       if (
         previousScore != null &&
-        player.currentMoneyAmount !== previousScore
+        player.currentBalance !== previousScore
       ) {
         currentRank++;
       }
       winners.push({ ...player, rank: currentRank });
-      previousScore = player.currentMoneyAmount;
+      previousScore = player.currentBalance;
     }
 
     const updateOperations = winners.map((winner) => {

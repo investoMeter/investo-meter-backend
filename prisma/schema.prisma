@@ -213,7 +213,7 @@ model ContestMembership {
 
   @@unique([contestId, playerId])
   @@index([contestId])
-  @@index([contestId, roomNumber, currentMoneyAmount])
+  @@index([contestId, roomNumber, currentBalance])
 }
 
 //
