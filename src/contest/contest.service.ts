@@ -315,7 +315,6 @@ export class ContestService {
                 lowest: stock.initialPrice.lowest,
                 volume: stock.initialPrice.volume,
                 timeStamp: startDateObject,
-                ContestStock: { connect: { id: stock.id } },
               },
             },
             currentShares: stocksShares,
