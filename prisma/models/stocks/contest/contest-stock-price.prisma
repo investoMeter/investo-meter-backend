@@ -10,7 +10,8 @@ model ContestStockPrice {
   timeStamp DateTime @default(now())
 
   // relations
-  StockHistory   StockHistory @relation(fields: [stockHistoryId], references: [id])
-  stockHistoryId Int
+  stockHistoryId Int?
+  StockHistory   StockHistory? @relation(fields: [stockHistoryId], references: [id])
+  ContestStock   ContestStock?
   @@map("contest_stock_price")
 }

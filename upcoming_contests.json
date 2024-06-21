@@ -1,0 +1,92 @@
+[
+    {
+        "name": "Trader's Challenge",
+        "room_capacity": 200,
+        "starting_money": 1500,
+        "starting_shares": 6000,
+        "rooms": [
+            1,
+            2,
+            3
+        ],
+        "stocks": [
+            17,
+            12,
+            5,
+            13,
+            1
+        ]
+    },
+    {
+        "name": "Stock Market Showdown",
+        "room_capacity": 150,
+        "starting_money": 2000,
+        "starting_shares": 3000,
+        "rooms": [
+            1,
+            2,
+            3
+        ],
+        "stocks": [
+            15,
+            20,
+            8,
+            18,
+            1
+        ]
+    },
+    {
+        "name": "Capital Clash",
+        "room_capacity": 300,
+        "starting_money": 2500,
+        "starting_shares": 2000,
+        "rooms": [
+            1,
+            2,
+            3
+        ],
+        "stocks": [
+            15,
+            12,
+            6,
+            11,
+            7
+        ]
+    },
+    {
+        "name": "Trading Masters Tournament",
+        "room_capacity": 90,
+        "starting_money": 2500,
+        "starting_shares": 2000,
+        "rooms": [
+            1,
+            2,
+            3
+        ],
+        "stocks": [
+            7,
+            17,
+            11,
+            13,
+            3
+        ]
+    },
+    {
+        "name": "Market Madness Competition",
+        "room_capacity": 90,
+        "starting_money": 900,
+        "starting_shares": 6000,
+        "rooms": [
+            1,
+            2,
+            3
+        ],
+        "stocks": [
+            17,
+            8,
+            3,
+            14,
+            15
+        ]
+    }
+]
