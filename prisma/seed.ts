@@ -29,7 +29,6 @@ async function seedData() {
                 highest: data.initialPrice.highest,
                 lowest: data.initialPrice.lowest,
                 volume: data.initialPrice.volume,
-                timeStamp: new Date(),
               },
             },
           },
@@ -216,7 +215,7 @@ async function seedData() {
     console.log('technical reports seeding is done');
 
     ///
-       
+
     if ((await prisma.feedback.count()) == 0) {
       const jsonPath = path.join(__dirname, '../feedbacks_data.json');
       const jsonData = await fs.readFile(jsonPath, 'utf-8');
@@ -237,7 +236,6 @@ async function seedData() {
             about: feedback.about,
             rating: feedback.rating,
             createdAt: dateObject,
-           
           },
         });
         console.log('feedback' + i + ' seeded.');
@@ -393,7 +391,7 @@ async function seedData() {
               contestStock: { connect: { id: stockId } },
             },
             select: {
-              contestStock: { select: { id: true, initialPriceId: true } },
+              contestStock: { select: { id: true, initialPrice: true } },
             },
           });
           createdStocks.push(stock);
@@ -415,7 +413,14 @@ async function seedData() {
             await prisma.stockHistory.create({
               data: {
                 ContestStockPrice: {
-                  connect: { id: stock.contestStock.initialPriceId },
+                  create: {
+                    open: stock.contestStock.initialPrice.open,
+                    close: stock.contestStock.initialPrice.close,
+                    highest: stock.contestStock.initialPrice.highest,
+                    lowest: stock.contestStock.initialPrice.lowest,
+                    volume: stock.contestStock.initialPrice.volume,
+                    timeStamp: currentContest.startDate,
+                  },
                 },
                 Room: {
                   connect: {
