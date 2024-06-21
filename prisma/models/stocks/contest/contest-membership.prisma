@@ -3,6 +3,7 @@ import { Contest }from "./contest"
 import { Trade } from "./trade"
 import { Room }from "./room"
 import {OwnedStock} from "./owned-stock"
+
 model ContestMembership {
     id Int @id @default(autoincrement())
 
@@ -26,4 +27,6 @@ model ContestMembership {
     ownedStocks    OwnedStock[]
 
     @@unique([contestId, playerId])
+    @@index([contestId])
+    @@index([contestId, roomNumber, currentBalance])
 }

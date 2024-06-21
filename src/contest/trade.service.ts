@@ -5,6 +5,7 @@ import {
   BadRequestException,
   Injectable,
   NotFoundException,
+  UnauthorizedException,
 } from '@nestjs/common';
 import { CancelRequestDto } from './dto/trades dto/cancel-request.dto';
 import { MatchingService } from './matching.service';
@@ -17,7 +18,7 @@ export class TradeService {
     private prisma: PrismaService,
     private matchingService: MatchingService,
     private tradingUtilityService: TradingUtilityService,
-  ) {}
+  ) { }
 
   async createBuyRequest(player: Player, requestDto: TradeRequestDto) {
     const { quantity, price } = requestDto;
@@ -323,7 +324,7 @@ export class TradeService {
       stockId,
     } = BuyRequestData;
 
-    if (!this.tradingUtilityService.validateContestRunning(contestId)) {
+    if (!(await this.tradingUtilityService.validateContestRunning(contestId))) {
       throw new NotFoundException('Contest ended');
     }
 
@@ -369,7 +370,7 @@ export class TradeService {
       stockId,
     } = sellRequestData;
 
-    if (!this.tradingUtilityService.validateContestRunning(contestId)) {
+    if (!(await this.tradingUtilityService.validateContestRunning(contestId))) {
       throw new NotFoundException('Contest ended');
     }
 
@@ -477,5 +478,137 @@ export class TradeService {
       where: { id: requestId },
       data: { status: RequestStatus.CANCELLED },
     });
+  }
+
+  async getOpenTrades(
+    player: { userId: string; coins: number },
+    contestId: number,
+    roomNumber: number,
+  ) {
+    const membership = await this.prisma.contestMembership.findFirst({
+      where: {
+        playerId: player.userId,
+        contestId,
+        roomNumber,
+      },
+    });
+
+    if (!membership) {
+      throw new UnauthorizedException('Player is not a member in this room');
+    }
+
+    let buyRequests: any = await this.prisma.buyRequest.findMany({
+      where: {
+        contestId,
+        roomNumber,
+        playerId: player.userId,
+        status: RequestStatus.PENDING,
+      },
+      include: {
+        stock: {
+          include: {
+            contestStock: true,
+          },
+        },
+      },
+    });
+
+    buyRequests = buyRequests.map((buyRequest: any) => ({
+      quantity: buyRequest.quantity,
+      price: buyRequest.price,
+      stockSymbol: buyRequest.stock.contestStock.symbol,
+      type: 'BUY',
+    }));
+
+    let sellRequests: any = await this.prisma.sellRequest.findMany({
+      where: {
+        contestId,
+        roomNumber,
+        playerId: player.userId,
+        status: RequestStatus.PENDING,
+      },
+      include: {
+        stock: {
+          include: {
+            contestStock: true,
+          },
+        },
+      },
+    });
+
+    sellRequests = sellRequests.map((sellRequest: any) => ({
+      quantity: sellRequest.quantity,
+      price: sellRequest.price,
+      stockSymbol: sellRequest.stock.contestStock.symbol,
+      type: 'SELL',
+    }));
+
+    return [...buyRequests, ...sellRequests];
+  }
+
+  async getClosedTrades(
+    player: { userId: string; coins: number },
+    contestId: number,
+    roomNumber: number,
+  ) {
+    const membership = await this.prisma.contestMembership.findFirst({
+      where: {
+        playerId: player.userId,
+        contestId,
+        roomNumber,
+      },
+    });
+
+    if (!membership) {
+      throw new UnauthorizedException('Player is not a member in this room');
+    }
+
+    let buyTrades = await this.prisma.trade.findMany({
+      where: {
+        contestId,
+        roomNumber,
+        buyerMembershipId: membership.id,
+      },
+      include: {
+        stock: {
+          include: {
+            contestStock: true,
+          },
+        },
+      },
+    });
+
+    const transformedBuyTrades = buyTrades.map((trade: any) => ({
+      quantity: trade.quantity,
+      price: trade.price,
+      stockId: trade.stockId,
+      stockSymbol: trade.stock.contestStock.symbol,
+      type: 'BUY',
+    }));
+
+    let sellTrades = await this.prisma.trade.findMany({
+      where: {
+        contestId,
+        roomNumber,
+        sellerMembershipId: membership.id,
+      },
+      include: {
+        stock: {
+          include: {
+            contestStock: true,
+          },
+        },
+      },
+    });
+
+    const transformedSellTrades = sellTrades.map((trade: any) => ({
+      quantity: trade.quantity,
+      price: trade.price,
+      stockId: trade.stockId,
+      stockSymbol: trade.stock.contestStock.symbol,
+      type: 'SELL',
+    }));
+
+    return [...transformedBuyTrades, ...transformedSellTrades];
   }
 }
