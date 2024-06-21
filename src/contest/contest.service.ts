@@ -109,8 +109,9 @@ export class ContestService {
         (1000 * 60 * 60),
       creator: contestDetails.creator.name,
       availableRooms: contestDetails.rooms.filter((room) => {
-        room._count.memberships < contestDetails.maxRoomCapacity;
+       return room._count.memberships <= contestDetails.maxRoomCapacity;
       }),
+      
       totalJoinedPlayers: contestDetails.rooms
         .map((room) => room._count.memberships)
         .reduce((accumulator, currentValue) => accumulator + currentValue, 0),
@@ -213,7 +214,7 @@ export class ContestService {
             },
           },
         },
-        currentMoneyAmount: contest.startingMoney,
+        currentBalance: contest.startingMoney,
       },
     });
   }
@@ -313,6 +314,7 @@ export class ContestService {
           endDate: {
             gte: new Date(now.getTime() + 60000),
           },
+          started: true,
         },
       },
       select: {

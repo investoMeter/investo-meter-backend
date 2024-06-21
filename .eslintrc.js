@@ -25,7 +25,10 @@ module.exports = {
   "prettier/prettier": [
     "error",
     {
+      "singleQuote": true,
+      "trailingComma": "all",
       "endOfLine": "auto"
     }
+
   ]
 };

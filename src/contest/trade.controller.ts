@@ -4,6 +4,8 @@ import {
   HttpCode,
   HttpStatus,
   Post,
+  Get,
+  Query,
   Req,
   UseGuards,
 } from '@nestjs/common';
@@ -65,5 +67,31 @@ export class TradeController {
   ) {
     const player = await this.authService.playerResolver((req as any).user.sub);
     return this.tradeService.cancelBuyRequest(player, requestDto);
+  }
+
+  @Get('open-trades')
+  @HttpCode(HttpStatus.OK)
+  @UseGuards(AtGuard)
+  @ApiBearerAuth()
+  async getOpenTrades(
+    @Req() req: any,
+    @Query('contestId') contestId: string,
+    @Query('roomId') roomId: string,
+  ) {
+    const player = await this.authService.playerResolver((req as any).user.sub);
+    return this.tradeService.getOpenTrades(player, parseInt(contestId), parseInt(roomId));
+  }
+
+  @Get('closed-trades')
+  @HttpCode(HttpStatus.OK)
+  @UseGuards(AtGuard)
+  @ApiBearerAuth()
+  async getClosedTrades(
+    @Req() req: any,
+    @Query('contestId') contestId: string,
+    @Query('roomId') roomId: string,
+  ) {
+    const player = await this.authService.playerResolver((req as any).user.sub);
+    return this.tradeService.getClosedTrades(player, parseInt(contestId), parseInt(roomId));
   }
 }

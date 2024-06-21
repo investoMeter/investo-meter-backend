@@ -15,7 +15,7 @@ import { HintFacade } from './hint.facade';
         options: {
           package: '',
           protoPath: 'src/protos/hint.proto',
-          url: 'hints:3006',
+          url: 'localhost:50051',
         },
       },
     ]),
