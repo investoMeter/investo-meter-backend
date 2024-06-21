@@ -20,4 +20,6 @@ model User {
   createdContests Contest[]
 
   @@map("users")
+  @@index([id, username])
+
 }

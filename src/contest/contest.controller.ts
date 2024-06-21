@@ -65,7 +65,6 @@ export class ContestController {
   @HttpCode(HttpStatus.CREATED)
   @UseGuards(AtGuard)
   @ApiBearerAuth()
-  // TODO: Admin role
   async createContest(
     @Req() req: any,
     @Body() createContestDto: CreateContestDto,
@@ -73,4 +72,19 @@ export class ContestController {
     const admin = await this.authService.AdminResolver((req as any).user.sub);
     return await this.contestService.createContest(admin, createContestDto);
   }
+
+  @Get('leaderboard')
+  @HttpCode(HttpStatus.OK)
+  @UseGuards(AtGuard)
+  @ApiBearerAuth()
+  async getLeaderboard(
+    @Req() req: any,
+    @Query('contestId') contestId: string,
+    @Query('roomId') roomId: string,
+  ) {
+    const player = await this.authService.playerResolver((req as any).user.sub);
+    return this.contestService.getLeaderboard(player, parseInt(contestId), parseInt(roomId));
+  }
+
+
 }

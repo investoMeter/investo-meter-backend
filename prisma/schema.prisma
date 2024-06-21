@@ -137,6 +137,7 @@ model User {
   admin           Admin?
   createdContests Contest[]
 
+  @@index([id, username])
   @@map("users")
 }
 
@@ -211,6 +212,8 @@ model ContestMembership {
   ownedStocks OwnedStock[]
 
   @@unique([contestId, playerId])
+  @@index([contestId])
+  @@index([contestId, roomNumber, currentBalance])
 }
 
 //
