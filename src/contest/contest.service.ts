@@ -11,6 +11,9 @@ import { Admin, Player } from '@prisma/client';
 import { JoinContestDto } from './dto';
 import { CreateContestDto } from './dto/createContest.dto';
 import { ContestResponseDto } from './dto/contestResponse.dto';
+import { EditContestDto } from './dto/editContest.dto';
+import { EditContestStocksDto } from './dto/editContestStocks.dto';
+import { TradingUtilityService } from './trade.utility.service';
 
 type LeaderboardEntry = {
   id: number;
@@ -21,7 +24,7 @@ type LeaderboardEntry = {
 
 @Injectable()
 export class ContestService {
-  constructor(private prisma: PrismaService) {}
+  constructor(private prisma: PrismaService, private tradeUtility: TradingUtilityService) { }
 
   async getAllContests(
     page: number = 0,
@@ -109,9 +112,9 @@ export class ContestService {
         (1000 * 60 * 60),
       creator: contestDetails.creator.name,
       availableRooms: contestDetails.rooms.filter((room) => {
-       return room._count.memberships <= contestDetails.maxRoomCapacity;
+        return room._count.memberships <= contestDetails.maxRoomCapacity;
       }),
-      
+
       totalJoinedPlayers: contestDetails.rooms
         .map((room) => room._count.memberships)
         .reduce((accumulator, currentValue) => accumulator + currentValue, 0),
@@ -446,11 +449,196 @@ export class ContestService {
 
     const updateOperations = winners.map((winner) => {
       return this.prisma.player.update({
-        where: { userId: winner.userid }, 
+        where: { userId: winner.userid },
         data: { coins: { increment: rewards[winner.rank - 1] } },
       });
     });
 
     await this.prisma.$transaction(updateOperations);
+  }
+
+  async editContest(admin: Admin, requestDto: EditContestDto): Promise<any> {
+    const contest = await this.prisma.contest.findUnique({
+      where: { id: requestDto.id },
+    });
+    if (!contest) {
+      throw new BadRequestException('Contest not found');
+    }
+    await this.prisma.contest.update({
+      where: { id: requestDto.id },
+      data: {
+        name: requestDto.name,
+        maxRoomCapacity: requestDto.maxRoomCapacity,
+        startingMoney: requestDto.startingMoney,
+        startingShares: requestDto.startingShares,
+        startDate: requestDto.startDate,
+        endDate: requestDto.endDate,
+      },
+    });
+  }
+
+  async addStocks(admin: Admin, requestDto: EditContestStocksDto) {
+    const contest = await this.prisma.contest.findUnique({
+      where: { id: requestDto.id },
+    });
+
+    if (!contest) {
+      throw new BadRequestException('Contest not found');
+    }
+
+    if (await this.tradeUtility.validateContestRunning(contest.id)) {
+      throw new BadRequestException('Contest is already running');
+    }
+
+    const existingStocks = await this.prisma.contestContestStock.findMany({
+      where: { contestId: requestDto.id },
+      select: { contestStockId: true },
+    });
+
+    const existingStockIds = new Set(existingStocks.map(stock => stock.contestStockId));
+    const newStockIds = requestDto.stockIds.filter(stockId => !existingStockIds.has(stockId));
+
+    if (newStockIds.length === 0) {
+      throw new BadRequestException('All provided stock IDs are already associated with the contest');
+    }
+
+    const contestStocks = await this.prisma.contestStock.findMany({
+      where: {
+        id: {
+          in: newStockIds,
+        },
+      },
+      select: {
+        initialPrice: true,
+        id: true,
+      },
+    });
+
+    await this.prisma.contestContestStock.createMany({
+      data: contestStocks.map(stock => ({
+        contestId: requestDto.id,
+        contestStockId: stock.id,
+      })),
+    });
+
+    const rooms = await this.prisma.room.findMany({
+      where: { contestId: requestDto.id },
+      select: { roomNumber: true },
+    });
+
+    for (const room of rooms) {
+      for (const stock of contestStocks) {
+        await this.prisma.stockHistory.create({
+          data: {
+            contestId: contest.id,
+            roomNumber: room.roomNumber,
+            stockId: stock.id,
+            ContestStockPrice: {
+              create: {
+                open: stock.initialPrice.open,
+                close: stock.initialPrice.close,
+                highest: stock.initialPrice.highest,
+                lowest: stock.initialPrice.lowest,
+                volume: stock.initialPrice.volume,
+                timeStamp: contest.startDate,
+              },
+            },
+            currentShares: contest.startingShares,
+          },
+        });
+      }
+    }
+
+    return { message: 'Stocks added successfully', addedStockIds: newStockIds };
+  }
+
+  async removeStocks(admin: Admin, requestDto: EditContestStocksDto) {
+    const contest = await this.prisma.contest.findUnique({
+      where: { id: requestDto.id },
+    });
+    if (!contest) {
+      throw new BadRequestException('Contest not found');
+    }
+    const existingStocks = await this.prisma.contestContestStock.findMany({
+      where: { contestId: requestDto.id },
+      select: { contestStockId: true },
+    });
+
+    const existingStockIds = new Set(existingStocks.map(stock => stock.contestStockId));
+    const stocksToRemove = requestDto.stockIds.filter(stockId => existingStockIds.has(stockId));
+
+    if (stocksToRemove.length === 0) {
+      throw new BadRequestException('None of the provided stock IDs are associated with the contest');
+    }
+
+    const stockHistoryIds = await this.prisma.stockHistory.findMany({
+      where: {
+        contestId: requestDto.id,
+        stockId: {
+          in: stocksToRemove,
+        },
+      },
+      select: {
+        id: true,
+      },
+    });
+    const stockHistoryIdValues = stockHistoryIds.map(stockHistory => stockHistory.id);
+    await this.prisma.$transaction([
+
+      this.prisma.contestStockPrice.deleteMany({
+        where: {
+          stockHistoryId: {
+            in: stockHistoryIdValues,
+          },
+        },
+      }),
+      this.prisma.stockHistory.deleteMany({
+        where: {
+          contestId: requestDto.id,
+          stockId: { in: stocksToRemove },
+        },
+      }),
+      this.prisma.contestContestStock.deleteMany({
+        where: {
+          contestId: requestDto.id,
+          contestStockId: { in: stocksToRemove },
+        },
+      }),
+    ]);
+
+    return { message: 'Stocks removed successfully', removedStockIds: stocksToRemove };
+  }
+
+
+  async getEditableContestData(admin: Admin, contestId: string) {
+    const contest = await this.prisma.contest.findUnique({
+      where: { id: parseInt(contestId) },
+      select: {
+        id: true,
+        name: true,
+        maxRoomCapacity: true,
+        startingMoney: true,
+        startingShares: true,
+        startDate: true,
+        endDate: true,
+        contestStocks: {
+          select: {
+            contestStock: {
+              select: {
+                id: true,
+                name: true,
+                symbol: true,
+              }
+            },
+          }
+        }
+      },
+    });
+
+    if (!contest) {
+      throw new BadRequestException('Contest not found');
+    }
+
+    return contest;
   }
 }

@@ -19,6 +19,8 @@ import { ContestDetailsDialog } from './models';
 import { JoinContestDto } from './dto';
 import { CreateContestDto } from './dto/createContest.dto';
 import { ContestResponseDto } from './dto/contestResponse.dto';
+import { EditContestStocksDto } from './dto/editContestStocks.dto';
+import { EditContestDto } from './dto/editContest.dto';
 
 @Controller('contest')
 @ApiTags('contests')
@@ -26,7 +28,7 @@ export class ContestController {
   constructor(
     private contestService: ContestService,
     private authService: AuthService,
-  ) {}
+  ) { }
 
   @Get('get-all-contests')
   @HttpCode(HttpStatus.OK)
@@ -86,5 +88,51 @@ export class ContestController {
     return this.contestService.getLeaderboard(player, parseInt(contestId), parseInt(roomId));
   }
 
+  @Post('edit-contest')
+  @HttpCode(HttpStatus.OK)
+  @UseGuards(AtGuard)
+  @ApiBearerAuth()
+  async editContest(
+    @Req() req: any,
+    @Body() editContestDto: EditContestDto,
+  ): Promise<any> {
+    const admin = await this.authService.AdminResolver((req as any).user.sub);
+    return await this.contestService.editContest(admin, editContestDto)
+  }
 
+  @Post('add-stocks')
+  @HttpCode(HttpStatus.OK)
+  @UseGuards(AtGuard)
+  @ApiBearerAuth()
+  async addStocks(
+    @Req() req: any,
+    @Body() editContestStocksDto: EditContestStocksDto,
+  ): Promise<any> {
+    const admin = await this.authService.AdminResolver((req as any).user.sub);
+    return await this.contestService.addStocks(admin, editContestStocksDto)
+  }
+
+  @Post('remove-stocks')
+  @HttpCode(HttpStatus.OK)
+  @UseGuards(AtGuard)
+  @ApiBearerAuth()
+  async removeStocks(
+    @Req() req: any,
+    @Body() editContestStocksDto: EditContestStocksDto,
+  ): Promise<any> {
+    const admin = await this.authService.AdminResolver((req as any).user.sub);
+    return await this.contestService.removeStocks(admin, editContestStocksDto)
+  }
+
+  @Get('get-editable-contest-data')
+  @HttpCode(HttpStatus.OK)
+  @UseGuards(AtGuard)
+  @ApiBearerAuth()
+  async getEditableContestData(
+    @Req() req: any,
+    @Query('id') contestId: string
+  ) {
+    const admin = await this.authService.AdminResolver((req as any).user.sub);
+    return await this.contestService.getEditableContestData(admin, contestId)
+  }
 }

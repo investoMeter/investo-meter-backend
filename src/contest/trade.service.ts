@@ -18,7 +18,7 @@ export class TradeService {
     private prisma: PrismaService,
     private matchingService: MatchingService,
     private tradingUtilityService: TradingUtilityService,
-  ) {}
+  ) { }
 
   async createBuyRequest(player: Player, requestDto: TradeRequestDto) {
     const { quantity, price } = requestDto;
@@ -324,7 +324,7 @@ export class TradeService {
       stockId,
     } = BuyRequestData;
 
-    if (!this.tradingUtilityService.validateContestRunning(contestId)) {
+    if (!(await this.tradingUtilityService.validateContestRunning(contestId))) {
       throw new NotFoundException('Contest ended');
     }
 
@@ -370,7 +370,7 @@ export class TradeService {
       stockId,
     } = sellRequestData;
 
-    if (!this.tradingUtilityService.validateContestRunning(contestId)) {
+    if (!(await this.tradingUtilityService.validateContestRunning(contestId))) {
       throw new NotFoundException('Contest ended');
     }
 
@@ -520,7 +520,7 @@ export class TradeService {
       type: 'BUY',
     }));
 
-    let sellRequests:any = await this.prisma.sellRequest.findMany({
+    let sellRequests: any = await this.prisma.sellRequest.findMany({
       where: {
         contestId,
         roomNumber,
