@@ -505,17 +505,22 @@ export class TradeService {
         status: RequestStatus.PENDING,
       },
       include: {
-        stock: true,
+        stock: {
+          include: {
+            contestStock: true,
+          },
+        },
       },
     });
 
     buyRequests = buyRequests.map((buyRequest: any) => ({
-      ...buyRequest,
-      stockSymbol: buyRequest.stock.symbol.toUpperCase(),
+      quantity: buyRequest.quantity,
+      price: buyRequest.price,
+      stockSymbol: buyRequest.stock.contestStock.symbol,
       type: 'BUY',
     }));
 
-    let sellRequests = await this.prisma.sellRequest.findMany({
+    let sellRequests:any = await this.prisma.sellRequest.findMany({
       where: {
         contestId,
         roomNumber,
@@ -523,13 +528,18 @@ export class TradeService {
         status: RequestStatus.PENDING,
       },
       include: {
-        stock: true,
+        stock: {
+          include: {
+            contestStock: true,
+          },
+        },
       },
     });
 
     sellRequests = sellRequests.map((sellRequest: any) => ({
-      ...sellRequest,
-      stockSymbol: sellRequest.stock.symbol.toUpperCase(),
+      quantity: sellRequest.quantity,
+      price: sellRequest.price,
+      stockSymbol: sellRequest.stock.contestStock.symbol,
       type: 'SELL',
     }));
 
@@ -560,7 +570,11 @@ export class TradeService {
         buyerMembershipId: membership.id,
       },
       include: {
-        stock: true,
+        stock: {
+          include: {
+            contestStock: true,
+          },
+        },
       },
     });
 
@@ -568,7 +582,7 @@ export class TradeService {
       quantity: trade.quantity,
       price: trade.price,
       stockId: trade.stockId,
-      stockSymbol: trade.stock.symbol.toUpperCase(),
+      stockSymbol: trade.stock.contestStock.symbol,
       type: 'BUY',
     }));
 
@@ -579,7 +593,11 @@ export class TradeService {
         sellerMembershipId: membership.id,
       },
       include: {
-        stock: true,
+        stock: {
+          include: {
+            contestStock: true,
+          },
+        },
       },
     });
 
@@ -587,9 +605,9 @@ export class TradeService {
       quantity: trade.quantity,
       price: trade.price,
       stockId: trade.stockId,
-      stockSymbol: trade.stock.symbol.toUpperCase(),
+      stockSymbol: trade.stock.contestStock.symbol,
       type: 'SELL',
-    })); 
+    }));
 
     return [...transformedBuyTrades, ...transformedSellTrades];
   }
