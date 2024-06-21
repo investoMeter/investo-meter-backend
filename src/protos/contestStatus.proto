@@ -1,0 +1,11 @@
+syntax = "proto3";
+import "google/protobuf/empty.proto";
+package contestStatus;
+
+service contestStatusService {
+  rpc notifyContestsAreOver (ContestsThatFinishedRequest) returns (google.protobuf.Empty);
+}
+
+message ContestsThatFinishedRequest {
+  repeated int32 contestsIds = 1;
+}

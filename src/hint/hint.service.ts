@@ -4,6 +4,7 @@ import { HintFacade } from './hint.facade';
 import { Player } from '@prisma/client';
 import { GetHintRequestDto, GetHintResponseDto } from './dto';
 import { Prediction, StockSummary } from './models';
+import { firstValueFrom } from 'rxjs';
 
 @Injectable()
 export class HintService {
@@ -43,15 +44,11 @@ export class HintService {
       },
       select: {
         ContestStockPrice: {
-          where: {
-            timeStamp: { gte: fiveMinutesAgo },
-          },
           orderBy: { timeStamp: 'desc' },
           take: 3,
         },
       },
     });
-
     if (!stock || stock.ContestStockPrice.length < 3) {
       throw new BadRequestException('Not enough data to make prediction');
     }
@@ -65,12 +62,12 @@ export class HintService {
         stock.ContestStockPrice.map((p) => p.close).reduce((a, b) => a + b, 0) /
         3,
     };
-
-    const prediction: Prediction = await this.facade.getHint(facadeModel);
+    const prediction: Prediction = await firstValueFrom(
+      this.facade.getHint(facadeModel),
+    );
 
     const changeValue =
       (prediction.Close_Next_5mins - facadeModel.Close) / facadeModel.Close;
-
     return { hint: changeValue };
   }
 }

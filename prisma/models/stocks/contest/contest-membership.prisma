@@ -3,10 +3,11 @@ import { Contest }from "./contest"
 import { Trade } from "./trade"
 import { Room }from "./room"
 import {OwnedStock} from "./owned-stock"
+
 model ContestMembership {
     id Int @id @default(autoincrement())
 
-    currentMoneyAmount Float @default(0.0)
+    currentBalance Float @default(0.0)
 
     createdAt DateTime @default(now())
     
@@ -26,4 +27,6 @@ model ContestMembership {
     ownedStocks    OwnedStock[]
 
     @@unique([contestId, playerId])
+    @@index([contestId])
+    @@index([contestId, roomNumber, currentBalance])
 }

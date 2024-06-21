@@ -22,12 +22,12 @@ services:
   #   networks:
   #     - investo_meter_network
   
-  # hints:
-  #   image: hints-microservice
-  #   ports:
-  #     - "3006:3006"
-  #   networks:
-  #     - investo_meter_network
+  hints:
+    image: hints-microservice
+    ports:
+      - "50051:50051"
+    networks:
+      - investo_meter_network
 
 networks:
   investo_meter_network:

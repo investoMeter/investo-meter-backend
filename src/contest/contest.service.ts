@@ -1,4 +1,8 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { PaginatedList } from 'src/common';
 import { PrismaService } from 'src/prisma';
 import { ContestRow } from './models/ContestRow';
@@ -7,6 +11,13 @@ import { Admin, Player } from '@prisma/client';
 import { JoinContestDto } from './dto';
 import { CreateContestDto } from './dto/createContest.dto';
 import { ContestResponseDto } from './dto/contestResponse.dto';
+
+type LeaderboardEntry = {
+  id: number;
+  currentBalance: number;
+  username: string;
+  userid: string;
+};
 
 @Injectable()
 export class ContestService {
@@ -98,8 +109,9 @@ export class ContestService {
         (1000 * 60 * 60),
       creator: contestDetails.creator.name,
       availableRooms: contestDetails.rooms.filter((room) => {
-        room._count.memberships < contestDetails.maxRoomCapacity;
+       return room._count.memberships <= contestDetails.maxRoomCapacity;
       }),
+      
       totalJoinedPlayers: contestDetails.rooms
         .map((room) => room._count.memberships)
         .reduce((accumulator, currentValue) => accumulator + currentValue, 0),
@@ -202,7 +214,7 @@ export class ContestService {
             },
           },
         },
-        currentMoneyAmount: contest.startingMoney,
+        currentBalance: contest.startingMoney,
       },
     });
   }
@@ -302,6 +314,7 @@ export class ContestService {
           endDate: {
             gte: new Date(now.getTime() + 60000),
           },
+          started: true,
         },
       },
       select: {
@@ -323,5 +336,83 @@ export class ContestService {
         },
       },
     });
+  }
+
+  async fetchContestLeaderboard(
+    contestId: number,
+    roomNumber: number,
+    limit?: number,
+  ): Promise<LeaderboardEntry[]> {
+
+    return await this.prisma.$queryRaw`
+    SELECT cm.id, cm."currentBalance", u.username, u.id as userId
+    FROM "ContestMembership" cm
+    JOIN "users" u ON cm."playerId" = u."id"
+    WHERE cm."contestId" = ${contestId}
+      AND cm."roomNumber" = ${roomNumber}
+    ORDER BY cm."currentBalance" DESC, u.username ASC
+  `;
+
+  }
+
+  async getLeaderboard(
+    player: { userId: string },
+    contestId: number,
+    roomNumber: number,
+  ) {
+
+    const membership = await this.prisma.contestMembership.findFirst({
+      select: {
+        id: true,
+      },
+      where: {
+        playerId: player.userId,
+        contestId: contestId,
+        roomNumber: roomNumber,
+      },
+    });
+
+    if (!membership) {
+      throw new UnauthorizedException();
+    }
+
+    return await this.fetchContestLeaderboard(contestId, roomNumber);
+  }
+
+  async rewardWinners(contestId: number, roomNumber: number) {
+    const rewards = [1000, 500, 250]; // Coins for 1st, 2nd, and 3rd place
+    const leaderboard = await this.fetchContestLeaderboard(
+      contestId,
+      roomNumber,
+    );
+
+    const NUMBER_OF_WINNERS = 3;
+
+    const topThree = leaderboard.slice(0, NUMBER_OF_WINNERS);
+
+    // Check for ties among the top 3 players
+    let winners = [];
+    let currentRank = 1;
+    let previousScore = null;
+
+    for (const player of topThree) {
+      if (
+        previousScore != null &&
+        player.currentBalance !== previousScore
+      ) {
+        currentRank++;
+      }
+      winners.push({ ...player, rank: currentRank });
+      previousScore = player.currentBalance;
+    }
+
+    const updateOperations = winners.map((winner) => {
+      return this.prisma.player.update({
+        where: { userId: winner.userid }, 
+        data: { coins: { increment: rewards[winner.rank - 1] } },
+      });
+    });
+
+    await this.prisma.$transaction(updateOperations);
   }
 }
