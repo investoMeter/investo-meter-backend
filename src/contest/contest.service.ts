@@ -14,6 +14,7 @@ import { ContestResponseDto } from './dto/contestResponse.dto';
 import { EditContestDto } from './dto/editContest.dto';
 import { EditContestStocksDto } from './dto/editContestStocks.dto';
 import { TradingUtilityService } from './trade.utility.service';
+import { ContestEditableData } from './dto/contestEditableData.dto';
 
 type LeaderboardEntry = {
   id: number;
@@ -457,12 +458,15 @@ export class ContestService {
     await this.prisma.$transaction(updateOperations);
   }
 
-  async editContest(admin: Admin, requestDto: EditContestDto): Promise<any> {
+  async editContest(admin: Admin, requestDto: EditContestDto): Promise<ContestEditableData> {
     const contest = await this.prisma.contest.findUnique({
       where: { id: requestDto.id },
     });
     if (!contest) {
       throw new BadRequestException('Contest not found');
+    }
+    if (await this.tradeUtility.validateContestRunning(contest.id)) {
+      throw new BadRequestException('Contest is already running');
     }
     await this.prisma.contest.update({
       where: { id: requestDto.id },
@@ -475,9 +479,10 @@ export class ContestService {
         endDate: requestDto.endDate,
       },
     });
+    return this.mapContestToEditableData(contest.id);
   }
 
-  async addStocks(admin: Admin, requestDto: EditContestStocksDto) {
+  async addStocks(admin: Admin, requestDto: EditContestStocksDto): Promise<ContestEditableData> {
     const contest = await this.prisma.contest.findUnique({
       where: { id: requestDto.id },
     });
@@ -549,15 +554,18 @@ export class ContestService {
       }
     }
 
-    return { message: 'Stocks added successfully', addedStockIds: newStockIds };
+    return this.mapContestToEditableData(contest.id);
   }
 
-  async removeStocks(admin: Admin, requestDto: EditContestStocksDto) {
+  async removeStocks(admin: Admin, requestDto: EditContestStocksDto): Promise<ContestEditableData> {
     const contest = await this.prisma.contest.findUnique({
       where: { id: requestDto.id },
     });
     if (!contest) {
       throw new BadRequestException('Contest not found');
+    }
+    if (await this.tradeUtility.validateContestRunning(contest.id)) {
+      throw new BadRequestException('Contest is already running');
     }
     const existingStocks = await this.prisma.contestContestStock.findMany({
       where: { contestId: requestDto.id },
@@ -606,11 +614,11 @@ export class ContestService {
       }),
     ]);
 
-    return { message: 'Stocks removed successfully', removedStockIds: stocksToRemove };
+    return this.mapContestToEditableData(contest.id);
   }
 
 
-  async getEditableContestData(admin: Admin, contestId: string) {
+  async getEditableContestData(admin: Admin, contestId: string): Promise<ContestEditableData> {
     const contest = await this.prisma.contest.findUnique({
       where: { id: parseInt(contestId) },
       select: {
@@ -639,6 +647,54 @@ export class ContestService {
       throw new BadRequestException('Contest not found');
     }
 
-    return contest;
+
+
+    return this.mapContestToEditableData(contest.id);
+  }
+
+  async mapContestToEditableData(contestId: number): Promise<ContestEditableData> {
+    const contest = await this.prisma.contest.findUnique({
+      where: { id: contestId },
+      select: {
+        id: true,
+        name: true,
+        maxRoomCapacity: true,
+        startingMoney: true,
+        startingShares: true,
+        startDate: true,
+        endDate: true,
+        contestStocks: {
+          select: {
+            contestStock: {
+              select: {
+                id: true,
+                name: true,
+                symbol: true,
+              }
+            },
+          }
+        }
+      },
+    });
+
+    if (!contest) {
+      throw new BadRequestException('Contest not found');
+    }
+    const transformedContest: ContestEditableData = {
+      id: contest.id,
+      name: contest.name,
+      maxRoomCapacity: contest.maxRoomCapacity,
+      startingMoney: contest.startingMoney,
+      startingShares: contest.startingShares,
+      startDate: contest.startDate,
+      endDate: contest.endDate,
+      stocks: contest.contestStocks.map(cs => ({
+        id: cs.contestStock.id,
+        name: cs.contestStock.name,
+        symbol: cs.contestStock.symbol,
+      })),
+    };
+
+    return transformedContest;
   }
 }

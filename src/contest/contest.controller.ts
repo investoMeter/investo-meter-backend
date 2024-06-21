@@ -21,6 +21,7 @@ import { CreateContestDto } from './dto/createContest.dto';
 import { ContestResponseDto } from './dto/contestResponse.dto';
 import { EditContestStocksDto } from './dto/editContestStocks.dto';
 import { EditContestDto } from './dto/editContest.dto';
+import { ContestEditableData } from './dto/contestEditableData.dto';
 
 @Controller('contest')
 @ApiTags('contests')
@@ -95,7 +96,7 @@ export class ContestController {
   async editContest(
     @Req() req: any,
     @Body() editContestDto: EditContestDto,
-  ): Promise<any> {
+  ): Promise<ContestEditableData> {
     const admin = await this.authService.AdminResolver((req as any).user.sub);
     return await this.contestService.editContest(admin, editContestDto)
   }
@@ -107,7 +108,7 @@ export class ContestController {
   async addStocks(
     @Req() req: any,
     @Body() editContestStocksDto: EditContestStocksDto,
-  ): Promise<any> {
+  ): Promise<ContestEditableData> {
     const admin = await this.authService.AdminResolver((req as any).user.sub);
     return await this.contestService.addStocks(admin, editContestStocksDto)
   }
@@ -119,7 +120,7 @@ export class ContestController {
   async removeStocks(
     @Req() req: any,
     @Body() editContestStocksDto: EditContestStocksDto,
-  ): Promise<any> {
+  ): Promise<ContestEditableData> {
     const admin = await this.authService.AdminResolver((req as any).user.sub);
     return await this.contestService.removeStocks(admin, editContestStocksDto)
   }
@@ -131,7 +132,7 @@ export class ContestController {
   async getEditableContestData(
     @Req() req: any,
     @Query('id') contestId: string
-  ) {
+  ): Promise<ContestEditableData> {
     const admin = await this.authService.AdminResolver((req as any).user.sub);
     return await this.contestService.getEditableContestData(admin, contestId)
   }
