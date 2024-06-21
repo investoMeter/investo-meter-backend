@@ -1,6 +1,7 @@
 import { Inject, Injectable, OnModuleInit } from '@nestjs/common';
 import { ClientGrpc } from '@nestjs/microservices';
 import { Prediction, StockSummary } from './models';
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class HintFacade implements OnModuleInit {
@@ -12,7 +13,7 @@ export class HintFacade implements OnModuleInit {
     this.hintsService = this.client.getService('HintModel');
   }
 
-  getHint(model: StockSummary): Promise<Prediction> {
+  getHint(model: StockSummary): Observable<Prediction> {
     return this.hintsService.getPrediction(model);
   }
 }

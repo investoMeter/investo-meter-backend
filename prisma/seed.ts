@@ -38,6 +38,7 @@ async function seedData() {
       );
       const jsonData2 = await fs.readFile(jsonPath2, 'utf-8');
       const questions = JSON.parse(jsonData2);
+      
       // create level
       for (let i = 0; i < tutorials.length; i++) {
         const tutorial = tutorials[i];
@@ -309,7 +310,7 @@ async function seedData() {
                 },
               },
             },
-            currentMoneyAmount: contestMembership.currentMoneyAmount,
+            currentBalance: contestMembership.currentBalance,
           },
         });
         i++;

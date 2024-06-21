@@ -26,13 +26,13 @@ export class FeedbackController {
   ) {}
 
   @Post('submit-feedback')
-  @HttpCode(HttpStatus.OK)
+  @HttpCode(HttpStatus.CREATED)
   @UseGuards(AtGuard)
   @ApiBearerAuth()
   async sumbitFeedback(
     @Req() req: any,
     @Body() requestDto: SubmitFeedbackDto,
-  ): Promise<void> {
+  ) {
     const player = await this.authService.playerResolver((req as any).user.sub);
     return this.feedbackService.submitFeedback(player, requestDto);
   }

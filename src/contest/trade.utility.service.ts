@@ -61,70 +61,39 @@ export class TradingUtilityService {
     contestId: number,
     roomNumber: number,
   ): Promise<Trade> {
-    let data: {
+    if (!quantity || !price || !timestamp || !stockId || !buyerMembershipId || !contestId || !roomNumber) {
+      throw new Error('Missing required parameters for creating a trade.');
+    }
+
+    const tradeInput: {
       quantity: number;
       price: number;
       timestamp: Date;
-      stock: {
-        connect: {
-          contestId_contestStockId: {
-            contestId: number;
-            contestStockId: number;
-          };
-        };
-      };
-      buyerMembership: { connect: { id: number } };
-      contest: { connect: { id: number } };
-      room: {
-        connect: {
-          contestId_roomNumber: { contestId: number; roomNumber: number };
-        };
-      };
-      sellerMembership?: { connect: { id: number } };
+      stockId: number;
+      buyerMembershipId: number;
+      contestId: number;
+      roomNumber: number;
+      sellerMembershipId?: number;
     } = {
       quantity,
       price,
       timestamp,
-      stock: {
-        connect: {
-          contestId_contestStockId: {
-            contestId: contestId,
-            contestStockId: stockId,
-          },
-        },
-      },
-      buyerMembership: {
-        connect: {
-          id: buyerMembershipId,
-        },
-      },
-      contest: {
-        connect: {
-          id: contestId,
-        },
-      },
-      room: {
-        connect: {
-          contestId_roomNumber: {
-            contestId,
-            roomNumber,
-          },
-        },
-      },
+      stockId,
+      buyerMembershipId,
+      contestId,
+      roomNumber,
+      sellerMembershipId: sellerMembershipId !== undefined ? sellerMembershipId : undefined,
     };
 
-    if (sellerMembershipId !== undefined) {
-      data.sellerMembership = {
-        connect: {
-          id: sellerMembershipId,
-        },
-      };
+    try {
+      const createdTrade = await this.prisma.trade.create({ data: tradeInput });
+      return createdTrade;
+    } catch (error) {
+      throw new Error('Failed to create trade.');
     }
-
-    return await this.prisma.trade.create({ data });
   }
 
-  async updateMembershipCoins(
+  async updateMembershipBalance(
     roomNumber: number,
     contestId: number,
     membership: ContestMembership,
@@ -137,8 +106,24 @@ export class TradingUtilityService {
         id: membership.id,
       },
       data: {
-        currentMoneyAmount: membership.currentMoneyAmount + totalCost,
+        currentBalance: membership.currentBalance + totalCost,
       },
     });
+  }
+
+  async validateContestRunning(conetstId: number): Promise<boolean> {
+    const isRunning =
+      (
+        await this.prisma.contest.findFirst({
+          where: {
+            id: conetstId,
+            started: true,
+          },
+          select: {
+            started: true,
+          },
+        })
+      )?.started || false;
+    return isRunning;
   }
 }
