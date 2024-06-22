@@ -90,8 +90,10 @@ export class LevelController {
   @UseGuards(AtGuard)
   @ApiBearerAuth()
   async getTutorialAdmin(
+    @Req() req: Request,
     @Param('levelId') levelId: string,
   ): Promise<GetTutorialDto> {
+    await this.authService.AdminResolver((req as any).user.sub);
     return this.levelService.getTutorialAdmin(levelId);
   }
 
@@ -100,9 +102,10 @@ export class LevelController {
   @UseGuards(AtGuard)
   @ApiBearerAuth()
   async editContest(
+    @Req() req: Request,
     @Body() tutorialDto: GetTutorialDto,
   ): Promise<EditTutorialDto> {
-    
+    await this.authService.AdminResolver((req as any).user.sub);
     return await this.levelService.editTutorial(tutorialDto);
   }
 }
