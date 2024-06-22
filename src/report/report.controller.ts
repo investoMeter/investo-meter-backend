@@ -70,12 +70,12 @@ export class ReportController {
   @HttpCode(HttpStatus.OK)
   @UseGuards(AtGuard)
   @ApiBearerAuth()
-  // TODO: Admin role
   async getAllReports(
     @Req() req: any,
     @Query('page') page: string,
     @Query('take') take: string,
   ): Promise<PaginatedList<ReportRow>> {
+    await this.authService.AdminResolver((req as any).user.sub)
     return this.reportService.getAllReports(parseInt(page), parseInt(take));
   }
 
@@ -83,7 +83,6 @@ export class ReportController {
   @HttpCode(HttpStatus.CREATED)
   @UseGuards(AtGuard)
   @ApiBearerAuth()
-  // TODO: Admin role
   async closeReport(
     @Req() req: Request,
     @Query('id') reportId: string,
@@ -99,7 +98,6 @@ export class ReportController {
   @HttpCode(HttpStatus.CREATED)
   @UseGuards(AtGuard)
   @ApiBearerAuth()
-  // TODO: Admin role
   async openReport(
     @Req() req: Request,
     @Query('id') reportId: string,

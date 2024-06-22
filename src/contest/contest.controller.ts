@@ -101,8 +101,8 @@ export class ContestController {
     @Req() req: any,
     @Body() editContestDto: EditContestDto,
   ): Promise<ContestEditableData> {
-    const admin = await this.authService.AdminResolver((req as any).user.sub);
-    return await this.contestService.editContest(admin, editContestDto);
+    await this.authService.AdminResolver((req as any).user.sub);
+    return await this.contestService.editContest(editContestDto);
   }
 
   @Post("add-stocks")
@@ -113,8 +113,8 @@ export class ContestController {
     @Req() req: any,
     @Body() editContestStocksDto: EditContestStocksDto,
   ): Promise<ContestEditableData> {
-    const admin = await this.authService.AdminResolver((req as any).user.sub);
-    return await this.contestService.addStocks(admin, editContestStocksDto);
+    await this.authService.AdminResolver((req as any).user.sub);
+    return await this.contestService.addStocks(editContestStocksDto);
   }
 
   @Post("remove-stocks")
@@ -125,8 +125,8 @@ export class ContestController {
     @Req() req: any,
     @Body() editContestStocksDto: EditContestStocksDto,
   ): Promise<ContestEditableData> {
-    const admin = await this.authService.AdminResolver((req as any).user.sub);
-    return await this.contestService.removeStocks(admin, editContestStocksDto);
+    await this.authService.AdminResolver((req as any).user.sub);
+    return await this.contestService.removeStocks(editContestStocksDto);
   }
 
   @Get("get-editable-contest-data")
@@ -137,7 +137,7 @@ export class ContestController {
     @Req() req: any,
     @Query("id") contestId: string,
   ): Promise<ContestEditableData> {
-    const admin = await this.authService.AdminResolver((req as any).user.sub);
-    return await this.contestService.getEditableContestData(admin, contestId);
+    await this.authService.AdminResolver((req as any).user.sub);
+    return await this.contestService.getEditableContestData(contestId);
   }
 }
