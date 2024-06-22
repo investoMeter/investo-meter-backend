@@ -441,7 +441,6 @@ export class ContestService {
   }
 
   async editContest(
-    admin: Admin,
     requestDto: EditContestDto,
   ): Promise<ContestEditableData> {
     const contest = await this.prisma.contest.findUnique({
@@ -468,7 +467,6 @@ export class ContestService {
   }
 
   async addStocks(
-    admin: Admin,
     requestDto: EditContestStocksDto,
   ): Promise<ContestEditableData> {
     const contest = await this.prisma.contest.findUnique({
@@ -552,7 +550,6 @@ export class ContestService {
   }
 
   async removeStocks(
-    admin: Admin,
     requestDto: EditContestStocksDto,
   ): Promise<ContestEditableData> {
     const contest = await this.prisma.contest.findUnique({
@@ -622,7 +619,6 @@ export class ContestService {
   }
 
   async getEditableContestData(
-    admin: Admin,
     contestId: string,
   ): Promise<ContestEditableData> {
     return this.mapContestToEditableData(parseInt(contestId));
