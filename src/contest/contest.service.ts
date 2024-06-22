@@ -13,7 +13,6 @@ import { CreateContestDto } from "./dto/createContest.dto";
 import { ContestResponseDto } from "./dto/contestResponse.dto";
 import { EditContestDto } from "./dto/editContest.dto";
 import { EditContestStocksDto } from "./dto/editContestStocks.dto";
-import { TradingUtilityService } from "./trade.utility.service";
 import { ContestEditableData } from "./dto/contestEditableData.dto";
 
 type LeaderboardEntry = {
@@ -27,7 +26,6 @@ type LeaderboardEntry = {
 export class ContestService {
   constructor(
     private prisma: PrismaService,
-    private tradeUtility: TradingUtilityService,
   ) {}
 
   async getAllContests(
@@ -464,7 +462,7 @@ export class ContestService {
     if (!contest) {
       throw new BadRequestException("Contest not found");
     }
-    if (await this.tradeUtility.validateContestRunning(contest.id)) {
+    if (await this.validateContestRunning(contest.id)) {
       throw new BadRequestException("Contest is already running");
     }
     await this.prisma.contest.update({
@@ -493,7 +491,7 @@ export class ContestService {
       throw new BadRequestException("Contest not found");
     }
 
-    if (await this.tradeUtility.validateContestRunning(contest.id)) {
+    if (await this.validateContestRunning(contest.id)) {
       throw new BadRequestException("Contest is already running");
     }
 
@@ -575,7 +573,7 @@ export class ContestService {
     if (!contest) {
       throw new BadRequestException("Contest not found");
     }
-    if (await this.tradeUtility.validateContestRunning(contest.id)) {
+    if (await this.validateContestRunning(contest.id)) {
       throw new BadRequestException("Contest is already running");
     }
     const existingStocks = await this.prisma.contestContestStock.findMany({
@@ -688,5 +686,21 @@ export class ContestService {
     };
 
     return transformedContest;
+  }
+
+    async validateContestRunning(conetstId: number): Promise<boolean> {
+    const isRunning =
+      (
+        await this.prisma.contest.findFirst({
+          where: {
+            id: conetstId,
+            started: true,
+          },
+          select: {
+            started: true,
+          },
+        })
+      )?.started || false;
+    return isRunning;
   }
 }

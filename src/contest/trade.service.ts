@@ -11,6 +11,7 @@ import { CancelRequestDto } from './dto/trades dto/cancel-request.dto';
 import { MatchingService } from './matching.service';
 import { TradeRequest } from './models/TradeRequest';
 import { TradingUtilityService } from './trade.utility.service';
+import { ContestService } from './contest.service';
 
 @Injectable()
 export class TradeService {
@@ -18,7 +19,8 @@ export class TradeService {
     private prisma: PrismaService,
     private matchingService: MatchingService,
     private tradingUtilityService: TradingUtilityService,
-  ) { }
+    private contestService: ContestService,
+  ) {}
 
   async createBuyRequest(player: Player, requestDto: TradeRequestDto) {
     const { quantity, price } = requestDto;
@@ -324,7 +326,7 @@ export class TradeService {
       stockId,
     } = BuyRequestData;
 
-    if (!(await this.tradingUtilityService.validateContestRunning(contestId))) {
+    if (!this.contestService.validateContestRunning(contestId)) {
       throw new NotFoundException('Contest ended');
     }
 
@@ -370,7 +372,7 @@ export class TradeService {
       stockId,
     } = sellRequestData;
 
-    if (!(await this.tradingUtilityService.validateContestRunning(contestId))) {
+    if (!this.contestService.validateContestRunning(contestId)) {
       throw new NotFoundException('Contest ended');
     }
 
@@ -520,7 +522,7 @@ export class TradeService {
       type: 'BUY',
     }));
 
-    let sellRequests: any = await this.prisma.sellRequest.findMany({
+    let sellRequests:any = await this.prisma.sellRequest.findMany({
       where: {
         contestId,
         roomNumber,
