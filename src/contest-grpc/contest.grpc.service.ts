@@ -3,18 +3,18 @@ import {
   Contest,
   ContestsThatFinishedRequest,
 } from "./dto/endedContests.interface";
+import { ContestService } from "src/contest/contest.service";
 
 @Injectable()
 export class ContestGrpcService {
+  constructor(private readonly contestService: ContestService) {}
+
   async endContests(data: ContestsThatFinishedRequest): Promise<void> {
     for (const contest of data.endContests) {
-      console.log(`Contest ${contest.contestId} has ended`);
-      console.log(`Room IDs: ${contest.roomIds}`);
-      this.calculateWinner(contest);
+      const contestId = contest.contestId;
+      for (const roomId of contest.roomIds) {
+        this.contestService.rewardWinners(contestId, roomId);
+      }
     }
-  }
-
-  calculateWinner(contest: Contest): void {
-    return;
   }
 }
