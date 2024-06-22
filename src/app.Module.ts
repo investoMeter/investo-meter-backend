@@ -1,14 +1,15 @@
-import { Module } from '@nestjs/common';
-import { PrismaModule } from './prisma';
-import { AuthModule } from './auth';
-import { LevelModule } from './level';
-import { ContestModule } from './contest';
-import { FeedbackModule } from './feedback/feedback.module';
-import { HintModule } from './hint';
-import { ReportModule } from './report/report.module';
-import { ScheduleModule } from '@nestjs/schedule';
-import { ProfileModule } from './profile/profile.module';
-import { ContestGrpcModule } from './contest-grpc/contest.grpc.module';
+import { Module } from "@nestjs/common";
+import { PrismaModule } from "./prisma";
+import { AuthModule } from "./auth";
+import { LevelModule } from "./level";
+import { ContestModule } from "./contest";
+import { FeedbackModule } from "./feedback/feedback.module";
+import { HintModule } from "./hint";
+import { ReportModule } from "./report/report.module";
+import { ScheduleModule } from "@nestjs/schedule";
+import { ProfileModule } from "./profile/profile.module";
+import { CommunityModule } from "./community";
+import { ContestGrpcModule } from "./contest-grpc";
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { ContestGrpcModule } from './contest-grpc/contest.grpc.module';
     ProfileModule,
     ScheduleModule.forRoot(),
     ContestGrpcModule,
+    CommunityModule,
   ],
 })
 export class AppModule {}
