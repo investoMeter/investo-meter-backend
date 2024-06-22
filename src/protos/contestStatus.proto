@@ -7,5 +7,9 @@ service contestStatusService {
 }
 
 message ContestsThatFinishedRequest {
-  repeated int32 contestsIds = 1;
+  repeated Contest endContests = 1;
+}
+message Contest{
+  int32 contestId = 1;
+  repeated int32 roomIds = 2;
 }

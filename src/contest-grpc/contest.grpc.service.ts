@@ -1,16 +1,20 @@
-import { Injectable } from '@nestjs/common';
-import { EndedContests } from './dto/endedContests.interface';
+import { Injectable } from "@nestjs/common";
+import {
+  Contest,
+  ContestsThatFinishedRequest,
+} from "./dto/endedContests.interface";
 
 @Injectable()
 export class ContestGrpcService {
-  async endContests(data: EndedContests): Promise<void> {
-    for (const contestId of data.contestsIds) {
-      console.log(`Contest ${contestId} has ended`);
-      this.calculateWinner(contestId);
+  async endContests(data: ContestsThatFinishedRequest): Promise<void> {
+    for (const contest of data.endContests) {
+      console.log(`Contest ${contest.contestId} has ended`);
+      console.log(`Room IDs: ${contest.roomIds}`);
+      this.calculateWinner(contest);
     }
   }
 
-  calculateWinner(contestId: number): void {
+  calculateWinner(contest: Contest): void {
     return;
   }
 }

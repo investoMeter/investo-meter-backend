@@ -8,48 +8,51 @@ import {
   Query,
   Req,
   UseGuards,
-} from '@nestjs/common';
-import { ContestService } from './contest.service';
-import { AuthService } from 'src/auth';
-import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
-import { AtGuard } from 'src/auth/guards';
-import { PaginatedList } from 'src/common';
-import { ContestRow } from './models/ContestRow';
-import { ContestDetailsDialog } from './models';
-import { JoinContestDto } from './dto';
-import { CreateContestDto } from './dto/createContest.dto';
-import { ContestResponseDto } from './dto/contestResponse.dto';
+} from "@nestjs/common";
+import { ContestService } from "./contest.service";
+import { AuthService } from "src/auth";
+import { ApiBearerAuth, ApiTags } from "@nestjs/swagger";
+import { AtGuard } from "src/auth/guards";
+import { PaginatedList } from "src/common";
+import { ContestRow } from "./models/ContestRow";
+import { ContestDetailsDialog } from "./models";
+import { JoinContestDto } from "./dto";
+import { CreateContestDto } from "./dto/createContest.dto";
+import { ContestResponseDto } from "./dto/contestResponse.dto";
+import { EditContestDto } from "./dto/editContest.dto";
+import { EditContestStocksDto } from "./dto/editContestStocks.dto";
+import { ContestEditableData } from "./dto/contestEditableData.dto";
 
-@Controller('contest')
-@ApiTags('contests')
+@Controller("contest")
+@ApiTags("contests")
 export class ContestController {
   constructor(
     private contestService: ContestService,
     private authService: AuthService,
   ) {}
 
-  @Get('get-all-contests')
+  @Get("get-all-contests")
   @HttpCode(HttpStatus.OK)
   @UseGuards(AtGuard)
   @ApiBearerAuth()
   async getAllContests(
-    @Query('page') page: string,
-    @Query('take') take: string,
+    @Query("page") page: string,
+    @Query("take") take: string,
   ): Promise<PaginatedList<ContestRow>> {
     return this.contestService.getAllContests(parseInt(page), parseInt(take));
   }
 
-  @Get('get-contest-details')
+  @Get("get-contest-details")
   @HttpCode(HttpStatus.OK)
   @UseGuards(AtGuard)
   @ApiBearerAuth()
   async getContestDetails(
-    @Query('id') contestId: string,
+    @Query("id") contestId: string,
   ): Promise<ContestDetailsDialog> {
     return this.contestService.getContestDetails(parseInt(contestId));
   }
 
-  @Post('join-contest')
+  @Post("join-contest")
   @HttpCode(HttpStatus.OK)
   @UseGuards(AtGuard)
   @ApiBearerAuth()
@@ -61,7 +64,7 @@ export class ContestController {
     return this.contestService.joinContest(player, requestDto);
   }
 
-  @Post('create-contest')
+  @Post("create-contest")
   @HttpCode(HttpStatus.CREATED)
   @UseGuards(AtGuard)
   @ApiBearerAuth()
@@ -73,18 +76,68 @@ export class ContestController {
     return await this.contestService.createContest(admin, createContestDto);
   }
 
-  @Get('leaderboard')
+  @Get("leaderboard")
   @HttpCode(HttpStatus.OK)
   @UseGuards(AtGuard)
   @ApiBearerAuth()
   async getLeaderboard(
     @Req() req: any,
-    @Query('contestId') contestId: string,
-    @Query('roomId') roomId: string,
+    @Query("contestId") contestId: string,
+    @Query("roomId") roomId: string,
   ) {
     const player = await this.authService.playerResolver((req as any).user.sub);
-    return this.contestService.getLeaderboard(player, parseInt(contestId), parseInt(roomId));
+    return this.contestService.getLeaderboard(
+      player,
+      parseInt(contestId),
+      parseInt(roomId),
+    );
   }
 
+  @Post("edit-contest")
+  @HttpCode(HttpStatus.OK)
+  @UseGuards(AtGuard)
+  @ApiBearerAuth()
+  async editContest(
+    @Req() req: any,
+    @Body() editContestDto: EditContestDto,
+  ): Promise<ContestEditableData> {
+    const admin = await this.authService.AdminResolver((req as any).user.sub);
+    return await this.contestService.editContest(admin, editContestDto);
+  }
 
+  @Post("add-stocks")
+  @HttpCode(HttpStatus.OK)
+  @UseGuards(AtGuard)
+  @ApiBearerAuth()
+  async addStocks(
+    @Req() req: any,
+    @Body() editContestStocksDto: EditContestStocksDto,
+  ): Promise<ContestEditableData> {
+    const admin = await this.authService.AdminResolver((req as any).user.sub);
+    return await this.contestService.addStocks(admin, editContestStocksDto);
+  }
+
+  @Post("remove-stocks")
+  @HttpCode(HttpStatus.OK)
+  @UseGuards(AtGuard)
+  @ApiBearerAuth()
+  async removeStocks(
+    @Req() req: any,
+    @Body() editContestStocksDto: EditContestStocksDto,
+  ): Promise<ContestEditableData> {
+    const admin = await this.authService.AdminResolver((req as any).user.sub);
+    return await this.contestService.removeStocks(admin, editContestStocksDto);
+  }
+
+  @Get("get-editable-contest-data")
+  @HttpCode(HttpStatus.OK)
+  @UseGuards(AtGuard)
+  @ApiBearerAuth()
+  async getEditableContestData(
+    @Req() req: any,
+    @Query("id") contestId: string,
+  ): Promise<ContestEditableData> {
+    const admin = await this.authService.AdminResolver((req as any).user.sub);
+    return await this.contestService.getEditableContestData(admin, contestId);
+  }
 }
