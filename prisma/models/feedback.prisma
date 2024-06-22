@@ -1,15 +1,13 @@
 import { Player } from "roles\player"
 
 model feedback {
+  id        Int @id @default(autoincrement())
+  playerId  String
+ 
+  about     String
+  rating    Int
+  content   String
+  createdAt DateTime  @default(now())
 
-    id Int @id @default(autoincrement())
-    about String
-    content String
-    rating Int
-    createdAt          DateTime  @default(now())
-  
-
-  // relations
-    playerId   String
-    player     Player    @relation(fields: [playerId], references: [userId])
+  player    Player    @relation(fields: [playerId], references: [userId])
 }

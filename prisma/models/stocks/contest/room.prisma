@@ -6,21 +6,19 @@ import { SellRequest } from "./sell-request"
 import { Trade } from "./trade"
 
 model Room {
+    contestId       Int
     roomNumber      Int
+    
     currentCapacity Int @default(0)
 
-    // relations
-    contestId Int
-    contest   Contest @relation(fields: [contestId], references: [id])
-
-    memberships     ContestMembership[]
-    stocksHistories StockHistory[]
+    trades          Trade[]
+    contest         Contest @relation(fields: [contestId], references: [id])
     BuyRequest      BuyRequest[]
     SellRequest     SellRequest[]
-    trades          Trade[]
+    memberships     ContestMembership[]
+    stocksHistories StockHistory[]
 
     @@id([contestId, roomNumber])
-    @@unique([contestId, roomNumber])
 }
 
 

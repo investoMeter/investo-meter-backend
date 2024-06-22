@@ -2,8 +2,10 @@ import { Tutorial } from "./tutorial"
 
 model Content {
     id          Int      @id @default(autoincrement())
+    tutorialId  Int
+
     subTitle    String
     description String[]
+    
     tutorial    Tutorial @relation(fields: [tutorialId], references: [id])
-    tutorialId  Int
 }

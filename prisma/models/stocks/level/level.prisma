@@ -5,18 +5,16 @@ import { LevelQuestion } from "./level-question"
 import { Player } from "..\..\roles\player"
 model Level {
     id             Int       @id @default(autoincrement())
+    
     number         Int       @unique
     patternName    String
     isActive       Boolean
     createdAt      DateTime @default(now())
     updatedAt      DateTime? @updatedAt
-    // relations
+
     tutorial       Tutorial?
-
     questions      LevelQuestion[]
-
     memberships    LevelMembership[]
 
-    @@map("levels")
     @@index([number])
 }

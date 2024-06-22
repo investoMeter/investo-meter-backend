@@ -1,0 +1,19 @@
+import { Player } from "..\roles\player"
+import { Community } from "./community"
+import { Post } from "..\feed\post"
+import { Comment } from "..\feed\comment"
+
+model CommunityMembership {
+    userId      String 
+    communityId String
+    
+    createdAt   DateTime @default(now())
+    updatedAt   DateTime @updatedAt
+
+    posts       Post[]
+    comments    Comment[]
+    player      Player @relation(fields: [userId], references: [userId])
+    community   Community @relation(fields: [communityId], references: [id])
+
+    @@id([userId, communityId])
+}

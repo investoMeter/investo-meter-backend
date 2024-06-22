@@ -19,7 +19,6 @@ model User {
   admin           Admin?
   createdContests Contest[]
 
-  @@map("users")
-  @@index([id, username])
+@@index([id, username])
 
 }

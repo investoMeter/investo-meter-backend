@@ -1,0 +1,15 @@
+import { Post } from "../feed/post"
+import { CommunityMembership } from "./member"
+import { Player } from "..\roles\player"
+import { CommunityMembership } from "member"
+
+model Community {
+    id          String      @id @default(cuid())
+    ownerId     String @unique
+    name        String
+    createdAt   DateTime @default(now())
+    updatedAt   DateTime @updatedAt
+    feed        Post[]
+    members     CommunityMembership[]
+    owner       Player @relation(fields: [ownerId], references: [userId])
+}

@@ -2,22 +2,17 @@ import { Level } from "./level"
 import { Player } from "..\..\roles\player"
 
 model LevelMembership {
-    id         Int       @id @default(autoincrement())
+    id              Int       @id @default(autoincrement())
+    levelId         Int
+    playerId        String
     
-    failuresCount Int
-    
-    passedAt     DateTime?
-    
-    createdAt DateTime @default(now())
-    
-    updatedAt DateTime? @updatedAt
-    
-    // relations
-    playerId   String
-    player     Player    @relation(fields: [playerId], references: [userId])
+    failuresCount   Int
+    passedAt        DateTime?
+    createdAt       DateTime @default(now())
+    updatedAt       DateTime? @updatedAt
 
-    levelId    Int
-    level      Level     @relation(fields: [levelId], references: [id])
+    player          Player    @relation(fields: [playerId], references: [userId])
+    level           Level     @relation(fields: [levelId], references: [id])
 
     @@unique([levelId, playerId])
 }
