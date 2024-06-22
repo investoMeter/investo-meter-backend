@@ -7,15 +7,16 @@ import { BuyRequest } from "./buy-request"
 import { SellRequest } from "./sell-request"
 import { Trade } from "./trade"
 import { ContestContestStock } from "contest-contest-stock"
-
+import { Community } from "..\..\community\community"
 model Contest {
     id              Int @id @default(autoincrement())
     creatorId       String
+    communityId     String?
 
     name            String
     endDate         DateTime
     started         Boolean @default(false)
-    isPrivate       Boolean
+    isPrivate       Boolean @default(false)
     startDate       DateTime
     createdAt       DateTime  @default(now())
     updatedAt       DateTime? @updatedAt
@@ -26,6 +27,7 @@ model Contest {
     creator         User   @relation(fields: [creatorId], references: [id])
     rooms           Room[]
     contestStocks   ContestContestStock[]
+    community       Community? @relation(fields: [communityId], references: [id])
 }
 
 

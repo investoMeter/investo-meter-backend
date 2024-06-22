@@ -2,7 +2,7 @@ import { Post } from "../feed/post"
 import { CommunityMembership } from "./member"
 import { Player } from "..\roles\player"
 import { CommunityMembership } from "member"
-
+import { Contest } from "..\stocks\contest\contest"
 model Community {
     id          String      @id @default(cuid())
     ownerId     String @unique
@@ -12,4 +12,5 @@ model Community {
     feed        Post[]
     members     CommunityMembership[]
     owner       Player @relation(fields: [ownerId], references: [userId])
+    contests    Contest[]
 }

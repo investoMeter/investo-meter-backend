@@ -19,5 +19,4 @@ model ContestContestStock {
   OwnedStock   OwnedStock[]
 
   @@id([contestId, contestStockId])
-	@@map("Contest_ContestStock")
 }

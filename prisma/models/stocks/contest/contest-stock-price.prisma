@@ -13,5 +13,4 @@ model ContestStockPrice {
   stockHistoryId Int?
   StockHistory   StockHistory? @relation(fields: [stockHistoryId], references: [id])
   ContestStock   ContestStock?
-  @@map("contest_stock_price")
 }
