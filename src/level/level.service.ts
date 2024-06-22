@@ -14,6 +14,7 @@ import { PaginatedList } from 'src/common';
 import { Player, TradeType as dbTradeType } from '@prisma/client';
 import { TradeType } from 'src/common';
 import { BasicLevelInfo } from 'src/level/models';
+import { EditTutorialDto } from './dto/edit-tutorial.leveldto';
 
 @Injectable()
 export class LevelService {
@@ -240,4 +241,121 @@ export class LevelService {
       totalQuestions: levelQuestions.length,
     };
   }
+
+  
+  ///////////////////////// ADMIN SIDE ////////////////////////////////////////////////////
+  async getTutorialAdmin(levelId: string): Promise<GetTutorialDto> {
+    const level = await this.prisma.level.findUnique({
+      where: {
+        id: parseInt(levelId),
+      },
+      include: { tutorial: { include: { content: true } } },
+    });
+
+    if (!level || !level.tutorial) {
+      throw new NotFoundException(`level with id: ${levelId} does not exist`);
+    }
+
+    const result: GetTutorialDto = {
+      id: level.tutorial.id,
+      title: level.tutorial.title,
+      imageStorageId: level.tutorial.imageStorageId || undefined,
+      content: level.tutorial.content,
+    };
+
+    return result;
+  }
+
+
+  async editTutorial (getTutorialDto: GetTutorialDto)
+  {
+
+    const levelId =await this.deleteTutorialAndContent(getTutorialDto.id)
+    const tutorial = await this.createLevelTutorial(getTutorialDto,levelId)
+
+    const contents = await this.prisma.content.findMany({where:{tutorialId:tutorial.id}})
+
+    const tutorialDto : EditTutorialDto =
+    {
+      id: tutorial.id,
+      title: tutorial.title,
+      content: contents,
+      imageStorageId: tutorial.imageStorageId,
+      levelId: levelId
+    }
+
+    return tutorialDto
+
+  }
+
+  async  createLevelTutorial(getTutorialDto: GetTutorialDto,levelId:number) {
+    const { id, title, content, imageStorageId } = getTutorialDto;
+
+    // Step 1: Create or find the level
+    let level = await this.prisma.level.findUnique({
+      where: { id: levelId },
+    });
+
+    if (!level) {
+      throw new BadRequestException("Level not found");
+    }
+
+    // Step 2: Create the tutorial
+    const tutorial = await this.prisma.tutorial.create({
+      data: {
+        id,
+        title,
+        imageStorageId,
+        levelId
+      }
+    });
+
+    // Step 3: Create content and link to the tutorial
+    for (const contentDto of content) {
+      await this.prisma.content.create({
+        data: {
+          subTitle: contentDto.subTitle,
+          description: contentDto.description,
+          tutorial: {
+            connect: { id: tutorial.id },
+          },
+        },
+      });
+    }
+
+    return tutorial;
+  }
+
+
+  async  deleteTutorialAndContent(tutorialId: number) {
+
+    const tutorialExists = await this.prisma.tutorial.findUnique({
+      where: { id: tutorialId },
+      });
+
+    if (!tutorialExists) {
+      throw new BadRequestException("Tutorial not found");
+    }
+
+    const levelId = tutorialExists.levelId
+    // Start a transaction
+    await this.prisma.$transaction(async (prisma) => {
+      // Step 1: Delete the content related to the tutorial
+      await prisma.content.deleteMany({
+        where: {
+          tutorialId: tutorialId,
+        },
+      });
+  
+      // Step 2: Delete the tutorial
+      await prisma.tutorial.delete({
+        where: {
+          id: tutorialId,
+        },
+      });
+    });
+
+    return levelId
+  }
 }
+
