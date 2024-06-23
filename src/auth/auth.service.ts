@@ -3,25 +3,25 @@ import {
   ForbiddenException,
   Injectable,
   NotFoundException,
-} from '@nestjs/common';
-import { PrismaService } from 'src/prisma/prisma.service';
+} from "@nestjs/common";
+import { PrismaService } from "src/prisma/prisma.service";
 import {
   RegisterRequestDto,
   LoginRequestDto,
   NewPasswordRequestDto,
   ValidateOtpTokenDto,
   ForgotPasswordRequestDto,
-} from './dto/request';
-import * as bcrypt from 'bcrypt';
-import { JwtService } from '@nestjs/jwt';
-import { Tokens } from './types';
+} from "./dto/request";
+import * as bcrypt from "bcrypt";
+import { JwtService } from "@nestjs/jwt";
+import { Tokens } from "./types";
 import {
   LoginResponseDto,
   RefreshResponseDto,
   RegisterResponseDto,
-} from './dto/response';
-import { MailerService } from '@nestjs-modules/mailer';
-import { Player } from '@prisma/client';
+} from "./dto/response";
+import { MailerService } from "@nestjs-modules/mailer";
+import { ResolvedPlayer } from "./dto/resolved-player.dto";
 
 @Injectable()
 export class AuthService {
@@ -48,7 +48,7 @@ export class AuthService {
         },
       })
     ) {
-      throw new BadRequestException('username or email already exist');
+      throw new BadRequestException("username or email already exist");
     }
 
     const hashPassword = await this.hashPassword(registerDto.password);
@@ -145,7 +145,7 @@ export class AuthService {
       data: { hashedRefreshToken: null },
     });
 
-    return { message: 'Logged out successfully!' };
+    return { message: "Logged out successfully!" };
   }
 
   async refresh(userId: string, rt: string): Promise<RefreshResponseDto> {
@@ -195,7 +195,7 @@ export class AuthService {
     ) {
       const OtpToken = Math.floor(Math.random() * 10000)
         .toString()
-        .padStart(4, '0');
+        .padStart(4, "0");
 
       await this.prisma.passwordReset.upsert({
         where: {
@@ -212,7 +212,7 @@ export class AuthService {
 
       await this.mailerService.sendMail({
         to: forgotPasswordDto.email,
-        subject: 'Password Reset',
+        subject: "Password Reset",
         html: `
         <h1>Password Reset</h1>
         <br/>
@@ -237,15 +237,15 @@ export class AuthService {
       !passwordReset ||
       new Date().getTime() - passwordReset.createdAt.getTime() > 60 * 60 * 1000
     ) {
-      throw new BadRequestException('Token expired');
+      throw new BadRequestException("Token expired");
     }
 
     if (passwordReset.token === validateOtpTokenDto.token) {
       return {
-        message: 'Otp is valid',
+        message: "Otp is valid",
       };
     }
-    throw new NotFoundException('Otp is not valid');
+    throw new NotFoundException("Otp is not valid");
   }
 
   async setNewPassword(newPasswordDto: NewPasswordRequestDto) {
@@ -284,7 +284,7 @@ export class AuthService {
       },
     });
 
-    return { message: 'Password is reset successfully!' };
+    return { message: "Password is reset successfully!" };
   }
 
   // Utils
@@ -308,7 +308,7 @@ export class AuthService {
           email,
         },
         {
-          secret: 'at-secret',
+          secret: "at-secret",
           expiresIn: 60 * 60 * 24, // day
         },
       ),
@@ -320,7 +320,7 @@ export class AuthService {
           email,
         },
         {
-          secret: 'rt-secret',
+          secret: "rt-secret",
           expiresIn: 60 * 60 * 24 * 30, // month
         },
       ),
@@ -341,7 +341,7 @@ export class AuthService {
         })
       )?.salt;
 
-      const rtHash = await bcrypt.hash(rt, salt ? salt : '');
+      const rtHash = await bcrypt.hash(rt, salt ? salt : "");
 
       await this.prisma.user.update({
         where: {
@@ -356,7 +356,7 @@ export class AuthService {
     }
   }
 
-  public async playerResolver(playerId?: string): Promise<Player> {
+  public async playerResolver(playerId?: string): Promise<ResolvedPlayer> {
     if (!!!playerId) {
       throw new BadRequestException(`playerId is not provided`);
     }
@@ -365,14 +365,19 @@ export class AuthService {
       where: {
         userId: playerId,
       },
-      include: { user: true, contestMemberships: true, levelMemberships: true },
+      include: { user: true },
     });
 
     if (!player) {
       throw new NotFoundException(`player with id: ${playerId} is not found`);
     }
 
-    return player;
+    return {
+      userId: player.userId,
+      username: player.user.username,
+      email: player.user.email,
+      coins: player.coins,
+    };
   }
 
   public async AdminResolver(adminId?: string) {
@@ -408,7 +413,7 @@ export class AuthService {
         },
       })
     ) {
-      throw new BadRequestException('username or email already exist');
+      throw new BadRequestException("username or email already exist");
     }
 
     const hashPassword = await this.hashPassword(registerDto.password);

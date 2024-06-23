@@ -44,7 +44,7 @@ model CommunityMembership {
 
 model Comment {
   id          String @id @default(cuid())
-  userId      String
+  authorId    String
   communityId String
   postId      String
 
@@ -53,7 +53,7 @@ model Comment {
   updatedAt DateTime @updatedAt
 
   post   Post                @relation(fields: [postId], references: [id], onDelete: Cascade)
-  author CommunityMembership @relation(fields: [userId, communityId], references: [userId, communityId], onDelete: Cascade)
+  author CommunityMembership @relation(fields: [authorId, communityId], references: [userId, communityId], onDelete: Cascade)
 }
 
 //

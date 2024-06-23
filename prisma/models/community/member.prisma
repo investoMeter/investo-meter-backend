@@ -12,8 +12,8 @@ model CommunityMembership {
 
     posts       Post[]
     comments    Comment[]
-    player      Player @relation(fields: [userId], references: [userId], onDelete: cascade)
-    community   Community @relation(fields: [communityId], references: [id], onDelete: cascade)
+    player      Player @relation(fields: [userId], references: [userId], onDelete: Cascade)
+    community   Community @relation(fields: [communityId], references: [id], onDelete: Cascade)
 
     @@id([userId, communityId])
 }
