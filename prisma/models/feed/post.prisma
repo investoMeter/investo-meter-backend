@@ -14,6 +14,6 @@ model Post {
     updatedAt   DateTime @updatedAt
 
     comments    Comment[]
-    community   Community @relation(fields: [communityId], references: [id])
-    author      CommunityMembership     @relation(fields: [authorId,communityId], references: [userId, communityId])
+    community   Community @relation(fields: [communityId], references: [id], onDelete: Cascade)
+    author      CommunityMembership     @relation(fields: [authorId,communityId], references: [userId, communityId], onDelete: Cascade)
 }

@@ -7,21 +7,28 @@ import { Player } from "@prisma/client";
 import { PrismaService } from "src/prisma";
 import { CreateCommunityRequest } from "./dto/create-community.request.dto";
 import { CreateCommunityResponse } from "./dto/create-community.response.dto";
-import { JoinCommunityRequest } from "./dto/join-community.request.dto";
+import { CommunityActionRequest } from "./dto/community-action.request.dto";
 import { JoinCommunityResponse } from "./dto/join-community.response.dto";
 import { CreateCommunityContestRequest } from "./dto/create-community-contest.request.dto";
 import { CreateCommunityContestResponse } from "./dto/create-community-contest.response.dto";
 
 @Injectable()
 export class CommunityService {
+
   constructor(private prisma: PrismaService) {}
+  private readonly COMMUNITY_FEES = 500;
+
   async createCommunity(
     player: Player,
     request: CreateCommunityRequest,
   ): Promise<CreateCommunityResponse> {
+    if (player.coins < this.COMMUNITY_FEES) {
+      throw new BadRequestException("Insufficient Coins to create community");
+    }
+
     const deductCommunityPrice = this.prisma.player.update({
       data: {
-        coins: player.coins - 100, // TODO: determine community price @fadia
+        coins: player.coins - this.COMMUNITY_FEES, // TODO: determine community price @fadia
       },
       where: {
         userId: player.userId,
@@ -54,7 +61,7 @@ export class CommunityService {
 
   async joinCommunity(
     player: Player,
-    request: JoinCommunityRequest,
+    request: CommunityActionRequest,
   ): Promise<JoinCommunityResponse> {
     const community = await this.prisma.community.findFirst({
       where: {
@@ -69,11 +76,14 @@ export class CommunityService {
       throw new NotFoundException("Invalid Community ID");
     }
 
-    if (
-      community.members.find((m) => m.userId === player.userId) != undefined ||
-      community.ownerId === player.userId
-    ) {
-      throw new BadRequestException("player already exist in community");
+    const isPlayerMember = community.members.some(
+      (m) => m.userId === player.userId,
+    );
+    
+    const isPlayerOwner = community.ownerId === player.userId;
+
+    if (isPlayerMember || isPlayerOwner) {
+      throw new BadRequestException("Player already exists in the community");
     }
 
     await this.prisma.communityMembership.create({
@@ -194,6 +204,7 @@ export class CommunityService {
         },
       });
     }
+
     let communityMembersIds;
     if (!joinContest) {
       communityMembersIds = await this.prisma.communityMembership.findMany({
@@ -218,7 +229,7 @@ export class CommunityService {
       });
     }
 
-    const contestMembershipData = communityMembersIds.map((member) => ({
+    const contestMembershipData = communityMembersIds.map((member: any) => ({
       contestId: newContest.id,
       playerId: member.userId,
       roomNumber: room.roomNumber,
@@ -245,6 +256,7 @@ export class CommunityService {
       startDate: new Date(newContest.startDate),
       endDate: new Date(newContest.endDate),
       startingShares: newContest.startingShares,
+
       rooms: [
         {
           roomNumber: room.roomNumber,
@@ -254,5 +266,92 @@ export class CommunityService {
     };
 
     return response;
+  }
+
+  async getOwnedCommunities(player: { userId: string }) {
+    return await this.prisma.$queryRaw`
+    SELECT c.id, c.name, Count(cm."userId")::text AS memberCount
+    FROM "Community" c
+    LEFT JOIN "CommunityMembership" cm on c.id = cm."communityId"
+    WHERE c."ownerId" = ${player.userId}
+    GROUP BY c.id, c.name
+    `;
+  }
+
+  async getJoinedCommunities(player: { userId: string; coins: number }) {
+    return await this.prisma.$queryRaw`
+    SELECT c.id, c.name, COUNT(cm."userId")::text AS memberCount
+    FROM "Community" c
+    LEFT JOIN "CommunityMembership" cm ON c.id = cm."communityId"
+    WHERE c."ownerId" != ${player.userId} AND c.id in 
+    (SELECT "communityId" FROM "CommunityMembership" WHERE "userId" = ${player.userId})
+    GROUP BY c.id, c.name`;
+  }
+
+  async getCommunitiesToJoin(player: { userId: string; coins: number }) {
+    return await this.prisma.$queryRaw`
+    SELECT c.id, c.name, COUNT(cm."userId")::text AS memberCount
+    FROM "Community" c
+    LEFT JOIN "CommunityMembership" cm ON c.id = cm."communityId"
+    WHERE c."ownerId" != ${player.userId} AND c.id not in 
+    (SELECT "communityId" FROM "CommunityMembership" WHERE "userId" = ${player.userId})
+    GROUP BY c.id, c.name
+  `;
+  }
+
+  async leaveCommunity(
+    player: { userId: string; coins: number },
+    leaveCommunityDto: { communityId: string },
+  ) {
+    const membership = await this.prisma.communityMembership.findFirst({
+      where: {
+        userId: player.userId,
+        communityId: leaveCommunityDto.communityId,
+      },
+    });
+
+    if (!membership) {
+      throw new NotFoundException("Player is not a member of the community");
+    }
+
+    await this.prisma.communityMembership.delete({
+      where: {
+        userId_communityId: {
+          userId: player.userId,
+          communityId: leaveCommunityDto.communityId,
+        },
+      },
+    });
+
+    return { communityId: leaveCommunityDto.communityId };
+  }
+
+  async getCommunityMembers(player: { userId: string;  }, communityId: string){
+    const communityMembers :{
+      username: string,
+      userId: string,
+      isOwner: boolean
+    }[]
+     = await this.prisma.$queryRaw`
+      SELECT u.username, u."id" as "userId", false AS isOwner
+      FROM "Community" c
+      JOIN "CommunityMembership" cm ON c.id = cm."communityId"
+      Join "User" u ON cm."userId" = u."id"
+      WHERE c.id = ${communityId}
+      Union 
+      SELECT u.username, u."id" as "userId", true AS isOwner
+      FROM "Community" c
+      JOIN "User" u ON c."ownerId" = u."id"
+      WHERE c.id = ${communityId}
+    `;
+
+    const isMember = communityMembers.some(member => member.userId === player.userId);
+    const isAdmin = communityMembers.some(member => member.userId === player.userId && member.isOwner);
+
+    if (!isMember && !isAdmin) {
+      throw new BadRequestException('Player is not a member or admin of the community');
+    }
+
+    return communityMembers
   }
 }

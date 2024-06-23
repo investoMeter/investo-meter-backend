@@ -9,7 +9,7 @@
 
 model Community {
   id        String                @id @default(cuid())
-  ownerId   String                @unique
+  ownerId   String
   name      String
   createdAt DateTime              @default(now())
   updatedAt DateTime              @updatedAt
@@ -32,8 +32,8 @@ model CommunityMembership {
 
   posts     Post[]
   comments  Comment[]
-  player    Player    @relation(fields: [userId], references: [userId])
-  community Community @relation(fields: [communityId], references: [id])
+  player    Player    @relation(fields: [userId], references: [userId], onDelete: Cascade)
+  community Community @relation(fields: [communityId], references: [id], onDelete: Cascade)
 
   @@id([userId, communityId])
 }
@@ -52,8 +52,8 @@ model Comment {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  post   Post                @relation(fields: [postId], references: [id])
-  author CommunityMembership @relation(fields: [userId, communityId], references: [userId, communityId])
+  post   Post                @relation(fields: [postId], references: [id], onDelete: Cascade)
+  author CommunityMembership @relation(fields: [userId, communityId], references: [userId, communityId], onDelete: Cascade)
 }
 
 //
@@ -71,8 +71,8 @@ model Post {
   updatedAt DateTime @updatedAt
 
   comments  Comment[]
-  community Community           @relation(fields: [communityId], references: [id])
-  author    CommunityMembership @relation(fields: [authorId, communityId], references: [userId, communityId])
+  community Community           @relation(fields: [communityId], references: [id], onDelete: Cascade)
+  author    CommunityMembership @relation(fields: [authorId, communityId], references: [userId, communityId], onDelete: Cascade)
 }
 
 //

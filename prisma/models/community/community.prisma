@@ -3,9 +3,10 @@ import { CommunityMembership } from "./member"
 import { Player } from "..\roles\player"
 import { CommunityMembership } from "member"
 import { Contest } from "..\stocks\contest\contest"
+
 model Community {
     id          String      @id @default(cuid())
-    ownerId     String @unique
+    ownerId     String 
     name        String
     createdAt   DateTime @default(now())
     updatedAt   DateTime @updatedAt
