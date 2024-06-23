@@ -28,7 +28,7 @@ export class ContestService {
   constructor(
     private prisma: PrismaService,
     private tradeUtility: TradingUtilityService,
-  ) {}
+  ) { }
 
   async getAllContests(
     page: number = 0,
@@ -473,8 +473,8 @@ export class ContestService {
         maxRoomCapacity: requestDto.maxRoomCapacity,
         startingMoney: requestDto.startingMoney,
         startingShares: requestDto.startingShares,
-        startDate: requestDto.startDate,
-        endDate: requestDto.endDate,
+        startDate: new Date(requestDto.startDate),
+        endDate: new Date(requestDto.endDate),
       },
     });
     return this.mapContestToEditableData(contest.id);
@@ -684,5 +684,22 @@ export class ContestService {
     };
 
     return transformedContest;
+  }
+
+  async getAllContestStocks(): Promise<ContestStockDto[]> {
+    const allStocks = await this.prisma.contestStock.findMany({
+      select: {
+        id: true, name: true, symbol: true,
+      }
+    });
+
+    const contestStocks: ContestStockDto[] = allStocks.map(stock => ({
+      id: stock.id,
+      name: stock.name,
+      symbol: stock.symbol,
+    }));
+
+    return contestStocks;
+
   }
 }

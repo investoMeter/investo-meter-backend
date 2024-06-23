@@ -29,7 +29,7 @@ export class ContestController {
   constructor(
     private contestService: ContestService,
     private authService: AuthService,
-  ) {}
+  ) { }
 
   @Get("get-all-contests")
   @HttpCode(HttpStatus.OK)
@@ -139,5 +139,16 @@ export class ContestController {
   ): Promise<ContestEditableData> {
     await this.authService.AdminResolver((req as any).user.sub);
     return await this.contestService.getEditableContestData(contestId);
+  }
+
+  @Get("get-all-stocks")
+  @HttpCode(HttpStatus.OK)
+  @UseGuards(AtGuard)
+  @ApiBearerAuth()
+  async getAllContestStocks(
+    @Req() req: any,
+  ): Promise<ContestStockDto[]> {
+    await this.authService.AdminResolver((req as any).user.sub);
+    return await this.contestService.getAllContestStocks();
   }
 }
