@@ -65,8 +65,7 @@ model Post {
   authorId    String
   communityId String
 
-  likes     Int
-  title     String
+  likedBy   String[]
   content   String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
