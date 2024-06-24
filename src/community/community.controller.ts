@@ -1,11 +1,13 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   HttpCode,
   HttpStatus,
   Param,
   Post,
+  Put,
   Req,
   UseGuards,
 } from "@nestjs/common";
@@ -15,6 +17,9 @@ import { CommunityService } from "./community.service";
 import { AtGuard } from "src/auth/guards";
 import { CreateCommunityRequest } from "./dto/create-community.request.dto";
 import { CommunityActionRequest } from "./dto/community-action.request.dto";
+import { CreateCommunityContestRequest } from "./dto/create-community-contest.request.dto";
+import { AdminMemberActionRequestDTO } from "./dto/admin-member-action.request.dto";
+import { EditCommunityRequestDTO } from "./dto/edit-community.request.dto";
 
 @Controller("community")
 @ApiTags("Communities")
@@ -24,7 +29,7 @@ export class CommunityController {
     private authService: AuthService,
   ) {}
 
-  @Post("create-community")
+  @Post()
   @HttpCode(HttpStatus.CREATED)
   @UseGuards(AtGuard)
   @ApiBearerAuth()
@@ -34,6 +39,57 @@ export class CommunityController {
   ) {
     const player = await this.authService.playerResolver((req as any).user.sub);
     return this.service.createCommunity(player, createCommunityRequestDTO);
+  }
+
+  @Put()
+  @HttpCode(HttpStatus.OK)
+  @UseGuards(AtGuard)
+  @ApiBearerAuth()
+  async editCommunity(
+    @Req() req: any,
+    @Body() editCommunityRequestDTO: EditCommunityRequestDTO,
+  ) {
+    const player = await this.authService.playerResolver((req as any).user.sub);
+    return this.service.editCommunity(player, editCommunityRequestDTO);
+  }
+
+  @Delete()
+  @HttpCode(HttpStatus.OK)
+  @UseGuards(AtGuard)
+  @ApiBearerAuth()
+  async deleteCommunity(
+    @Req() req: any, 
+    @Body() deleteCommunityRequestDTO: CommunityActionRequest,
+) {
+    const player = await this.authService.playerResolver((req as any).user.sub);
+    return this.service.deleteCommunity(player, deleteCommunityRequestDTO);
+  }
+
+  @Post("create-contest")
+  @HttpCode(HttpStatus.CREATED)
+  @UseGuards(AtGuard)
+  @ApiBearerAuth()
+  async createCommunityContest(
+    @Req() req: any,
+    @Body() createCommunityContestDTO: CreateCommunityContestRequest,
+  ) {
+    const player = await this.authService.playerResolver((req as any).user.sub);
+    return this.service.createCommunityContest(
+      player,
+      createCommunityContestDTO,
+    );
+  }
+
+  @Post("join-community")
+  @HttpCode(HttpStatus.OK)
+  @UseGuards(AtGuard)
+  @ApiBearerAuth()
+  async joinCommunity(
+    @Req() req: any,
+    @Body() joinCommunityRequestDTO: CommunityActionRequest,
+  ) {
+    const player = await this.authService.playerResolver((req as any).user.sub);
+    return this.service.joinCommunity(player, joinCommunityRequestDTO);
   }
 
   @Get("owned-communities")
@@ -63,18 +119,6 @@ export class CommunityController {
     return this.service.getCommunitiesToJoin(player);
   }
 
-  @Post("join-community")
-  @HttpCode(HttpStatus.OK)
-  @UseGuards(AtGuard)
-  @ApiBearerAuth()
-  async joinCommunity(
-    @Req() req: any,
-    @Body() joinCommunityRequestDTO: CommunityActionRequest,
-  ) {
-    const player = await this.authService.playerResolver((req as any).user.sub);
-    return this.service.joinCommunity(player, joinCommunityRequestDTO);
-  }
-
   @Post("leave-community")
   @HttpCode(HttpStatus.OK)
   @UseGuards(AtGuard)
@@ -98,4 +142,29 @@ export class CommunityController {
     const player = await this.authService.playerResolver((req as any).user.sub);
     return this.service.getCommunityMembers(player, communityId);
   }
+
+  @Post("add-member")
+  @HttpCode(HttpStatus.OK)
+  @UseGuards(AtGuard)
+  @ApiBearerAuth()
+  async addMember(
+    @Req() req: any,
+    @Body() addMemberDto: AdminMemberActionRequestDTO,
+  ) {
+    const player = await this.authService.playerResolver((req as any).user.sub);
+    return this.service.addCommunityMember(player, addMemberDto);
+  }
+
+  @Post("remove-member")
+  @HttpCode(HttpStatus.OK)
+  @UseGuards(AtGuard)
+  @ApiBearerAuth()
+  async removeMember(
+    @Req() req: any,
+    @Body() removeMemberDto: AdminMemberActionRequestDTO,
+  ) {
+    const player = await this.authService.playerResolver((req as any).user.sub);
+    return this.service.removeCommunityMember(player, removeMemberDto);
+  }
+
 }

@@ -11,10 +11,11 @@ import { CommunityActionRequest } from "./dto/community-action.request.dto";
 import { JoinCommunityResponse } from "./dto/join-community.response.dto";
 import { CreateCommunityContestRequest } from "./dto/create-community-contest.request.dto";
 import { CreateCommunityContestResponse } from "./dto/create-community-contest.response.dto";
+import { AdminMemberActionRequestDTO } from "./dto/admin-member-action.request.dto";
+import { EditCommunityRequestDTO } from "./dto/edit-community.request.dto";
 
 @Injectable()
 export class CommunityService {
-
   constructor(private prisma: PrismaService) {}
   private readonly COMMUNITY_FEES = 500;
 
@@ -27,19 +28,12 @@ export class CommunityService {
     }
 
     const deductCommunityPrice = this.prisma.player.update({
-      data: {
-        coins: player.coins - this.COMMUNITY_FEES, // TODO: determine community price @fadia
-      },
-      where: {
-        userId: player.userId,
-      },
+      data: { coins: player.coins - this.COMMUNITY_FEES },
+      where: { userId: player.userId },
     });
 
     const createCommunity = this.prisma.community.create({
-      data: {
-        name: request.name,
-        ownerId: player.userId,
-      },
+      data: { name: request.name, ownerId: player.userId },
       select: {
         id: true,
         name: true,
@@ -52,6 +46,13 @@ export class CommunityService {
       createCommunity,
     ]);
 
+    await this.prisma.communityMembership.create({
+      data: {
+        userId: player.userId,
+        communityId: community.id,
+      },
+    });
+
     return {
       communityId: community.id,
       communityName: community.name,
@@ -59,27 +60,39 @@ export class CommunityService {
     };
   }
 
+  async deleteCommunity(
+    player: Player,
+    { communityId }: CommunityActionRequest,
+  ) {
+    await this.checkOwner(player.userId, communityId);
+    await this.prisma.community.delete({
+      where: { id: communityId },
+    });
+  }
+
+  async editCommunity(
+    player: Player,
+    { communityId, name }: EditCommunityRequestDTO,
+  ) {
+    await this.checkOwner(player.userId, communityId);
+
+    return await this.prisma.community.update({
+      where: { id: communityId },
+      data: { name: name },
+    });
+  }
+
   async joinCommunity(
     player: Player,
     request: CommunityActionRequest,
   ): Promise<JoinCommunityResponse> {
-    const community = await this.prisma.community.findFirst({
-      where: {
-        id: request.communityId,
-      },
-      include: {
-        members: true,
-      },
-    });
 
-    if (community == null) {
-      throw new NotFoundException("Invalid Community ID");
-    }
+    const community = await this.getCommunity(request.communityId);
 
     const isPlayerMember = community.members.some(
       (m) => m.userId === player.userId,
     );
-    
+
     const isPlayerOwner = community.ownerId === player.userId;
 
     if (isPlayerMember || isPlayerOwner) {
@@ -100,45 +113,13 @@ export class CommunityService {
     player: Player,
     request: CreateCommunityContestRequest,
   ): Promise<CreateCommunityContestResponse> {
-    const {
-      name,
-      startingMoney,
-      startDate,
-      endDate,
-      stocksShares,
-      stocksIds,
-      communityId,
-      joinContest,
-    } = request;
+    const { name, startingMoney, startDate, endDate, stocksShares, stocksIds, communityId, joinContest } = request;
 
-    const community = await this.prisma.community.findFirst({
-      where: {
-        id: communityId,
-      },
-      select: {
-        id: true,
-        ownerId: true,
-        _count: {
-          select: {
-            members: true,
-          },
-        },
-      },
-    });
-
-    if (community === null) {
-      throw new NotFoundException(
-        `Invalid Community ID: ${request.communityId}`,
-      );
-    }
-
-    if (community.ownerId !== player.userId) {
-      throw new BadRequestException(`Only Community Owner can create contest`);
-    }
+    await this.checkOwner(player.userId, communityId);
+    const community = await this.getCommunity(communityId);
 
     const startDateObject = new Date(startDate);
     startDateObject.setUTCHours(startDateObject.getUTCHours() + 3);
-
     const endDateObject = new Date(endDate);
     endDateObject.setUTCHours(endDateObject.getUTCHours() + 3);
 
@@ -154,20 +135,11 @@ export class CommunityService {
       communityId: community.id,
     };
 
-    const newContest = await this.prisma.contest.create({
-      data: contestData,
-    });
+    const newContest = await this.prisma.contest.create({ data: contestData });
 
     const contestStocks = await this.prisma.contestStock.findMany({
-      where: {
-        id: {
-          in: stocksIds,
-        },
-      },
-      select: {
-        initialPrice: true,
-        id: true,
-      },
+      where: { id: { in: stocksIds } },
+      select: { initialPrice: true, id: true },
     });
 
     await this.prisma.contestContestStock.createMany({
@@ -191,14 +163,7 @@ export class CommunityService {
           roomNumber: room.roomNumber,
           stockId: stock.id,
           ContestStockPrice: {
-            create: {
-              open: stock.initialPrice.open,
-              close: stock.initialPrice.close,
-              highest: stock.initialPrice.highest,
-              lowest: stock.initialPrice.lowest,
-              volume: stock.initialPrice.volume,
-              timeStamp: startDateObject,
-            },
+            create: stock.initialPrice,
           },
           currentShares: stocksShares,
         },
@@ -210,19 +175,13 @@ export class CommunityService {
       communityMembersIds = await this.prisma.communityMembership.findMany({
         where: {
           communityId: communityId,
-          userId: {
-            not: community.ownerId,
-          },
+          userId: { not: community.ownerId },
         },
-        select: {
-          userId: true,
-        },
+        select: { userId: true },
       });
     } else {
       communityMembersIds = await this.prisma.communityMembership.findMany({
-        where: {
-          communityId: communityId,
-        },
+        where: { communityId: communityId },
         select: {
           userId: true,
         },
@@ -239,16 +198,8 @@ export class CommunityService {
       data: contestMembershipData,
     });
 
-    await this.prisma.player.update({
-      where: {
-        userId: player.userId,
-      },
-      data: {
-        coins: player.coins - 10, // TODO: Creating a community contest deducts from coins ? @fadia
-      },
-    });
 
-    const response: CreateCommunityContestResponse = {
+    return {
       id: newContest.id,
       name: newContest.name,
       maxRoomCapacity: newContest.maxRoomCapacity,
@@ -264,8 +215,6 @@ export class CommunityService {
         },
       ],
     };
-
-    return response;
   }
 
   async getOwnedCommunities(player: { userId: string }) {
@@ -300,58 +249,121 @@ export class CommunityService {
   }
 
   async leaveCommunity(
-    player: { userId: string; coins: number },
-    leaveCommunityDto: { communityId: string },
+    player: { userId: string }, { communityId }: CommunityActionRequest,
   ) {
-    const membership = await this.prisma.communityMembership.findFirst({
-      where: {
-        userId: player.userId,
-        communityId: leaveCommunityDto.communityId,
-      },
-    });
-
-    if (!membership) {
-      throw new NotFoundException("Player is not a member of the community");
+    
+    if (!(await this.isInCommunity(player.userId, communityId))) {
+      throw new BadRequestException("Player is not a member of the community");
     }
 
     await this.prisma.communityMembership.delete({
       where: {
         userId_communityId: {
           userId: player.userId,
-          communityId: leaveCommunityDto.communityId,
+          communityId: communityId,
         },
       },
     });
 
-    return { communityId: leaveCommunityDto.communityId };
+    return { communityId };
   }
 
-  async getCommunityMembers(player: { userId: string;  }, communityId: string){
-    const communityMembers :{
-      username: string,
-      userId: string,
-      isOwner: boolean
-    }[]
-     = await this.prisma.$queryRaw`
-      SELECT u.username, u."id" as "userId", false AS isOwner
+  async getCommunityMembers(player: { userId: string }, communityId: string) {
+
+    if (!(await this.isInCommunity(player.userId, communityId))) {
+      throw new BadRequestException("Player is not a member of the community");
+    }
+
+    const communityMembers: {
+      username: string;
+      userId: string;
+      isOwner: boolean;
+    } [] = await this.prisma.$queryRaw`
+      SELECT u.username, u."id" as "userId", c."ownerId" = u."id" AS isOwner
       FROM "Community" c
       JOIN "CommunityMembership" cm ON c.id = cm."communityId"
       Join "User" u ON cm."userId" = u."id"
       WHERE c.id = ${communityId}
-      Union 
-      SELECT u.username, u."id" as "userId", true AS isOwner
-      FROM "Community" c
-      JOIN "User" u ON c."ownerId" = u."id"
-      WHERE c.id = ${communityId}
     `;
 
-    const isMember = communityMembers.some(member => member.userId === player.userId);
-    const isAdmin = communityMembers.some(member => member.userId === player.userId && member.isOwner);
+    return communityMembers;
+  }
 
-    if (!isMember && !isAdmin) {
-      throw new BadRequestException('Player is not a member or admin of the community');
+  async addCommunityMember(
+    owner: { userId: string },
+    { communityId, memberId }: AdminMemberActionRequestDTO,
+  ) {
+
+    await this.checkOwner(owner.userId, communityId);
+
+    if (await this.isInCommunity(memberId, communityId)) {
+      throw new BadRequestException("Member is already in the community");
     }
 
-    return communityMembers
+    await this.prisma.communityMembership.create({
+      data: {
+        userId: memberId,
+        communityId: communityId,
+      },
+    });
+
+    return { communityId, memberId };
+  }
+
+  async removeCommunityMember(
+    owner: { userId: string },
+    { communityId, memberId }: AdminMemberActionRequestDTO,
+  ) {
+
+    await this.checkOwner(owner.userId, communityId);
+
+    if (!(await this.isInCommunity(memberId, communityId))) {
+      throw new BadRequestException("Member is not in the community");
+    }
+
+    await this.prisma.communityMembership.delete({
+      where: {
+        userId_communityId: {
+          userId: memberId,
+          communityId: communityId,
+        },
+      },
+    });
+
+    return { communityId, memberId };
+  }
+
+  private async isInCommunity(
+    playerId: string,
+    communityId: string,
+  ): Promise<boolean> {
+
+    const membership = await this.prisma.communityMembership.findFirst({
+      where: { communityId: communityId, userId: playerId },
+    });
+
+    return !!membership;
+  }
+
+  private async getCommunity(communityId: string) {
+    const community = await this.prisma.community.findFirst({
+      where: { id: communityId },
+      include: {
+        members: true,
+        _count: {
+          select: { members: true },
+        },
+      },
+      
+    });
+    if (!community) throw new NotFoundException("Community not found");
+    return community;
+  }
+
+  private async checkOwner(playerId: string, communityId: string) {
+    const community = await this.getCommunity(communityId);
+    if (community.ownerId !== playerId) {
+      throw new BadRequestException("Only the owner can perform this action");
+    }
   }
 }
