@@ -335,7 +335,7 @@ export class CommunityService {
       userId: string;
       isOwner: boolean;
     }[] = await this.prisma.$queryRaw`
-      SELECT u.username, u."id" as "userId", c."isOwner"
+      SELECT u.username, u."id" as "userId", cm."isOwner"
       FROM "Community" c
       JOIN "CommunityMembership" cm ON c.id = cm."communityId"
       Join "User" u ON cm."userId" = u."id"
