@@ -1,5 +1,6 @@
 import {
   BadRequestException,
+  ForbiddenException,
   Injectable,
   NotFoundException,
 } from "@nestjs/common";
@@ -23,9 +24,8 @@ export class FeedService {
   // get feed
   async getFeed(player: ResolvedPlayer, request: GetFeedRequest) {
     const { communityId, page, take } = request;
-    if (!this.IsInCommunity(player.userId, communityId)) {
-      throw new BadRequestException("Player is not in the community");
-    }
+
+    await this.validateCommunityMembership(player.userId, communityId);
 
     const posts = await this.prisma.post.findMany({
       where: {
@@ -77,12 +77,13 @@ export class FeedService {
     });
     return response;
   }
+
   // like post
   async likePost(player: ResolvedPlayer, request: PostRequest) {
     const { postId, communityId } = request;
-    if (!this.IsInCommunity(player.userId, communityId)) {
-      throw new Error("Player is not in the community");
-    }
+
+    await this.validateCommunityMembership(player.userId, communityId);
+
     const post = await this.prisma.post.findFirst({
       where: {
         id: postId,
@@ -113,12 +114,13 @@ export class FeedService {
       },
     });
   }
+
   // unlike post
   async unlikePost(player: ResolvedPlayer, request: PostRequest) {
     const { postId, communityId } = request;
-    if (!this.IsInCommunity(player.userId, communityId)) {
-      throw new Error("Player is not in the community");
-    }
+
+    await this.validateCommunityMembership(player.userId, communityId);
+
     const post = await this.prisma.post.findFirst({
       where: {
         id: postId,
@@ -147,15 +149,15 @@ export class FeedService {
       },
     });
   }
+
   // create post
   async createPost(
     player: ResolvedPlayer,
     request: CreatePostRequest,
   ): Promise<PostDto> {
     const { communityId, content } = request;
-    if (!this.IsInCommunity(player.userId, communityId)) {
-      throw new Error("Player is not in the community");
-    }
+
+    await this.validateCommunityMembership(player.userId, communityId);
 
     const post = await this.prisma.post.create({
       data: {
@@ -176,12 +178,12 @@ export class FeedService {
       isLiked: false,
     };
   }
+
   // delete post
   async deletePost(player: ResolvedPlayer, request: PostRequest) {
     const { postId, communityId } = request;
-    if (!this.IsInCommunity(player.userId, communityId)) {
-      throw new Error("Player is not in the community");
-    }
+
+    await this.validateCommunityMembership(player.userId, communityId);
 
     const post = await this.prisma.post.findFirst({
       where: {
@@ -216,12 +218,11 @@ export class FeedService {
       },
     });
   }
+
   // edit post
   async editPost(player: ResolvedPlayer, request: EditPostRequest) {
     const { postId, communityId, content } = request;
-    if (!this.IsInCommunity(player.userId, communityId)) {
-      throw new Error("Player is not in the community");
-    }
+    await this.validateCommunityMembership(player.userId, communityId);
 
     const post = await this.prisma.post.findFirst({
       where: {
@@ -253,12 +254,13 @@ export class FeedService {
       },
     });
   }
+
   // get comments
   async getComments(player: ResolvedPlayer, request: PostRequest) {
     const { postId, communityId } = request;
-    if (!this.IsInCommunity(player.userId, communityId)) {
-      throw new Error("Player is not in the community");
-    }
+
+    await this.validateCommunityMembership(player.userId, communityId);
+
     const comments = await this.prisma.comment.findMany({
       where: {
         postId: postId,
@@ -268,18 +270,15 @@ export class FeedService {
         id: true,
         text: true,
         createdAt: true,
-        author: {
-          select: {
-            userId: true,
-          },
-        },
+        authorId: true,
       },
       orderBy: { createdAt: "desc" },
     });
+
     const users = await this.prisma.user.findMany({
       where: {
         id: {
-          in: comments.map((comment) => comment.author.userId),
+          in: comments.map((comment) => comment.authorId),
         },
       },
       select: {
@@ -292,10 +291,9 @@ export class FeedService {
     comments.forEach((comment) => {
       response.push({
         id: comment.id,
-        authorId: comment.author.userId,
+        authorId: comment.authorId,
         authorName:
-          users.find((u) => u.id === comment.author.userId)?.username ||
-          "Unknown",
+          users.find((u) => u.id === comment.authorId)?.username || "Unknown",
         text: comment.text,
         createdAt: comment.createdAt,
       });
@@ -303,15 +301,15 @@ export class FeedService {
 
     return response;
   }
+
   // create comment
   async createComment(
     player: ResolvedPlayer,
     request: CreateCommentRequest,
   ): Promise<CommentDto> {
     const { text, postId, communityId } = request;
-    if (!this.IsInCommunity(player.userId, communityId)) {
-      throw new Error("Player is not in the community");
-    }
+
+    await this.validateCommunityMembership(player.userId, communityId);
 
     const comment = await this.prisma.comment.create({
       data: {
@@ -335,9 +333,7 @@ export class FeedService {
   async deleteComment(player: ResolvedPlayer, request: CommentRequest) {
     const { postId, commentId, communityId } = request;
 
-    if (!this.IsInCommunity(player.userId, communityId)) {
-      throw new Error("Player is not in the community");
-    }
+    await this.validateCommunityMembership(player.userId, communityId);
 
     const comment = await this.prisma.comment.findFirst({
       where: {
@@ -347,9 +343,9 @@ export class FeedService {
       },
       select: {
         authorId: true,
-        communityId: true,
       },
     });
+
     const community = await this.prisma.community.findFirst({
       where: {
         id: communityId,
@@ -359,18 +355,11 @@ export class FeedService {
       },
     });
 
-    if (!community) {
-      throw new BadRequestException("Community not found");
-    }
-
     if (!comment) {
       throw new BadRequestException("Comment not found");
     }
 
-    if (
-      comment.authorId !== player.userId &&
-      community.ownerId !== player.userId
-    ) {
+    if (comment.authorId !== player.userId && community?.ownerId !== player.userId) {
       throw new BadRequestException("Player is not the author of the comment");
     }
 
@@ -381,11 +370,13 @@ export class FeedService {
       },
     });
   }
+
   // edit comment
   async editComment(player: ResolvedPlayer, request: EditCommentRequest) {
     const { postId, commentId, communityId, text } = request;
+
     if (!this.IsInCommunity(player.userId, communityId)) {
-      throw new Error("Player is not in the community");
+      throw new ForbiddenException("Player is not in the community");
     }
 
     const comment = await this.prisma.comment.findFirst({
@@ -420,6 +411,7 @@ export class FeedService {
       },
     });
   }
+  
   //validate if player is in community
   private async IsInCommunity(
     playerId: string,
@@ -436,5 +428,25 @@ export class FeedService {
     });
 
     return !!membership;
+  }
+
+  async validateCommunityMembership(
+    playerId: string,
+    communityId: string,
+  ) {
+    const community = await this.prisma.community.findUnique({
+      where: { id: communityId },
+    });
+
+    if (!community) {
+      throw new BadRequestException("Community not found");
+    }
+
+    const isMember = await this.IsInCommunity(playerId, communityId);
+    const isAdmin = community.ownerId === playerId;
+
+    if (!isMember && !isAdmin) {
+      throw new ForbiddenException(`Player is not in the community`);
+    }
   }
 }
