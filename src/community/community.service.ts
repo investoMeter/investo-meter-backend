@@ -50,6 +50,7 @@ export class CommunityService {
       data: {
         userId: player.userId,
         communityId: community.id,
+        isOwner: true,
       },
     });
 
@@ -86,24 +87,72 @@ export class CommunityService {
     player: Player,
     request: CommunityActionRequest,
   ): Promise<JoinCommunityResponse> {
-
     const community = await this.getCommunity(request.communityId);
 
     const isPlayerMember = community.members.some(
       (m) => m.userId === player.userId,
     );
 
-    const isPlayerOwner = community.ownerId === player.userId;
-
-    if (isPlayerMember || isPlayerOwner) {
+    if (isPlayerMember) {
       throw new BadRequestException("Player already exists in the community");
     }
+    this.prisma.$transaction(async (prisma) => {
+      await prisma.communityMembership.create({
+        data: {
+          userId: player.userId,
+          communityId: community.id,
+          isOwner: false,
+        },
+      });
 
-    await this.prisma.communityMembership.create({
-      data: {
-        userId: player.userId,
-        communityId: community.id,
-      },
+      const upcomingContests = await this.prisma.contest.findMany({
+        where: {
+          communityId: community.id,
+          startDate: { gt: new Date() },
+        },
+        select: {
+          id: true,
+          maxRoomCapacity: true,
+          startingMoney: true,
+          rooms: {
+            select: {
+              roomNumber: true,
+              currentCapacity: true,
+            },
+          },
+        },
+      });
+
+      upcomingContests.forEach(async (contest) => {
+        await this.prisma.contestMembership.create({
+          data: {
+            contestId: contest.id,
+            playerId: player.userId,
+            roomNumber: contest.rooms[0].roomNumber,
+            currentBalance: contest.startingMoney,
+          },
+        });
+      });
+
+      await this.prisma.contest.updateMany({
+        where: {
+          communityId: community.id,
+          id: { in: upcomingContests.map((c) => c.id) },
+        },
+        data: {
+          maxRoomCapacity: { increment: 1 },
+        },
+      });
+
+      await this.prisma.room.updateMany({
+        where: {
+          contestId: { in: upcomingContests.map((c) => c.id) },
+          roomNumber: 1,
+        },
+        data: {
+          currentCapacity: { increment: 1 },
+        },
+      });
     });
 
     return { communityId: community.id };
@@ -113,7 +162,16 @@ export class CommunityService {
     player: Player,
     request: CreateCommunityContestRequest,
   ): Promise<CreateCommunityContestResponse> {
-    const { name, startingMoney, startDate, endDate, stocksShares, stocksIds, communityId, joinContest } = request;
+    const {
+      name,
+      startingMoney,
+      startDate,
+      endDate,
+      stocksShares,
+      stocksIds,
+      communityId,
+      joinContest,
+    } = request;
 
     await this.checkOwner(player.userId, communityId);
     const community = await this.getCommunity(communityId);
@@ -198,7 +256,6 @@ export class CommunityService {
       data: contestMembershipData,
     });
 
-
     return {
       id: newContest.id,
       name: newContest.name,
@@ -249,9 +306,9 @@ export class CommunityService {
   }
 
   async leaveCommunity(
-    player: { userId: string }, { communityId }: CommunityActionRequest,
+    player: { userId: string },
+    { communityId }: CommunityActionRequest,
   ) {
-    
     if (!(await this.isInCommunity(player.userId, communityId))) {
       throw new BadRequestException("Player is not a member of the community");
     }
@@ -269,7 +326,6 @@ export class CommunityService {
   }
 
   async getCommunityMembers(player: { userId: string }, communityId: string) {
-
     if (!(await this.isInCommunity(player.userId, communityId))) {
       throw new BadRequestException("Player is not a member of the community");
     }
@@ -278,8 +334,8 @@ export class CommunityService {
       username: string;
       userId: string;
       isOwner: boolean;
-    } [] = await this.prisma.$queryRaw`
-      SELECT u.username, u."id" as "userId", c."ownerId" = u."id" AS isOwner
+    }[] = await this.prisma.$queryRaw`
+      SELECT u.username, u."id" as "userId", c."isOwner"
       FROM "Community" c
       JOIN "CommunityMembership" cm ON c.id = cm."communityId"
       Join "User" u ON cm."userId" = u."id"
@@ -293,7 +349,6 @@ export class CommunityService {
     owner: { userId: string },
     { communityId, memberId }: AdminMemberActionRequestDTO,
   ) {
-
     await this.checkOwner(owner.userId, communityId);
 
     if (await this.isInCommunity(memberId, communityId)) {
@@ -314,7 +369,6 @@ export class CommunityService {
     owner: { userId: string },
     { communityId, memberId }: AdminMemberActionRequestDTO,
   ) {
-
     await this.checkOwner(owner.userId, communityId);
 
     if (!(await this.isInCommunity(memberId, communityId))) {
@@ -337,7 +391,6 @@ export class CommunityService {
     playerId: string,
     communityId: string,
   ): Promise<boolean> {
-
     const membership = await this.prisma.communityMembership.findFirst({
       where: { communityId: communityId, userId: playerId },
     });
@@ -354,7 +407,6 @@ export class CommunityService {
           select: { members: true },
         },
       },
-      
     });
     if (!community) throw new NotFoundException("Community not found");
     return community;
