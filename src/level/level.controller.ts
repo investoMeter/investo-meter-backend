@@ -101,10 +101,10 @@ export class LevelController {
   @HttpCode(HttpStatus.OK)
   @UseGuards(AtGuard)
   @ApiBearerAuth()
-  async editContest(
+  async editTutorial(
     @Req() req: Request,
-    @Body() tutorialDto: GetTutorialDto,
-  ): Promise<EditTutorialDto> {
+    @Body() tutorialDto: EditTutorialDto,
+  ) {
     await this.authService.AdminResolver((req as any).user.sub);
     return await this.levelService.editTutorial(tutorialDto);
   }
