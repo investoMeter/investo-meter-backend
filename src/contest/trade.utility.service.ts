@@ -110,20 +110,4 @@ export class TradingUtilityService {
       },
     });
   }
-
-  async validateContestRunning(conetstId: number): Promise<boolean> {
-    const isRunning =
-      (
-        await this.prisma.contest.findFirst({
-          where: {
-            id: conetstId,
-            started: true,
-          },
-          select: {
-            started: true,
-          },
-        })
-      )?.started || false;
-    return isRunning;
-  }
 }

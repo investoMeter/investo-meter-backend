@@ -14,6 +14,7 @@ import { PaginatedList } from "src/common";
 import { Player, TradeType as dbTradeType } from "@prisma/client";
 import { TradeType } from "src/common";
 import { BasicLevelInfo } from "src/level/models";
+import { EditTutorialDto } from "./dto/edit-tutorial.leveldto";
 
 @Injectable()
 export class LevelService {
@@ -265,21 +266,47 @@ export class LevelService {
     };
   }
 
-  async editTutorial(getTutorialDto: GetTutorialDto) {
-    const levelId = await this.deleteTutorialAndContent(getTutorialDto.id);
-    const tutorial = await this.createLevelTutorial(getTutorialDto, levelId);
+  async editTutorial(data: EditTutorialDto) {
 
-    const contents = await this.prisma.content.findMany({
-      where: { tutorialId: tutorial.id },
+    const existingTutorial = await this.prisma.tutorial.findUnique({
+      where: { id: data.id },
     });
 
-    return {
-      id: tutorial.id,
-      title: tutorial.title,
-      content: contents,
-      imageStorageId: tutorial.imageStorageId,
-      levelId: levelId,
-    };
+    if (!existingTutorial) {
+      throw new Error(`Tutorial with id ${data.id} not found`);
+    }
+
+    if (data.content && data.content.length > 0) {
+      const contentPromises = data.content.map(content => {
+        return this.prisma.content.upsert({
+          where: { id: content.id },
+          update: {
+            subTitle: content.subTitle,
+            description: content.description,
+          },
+          create: {
+            subTitle: content.subTitle,
+            description: content.description,
+            tutorialId: data.id,
+          }
+        });
+      });
+
+      await Promise.all(contentPromises);
+    }
+
+    const updatedTutorial = await this.prisma.tutorial.update({
+      where: { id: data.id },
+      data: {
+        title: data.title,
+        imageStorageId: data.imageStorageId,
+        published: data.published,
+        levelId: data.levelId,
+      },
+      include: { content: true },
+    });
+
+    return updatedTutorial;
   }
 
   async createLevelTutorial(getTutorialDto: GetTutorialDto, levelId: number) {

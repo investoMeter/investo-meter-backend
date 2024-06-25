@@ -13,7 +13,6 @@ import { CreateContestDto } from "./dto/createContest.dto";
 import { ContestResponseDto } from "./dto/contestResponse.dto";
 import { EditContestDto } from "./dto/editContest.dto";
 import { EditContestStocksDto } from "./dto/editContestStocks.dto";
-import { TradingUtilityService } from "./trade.utility.service";
 import { ContestEditableData } from "./dto/contestEditableData.dto";
 
 type LeaderboardEntry = {
@@ -25,10 +24,7 @@ type LeaderboardEntry = {
 
 @Injectable()
 export class ContestService {
-  constructor(
-    private prisma: PrismaService,
-    private tradeUtility: TradingUtilityService,
-  ) { }
+  constructor(private prisma: PrismaService) { }
 
   async getAllContests(
     page: number = 0,
@@ -454,16 +450,14 @@ export class ContestService {
     await this.prisma.$transaction(updateOperations);
   }
 
-  async editContest(
-    requestDto: EditContestDto,
-  ): Promise<ContestEditableData> {
+  async editContest(requestDto: EditContestDto): Promise<ContestEditableData> {
     const contest = await this.prisma.contest.findUnique({
       where: { id: requestDto.id },
     });
     if (!contest) {
       throw new BadRequestException("Contest not found");
     }
-    if (await this.tradeUtility.validateContestRunning(contest.id)) {
+    if (await this.validateContestRunning(contest.id)) {
       throw new BadRequestException("Contest is already running");
     }
     await this.prisma.contest.update({
@@ -491,7 +485,7 @@ export class ContestService {
       throw new BadRequestException("Contest not found");
     }
 
-    if (await this.tradeUtility.validateContestRunning(contest.id)) {
+    if (await this.validateContestRunning(contest.id)) {
       throw new BadRequestException("Contest is already running");
     }
 
@@ -572,7 +566,7 @@ export class ContestService {
     if (!contest) {
       throw new BadRequestException("Contest not found");
     }
-    if (await this.tradeUtility.validateContestRunning(contest.id)) {
+    if (await this.validateContestRunning(contest.id)) {
       throw new BadRequestException("Contest is already running");
     }
     const existingStocks = await this.prisma.contestContestStock.findMany({
@@ -701,5 +695,71 @@ export class ContestService {
 
     return contestStocks;
 
+  }
+
+  async validateContestRunning(conetstId: number): Promise<boolean> {
+    const isRunning =
+      (
+        await this.prisma.contest.findFirst({
+          where: {
+            id: conetstId,
+            started: true,
+          },
+          select: {
+            started: true,
+          },
+        })
+      )?.started || false;
+    return isRunning;
+  }
+  
+  async getRunningContestsForUser(player: { userId: string }) {
+    const now = new Date();
+    now.setUTCHours(now.getUTCHours() + 3);
+
+    const contestMemberships = await this.prisma.contestMembership.findMany({
+      where: { playerId: player.userId },
+      select: {
+        contestId: true,
+        roomNumber: true,
+      },
+    });
+
+    const results = [];
+    for (const membership of contestMemberships) {
+      const contest = await this.prisma.contest.findFirst({
+        where: {
+          AND: {
+            id: membership.contestId,
+            startDate: {
+              lte: new Date(now.getTime() + 60000),
+            },
+            endDate: {
+              gte: new Date(now.getTime() + 60000),
+            },
+            started: true,
+          },
+        },
+      });
+
+      if (contest) {
+        const timeLeftInMilliseconds =
+          contest.endDate.getTime() - now.getTime();
+        const timeLeftInMinutes = Math.floor(
+          timeLeftInMilliseconds / 1000 / 60,
+        );
+
+        results.push({
+          contestId: contest.id,
+          roomNumber: membership.roomNumber,
+          contestName: contest.name,
+          timeLeft: timeLeftInMinutes,
+          budget: contest.startingMoney,
+          started: contest.started,
+        });
+      }
+    }
+
+    return results;
   }
 }
