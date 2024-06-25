@@ -140,4 +140,15 @@ export class ContestController {
     await this.authService.AdminResolver((req as any).user.sub);
     return await this.contestService.getEditableContestData(contestId);
   }
+
+  @Get("running-contests") 
+  @HttpCode(HttpStatus.OK)
+  @UseGuards(AtGuard)
+  @ApiBearerAuth()
+  async getRunningContests(
+    @Req() req: any,
+  ) {
+    const player = await this.authService.playerResolver((req as any).user.sub);
+    return this.contestService.getRunningContestsForUser(player);
+  }
 }

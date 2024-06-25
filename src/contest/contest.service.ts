@@ -454,9 +454,7 @@ export class ContestService {
     await this.prisma.$transaction(updateOperations);
   }
 
-  async editContest(
-    requestDto: EditContestDto,
-  ): Promise<ContestEditableData> {
+  async editContest(requestDto: EditContestDto): Promise<ContestEditableData> {
     const contest = await this.prisma.contest.findUnique({
       where: { id: requestDto.id },
     });
@@ -684,5 +682,54 @@ export class ContestService {
     };
 
     return transformedContest;
+  }
+
+  async getRunningContestsForUser(player: { userId: string }) {
+    const now = new Date();
+    now.setUTCHours(now.getUTCHours() + 3);
+
+    const contestMemberships = await this.prisma.contestMembership.findMany({
+      where: { playerId: player.userId },
+      select: {
+        contestId: true,
+        roomNumber: true,
+      },
+    });
+
+    console.log(contestMemberships);
+
+    const results = [];
+    for (const membership of contestMemberships) {
+      const contest = await this.prisma.contest.findFirst({
+        where: {
+          AND: {
+            id: membership.contestId,
+            startDate: {
+              lte: new Date(now.getTime() + 60000),
+            },
+            endDate: {
+              gte: new Date(now.getTime() + 60000),
+            },
+            started: true,
+          },
+        },
+      });
+
+      if (contest) {
+        const timeLeftInMilliseconds = contest.endDate.getTime() - now.getTime();
+        const timeLeftInMinutes = Math.floor(timeLeftInMilliseconds / 1000 / 60);
+
+        results.push({
+          contestId: contest.id,
+          roomNumber: membership.roomNumber,
+          contestName: contest.name,
+          timeLeft: timeLeftInMinutes,
+          budget: contest.startingMoney,
+          started: contest.started
+        });
+      }
+    }
+
+    return results;
   }
 }
