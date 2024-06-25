@@ -9,6 +9,7 @@ export class EditTutorialDto {
   content: ContentItem[];
 
   levelId: number;
+  published: boolean;
 
   imageStorageId?: string | null;
 }
