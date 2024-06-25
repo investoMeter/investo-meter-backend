@@ -24,9 +24,7 @@ type LeaderboardEntry = {
 
 @Injectable()
 export class ContestService {
-  constructor(
-    private prisma: PrismaService,
-  ) {}
+  constructor(private prisma: PrismaService) {}
 
   async getAllContests(
     page: number = 0,
@@ -682,7 +680,7 @@ export class ContestService {
     return transformedContest;
   }
 
-    async validateContestRunning(conetstId: number): Promise<boolean> {
+  async validateContestRunning(conetstId: number): Promise<boolean> {
     const isRunning =
       (
         await this.prisma.contest.findFirst({
@@ -696,7 +694,8 @@ export class ContestService {
         })
       )?.started || false;
     return isRunning;
-
+  }
+  
   async getRunningContestsForUser(player: { userId: string }) {
     const now = new Date();
     now.setUTCHours(now.getUTCHours() + 3);
@@ -727,8 +726,11 @@ export class ContestService {
       });
 
       if (contest) {
-        const timeLeftInMilliseconds = contest.endDate.getTime() - now.getTime();
-        const timeLeftInMinutes = Math.floor(timeLeftInMilliseconds / 1000 / 60);
+        const timeLeftInMilliseconds =
+          contest.endDate.getTime() - now.getTime();
+        const timeLeftInMinutes = Math.floor(
+          timeLeftInMilliseconds / 1000 / 60,
+        );
 
         results.push({
           contestId: contest.id,
@@ -736,7 +738,7 @@ export class ContestService {
           contestName: contest.name,
           timeLeft: timeLeftInMinutes,
           budget: contest.startingMoney,
-          started: contest.started
+          started: contest.started,
         });
       }
     }
