@@ -6,6 +6,7 @@ import {
   HttpStatus,
   Param,
   Post,
+  Put,
   Query,
   Req,
   UseGuards,
@@ -22,6 +23,7 @@ import { PaginatedList } from 'src/common';
 import { BasicLevelInfo } from './models';
 import { AuthService } from 'src/auth';
 import { ApiBearerAuth, ApiBody, ApiTags } from '@nestjs/swagger';
+import { EditTutorialDto } from './dto/edit-tutorial.leveldto';
 
 @Controller('level')
 @ApiTags('Levels')
@@ -82,5 +84,28 @@ export class LevelController {
   ): Promise<SubmitAnswerResponseDto> {
     const player = await this.authService.playerResolver((req as any).user.sub);
     return this.levelService.submitAnswer(levelId, player, answers);
+  }
+
+  @Get(':levelId/tutorial-admin')
+  @UseGuards(AtGuard)
+  @ApiBearerAuth()
+  async getTutorialAdmin(
+    @Req() req: Request,
+    @Param('levelId') levelId: string,
+  ): Promise<GetTutorialDto> {
+    await this.authService.AdminResolver((req as any).user.sub);
+    return this.levelService.getTutorialAdmin(levelId);
+  }
+
+  @Put("edit/tutorial")
+  @HttpCode(HttpStatus.OK)
+  @UseGuards(AtGuard)
+  @ApiBearerAuth()
+  async editTutorial(
+    @Req() req: Request,
+    @Body() tutorialDto: EditTutorialDto,
+  ) {
+    await this.authService.AdminResolver((req as any).user.sub);
+    return await this.levelService.editTutorial(tutorialDto);
   }
 }

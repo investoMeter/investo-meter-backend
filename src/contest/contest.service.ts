@@ -452,10 +452,7 @@ export class ContestService {
     await this.prisma.$transaction(updateOperations);
   }
 
-  async editContest(
-    admin: Admin,
-    requestDto: EditContestDto,
-  ): Promise<ContestEditableData> {
+  async editContest(requestDto: EditContestDto): Promise<ContestEditableData> {
     const contest = await this.prisma.contest.findUnique({
       where: { id: requestDto.id },
     });
@@ -480,7 +477,6 @@ export class ContestService {
   }
 
   async addStocks(
-    admin: Admin,
     requestDto: EditContestStocksDto,
   ): Promise<ContestEditableData> {
     const contest = await this.prisma.contest.findUnique({
@@ -564,7 +560,6 @@ export class ContestService {
   }
 
   async removeStocks(
-    admin: Admin,
     requestDto: EditContestStocksDto,
   ): Promise<ContestEditableData> {
     const contest = await this.prisma.contest.findUnique({
@@ -634,7 +629,6 @@ export class ContestService {
   }
 
   async getEditableContestData(
-    admin: Admin,
     contestId: string,
   ): Promise<ContestEditableData> {
     return this.mapContestToEditableData(parseInt(contestId));
@@ -702,5 +696,51 @@ export class ContestService {
         })
       )?.started || false;
     return isRunning;
+
+  async getRunningContestsForUser(player: { userId: string }) {
+    const now = new Date();
+    now.setUTCHours(now.getUTCHours() + 3);
+
+    const contestMemberships = await this.prisma.contestMembership.findMany({
+      where: { playerId: player.userId },
+      select: {
+        contestId: true,
+        roomNumber: true,
+      },
+    });
+
+    const results = [];
+    for (const membership of contestMemberships) {
+      const contest = await this.prisma.contest.findFirst({
+        where: {
+          AND: {
+            id: membership.contestId,
+            startDate: {
+              lte: new Date(now.getTime() + 60000),
+            },
+            endDate: {
+              gte: new Date(now.getTime() + 60000),
+            },
+            started: true,
+          },
+        },
+      });
+
+      if (contest) {
+        const timeLeftInMilliseconds = contest.endDate.getTime() - now.getTime();
+        const timeLeftInMinutes = Math.floor(timeLeftInMilliseconds / 1000 / 60);
+
+        results.push({
+          contestId: contest.id,
+          roomNumber: membership.roomNumber,
+          contestName: contest.name,
+          timeLeft: timeLeftInMinutes,
+          budget: contest.startingMoney,
+          started: contest.started
+        });
+      }
+    }
+
+    return results;
   }
 }
