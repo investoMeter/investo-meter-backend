@@ -10,7 +10,7 @@ model ContestContestStock {
   contestId     Int
   contestStockId Int
 
-  contest       Contest @relation(fields: [contestId], references: [id])
+  contest       Contest @relation(fields: [contestId], references: [id], onDelete: Cascade)
   contestStock ContestStock @relation(fields: [contestStockId], references: [id])
   Trade        Trade[]
   StockHistory StockHistory[]
@@ -19,5 +19,4 @@ model ContestContestStock {
   OwnedStock   OwnedStock[]
 
   @@id([contestId, contestStockId])
-	@@map("Contest_ContestStock")
 }

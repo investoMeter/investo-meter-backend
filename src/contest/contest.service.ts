@@ -274,20 +274,6 @@ export class ContestService {
       })),
     });
 
-    // await this.prisma.room.createMany({
-    //   data: Array.from({ length: numberOfRooms }, (_, i) => ({
-    //     roomNumber: i + 1,
-    //     stocksHistories: {
-    //       create: stocksIds.map((id) => ({
-    //         stockId: id,
-    //         contestId: newContest.id,
-    //         currentShares: stocksShares,
-    //       })),
-    //     },
-    //     contestId: newContest.id,
-    //   })),
-    // });
-
     const rooms = [];
     for (let i = 1; i <= numberOfRooms; i++) {
       let room = await this.prisma.room.create({

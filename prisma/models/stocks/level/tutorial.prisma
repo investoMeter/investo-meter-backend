@@ -3,16 +3,14 @@ import { Level } from "./level"
 import { Content } from "./content"
 model Tutorial {
     id              Int     @id @default(autoincrement())
+    levelId         Int     @unique
+
     title           String
     imageStorageId  String?
     published       Boolean @default(false)
 
-    // relations
-    levelId         Int     @unique
     level           Level   @relation(fields: [levelId], references: [id])
-
     content         Content[]
 
-    @@map("tutorials")
     @@index([levelId], name: "levelId")
 }

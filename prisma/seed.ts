@@ -1,7 +1,7 @@
-import { PrismaClient, ReportState, TradeType } from '@prisma/client';
-import * as path from 'path';
-import * as fs from 'fs/promises';
-import * as bcrypt from 'bcrypt';
+import { PrismaClient, ReportState, TradeType } from "@prisma/client";
+import * as path from "path";
+import * as fs from "fs/promises";
+import * as bcrypt from "bcrypt";
 
 const prisma = new PrismaClient();
 
@@ -13,8 +13,8 @@ async function hashPassword(password: string) {
 async function seedData() {
   try {
     if ((await prisma.contestStock.count()) == 0) {
-      const jsonPath = path.join(__dirname, '../stock_data.json');
-      const jsonData = await fs.readFile(jsonPath, 'utf-8');
+      const jsonPath = path.join(__dirname, "../stock_data.json");
+      const jsonData = await fs.readFile(jsonPath, "utf-8");
       const contestStockData = JSON.parse(jsonData);
 
       for (const data of contestStockData) {
@@ -35,17 +35,20 @@ async function seedData() {
         });
       }
     }
-    console.log('contest stocks seeding is done');
+
+    console.log("contest stocks seeding is done");
+    // ______________________________________________________________________________________
+
     if ((await prisma.level.count()) == 0) {
-      const jsonPath1 = path.join(__dirname, '../tutorials_data.json');
-      const jsonData1 = await fs.readFile(jsonPath1, 'utf-8');
+      const jsonPath1 = path.join(__dirname, "../tutorials_data.json");
+      const jsonData1 = await fs.readFile(jsonPath1, "utf-8");
       const tutorials = JSON.parse(jsonData1);
 
       const jsonPath2 = path.join(
         __dirname,
-        '../questions_stocks_combined.json',
+        "../questions_stocks_combined.json",
       );
-      const jsonData2 = await fs.readFile(jsonPath2, 'utf-8');
+      const jsonData2 = await fs.readFile(jsonPath2, "utf-8");
       const questions = JSON.parse(jsonData2);
 
       // create level
@@ -78,7 +81,7 @@ async function seedData() {
             });
           }
         }
-        console.log('level', i + 1, 'seeded');
+        console.log("level", i + 1, "seeded");
       }
 
       // create questions
@@ -116,14 +119,16 @@ async function seedData() {
             });
           }
         }
-        console.log('question', k + 1, 'seeded');
+        console.log("question", k + 1, "seeded");
       }
     }
-    console.log('levels seeding is done');
+    console.log("levels seeding is done");
+
+    // ______________________________________________________________________________________
 
     if ((await prisma.player.count()) == 0) {
-      const jsonPath = path.join(__dirname, '../player_data.json');
-      const jsonData = await fs.readFile(jsonPath, 'utf-8');
+      const jsonPath = path.join(__dirname, "../player_data.json");
+      const jsonData = await fs.readFile(jsonPath, "utf-8");
       const playersData = JSON.parse(jsonData);
       for (const user of playersData) {
         const hash = await hashPassword(user.password);
@@ -151,14 +156,16 @@ async function seedData() {
           },
         });
 
-        console.log('player ' + newUser.id + ' seeded.');
+        console.log("player " + newUser.id + " seeded.");
       }
     }
-    console.log('players seeding is done');
+    console.log("players seeding is done");
+
+    // ______________________________________________________________________________________
 
     if ((await prisma.admin.count()) == 0) {
-      const jsonPath = path.join(__dirname, '../admin_data.json');
-      const jsonData = await fs.readFile(jsonPath, 'utf-8');
+      const jsonPath = path.join(__dirname, "../admin_data.json");
+      const jsonData = await fs.readFile(jsonPath, "utf-8");
       const adminsData = JSON.parse(jsonData);
       for (const user of adminsData) {
         const hash = await hashPassword(user.password);
@@ -181,11 +188,13 @@ async function seedData() {
       }
     }
 
-    console.log('admins seeding is done');
+    console.log("admins seeding is done");
+
+    // ______________________________________________________________________________________
 
     if ((await prisma.report.count()) == 0) {
-      const jsonPath = path.join(__dirname, '../tech-reports_data.json');
-      const jsonData = await fs.readFile(jsonPath, 'utf-8');
+      const jsonPath = path.join(__dirname, "../tech-reports_data.json");
+      const jsonData = await fs.readFile(jsonPath, "utf-8");
       const techReportsData = JSON.parse(jsonData);
 
       let i = 1;
@@ -207,18 +216,18 @@ async function seedData() {
             state: ReportState.open,
           },
         });
-        console.log('technical report' + i + ' seeded.');
+        console.log("technical report" + i + " seeded.");
         i += 1;
       }
     }
 
-    console.log('technical reports seeding is done');
+    console.log("technical reports seeding is done");
 
-    ///
+    // ______________________________________________________________________________________
 
     if ((await prisma.feedback.count()) == 0) {
-      const jsonPath = path.join(__dirname, '../feedbacks_data.json');
-      const jsonData = await fs.readFile(jsonPath, 'utf-8');
+      const jsonPath = path.join(__dirname, "../feedbacks_data.json");
+      const jsonData = await fs.readFile(jsonPath, "utf-8");
       const feedbacks = JSON.parse(jsonData);
 
       let i = 1;
@@ -238,18 +247,18 @@ async function seedData() {
             createdAt: dateObject,
           },
         });
-        console.log('feedback' + i + ' seeded.');
+        console.log("feedback" + i + " seeded.");
         i += 1;
       }
     }
 
-    console.log('feedbacks seeding is done');
+    console.log("feedbacks seeding is done");
 
-    ///////
+    /////////////////////////////////////////////////////////////////////////////
 
     if ((await prisma.contest.count()) == 0) {
-      let jsonPath = path.join(__dirname, '../contests_data.json');
-      let jsonData = await fs.readFile(jsonPath, 'utf-8');
+      let jsonPath = path.join(__dirname, "../contests_data.json");
+      let jsonData = await fs.readFile(jsonPath, "utf-8");
       const contestsData = JSON.parse(jsonData);
       const contestCreator = await prisma.user.findFirst({
         select: { id: true },
@@ -278,8 +287,8 @@ async function seedData() {
         });
       }
 
-      jsonPath = path.join(__dirname, '../contests_rooms_data.json');
-      jsonData = await fs.readFile(jsonPath, 'utf-8');
+      jsonPath = path.join(__dirname, "../contests_rooms_data.json");
+      jsonData = await fs.readFile(jsonPath, "utf-8");
       const contestsRoomsData = JSON.parse(jsonData);
       for (const contestRoom of contestsRoomsData) {
         const contest = await prisma.contest.findFirst({
@@ -294,15 +303,16 @@ async function seedData() {
         });
       }
 
-      jsonPath = path.join(__dirname, '../contests_membership_data.json');
-      jsonData = await fs.readFile(jsonPath, 'utf-8');
+      jsonPath = path.join(__dirname, "../contests_membership_data.json");
+      jsonData = await fs.readFile(jsonPath, "utf-8");
       const contestsMembershipData = JSON.parse(jsonData);
       let i = 0;
       for (const contestMembership of contestsMembershipData) {
         const contest = await prisma.contest.findFirst({
           select: { id: true },
         });
-        if (!contest) throw new Error('Contest not found');
+
+        if (!contest) throw new Error("Contest not found");
         const players = await prisma.player.findMany();
         const playerIds = players.map((player) => player.userId);
         await prisma.contestMembership.create({
@@ -325,9 +335,9 @@ async function seedData() {
       }
       jsonPath = path.join(
         __dirname,
-        '../initial_contests_stock_data_price.json',
+        "../initial_contests_stock_data_price.json",
       );
-      jsonData = await fs.readFile(jsonPath, 'utf-8');
+      jsonData = await fs.readFile(jsonPath, "utf-8");
       const initialContestStockPrices = JSON.parse(jsonData);
       const contest = (await prisma.contest.findFirst({
         select: {
@@ -366,8 +376,9 @@ async function seedData() {
           },
         });
       }
-      jsonPath = path.join(__dirname, '../upcoming_contests.json');
-      jsonData = await fs.readFile(jsonPath, 'utf-8');
+
+      jsonPath = path.join(__dirname, "../upcoming_contests.json");
+      jsonData = await fs.readFile(jsonPath, "utf-8");
       const upcomingContests = JSON.parse(jsonData);
       i = 1;
       for (const upcomingContest of upcomingContests) {
@@ -447,12 +458,99 @@ async function seedData() {
       }
     }
 
-    console.log('contest seeding is done');
+    console.log("contest seeding is done");
+    /////////////////////////////////////////////////////////////////////////////
+
+    let communities: any = [];
+
+    if ((await prisma.community.count()) == 0) {
+      let jsonPath = path.join(__dirname, "../community_data.json");
+      let jsonData = await fs.readFile(jsonPath, "utf-8");
+      const communityData = JSON.parse(jsonData);
+
+      // get first 4 users as communitycreators
+      const users = await prisma.user.findMany({ take: 4 });
+      const communityCreators = users.map((user) => user.id);
+
+      let i = 0;
+      for (const community of communityData) {
+        const newCommunity = await prisma.community.create({
+          data: {
+            name: community.name,
+            ownerId: communityCreators[i],
+          },
+        });
+
+        
+        // create membership for the owner
+        await prisma.communityMembership.create({
+          data: {
+            communityId: newCommunity.id,
+            userId: communityCreators[i],
+            isOwner: true,
+          },
+        });
+
+        const players = await prisma.player.findMany({
+          where: { userId: { not : communityCreators[i] } },
+        });
+
+        const playerIds = players.map((player) => player.userId);
+        const randomPlayers = playerIds
+          .sort(() => Math.random() - 0.5)
+          .slice(0, 3);
+
+        
+        for (const playerId of randomPlayers) {
+          if (playerId) {
+            await prisma.communityMembership.create({
+              data: {
+                communityId: newCommunity.id,
+                userId: playerId,
+              },
+            });
+          }
+        }
+
+        communities.push(newCommunity);
+        i++;
+      }
+
+      jsonPath = path.join(__dirname, "../feed_data.json");
+      jsonData = await fs.readFile(jsonPath, "utf-8");
+      const feedData = JSON.parse(jsonData);
+
+      // add 2 posts to each community
+      for (const community of communities) {
+
+        const members = await prisma.communityMembership.findMany({ 
+          where: { communityId: community.id },
+          take: 5, 
+          select: { userId: true } 
+        })
+
+        // take a random player from the community
+        for (const post of feedData){
+          const randomMember = members[Math.floor(Math.random() * members.length)];
+          await prisma.post.create({
+            data: {
+              authorId: randomMember.userId,
+              communityId: community.id,
+              content: post.content,
+              likedBy: [],
+            },
+          });
+        }
+      }
+    }
+
+    console.log("community seeding is done");
   } catch (error) {
-    console.error('Error seeding data:', error);
+    console.error("Error seeding data:", error);
   } finally {
     await prisma.$disconnect();
   }
+
   process.exit(0);
 }
 

@@ -3,5 +3,4 @@ enum ReportType {
     Contest
     Community
     Other
-
 }
