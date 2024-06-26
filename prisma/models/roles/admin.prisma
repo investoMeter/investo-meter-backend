@@ -3,12 +3,8 @@ import { Tutorial } from "..\stocks\level\tutorial"
 import { Report } from "..\reports\report"
 
 model Admin {
-  // relations
-  userId String @unique
-  user   User   @relation(fields: [userId], references: [id])
+  userId  String  @unique
 
-
-  reports         Report[]
-
-  @@map("admins")
+  reports Report[]
+  user    User  @relation(fields: [userId], references: [id])
 }

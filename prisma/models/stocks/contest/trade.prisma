@@ -6,24 +6,20 @@ import { Contest } from "./contest"
 import { ContestContestStock } from "./contest-contest-stock"
 
 model Trade {
-    id Int @id @default(autoincrement())
+    id                  Int @id @default(autoincrement())
+    stockId             Int
+    contestId           Int
+    roomNumber          Int
+    buyerMembershipId   Int
+    sellerMembershipId  Int?
 
-    quantity  Int
-    price     Float
-    timestamp DateTime  @default(now())
+    price               Float
+    quantity            Int
+    timestamp           DateTime  @default(now())
 
-    // relations
-    stockId Int
-    contestId Int
-    stock   ContestContestStock @relation(fields: [contestId,stockId], references: [contestId,contestStockId])
-
-    buyerMembershipId Int
-    buyerMembership   ContestMembership @relation(fields: [buyerMembershipId], references: [id],name: "buyerMembership")
-
-    sellerMembershipId Int?
-    sellerMembership ContestMembership? @relation(fields: [sellerMembershipId],  references: [id], name: "sellerMembership")
-
-    room   Room @relation(fields: [contestId, roomNumber], references: [contestId, roomNumber])
-    roomNumber Int
+    stock               ContestContestStock @relation(fields: [contestId,stockId], references: [contestId,contestStockId])
+    buyerMembership     ContestMembership @relation(fields: [buyerMembershipId], references: [id],name: "buyerMembership")
+    sellerMembership    ContestMembership? @relation(fields: [sellerMembershipId],  references: [id], name: "sellerMembership")
+    room                Room @relation(fields: [contestId, roomNumber], references: [contestId, roomNumber])
 }
 

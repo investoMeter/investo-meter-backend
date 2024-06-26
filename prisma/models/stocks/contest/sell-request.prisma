@@ -6,21 +6,19 @@ import { Room } from ".\room"
 import { ContestContestStock } from "./contest-contest-stock"
 
 model SellRequest {
-    id Int @id @default(autoincrement())
+    id          Int @id @default(autoincrement())
+    stockId     Int
+    playerId    String
+    contestId   Int
+    roomNumber  Int
 
-    quantity  Int
-    price     Float
-    timestamp DateTime      @default(now())
-    status    RequestStatus
+    quantity    Int
+    price       Float
+    timestamp   DateTime      @default(now())
+    status      RequestStatus
 
     // relations
-    player   Player @relation(fields: [playerId], references: [userId])
-    playerId String
-
-    stockId Int
-    contestId Int
-    stock   ContestContestStock @relation(fields: [contestId,stockId], references: [contestId,contestStockId])
-
-    roomNumber Int
-    room   Room @relation(fields: [contestId, roomNumber], references: [contestId, roomNumber])
+    player      Player @relation(fields: [playerId], references: [userId])
+    stock       ContestContestStock @relation(fields: [contestId,stockId], references: [contestId,contestStockId])
+    room        Room @relation(fields: [contestId, roomNumber], references: [contestId, roomNumber])
 }

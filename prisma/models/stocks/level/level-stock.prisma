@@ -4,14 +4,11 @@ import { LevelQuestion } from "level-question"
 
 model LevelStock {
   id           Int          @id @default(autoincrement())
+  questionId   Int @unique
+
   name         String
   symbol       String       
 
-  // relations
-  questionId Int @unique
-  question   LevelQuestion @relation(fields: [questionId], references: [id])
-  
+  question     LevelQuestion @relation(fields: [questionId], references: [id])  
   priceHistory LevelStockPrice[]
-
-  @@map("level_stocks")
 }

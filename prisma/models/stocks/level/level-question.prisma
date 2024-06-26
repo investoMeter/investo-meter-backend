@@ -3,15 +3,14 @@ import { Level } from "./level"
 import { TradeType } from "..\tradeType"
 
 model LevelQuestion {
-    id           Int      @id @default(autoincrement())
-    position     Int
-    answer       TradeType
-    timestamp    DateTime
+    id          Int      @id @default(autoincrement())
+    levelId     Int
 
-    // relations
-    levelId Int
-    level   Level @relation(fields: [levelId], references: [id])
+    position    Int
+    answer      TradeType
+    timestamp   DateTime
 
-    levelStock   LevelStock? 
+    levelStock  LevelStock? 
+    level       Level @relation(fields: [levelId], references: [id])
 }
 

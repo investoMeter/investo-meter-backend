@@ -3,13 +3,14 @@ import {ContestMembership} from ".\contest-membership"
 import { ContestContestStock } from "./contest-contest-stock"
 
 model OwnedStock {
-    id      Int          @id @default(autoincrement())
-    currentShares Int @default(0)
-
-    stockId Int
-    contestId Int
-    stock   ContestContestStock @relation(fields: [contestId,stockId], references: [contestId,contestStockId])
+    id                  Int          @id @default(autoincrement())
+    stockId             Int
+    contestId           Int
     contestMembershipId Int
+    
+    currentShares       Int @default(0)
+
+    stock               ContestContestStock @relation(fields: [contestId,stockId], references: [contestId,contestStockId])
     ContestMembership   ContestMembership @relation(fields: [contestMembershipId], references: [id], onDelete: Cascade)
 
     @@unique([stockId, contestMembershipId])

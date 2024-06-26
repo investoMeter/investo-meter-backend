@@ -4,19 +4,92 @@
 //
 
 //
+// community.prisma
+//
+
+model Community {
+  id        String                @id @default(cuid())
+  ownerId   String
+  name      String
+  createdAt DateTime              @default(now())
+  updatedAt DateTime              @updatedAt
+  feed      Post[]
+  members   CommunityMembership[]
+  owner     Player                @relation(fields: [ownerId], references: [userId])
+  contests  Contest[]
+}
+
+//
+// member.prisma
+//
+
+model CommunityMembership {
+  userId      String
+  communityId String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  isOwner   Boolean  @default(false)
+
+  posts     Post[]
+  comments  Comment[]
+  player    Player    @relation(fields: [userId], references: [userId], onDelete: Cascade)
+  community Community @relation(fields: [communityId], references: [id], onDelete: Cascade)
+
+  @@id([userId, communityId])
+}
+
+//
+// comment.prisma
+//
+
+model Comment {
+  id          String @id @default(cuid())
+  authorId    String
+  communityId String
+  postId      String
+
+  text      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  post   Post                @relation(fields: [postId], references: [id], onDelete: Cascade)
+  author CommunityMembership @relation(fields: [authorId, communityId], references: [userId, communityId], onDelete: Cascade)
+}
+
+//
+// post.prisma
+//
+
+model Post {
+  id          String @id @default(cuid())
+  authorId    String
+  communityId String
+
+  likedBy   String[]
+  content   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  comments  Comment[]
+  community Community           @relation(fields: [communityId], references: [id], onDelete: Cascade)
+  author    CommunityMembership @relation(fields: [authorId, communityId], references: [userId, communityId], onDelete: Cascade)
+}
+
+//
 // feedback.prisma
 //
 
 model feedback {
-  id        Int      @id @default(autoincrement())
+  id       Int    @id @default(autoincrement())
+  playerId String
+
   about     String
-  content   String
   rating    Int
+  content   String
   createdAt DateTime @default(now())
 
-  // relations
-  playerId String
-  player   Player @relation(fields: [playerId], references: [userId])
+  player Player @relation(fields: [playerId], references: [userId])
 }
 
 //
@@ -24,19 +97,19 @@ model feedback {
 //
 
 model Report {
-  id        Int            @id @default(autoincrement())
-  content   String
+  id        Int     @id @default(autoincrement())
   adminId   String?
   creatorId String
-  creator   Player         @relation(fields: [creatorId], references: [userId])
-  admin     Admin?         @relation(fields: [adminId], references: [userId])
+
+  content   String
   title     String
   type      ReportType
+  state     ReportState
   severity  ReportSeverity
   createdAt DateTime       @default(now())
-  state     ReportState
 
-  @@map("report")
+  creator Player @relation(fields: [creatorId], references: [userId])
+  admin   Admin? @relation(fields: [adminId], references: [userId])
 }
 
 //
@@ -75,13 +148,10 @@ enum ReportType {
 //
 
 model Admin {
-  // relations
   userId String @unique
-  user   User   @relation(fields: [userId], references: [id])
 
   reports Report[]
-
-  @@map("admins")
+  user    User     @relation(fields: [userId], references: [id])
 }
 
 //
@@ -89,7 +159,8 @@ model Admin {
 //
 
 model PasswordReset {
-  id        Int      @id @default(autoincrement())
+  id Int @id @default(autoincrement())
+
   email     String   @unique
   token     String   @unique
   createdAt DateTime @default(now()) @updatedAt
@@ -106,15 +177,15 @@ model Player {
   // relations
   user  User @relation(fields: [userId], references: [id])
 
-  levelMemberships   LevelMembership[]
-  contestMemberships ContestMembership[]
+  levelMemberships     LevelMembership[]
+  contestMemberships   ContestMembership[]
+  communityMemberships CommunityMembership[]
 
-  reports     Report[]
-  feedbacks   feedback[]
-  BuyRequest  BuyRequest[]
-  SellRequest SellRequest[]
-
-  @@map("players")
+  reports          Report[]
+  feedbacks        feedback[]
+  BuyRequest       BuyRequest[]
+  SellRequest      SellRequest[]
+  ownedCommunities Community[]
 }
 
 //
@@ -138,7 +209,6 @@ model User {
   createdContests Contest[]
 
   @@index([id, username])
-  @@map("users")
 }
 
 //
@@ -173,7 +243,7 @@ model ContestContestStock {
   contestId      Int
   contestStockId Int
 
-  contest      Contest        @relation(fields: [contestId], references: [id])
+  contest      Contest        @relation(fields: [contestId], references: [id], onDelete: Cascade)
   contestStock ContestStock   @relation(fields: [contestStockId], references: [id])
   Trade        Trade[]
   StockHistory StockHistory[]
@@ -182,7 +252,6 @@ model ContestContestStock {
   OwnedStock   OwnedStock[]
 
   @@id([contestId, contestStockId])
-  @@map("Contest_ContestStock")
 }
 
 //
@@ -233,8 +302,6 @@ model ContestStockPrice {
   stockHistoryId Int?
   StockHistory   StockHistory? @relation(fields: [stockHistoryId], references: [id])
   ContestStock   ContestStock?
-
-  @@map("contest_stock_price")
 }
 
 //
@@ -242,16 +309,16 @@ model ContestStockPrice {
 //
 
 model ContestStock {
-  id             Int                   @id @default(autoincrement())
-  name           String
-  symbol         String                @unique
-  initialPriceId Int                   @unique
-  // relations
-  contests       ContestContestStock[]
-  initialPrice   ContestStockPrice     @relation(fields: [initialPriceId], references: [id])
+  id             Int @id @default(autoincrement())
+  initialPriceId Int @unique
+
+  name   String
+  symbol String @unique
+
+  contests     ContestContestStock[]
+  initialPrice ContestStockPrice     @relation(fields: [initialPriceId], references: [id])
 
   @@index([symbol], name: "symbol")
-  @@map("contest_stock")
 }
 
 //
@@ -259,27 +326,25 @@ model ContestStock {
 //
 
 model Contest {
-  id Int @id @default(autoincrement())
+  id          Int     @id @default(autoincrement())
+  creatorId   String
+  communityId String?
 
   name            String
-  maxRoomCapacity Int
+  endDate         DateTime
+  started         Boolean   @default(false)
+  isPrivate       Boolean   @default(false)
+  startDate       DateTime
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime? @updatedAt
   startingMoney   Float
   startingShares  Int
+  maxRoomCapacity Int
 
-  startDate DateTime
-  endDate   DateTime
-
-  createdAt DateTime  @default(now())
-  updatedAt DateTime? @updatedAt
-
-  started Boolean @default(false)
-
-  // relations
-  creatorId String
-  creator   User   @relation(fields: [creatorId], references: [id])
-
+  creator       User                  @relation(fields: [creatorId], references: [id])
   rooms         Room[]
   contestStocks ContestContestStock[]
+  community     Community?            @relation(fields: [communityId], references: [id])
 }
 
 //
@@ -287,14 +352,15 @@ model Contest {
 //
 
 model OwnedStock {
-  id            Int @id @default(autoincrement())
-  currentShares Int @default(0)
-
+  id                  Int @id @default(autoincrement())
   stockId             Int
   contestId           Int
-  stock               ContestContestStock @relation(fields: [contestId, stockId], references: [contestId, contestStockId])
   contestMembershipId Int
-  ContestMembership   ContestMembership   @relation(fields: [contestMembershipId], references: [id], onDelete: Cascade)
+
+  currentShares Int @default(0)
+
+  stock             ContestContestStock @relation(fields: [contestId, stockId], references: [contestId, contestStockId])
+  ContestMembership ContestMembership   @relation(fields: [contestMembershipId], references: [id], onDelete: Cascade)
 
   @@unique([stockId, contestMembershipId])
 }
@@ -314,21 +380,19 @@ enum RequestStatus {
 //
 
 model Room {
-  roomNumber      Int
+  contestId  Int
+  roomNumber Int
+
   currentCapacity Int @default(0)
 
-  // relations
-  contestId Int
-  contest   Contest @relation(fields: [contestId], references: [id])
-
-  memberships     ContestMembership[]
-  stocksHistories StockHistory[]
+  trades          Trade[]
+  contest         Contest             @relation(fields: [contestId], references: [id])
   BuyRequest      BuyRequest[]
   SellRequest     SellRequest[]
-  trades          Trade[]
+  memberships     ContestMembership[]
+  stocksHistories StockHistory[]
 
   @@id([contestId, roomNumber])
-  @@unique([contestId, roomNumber])
 }
 
 //
@@ -336,7 +400,11 @@ model Room {
 //
 
 model SellRequest {
-  id Int @id @default(autoincrement())
+  id         Int    @id @default(autoincrement())
+  stockId    Int
+  playerId   String
+  contestId  Int
+  roomNumber Int
 
   quantity  Int
   price     Float
@@ -344,15 +412,9 @@ model SellRequest {
   status    RequestStatus
 
   // relations
-  player   Player @relation(fields: [playerId], references: [userId])
-  playerId String
-
-  stockId   Int
-  contestId Int
-  stock     ContestContestStock @relation(fields: [contestId, stockId], references: [contestId, contestStockId])
-
-  roomNumber Int
-  room       Room @relation(fields: [contestId, roomNumber], references: [contestId, roomNumber])
+  player Player              @relation(fields: [playerId], references: [userId])
+  stock  ContestContestStock @relation(fields: [contestId, stockId], references: [contestId, contestStockId])
+  room   Room                @relation(fields: [contestId, roomNumber], references: [contestId, roomNumber])
 }
 
 //
@@ -360,20 +422,18 @@ model SellRequest {
 //
 
 model StockHistory {
-  id            Int                 @id @default(autoincrement())
-  currentShares Int
-  // relations 
-  stockId       Int
-  contestId     Int
-  stock         ContestContestStock @relation(fields: [contestId, stockId], references: [contestId, contestStockId])
-
+  id         Int @id @default(autoincrement())
+  stockId    Int
+  contestId  Int
   roomNumber Int
-  Room       Room? @relation(fields: [contestId, roomNumber], references: [contestId, roomNumber])
 
+  currentShares Int
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime? @updatedAt
+
+  stock             ContestContestStock @relation(fields: [contestId, stockId], references: [contestId, contestStockId])
+  Room              Room?               @relation(fields: [contestId, roomNumber], references: [contestId, roomNumber])
   ContestStockPrice ContestStockPrice[]
-
-  createdAt DateTime  @default(now())
-  updatedAt DateTime? @updatedAt
 
   @@unique([contestId, roomNumber, stockId])
 }
@@ -383,25 +443,21 @@ model StockHistory {
 //
 
 model Trade {
-  id Int @id @default(autoincrement())
+  id                 Int  @id @default(autoincrement())
+  stockId            Int
+  contestId          Int
+  roomNumber         Int
+  buyerMembershipId  Int
+  sellerMembershipId Int?
 
-  quantity  Int
   price     Float
+  quantity  Int
   timestamp DateTime @default(now())
 
-  // relations
-  stockId   Int
-  contestId Int
-  stock     ContestContestStock @relation(fields: [contestId, stockId], references: [contestId, contestStockId])
-
-  buyerMembershipId Int
-  buyerMembership   ContestMembership @relation(fields: [buyerMembershipId], references: [id], name: "buyerMembership")
-
-  sellerMembershipId Int?
-  sellerMembership   ContestMembership? @relation(fields: [sellerMembershipId], references: [id], name: "sellerMembership")
-
-  room       Room @relation(fields: [contestId, roomNumber], references: [contestId, roomNumber])
-  roomNumber Int
+  stock            ContestContestStock @relation(fields: [contestId, stockId], references: [contestId, contestStockId])
+  buyerMembership  ContestMembership   @relation(fields: [buyerMembershipId], references: [id], name: "buyerMembership")
+  sellerMembership ContestMembership?  @relation(fields: [sellerMembershipId], references: [id], name: "sellerMembership")
+  room             Room                @relation(fields: [contestId, roomNumber], references: [contestId, roomNumber])
 }
 
 //
@@ -409,11 +465,13 @@ model Trade {
 //
 
 model Content {
-  id          Int      @id @default(autoincrement())
+  id         Int @id @default(autoincrement())
+  tutorialId Int
+
   subTitle    String
   description String[]
-  tutorial    Tutorial @relation(fields: [tutorialId], references: [id])
-  tutorialId  Int
+
+  tutorial Tutorial @relation(fields: [tutorialId], references: [id])
 }
 
 //
@@ -421,22 +479,17 @@ model Content {
 //
 
 model LevelMembership {
-  id Int @id @default(autoincrement())
+  id       Int    @id @default(autoincrement())
+  levelId  Int
+  playerId String
 
   failuresCount Int
+  passedAt      DateTime?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime? @updatedAt
 
-  passedAt DateTime?
-
-  createdAt DateTime @default(now())
-
-  updatedAt DateTime? @updatedAt
-
-  // relations
-  playerId String
-  player   Player @relation(fields: [playerId], references: [userId])
-
-  levelId Int
-  level   Level @relation(fields: [levelId], references: [id])
+  player Player @relation(fields: [playerId], references: [userId])
+  level  Level  @relation(fields: [levelId], references: [id])
 
   @@unique([levelId, playerId])
 }
@@ -446,16 +499,15 @@ model LevelMembership {
 //
 
 model LevelQuestion {
-  id        Int       @id @default(autoincrement())
+  id      Int @id @default(autoincrement())
+  levelId Int
+
   position  Int
   answer    TradeType
   timestamp DateTime
 
-  // relations
-  levelId Int
-  level   Level @relation(fields: [levelId], references: [id])
-
   levelStock LevelStock?
+  level      Level       @relation(fields: [levelId], references: [id])
 }
 
 //
@@ -463,7 +515,9 @@ model LevelQuestion {
 //
 
 model LevelStockPrice {
-  id        Int      @id @default(autoincrement())
+  id           Int @id @default(autoincrement())
+  levelStockId Int
+
   open      Float
   close     Float
   highest   Float
@@ -471,12 +525,9 @@ model LevelStockPrice {
   volume    Int
   timeStamp DateTime @default(now())
 
-  // relations
-  levelStockId Int
-  Stock        LevelStock @relation(fields: [levelStockId], references: [id], onDelete: Cascade)
+  Stock LevelStock @relation(fields: [levelStockId], references: [id], onDelete: Cascade)
 
   @@index([levelStockId], name: "level_stock_price_level_stock_id_idx")
-  @@map("level_stock_price")
 }
 
 //
@@ -484,17 +535,14 @@ model LevelStockPrice {
 //
 
 model LevelStock {
-  id     Int    @id @default(autoincrement())
+  id         Int @id @default(autoincrement())
+  questionId Int @unique
+
   name   String
   symbol String
 
-  // relations
-  questionId Int           @unique
-  question   LevelQuestion @relation(fields: [questionId], references: [id])
-
+  question     LevelQuestion     @relation(fields: [questionId], references: [id])
   priceHistory LevelStockPrice[]
-
-  @@map("level_stocks")
 }
 
 //
@@ -502,21 +550,19 @@ model LevelStock {
 //
 
 model Level {
-  id          Int       @id @default(autoincrement())
+  id Int @id @default(autoincrement())
+
   number      Int       @unique
   patternName String
   isActive    Boolean
   createdAt   DateTime  @default(now())
   updatedAt   DateTime? @updatedAt
-  // relations
+
   tutorial    Tutorial?
-
-  questions LevelQuestion[]
-
+  questions   LevelQuestion[]
   memberships LevelMembership[]
 
   @@index([number])
-  @@map("levels")
 }
 
 //
@@ -524,19 +570,17 @@ model Level {
 //
 
 model Tutorial {
-  id             Int     @id @default(autoincrement())
+  id      Int @id @default(autoincrement())
+  levelId Int @unique
+
   title          String
   imageStorageId String?
   published      Boolean @default(false)
 
-  // relations
-  levelId Int   @unique
-  level   Level @relation(fields: [levelId], references: [id])
-
+  level   Level     @relation(fields: [levelId], references: [id])
   content Content[]
 
   @@index([levelId], name: "levelId")
-  @@map("tutorials")
 }
 
 //

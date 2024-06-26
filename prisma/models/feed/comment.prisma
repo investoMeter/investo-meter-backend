@@ -1,0 +1,17 @@
+import { CommunityMembership } from "..\community\member"
+import { Post } from "./post"
+
+
+model Comment {
+    id          String @id @default(cuid())
+    authorId      String
+    communityId String
+    postId      String
+
+    text        String
+    createdAt   DateTime @default(now())
+    updatedAt   DateTime @updatedAt
+
+    post        Post @relation(fields: [postId], references: [id], onDelete: Cascade)
+    author      CommunityMembership @relation(fields: [authorId, communityId], references: [userId, communityId], onDelete: Cascade)
+}
