@@ -383,4 +383,42 @@ export class LevelService {
 
     return levelId;
   }
+
+  async adminGetAllLevels(
+    page: number,
+    take: number,
+  ): Promise<PaginatedList<BasicLevelInfo>> {
+    const pastLevel = await this.prisma.level.findFirst({
+      select: {number:true},
+      orderBy: {number:'desc'},
+    });
+
+    const levels = await this.prisma.level.findMany({
+      orderBy: {
+        createdAt: `asc`,
+      },
+      skip: page * take,
+      take: take,
+      select: {
+        id: true,
+        number: true,
+        patternName: true,
+      },
+    });
+
+    const levelsCount = await this.prisma.level.count();
+
+    return {
+      list: levels.map((level) => {
+        return {
+          id: level.id,
+          name: `Level ${level.number}`,
+          patternName: level.patternName,
+          isActive:
+            pastLevel ? pastLevel.number >= level.number: false,
+        };
+      }),
+      isLastPage: levels.length < take || levelsCount <= page * take + take,
+    };
+  }
 }

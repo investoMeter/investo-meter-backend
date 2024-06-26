@@ -108,4 +108,20 @@ export class LevelController {
     await this.authService.AdminResolver((req as any).user.sub);
     return await this.levelService.editTutorial(tutorialDto);
   }
+
+  @Get('get-all-levels')
+  @HttpCode(HttpStatus.OK)
+  @UseGuards(AtGuard)
+  @ApiBearerAuth()
+  async adminGetAllLevels(
+    @Query('page') page: string = '0',
+    @Query('take') take: string = '4',
+    @Req() req: Request,
+  ): Promise<PaginatedList<BasicLevelInfo>> {
+    await this.authService.AdminResolver((req as any).user.sub);
+    return this.levelService.adminGetAllLevels(
+      parseInt(page),
+      parseInt(take),
+    );
+  }
 }

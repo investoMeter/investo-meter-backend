@@ -3,6 +3,7 @@ import { AppModule } from './app.Module';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { ValidationPipe } from '@nestjs/common';
 import { ClientOptions, Transport } from '@nestjs/microservices';
+import { CorsOptions } from '@nestjs/common/interfaces/external/cors-options.interface';
 
 const grpcClientOptions: ClientOptions = {
   transport: Transport.GRPC,
@@ -18,6 +19,15 @@ async function bootstrap() {
   app.connectMicroservice(grpcClientOptions);
   await app.startAllMicroservices();
 
+  // Enable CORS with specific options
+  const corsOptions: CorsOptions = {
+    origin: '*', 
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    preflightContinue: false,
+    optionsSuccessStatus: 204,
+  };
+  app.enableCors(corsOptions);
+
   const config = new DocumentBuilder()
     .setTitle('Investometer API')
     .setVersion('1.0')
@@ -29,6 +39,7 @@ async function bootstrap() {
   SwaggerModule.setup('api', app, document);
 
   const port = process.env.PORT || 3333;
-  await app.listen(port, () => console.log('Server is running on port 3333'));
+  await app.listen(port, () => console.log(`Server is running on port ${port}`));
 }
+
 bootstrap();
