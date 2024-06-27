@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { Player } from '@prisma/client';
 import { PrismaService } from 'src/prisma';
 import { ContestDataDto } from './dto/contestData.dto';
@@ -93,9 +93,60 @@ export class ProfileService {
   }
 
   async getPlayerInfo(player: Player): Promise<playerDataDto> {
+
+    const playersInfo = await this.prisma.player.findUnique(
+      {where: {userId:player.userId},
+      select:
+      {
+        userId:true,
+        coins:true,
+        user: {
+          select: {
+              name: true,
+              username: true,
+              email: true
+          }
+      }
+        
+      }
+    })
+    if (!playersInfo) {
+      throw new NotFoundException(
+        'The player you are seeking with ID ' + player.userId + ' does not exist.',
+      );
+    }
+    const latestLevelMembership = await this.prisma.levelMembership.findFirst({
+      where: {
+          playerId: player.userId
+      },
+      orderBy: {
+          createdAt: 'desc'
+      },
+      select: {
+          levelId: true,
+          updatedAt: true
+      }
+    });
+    
+    if (!latestLevelMembership) {
+      throw new NotFoundException(
+        'The player you are seeking with ID ' + player.userId + ' does not exist.',
+      );
+    }
+    const levelNum = await this.prisma.level.findUnique({where:{id:latestLevelMembership.levelId},select:{number:true}})
+    if (!levelNum) {
+      throw new NotFoundException(
+        'The level you are seeking with ID ' + latestLevelMembership.levelId+ ' does not exist.',
+      );
+    }
     const playerData: playerDataDto = {
-      id: player.userId,
-      coins: player.coins,
+      id: playersInfo.userId,
+      coins: playersInfo.coins,
+      name: playersInfo.user.name,
+      userName:playersInfo.user.username,
+      email:playersInfo.user.email,
+      levelNum:levelNum.number
+
     };
     return playerData;
   }
