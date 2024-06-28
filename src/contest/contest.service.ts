@@ -24,7 +24,7 @@ type LeaderboardEntry = {
 
 @Injectable()
 export class ContestService {
-  constructor(private prisma: PrismaService) { }
+  constructor(private prisma: PrismaService) {}
 
   async getAllContests(
     page: number = 0,
@@ -367,12 +367,11 @@ export class ContestService {
   async fetchContestLeaderboard(
     contestId: number,
     roomNumber: number,
-    limit?: number,
   ): Promise<LeaderboardEntry[]> {
     return await this.prisma.$queryRaw`
     SELECT cm.id, cm."currentBalance", u.username, u.id as userId
     FROM "ContestMembership" cm
-    JOIN "users" u ON cm."playerId" = u."id"
+    JOIN "User" u ON cm."playerId" = u."id"
     WHERE cm."contestId" = ${contestId}
       AND cm."roomNumber" = ${roomNumber}
     ORDER BY cm."currentBalance" DESC, u.username ASC
@@ -669,18 +668,19 @@ export class ContestService {
   async getAllContestStocks(): Promise<ContestStockDto[]> {
     const allStocks = await this.prisma.contestStock.findMany({
       select: {
-        id: true, name: true, symbol: true,
-      }
+        id: true,
+        name: true,
+        symbol: true,
+      },
     });
 
-    const contestStocks: ContestStockDto[] = allStocks.map(stock => ({
+    const contestStocks: ContestStockDto[] = allStocks.map((stock) => ({
       id: stock.id,
       name: stock.name,
       symbol: stock.symbol,
     }));
 
     return contestStocks;
-
   }
 
   async validateContestRunning(conetstId: number): Promise<boolean> {
@@ -698,7 +698,7 @@ export class ContestService {
       )?.started || false;
     return isRunning;
   }
-  
+
   async getRunningContestsForUser(player: { userId: string }) {
     const now = new Date();
     now.setUTCHours(now.getUTCHours() + 3);
