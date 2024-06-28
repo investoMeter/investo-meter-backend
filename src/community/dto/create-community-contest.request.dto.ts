@@ -55,9 +55,5 @@ export class CreateCommunityContestRequest {
   @IsInt()
   stocksShares: number;
 
-  @ArrayNotEmpty()
-  @ArrayMinSize(5)
-  stocksIds: number[];
-
   joinContest?: boolean;
 }

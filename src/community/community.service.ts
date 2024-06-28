@@ -168,7 +168,6 @@ export class CommunityService {
       startDate,
       endDate,
       stocksShares,
-      stocksIds,
       communityId,
       joinContest,
     } = request;
@@ -196,7 +195,7 @@ export class CommunityService {
     const newContest = await this.prisma.contest.create({ data: contestData });
 
     const contestStocks = await this.prisma.contestStock.findMany({
-      where: { id: { in: stocksIds } },
+      take: 5,
       select: { initialPrice: true, id: true },
     });
 
