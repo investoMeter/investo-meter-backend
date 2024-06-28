@@ -4,22 +4,20 @@ import {  RequestStatus } from ".\RequestStatus"
 import { Contest } from ".\contest"
 import { Room } from ".\room"
 import { ContestContestStock } from "./contest-contest-stock"
+import { ContestMembership } from "./contest-membership"
 model BuyRequest {
     id Int @id @default(autoincrement())
+    stockId Int
+    playerId String
+    contestId Int
+    roomNumber Int
 
     quantity  Int
     price     Float
     timestamp DateTime      @default(now())
     status    RequestStatus
 
-    // relations
-    player   Player @relation(fields: [playerId], references: [userId])
-    playerId String
-
-    stockId Int
-    contestId Int
+    player   ContestMembership @relation(fields: [playerId, contestId], references: [playerId, contestId])
     stock   ContestContestStock @relation(fields: [contestId,stockId], references: [contestId,contestStockId])
-
-    roomNumber Int
     room   Room @relation(fields: [contestId, roomNumber], references: [contestId, roomNumber])
 }

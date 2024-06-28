@@ -1,17 +1,17 @@
-import { Player, BuyRequest, RequestStatus, Trade } from '@prisma/client';
-import { TradeRequestDto } from './dto/trades dto/trade-request.dto';
-import { PrismaService } from 'src/prisma';
+import { Player, BuyRequest, RequestStatus, Trade } from "@prisma/client";
+import { TradeRequestDto } from "./dto/trades dto/trade-request.dto";
+import { PrismaService } from "src/prisma";
 import {
   BadRequestException,
   Injectable,
   NotFoundException,
   UnauthorizedException,
-} from '@nestjs/common';
-import { CancelRequestDto } from './dto/trades dto/cancel-request.dto';
-import { MatchingService } from './matching.service';
-import { TradeRequest } from './models/TradeRequest';
-import { TradingUtilityService } from './trade.utility.service';
-import { ContestService } from './contest.service';
+} from "@nestjs/common";
+import { CancelRequestDto } from "./dto/trades dto/cancel-request.dto";
+import { MatchingService } from "./matching.service";
+import { TradeRequest } from "./models/TradeRequest";
+import { TradingUtilityService } from "./trade.utility.service";
+import { ContestService } from "./contest.service";
 
 @Injectable()
 export class TradeService {
@@ -41,7 +41,7 @@ export class TradeService {
     const totalPendingCost = pendingRequestCost[0].total_cost;
     const currentMoney = membership.currentBalance;
     if (currentMoney < requestCost + totalPendingCost) {
-      throw new BadRequestException('No Sufficient coins');
+      throw new BadRequestException("No Sufficient coins");
     }
 
     const stockHistory = await this.getStockHistory(
@@ -162,7 +162,7 @@ export class TradeService {
         roomNumber: room.roomNumber,
         playerId: player.userId,
         stockId: stock.id,
-        status: 'PENDING',
+        status: "PENDING",
       },
     });
 
@@ -173,7 +173,7 @@ export class TradeService {
       ownedStock.currentShares < quantity + totalPendingShares
     ) {
       throw new BadRequestException(
-        'Player does not have enough shares to sell',
+        "Player does not have enough shares to sell",
       );
     }
 
@@ -267,20 +267,20 @@ export class TradeService {
     });
 
     if (!contest) {
-      throw new NotFoundException('Contest not found');
+      throw new NotFoundException("Contest not found");
     }
     const room = contest.rooms[0];
     if (!room) {
-      throw new NotFoundException('Room not found');
+      throw new NotFoundException("Room not found");
     }
     const stock = contest.contestStocks[0].contestStock;
     if (!stock) {
-      throw new NotFoundException('Stock not found');
+      throw new NotFoundException("Stock not found");
     }
     const membership = room.memberships[0];
 
     if (!membership) {
-      throw new NotFoundException('Player is not a member in this room');
+      throw new NotFoundException("Player is not a member in this room");
     }
 
     const timestampDate = new Date(timestamp);
@@ -289,7 +289,7 @@ export class TradeService {
     const contestEndDate = new Date(contest.endDate);
 
     if (timestampDate < contestStartDate || timestampDate > contestEndDate) {
-      throw new BadRequestException('Request time is invalid');
+      throw new BadRequestException("Request time is invalid");
     }
 
     return { contest, room, membership, stock, timestampDate };
@@ -327,7 +327,7 @@ export class TradeService {
     } = BuyRequestData;
 
     if (!this.contestService.validateContestRunning(contestId)) {
-      throw new NotFoundException('Contest ended');
+      throw new NotFoundException("Contest ended");
     }
 
     return await this.prisma.buyRequest.create({
@@ -338,7 +338,10 @@ export class TradeService {
         status: RequestStatus.PENDING,
         player: {
           connect: {
-            userId: userId,
+            contestId_playerId: {
+              contestId: contestId,
+              playerId: userId,
+            },
           },
         },
         stock: {
@@ -373,7 +376,7 @@ export class TradeService {
     } = sellRequestData;
 
     if (!this.contestService.validateContestRunning(contestId)) {
-      throw new NotFoundException('Contest ended');
+      throw new NotFoundException("Contest ended");
     }
 
     return await this.prisma.sellRequest.create({
@@ -384,7 +387,10 @@ export class TradeService {
         status: RequestStatus.PENDING,
         player: {
           connect: {
-            userId: userId,
+            contestId_playerId: {
+              contestId: contestId,
+              playerId: userId,
+            },
           },
         },
         stock: {
@@ -416,15 +422,16 @@ export class TradeService {
         contestId,
         roomNumber,
         player: {
-          userId: player.userId,
+          playerId: player.userId,
+          contestId: contestId,
         },
       },
     });
     if (!buyRequest) {
-      throw new NotFoundException('Buy request not found');
+      throw new NotFoundException("Buy request not found");
     }
     if (buyRequest.status !== RequestStatus.PENDING) {
-      throw new BadRequestException('Buy request is already processed');
+      throw new BadRequestException("Buy request is already processed");
     }
 
     const cost = buyRequest.quantity * buyRequest.price;
@@ -455,16 +462,17 @@ export class TradeService {
         contestId,
         roomNumber,
         player: {
-          userId: player.userId,
+          playerId: player.userId,
+          contestId: contestId,
         },
       },
     });
 
     if (!sellRequest) {
-      throw new NotFoundException('Sell request not found');
+      throw new NotFoundException("Sell request not found");
     }
     if (sellRequest.status !== RequestStatus.PENDING) {
-      throw new BadRequestException('Sell request is already processed');
+      throw new BadRequestException("Sell request is already processed");
     }
 
     const membershipId = data.membership.id;
@@ -496,7 +504,7 @@ export class TradeService {
     });
 
     if (!membership) {
-      throw new UnauthorizedException('Player is not a member in this room');
+      throw new UnauthorizedException("Player is not a member in this room");
     }
 
     let buyRequests: any = await this.prisma.buyRequest.findMany({
@@ -519,10 +527,10 @@ export class TradeService {
       quantity: buyRequest.quantity,
       price: buyRequest.price,
       stockSymbol: buyRequest.stock.contestStock.symbol,
-      type: 'BUY',
+      type: "BUY",
     }));
 
-    let sellRequests:any = await this.prisma.sellRequest.findMany({
+    let sellRequests: any = await this.prisma.sellRequest.findMany({
       where: {
         contestId,
         roomNumber,
@@ -542,7 +550,7 @@ export class TradeService {
       quantity: sellRequest.quantity,
       price: sellRequest.price,
       stockSymbol: sellRequest.stock.contestStock.symbol,
-      type: 'SELL',
+      type: "SELL",
     }));
 
     return [...buyRequests, ...sellRequests];
@@ -562,7 +570,7 @@ export class TradeService {
     });
 
     if (!membership) {
-      throw new UnauthorizedException('Player is not a member in this room');
+      throw new UnauthorizedException("Player is not a member in this room");
     }
 
     let buyTrades = await this.prisma.trade.findMany({
@@ -585,7 +593,7 @@ export class TradeService {
       price: trade.price,
       stockId: trade.stockId,
       stockSymbol: trade.stock.contestStock.symbol,
-      type: 'BUY',
+      type: "BUY",
     }));
 
     let sellTrades = await this.prisma.trade.findMany({
@@ -608,7 +616,7 @@ export class TradeService {
       price: trade.price,
       stockId: trade.stockId,
       stockSymbol: trade.stock.contestStock.symbol,
-      type: 'SELL',
+      type: "SELL",
     }));
 
     return [...transformedBuyTrades, ...transformedSellTrades];

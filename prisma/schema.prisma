@@ -183,8 +183,6 @@ model Player {
 
   reports          Report[]
   feedbacks        feedback[]
-  BuyRequest       BuyRequest[]
-  SellRequest      SellRequest[]
   ownedCommunities Community[]
 }
 
@@ -216,23 +214,20 @@ model User {
 //
 
 model BuyRequest {
-  id Int @id @default(autoincrement())
+  id         Int    @id @default(autoincrement())
+  stockId    Int
+  playerId   String
+  contestId  Int
+  roomNumber Int
 
   quantity  Int
   price     Float
   timestamp DateTime      @default(now())
   status    RequestStatus
 
-  // relations
-  player   Player @relation(fields: [playerId], references: [userId])
-  playerId String
-
-  stockId   Int
-  contestId Int
-  stock     ContestContestStock @relation(fields: [contestId, stockId], references: [contestId, contestStockId])
-
-  roomNumber Int
-  room       Room @relation(fields: [contestId, roomNumber], references: [contestId, roomNumber])
+  player ContestMembership   @relation(fields: [playerId, contestId], references: [playerId, contestId])
+  stock  ContestContestStock @relation(fields: [contestId, stockId], references: [contestId, contestStockId])
+  room   Room                @relation(fields: [contestId, roomNumber], references: [contestId, roomNumber])
 }
 
 //
@@ -275,8 +270,10 @@ model ContestMembership {
   roomNumber Int
   room       Room @relation(fields: [contestId, roomNumber], references: [contestId, roomNumber], onDelete: Cascade)
 
-  buyerTrades  Trade[] @relation("buyerMembership")
-  sellerTrades Trade[] @relation("sellerMembership")
+  buyerTrades  Trade[]       @relation("buyerMembership")
+  sellerTrades Trade[]       @relation("sellerMembership")
+  BuyRequest   BuyRequest[]
+  SellRequest  SellRequest[]
 
   ownedStocks OwnedStock[]
 
@@ -412,7 +409,7 @@ model SellRequest {
   status    RequestStatus
 
   // relations
-  player Player              @relation(fields: [playerId], references: [userId])
+  player ContestMembership   @relation(fields: [playerId, contestId], references: [playerId, contestId])
   stock  ContestContestStock @relation(fields: [contestId, stockId], references: [contestId, contestStockId])
   room   Room                @relation(fields: [contestId, roomNumber], references: [contestId, roomNumber])
 }

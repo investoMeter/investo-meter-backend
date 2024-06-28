@@ -3,8 +3,6 @@ import { LevelMembership } from "..\stocks\level\level-membership"
 import { ContestMembership } from "..\stocks\contest\contest-membership"
 import { Level } from "..\stocks\level\level"
 import { feedback } from "..\feedback"
-import { BuyRequest } from "..\stocks\contest\buy-request"
-import { SellRequest } from "..\stocks\contest\sell-request"
 import { Report } from "..\reports\report"
 import { Community } from "..\community\community"
 import { Post } from "..\feed\post"
@@ -22,7 +20,5 @@ model Player {
 
   reports               Report[]
   feedbacks             feedback[]
-  BuyRequest            BuyRequest[]
-  SellRequest           SellRequest[]
   ownedCommunities      Community[]
 }
