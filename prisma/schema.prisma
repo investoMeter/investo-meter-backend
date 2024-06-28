@@ -297,7 +297,7 @@ model ContestStockPrice {
 
   // relations
   stockHistoryId Int?
-  StockHistory   StockHistory? @relation(fields: [stockHistoryId], references: [id])
+  StockHistory   StockHistory? @relation(fields: [stockHistoryId], references: [id], onDelete: Cascade)
   ContestStock   ContestStock?
 }
 
@@ -428,7 +428,7 @@ model StockHistory {
   createdAt     DateTime  @default(now())
   updatedAt     DateTime? @updatedAt
 
-  stock             ContestContestStock @relation(fields: [contestId, stockId], references: [contestId, contestStockId])
+  stock             ContestContestStock @relation(fields: [contestId, stockId], references: [contestId, contestStockId], onDelete: Cascade)
   Room              Room?               @relation(fields: [contestId, roomNumber], references: [contestId, roomNumber])
   ContestStockPrice ContestStockPrice[]
 

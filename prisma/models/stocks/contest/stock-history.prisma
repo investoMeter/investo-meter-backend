@@ -13,7 +13,7 @@ model StockHistory {
   createdAt         DateTime  @default(now())
   updatedAt         DateTime? @updatedAt
 
-  stock             ContestContestStock @relation(fields: [contestId,stockId], references: [contestId,contestStockId])
+  stock             ContestContestStock @relation(fields: [contestId,stockId], references: [contestId,contestStockId], onDelete: Cascade)
   Room              Room?     @relation(fields: [contestId, roomNumber], references: [contestId, roomNumber])
   ContestStockPrice ContestStockPrice[]
   @@unique([contestId, roomNumber, stockId])
