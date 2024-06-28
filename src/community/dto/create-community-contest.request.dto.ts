@@ -1,8 +1,6 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { Transform } from "class-transformer";
 import {
-  ArrayMinSize,
-  ArrayNotEmpty,
   IsInt,
   IsNotEmpty,
   IsPositive,
