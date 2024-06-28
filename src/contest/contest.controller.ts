@@ -36,11 +36,11 @@ export class ContestController {
   @UseGuards(AtGuard)
   @ApiBearerAuth()
   async getAvailableContests(
+    @Req() req: any,
     @Query("page") page: string,
     @Query("take") take: string,
-    @Query("playerId") playerId: string,
   ): Promise<PaginatedList<ContestRow>> {
-    const player = await this.authService.playerResolver(playerId);
+    const player = await this.authService.playerResolver((req as any).user.sub);
     return this.contestService.getAllAvailablePublicContests(
       parseInt(page),
       parseInt(take),
@@ -53,11 +53,11 @@ export class ContestController {
   @UseGuards(AtGuard)
   @ApiBearerAuth()
   async getUpcomingContests(
+    @Req() req: any,
     @Query("page") page: string,
     @Query("take") take: string,
-    @Query("playerId") playerId: string,
   ): Promise<PaginatedList<ContestRow>> {
-    const player = await this.authService.playerResolver(playerId);
+    const player = await this.authService.playerResolver((req as any).user.sub);
     return this.contestService.getUpcomingContests(
       parseInt(page),
       parseInt(take),
@@ -70,11 +70,11 @@ export class ContestController {
   @UseGuards(AtGuard)
   @ApiBearerAuth()
   async getAllPublicContests(
+    @Req() req: any,
     @Query("page") page: string,
     @Query("take") take: string,
-    @Query("adminId") adminId: string,
   ): Promise<PaginatedList<ContestRow>> {
-    await this.authService.AdminResolver(adminId);
+    await this.authService.AdminResolver((req as any).user.sub);
     return this.contestService.getAllPublicContests(
       parseInt(page),
       parseInt(take),

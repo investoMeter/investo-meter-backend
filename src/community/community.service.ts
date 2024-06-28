@@ -403,18 +403,23 @@ export class CommunityService {
     if (contest.startDate < new Date()) {
       throw new BadRequestException("Contest has already started");
     }
-
-    await this.prisma.room.deleteMany({
+    const deleteRooms = this.prisma.room.deleteMany({
       where: { contestId: contestId },
     });
 
-    await this.prisma.contestContestStock.deleteMany({
+    const deleteContestStocks = this.prisma.contestContestStock.deleteMany({
       where: { contestId: contestId },
     });
 
-    await this.prisma.contest.delete({
+    const deleteContest = this.prisma.contest.delete({
       where: { id: contestId },
     });
+
+    await this.prisma.$transaction([
+      deleteRooms,
+      deleteContestStocks,
+      deleteContest,
+    ]);
   }
 
   private async isInCommunity(
