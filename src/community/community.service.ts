@@ -158,122 +158,6 @@ export class CommunityService {
     return { communityId: community.id };
   }
 
-  async createCommunityContest(
-    player: Player,
-    request: CreateCommunityContestRequest,
-  ): Promise<CreateCommunityContestResponse> {
-    const {
-      name,
-      startingMoney,
-      startDate,
-      endDate,
-      stocksShares,
-      stocksIds,
-      communityId,
-      joinContest,
-    } = request;
-
-    await this.checkOwner(player.userId, communityId);
-    const community = await this.getCommunity(communityId);
-
-    const startDateObject = new Date(startDate);
-    startDateObject.setUTCHours(startDateObject.getUTCHours() + 3);
-    const endDateObject = new Date(endDate);
-    endDateObject.setUTCHours(endDateObject.getUTCHours() + 3);
-
-    const contestData = {
-      name,
-      maxRoomCapacity: community._count.members,
-      startingMoney,
-      startDate: startDateObject,
-      endDate: endDateObject,
-      creatorId: player.userId,
-      startingShares: stocksShares,
-      isPrivate: true,
-      communityId: community.id,
-    };
-
-    const newContest = await this.prisma.contest.create({ data: contestData });
-
-    const contestStocks = await this.prisma.contestStock.findMany({
-      where: { id: { in: stocksIds } },
-      select: { initialPrice: true, id: true },
-    });
-
-    await this.prisma.contestContestStock.createMany({
-      data: contestStocks.map((stock) => ({
-        contestId: newContest.id,
-        contestStockId: stock.id,
-      })),
-    });
-
-    let room = await this.prisma.room.create({
-      data: {
-        roomNumber: 1,
-        contestId: newContest.id,
-      },
-    });
-
-    for (const stock of contestStocks) {
-      await this.prisma.stockHistory.create({
-        data: {
-          contestId: newContest.id,
-          roomNumber: room.roomNumber,
-          stockId: stock.id,
-          ContestStockPrice: {
-            create: stock.initialPrice,
-          },
-          currentShares: stocksShares,
-        },
-      });
-    }
-
-    let communityMembersIds;
-    if (!joinContest) {
-      communityMembersIds = await this.prisma.communityMembership.findMany({
-        where: {
-          communityId: communityId,
-          userId: { not: community.ownerId },
-        },
-        select: { userId: true },
-      });
-    } else {
-      communityMembersIds = await this.prisma.communityMembership.findMany({
-        where: { communityId: communityId },
-        select: {
-          userId: true,
-        },
-      });
-    }
-
-    const contestMembershipData = communityMembersIds.map((member: any) => ({
-      contestId: newContest.id,
-      playerId: member.userId,
-      roomNumber: room.roomNumber,
-    }));
-
-    await this.prisma.contestMembership.createMany({
-      data: contestMembershipData,
-    });
-
-    return {
-      id: newContest.id,
-      name: newContest.name,
-      maxRoomCapacity: newContest.maxRoomCapacity,
-      startingMoney: newContest.startingMoney,
-      startDate: new Date(newContest.startDate),
-      endDate: new Date(newContest.endDate),
-      startingShares: newContest.startingShares,
-
-      rooms: [
-        {
-          roomNumber: room.roomNumber,
-          currentCapacity: 0,
-        },
-      ],
-    };
-  }
-
   async getOwnedCommunities(player: { userId: string }) {
     return await this.prisma.$queryRaw`
     SELECT c.id, c.name, Count(cm."userId")::text AS memberCount
@@ -385,6 +269,157 @@ export class CommunityService {
     });
 
     return { communityId, memberId };
+  }
+
+  async createCommunityContest(
+    player: Player,
+    request: CreateCommunityContestRequest,
+  ): Promise<CreateCommunityContestResponse> {
+    const {
+      name,
+      startingMoney,
+      startDate,
+      endDate,
+      stocksShares,
+      communityId,
+      joinContest,
+    } = request;
+
+    await this.checkOwner(player.userId, communityId);
+    const community = await this.getCommunity(communityId);
+
+    const startDateObject = new Date(startDate);
+    startDateObject.setUTCHours(startDateObject.getUTCHours() + 3);
+    const endDateObject = new Date(endDate);
+    endDateObject.setUTCHours(endDateObject.getUTCHours() + 3);
+
+    const contestData = {
+      name,
+      maxRoomCapacity: community._count.members,
+      startingMoney,
+      startDate: startDateObject,
+      endDate: endDateObject,
+      creatorId: player.userId,
+      startingShares: stocksShares,
+      isPrivate: true,
+      communityId: community.id,
+    };
+
+    const newContest = await this.prisma.contest.create({ data: contestData });
+
+    const contestStocks = await this.prisma.contestStock.findMany({
+      take: 5,
+      select: { initialPrice: true, id: true },
+    });
+
+    await this.prisma.contestContestStock.createMany({
+      data: contestStocks.map((stock) => ({
+        contestId: newContest.id,
+        contestStockId: stock.id,
+      })),
+    });
+
+    let room = await this.prisma.room.create({
+      data: {
+        roomNumber: 1,
+        contestId: newContest.id,
+      },
+    });
+
+    for (const stock of contestStocks) {
+      await this.prisma.stockHistory.create({
+        data: {
+          contestId: newContest.id,
+          roomNumber: room.roomNumber,
+          stockId: stock.id,
+          ContestStockPrice: {
+            create: stock.initialPrice,
+          },
+          currentShares: stocksShares,
+        },
+      });
+    }
+
+    let communityMembersIds;
+    if (!joinContest) {
+      communityMembersIds = await this.prisma.communityMembership.findMany({
+        where: {
+          communityId: communityId,
+          userId: { not: community.ownerId },
+        },
+        select: { userId: true },
+      });
+    } else {
+      communityMembersIds = await this.prisma.communityMembership.findMany({
+        where: { communityId: communityId },
+        select: {
+          userId: true,
+        },
+      });
+    }
+
+    const contestMembershipData = communityMembersIds.map((member: any) => ({
+      contestId: newContest.id,
+      playerId: member.userId,
+      roomNumber: room.roomNumber,
+    }));
+
+    await this.prisma.contestMembership.createMany({
+      data: contestMembershipData,
+    });
+
+    return {
+      id: newContest.id,
+      name: newContest.name,
+      maxRoomCapacity: newContest.maxRoomCapacity,
+      startingMoney: newContest.startingMoney,
+      startDate: new Date(newContest.startDate),
+      endDate: new Date(newContest.endDate),
+      startingShares: newContest.startingShares,
+
+      rooms: [
+        {
+          roomNumber: room.roomNumber,
+          currentCapacity: 0,
+        },
+      ],
+    };
+  }
+
+  async deleteCommunityContest(
+    player: Player,
+    contestId: number,
+    communityId: string,
+  ) {
+    await this.checkOwner(player.userId, communityId);
+    const contest = await this.prisma.contest.findFirst({
+      where: { id: contestId, communityId: communityId },
+    });
+
+    if (contest === null) {
+      throw new NotFoundException("Contest not found");
+    }
+
+    if (contest.startDate < new Date()) {
+      throw new BadRequestException("Contest has already started");
+    }
+    const deleteRooms = this.prisma.room.deleteMany({
+      where: { contestId: contestId },
+    });
+
+    const deleteContestStocks = this.prisma.contestContestStock.deleteMany({
+      where: { contestId: contestId },
+    });
+
+    const deleteContest = this.prisma.contest.delete({
+      where: { id: contestId },
+    });
+
+    await this.prisma.$transaction([
+      deleteRooms,
+      deleteContestStocks,
+      deleteContest,
+    ]);
   }
 
   private async isInCommunity(

@@ -1,8 +1,6 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { Transform } from "class-transformer";
 import {
-  ArrayMinSize,
-  ArrayNotEmpty,
   IsInt,
   IsNotEmpty,
   IsPositive,
@@ -54,10 +52,6 @@ export class CreateCommunityContestRequest {
   @IsPositive()
   @IsInt()
   stocksShares: number;
-
-  @ArrayNotEmpty()
-  @ArrayMinSize(5)
-  stocksIds: number[];
 
   joinContest?: boolean;
 }

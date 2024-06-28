@@ -3,6 +3,8 @@ import { Contest }from "./contest"
 import { Trade } from "./trade"
 import { Room }from "./room"
 import {OwnedStock} from "./owned-stock"
+import { BuyRequest } from ".\buy-request"
+import { SellRequest } from ".\sell-request"
 
 model ContestMembership {
     id Int @id @default(autoincrement())
@@ -19,10 +21,12 @@ model ContestMembership {
 
     contestId  Int
     roomNumber Int
-    room       Room     @relation(fields: [contestId, roomNumber], references:[contestId, roomNumber])
+    room       Room     @relation(fields: [contestId, roomNumber], references:[contestId, roomNumber], onDelete: Cascade)
 
     buyerTrades Trade[] @relation("buyerMembership")
     sellerTrades Trade[] @relation("sellerMembership")
+    BuyRequest            BuyRequest[]
+    SellRequest           SellRequest[]
 
     ownedStocks    OwnedStock[]
 

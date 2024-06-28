@@ -183,8 +183,6 @@ model Player {
 
   reports          Report[]
   feedbacks        feedback[]
-  BuyRequest       BuyRequest[]
-  SellRequest      SellRequest[]
   ownedCommunities Community[]
 }
 
@@ -216,23 +214,20 @@ model User {
 //
 
 model BuyRequest {
-  id Int @id @default(autoincrement())
+  id         Int    @id @default(autoincrement())
+  stockId    Int
+  playerId   String
+  contestId  Int
+  roomNumber Int
 
   quantity  Int
   price     Float
   timestamp DateTime      @default(now())
   status    RequestStatus
 
-  // relations
-  player   Player @relation(fields: [playerId], references: [userId])
-  playerId String
-
-  stockId   Int
-  contestId Int
-  stock     ContestContestStock @relation(fields: [contestId, stockId], references: [contestId, contestStockId])
-
-  roomNumber Int
-  room       Room @relation(fields: [contestId, roomNumber], references: [contestId, roomNumber])
+  player ContestMembership   @relation(fields: [playerId, contestId], references: [playerId, contestId])
+  stock  ContestContestStock @relation(fields: [contestId, stockId], references: [contestId, contestStockId])
+  room   Room                @relation(fields: [contestId, roomNumber], references: [contestId, roomNumber])
 }
 
 //
@@ -273,10 +268,12 @@ model ContestMembership {
 
   contestId  Int
   roomNumber Int
-  room       Room @relation(fields: [contestId, roomNumber], references: [contestId, roomNumber])
+  room       Room @relation(fields: [contestId, roomNumber], references: [contestId, roomNumber], onDelete: Cascade)
 
-  buyerTrades  Trade[] @relation("buyerMembership")
-  sellerTrades Trade[] @relation("sellerMembership")
+  buyerTrades  Trade[]       @relation("buyerMembership")
+  sellerTrades Trade[]       @relation("sellerMembership")
+  BuyRequest   BuyRequest[]
+  SellRequest  SellRequest[]
 
   ownedStocks OwnedStock[]
 
@@ -300,7 +297,7 @@ model ContestStockPrice {
 
   // relations
   stockHistoryId Int?
-  StockHistory   StockHistory? @relation(fields: [stockHistoryId], references: [id])
+  StockHistory   StockHistory? @relation(fields: [stockHistoryId], references: [id], onDelete: Cascade)
   ContestStock   ContestStock?
 }
 
@@ -412,7 +409,7 @@ model SellRequest {
   status    RequestStatus
 
   // relations
-  player Player              @relation(fields: [playerId], references: [userId])
+  player ContestMembership   @relation(fields: [playerId, contestId], references: [playerId, contestId])
   stock  ContestContestStock @relation(fields: [contestId, stockId], references: [contestId, contestStockId])
   room   Room                @relation(fields: [contestId, roomNumber], references: [contestId, roomNumber])
 }
@@ -431,7 +428,7 @@ model StockHistory {
   createdAt     DateTime  @default(now())
   updatedAt     DateTime? @updatedAt
 
-  stock             ContestContestStock @relation(fields: [contestId, stockId], references: [contestId, contestStockId])
+  stock             ContestContestStock @relation(fields: [contestId, stockId], references: [contestId, contestStockId], onDelete: Cascade)
   Room              Room?               @relation(fields: [contestId, roomNumber], references: [contestId, roomNumber])
   ContestStockPrice ContestStockPrice[]
 

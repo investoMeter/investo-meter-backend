@@ -29,17 +29,56 @@ export class ContestController {
   constructor(
     private contestService: ContestService,
     private authService: AuthService,
-  ) { }
+  ) {}
+
+  @Get("get-available-contests")
+  @HttpCode(HttpStatus.OK)
+  @UseGuards(AtGuard)
+  @ApiBearerAuth()
+  async getAvailableContests(
+    @Req() req: any,
+    @Query("page") page: string,
+    @Query("take") take: string,
+  ): Promise<PaginatedList<ContestRow>> {
+    const player = await this.authService.playerResolver((req as any).user.sub);
+    return this.contestService.getAllAvailablePublicContests(
+      parseInt(page),
+      parseInt(take),
+      player.userId,
+    );
+  }
+
+  @Get("get-upcoming-contests")
+  @HttpCode(HttpStatus.OK)
+  @UseGuards(AtGuard)
+  @ApiBearerAuth()
+  async getUpcomingContests(
+    @Req() req: any,
+    @Query("page") page: string,
+    @Query("take") take: string,
+  ): Promise<PaginatedList<ContestRow>> {
+    const player = await this.authService.playerResolver((req as any).user.sub);
+    return this.contestService.getUpcomingContests(
+      parseInt(page),
+      parseInt(take),
+      player.userId,
+    );
+  }
 
   @Get("get-all-contests")
   @HttpCode(HttpStatus.OK)
   @UseGuards(AtGuard)
   @ApiBearerAuth()
-  async getAllContests(
+  async getAllPublicContests(
+    @Req() req: any,
     @Query("page") page: string,
     @Query("take") take: string,
   ): Promise<PaginatedList<ContestRow>> {
-    return this.contestService.getAllContests(parseInt(page), parseInt(take));
+    await this.authService.AdminResolver((req as any).user.sub);
+    return this.contestService.getAllPublicContests(
+      parseInt(page),
+      parseInt(take),
+    );
   }
 
   @Get("get-contest-details")
@@ -145,20 +184,16 @@ export class ContestController {
   @HttpCode(HttpStatus.OK)
   @UseGuards(AtGuard)
   @ApiBearerAuth()
-  async getAllContestStocks(
-    @Req() req: any,
-  ): Promise<ContestStockDto[]> {
+  async getAllContestStocks(@Req() req: any): Promise<ContestStockDto[]> {
     await this.authService.AdminResolver((req as any).user.sub);
     return await this.contestService.getAllContestStocks();
   }
 
-  @Get("running-contests") 
+  @Get("running-contests")
   @HttpCode(HttpStatus.OK)
   @UseGuards(AtGuard)
   @ApiBearerAuth()
-  async getRunningContests(
-    @Req() req: any,
-  ) {
+  async getRunningContests(@Req() req: any) {
     const player = await this.authService.playerResolver((req as any).user.sub);
     return this.contestService.getRunningContestsForUser(player);
   }

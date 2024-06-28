@@ -24,9 +24,9 @@ type LeaderboardEntry = {
 
 @Injectable()
 export class ContestService {
-  constructor(private prisma: PrismaService) { }
+  constructor(private prisma: PrismaService) {}
 
-  async getAllContests(
+  async getAllPublicContests(
     page: number = 0,
     take: number = 8,
   ): Promise<PaginatedList<ContestRow>> {
@@ -34,6 +34,66 @@ export class ContestService {
       where: {
         startDate: {
           gt: new Date(),
+        },
+        isPrivate: false,
+      },
+      orderBy: {
+        createdAt: "desc",
+      },
+      select: {
+        id: true,
+        name: true,
+        startDate: true,
+        endDate: true,
+      },
+      skip: page * take,
+      take: take,
+    });
+
+    const contestsCount = await this.prisma.contest.count({
+      where: {
+        startDate: {
+          gt: new Date(),
+        },
+      },
+    });
+
+    const result: PaginatedList<ContestRow> = {
+      list: contests.map((contest) => {
+        return {
+          id: contest.id,
+          name: contest.name,
+          startDate: contest.startDate,
+          duration:
+            (contest.endDate.getTime() - contest.startDate.getTime()) /
+            (1000 * 60 * 60),
+        };
+      }),
+      isLastPage: contests.length < take || contestsCount <= page * take + take,
+    };
+
+    return result;
+  }
+
+  async getAllAvailablePublicContests(
+    page: number = 0,
+    take: number = 8,
+    playerId: string,
+  ): Promise<PaginatedList<ContestRow>> {
+    const contests = await this.prisma.contest.findMany({
+      where: {
+        startDate: {
+          gt: new Date(),
+        },
+        isPrivate: false,
+        rooms: {
+          every: {
+            memberships: {
+              none: {
+                playerId: playerId,
+              },
+            },
+          },
         },
       },
       orderBy: {
@@ -71,6 +131,63 @@ export class ContestService {
       isLastPage: contests.length < take || contestsCount <= page * take + take,
     };
 
+    return result;
+  }
+
+  async getUpcomingContests(
+    page: number,
+    take: number,
+    playerId: string,
+  ): Promise<PaginatedList<ContestRow>> {
+    const contests = await this.prisma.contest.findMany({
+      where: {
+        startDate: {
+          gt: new Date(),
+        },
+        rooms: {
+          some: {
+            memberships: {
+              some: {
+                playerId: playerId,
+              },
+            },
+          },
+        },
+      },
+      orderBy: {
+        createdAt: "desc",
+      },
+      select: {
+        id: true,
+        name: true,
+        startDate: true,
+        endDate: true,
+      },
+      skip: page * take,
+      take: take,
+    });
+
+    const contestsCount = await this.prisma.contest.count({
+      where: {
+        startDate: {
+          gt: new Date(),
+        },
+      },
+    });
+
+    const result: PaginatedList<ContestRow> = {
+      list: contests.map((contest) => {
+        return {
+          id: contest.id,
+          name: contest.name,
+          startDate: contest.startDate,
+          duration:
+            (contest.endDate.getTime() - contest.startDate.getTime()) /
+            (1000 * 60 * 60),
+        };
+      }),
+      isLastPage: contests.length < take || contestsCount <= page * take + take,
+    };
     return result;
   }
 
@@ -367,12 +484,11 @@ export class ContestService {
   async fetchContestLeaderboard(
     contestId: number,
     roomNumber: number,
-    limit?: number,
   ): Promise<LeaderboardEntry[]> {
     return await this.prisma.$queryRaw`
     SELECT cm.id, cm."currentBalance", u.username, u.id as userId
     FROM "ContestMembership" cm
-    JOIN "users" u ON cm."playerId" = u."id"
+    JOIN "User" u ON cm."playerId" = u."id"
     WHERE cm."contestId" = ${contestId}
       AND cm."roomNumber" = ${roomNumber}
     ORDER BY cm."currentBalance" DESC, u.username ASC
@@ -669,18 +785,19 @@ export class ContestService {
   async getAllContestStocks(): Promise<ContestStockDto[]> {
     const allStocks = await this.prisma.contestStock.findMany({
       select: {
-        id: true, name: true, symbol: true,
-      }
+        id: true,
+        name: true,
+        symbol: true,
+      },
     });
 
-    const contestStocks: ContestStockDto[] = allStocks.map(stock => ({
+    const contestStocks: ContestStockDto[] = allStocks.map((stock) => ({
       id: stock.id,
       name: stock.name,
       symbol: stock.symbol,
     }));
 
     return contestStocks;
-
   }
 
   async validateContestRunning(conetstId: number): Promise<boolean> {
@@ -698,7 +815,7 @@ export class ContestService {
       )?.started || false;
     return isRunning;
   }
-  
+
   async getRunningContestsForUser(player: { userId: string }) {
     const now = new Date();
     now.setUTCHours(now.getUTCHours() + 3);

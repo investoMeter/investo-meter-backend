@@ -8,6 +8,7 @@ import {
   Param,
   Post,
   Put,
+  Query,
   Req,
   UseGuards,
 } from "@nestjs/common";
@@ -58,9 +59,9 @@ export class CommunityController {
   @UseGuards(AtGuard)
   @ApiBearerAuth()
   async deleteCommunity(
-    @Req() req: any, 
+    @Req() req: any,
     @Body() deleteCommunityRequestDTO: CommunityActionRequest,
-) {
+  ) {
     const player = await this.authService.playerResolver((req as any).user.sub);
     return this.service.deleteCommunity(player, deleteCommunityRequestDTO);
   }
@@ -167,4 +168,20 @@ export class CommunityController {
     return this.service.removeCommunityMember(player, removeMemberDto);
   }
 
+  @Delete()
+  @HttpCode(HttpStatus.OK)
+  @UseGuards(AtGuard)
+  @ApiBearerAuth()
+  async deleteCommunityContest(
+    @Req() req: any,
+    @Query("contestId") contestId: string,
+    @Query("communityId") communityId: string,
+  ) {
+    const player = await this.authService.playerResolver((req as any).user.sub);
+    return this.service.deleteCommunityContest(
+      player,
+      parseInt(contestId),
+      communityId,
+    );
+  }
 }

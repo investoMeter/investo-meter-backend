@@ -1,9 +1,9 @@
-import { Player } from "..\..\roles\player"
 import { ContestStock } from ".\contest-stock"
 import {  RequestStatus } from ".\RequestStatus"
 import { Contest } from ".\contest"
 import { Room } from ".\room"
 import { ContestContestStock } from "./contest-contest-stock"
+import { ContestMembership } from "./contest-membership"
 
 model SellRequest {
     id          Int @id @default(autoincrement())
@@ -18,7 +18,7 @@ model SellRequest {
     status      RequestStatus
 
     // relations
-    player      Player @relation(fields: [playerId], references: [userId])
+    player      ContestMembership @relation(fields: [playerId, contestId], references: [playerId, contestId])
     stock       ContestContestStock @relation(fields: [contestId,stockId], references: [contestId,contestStockId])
     room        Room @relation(fields: [contestId, roomNumber], references: [contestId, roomNumber])
 }

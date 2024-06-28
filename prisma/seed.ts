@@ -348,12 +348,30 @@ async function seedData() {
         await prisma.stockHistory.create({
           data: {
             ContestStockPrice: {
-              create: {
-                open: contestStockPrice.open,
-                close: contestStockPrice.close,
-                highest: contestStockPrice.highest,
-                lowest: contestStockPrice.lowest,
-                volume: contestStockPrice.volume,
+              createMany: {
+                data: [
+                  {
+                    open: contestStockPrice.open + 10,
+                    highest: contestStockPrice.highest + 10,
+                    close: contestStockPrice.close + 10,
+                    volume: contestStockPrice.volume,
+                    lowest: contestStockPrice.lowest,
+                  },
+                  {
+                    open: contestStockPrice.open,
+                    highest: contestStockPrice.highest,
+                    close: contestStockPrice.close,
+                    volume: contestStockPrice.volume,
+                    lowest: contestStockPrice.lowest,
+                  },
+                  {
+                    open: contestStockPrice.open + 5,
+                    highest: contestStockPrice.highest + 7,
+                    close: contestStockPrice.close + 6,
+                    volume: contestStockPrice.volume,
+                    lowest: contestStockPrice.lowest + 4,
+                  },
+                ],
               },
             },
             Room: {
@@ -481,7 +499,6 @@ async function seedData() {
           },
         });
 
-        
         // create membership for the owner
         await prisma.communityMembership.create({
           data: {
@@ -492,7 +509,7 @@ async function seedData() {
         });
 
         const players = await prisma.player.findMany({
-          where: { userId: { not : communityCreators[i] } },
+          where: { userId: { not: communityCreators[i] } },
         });
 
         const playerIds = players.map((player) => player.userId);
@@ -500,7 +517,6 @@ async function seedData() {
           .sort(() => Math.random() - 0.5)
           .slice(0, 3);
 
-        
         for (const playerId of randomPlayers) {
           if (playerId) {
             await prisma.communityMembership.create({
@@ -522,16 +538,16 @@ async function seedData() {
 
       // add 2 posts to each community
       for (const community of communities) {
-
-        const members = await prisma.communityMembership.findMany({ 
+        const members = await prisma.communityMembership.findMany({
           where: { communityId: community.id },
-          take: 5, 
-          select: { userId: true } 
-        })
+          take: 5,
+          select: { userId: true },
+        });
 
         // take a random player from the community
-        for (const post of feedData){
-          const randomMember = members[Math.floor(Math.random() * members.length)];
+        for (const post of feedData) {
+          const randomMember =
+            members[Math.floor(Math.random() * members.length)];
           await prisma.post.create({
             data: {
               authorId: randomMember.userId,

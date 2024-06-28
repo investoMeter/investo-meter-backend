@@ -11,6 +11,6 @@ model ContestStockPrice {
 
   // relations
   stockHistoryId Int?
-  StockHistory   StockHistory? @relation(fields: [stockHistoryId], references: [id])
+  StockHistory   StockHistory? @relation(fields: [stockHistoryId], references: [id], onDelete: Cascade)
   ContestStock   ContestStock?
 }
