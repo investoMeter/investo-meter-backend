@@ -273,7 +273,7 @@ model ContestMembership {
 
   contestId  Int
   roomNumber Int
-  room       Room @relation(fields: [contestId, roomNumber], references: [contestId, roomNumber])
+  room       Room @relation(fields: [contestId, roomNumber], references: [contestId, roomNumber], onDelete: Cascade)
 
   buyerTrades  Trade[] @relation("buyerMembership")
   sellerTrades Trade[] @relation("sellerMembership")

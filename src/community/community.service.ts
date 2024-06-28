@@ -158,6 +158,119 @@ export class CommunityService {
     return { communityId: community.id };
   }
 
+  async getOwnedCommunities(player: { userId: string }) {
+    return await this.prisma.$queryRaw`
+    SELECT c.id, c.name, Count(cm."userId")::text AS memberCount
+    FROM "Community" c
+    LEFT JOIN "CommunityMembership" cm on c.id = cm."communityId"
+    WHERE c."ownerId" = ${player.userId}
+    GROUP BY c.id, c.name
+    `;
+  }
+
+  async getJoinedCommunities(player: { userId: string; coins: number }) {
+    return await this.prisma.$queryRaw`
+    SELECT c.id, c.name, COUNT(cm."userId")::text AS memberCount
+    FROM "Community" c
+    LEFT JOIN "CommunityMembership" cm ON c.id = cm."communityId"
+    WHERE c."ownerId" != ${player.userId} AND c.id in 
+    (SELECT "communityId" FROM "CommunityMembership" WHERE "userId" = ${player.userId})
+    GROUP BY c.id, c.name`;
+  }
+
+  async getCommunitiesToJoin(player: { userId: string; coins: number }) {
+    return await this.prisma.$queryRaw`
+    SELECT c.id, c.name, COUNT(cm."userId")::text AS memberCount
+    FROM "Community" c
+    LEFT JOIN "CommunityMembership" cm ON c.id = cm."communityId"
+    WHERE c."ownerId" != ${player.userId} AND c.id not in 
+    (SELECT "communityId" FROM "CommunityMembership" WHERE "userId" = ${player.userId})
+    GROUP BY c.id, c.name
+  `;
+  }
+
+  async leaveCommunity(
+    player: { userId: string },
+    { communityId }: CommunityActionRequest,
+  ) {
+    if (!(await this.isInCommunity(player.userId, communityId))) {
+      throw new BadRequestException("Player is not a member of the community");
+    }
+
+    await this.prisma.communityMembership.delete({
+      where: {
+        userId_communityId: {
+          userId: player.userId,
+          communityId: communityId,
+        },
+      },
+    });
+
+    return { communityId };
+  }
+
+  async getCommunityMembers(player: { userId: string }, communityId: string) {
+    if (!(await this.isInCommunity(player.userId, communityId))) {
+      throw new BadRequestException("Player is not a member of the community");
+    }
+
+    const communityMembers: {
+      username: string;
+      userId: string;
+      isOwner: boolean;
+    }[] = await this.prisma.$queryRaw`
+      SELECT u.username, u."id" as "userId", cm."isOwner"
+      FROM "Community" c
+      JOIN "CommunityMembership" cm ON c.id = cm."communityId"
+      Join "User" u ON cm."userId" = u."id"
+      WHERE c.id = ${communityId}
+    `;
+
+    return communityMembers;
+  }
+
+  async addCommunityMember(
+    owner: { userId: string },
+    { communityId, memberId }: AdminMemberActionRequestDTO,
+  ) {
+    await this.checkOwner(owner.userId, communityId);
+
+    if (await this.isInCommunity(memberId, communityId)) {
+      throw new BadRequestException("Member is already in the community");
+    }
+
+    await this.prisma.communityMembership.create({
+      data: {
+        userId: memberId,
+        communityId: communityId,
+      },
+    });
+
+    return { communityId, memberId };
+  }
+
+  async removeCommunityMember(
+    owner: { userId: string },
+    { communityId, memberId }: AdminMemberActionRequestDTO,
+  ) {
+    await this.checkOwner(owner.userId, communityId);
+
+    if (!(await this.isInCommunity(memberId, communityId))) {
+      throw new BadRequestException("Member is not in the community");
+    }
+
+    await this.prisma.communityMembership.delete({
+      where: {
+        userId_communityId: {
+          userId: memberId,
+          communityId: communityId,
+        },
+      },
+    });
+
+    return { communityId, memberId };
+  }
+
   async createCommunityContest(
     player: Player,
     request: CreateCommunityContestRequest,
@@ -273,117 +386,35 @@ export class CommunityService {
     };
   }
 
-  async getOwnedCommunities(player: { userId: string }) {
-    return await this.prisma.$queryRaw`
-    SELECT c.id, c.name, Count(cm."userId")::text AS memberCount
-    FROM "Community" c
-    LEFT JOIN "CommunityMembership" cm on c.id = cm."communityId"
-    WHERE c."ownerId" = ${player.userId}
-    GROUP BY c.id, c.name
-    `;
-  }
-
-  async getJoinedCommunities(player: { userId: string; coins: number }) {
-    return await this.prisma.$queryRaw`
-    SELECT c.id, c.name, COUNT(cm."userId")::text AS memberCount
-    FROM "Community" c
-    LEFT JOIN "CommunityMembership" cm ON c.id = cm."communityId"
-    WHERE c."ownerId" != ${player.userId} AND c.id in 
-    (SELECT "communityId" FROM "CommunityMembership" WHERE "userId" = ${player.userId})
-    GROUP BY c.id, c.name`;
-  }
-
-  async getCommunitiesToJoin(player: { userId: string; coins: number }) {
-    return await this.prisma.$queryRaw`
-    SELECT c.id, c.name, COUNT(cm."userId")::text AS memberCount
-    FROM "Community" c
-    LEFT JOIN "CommunityMembership" cm ON c.id = cm."communityId"
-    WHERE c."ownerId" != ${player.userId} AND c.id not in 
-    (SELECT "communityId" FROM "CommunityMembership" WHERE "userId" = ${player.userId})
-    GROUP BY c.id, c.name
-  `;
-  }
-
-  async leaveCommunity(
-    player: { userId: string },
-    { communityId }: CommunityActionRequest,
+  async deleteCommunityContest(
+    player: Player,
+    contestId: number,
+    communityId: string,
   ) {
-    if (!(await this.isInCommunity(player.userId, communityId))) {
-      throw new BadRequestException("Player is not a member of the community");
-    }
-
-    await this.prisma.communityMembership.delete({
-      where: {
-        userId_communityId: {
-          userId: player.userId,
-          communityId: communityId,
-        },
-      },
+    await this.checkOwner(player.userId, communityId);
+    const contest = await this.prisma.contest.findFirst({
+      where: { id: contestId, communityId: communityId },
     });
 
-    return { communityId };
-  }
-
-  async getCommunityMembers(player: { userId: string }, communityId: string) {
-    if (!(await this.isInCommunity(player.userId, communityId))) {
-      throw new BadRequestException("Player is not a member of the community");
+    if (contest === null) {
+      throw new NotFoundException("Contest not found");
     }
 
-    const communityMembers: {
-      username: string;
-      userId: string;
-      isOwner: boolean;
-    }[] = await this.prisma.$queryRaw`
-      SELECT u.username, u."id" as "userId", cm."isOwner"
-      FROM "Community" c
-      JOIN "CommunityMembership" cm ON c.id = cm."communityId"
-      Join "User" u ON cm."userId" = u."id"
-      WHERE c.id = ${communityId}
-    `;
-
-    return communityMembers;
-  }
-
-  async addCommunityMember(
-    owner: { userId: string },
-    { communityId, memberId }: AdminMemberActionRequestDTO,
-  ) {
-    await this.checkOwner(owner.userId, communityId);
-
-    if (await this.isInCommunity(memberId, communityId)) {
-      throw new BadRequestException("Member is already in the community");
+    if (contest.startDate < new Date()) {
+      throw new BadRequestException("Contest has already started");
     }
 
-    await this.prisma.communityMembership.create({
-      data: {
-        userId: memberId,
-        communityId: communityId,
-      },
+    await this.prisma.room.deleteMany({
+      where: { contestId: contestId },
     });
 
-    return { communityId, memberId };
-  }
-
-  async removeCommunityMember(
-    owner: { userId: string },
-    { communityId, memberId }: AdminMemberActionRequestDTO,
-  ) {
-    await this.checkOwner(owner.userId, communityId);
-
-    if (!(await this.isInCommunity(memberId, communityId))) {
-      throw new BadRequestException("Member is not in the community");
-    }
-
-    await this.prisma.communityMembership.delete({
-      where: {
-        userId_communityId: {
-          userId: memberId,
-          communityId: communityId,
-        },
-      },
+    await this.prisma.contestContestStock.deleteMany({
+      where: { contestId: contestId },
     });
 
-    return { communityId, memberId };
+    await this.prisma.contest.delete({
+      where: { id: contestId },
+    });
   }
 
   private async isInCommunity(
