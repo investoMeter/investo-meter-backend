@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   HttpCode,
   HttpStatus,
@@ -42,23 +43,6 @@ export class ContestController {
   ): Promise<PaginatedList<ContestRow>> {
     const player = await this.authService.playerResolver((req as any).user.sub);
     return this.contestService.getAllAvailablePublicContests(
-      parseInt(page),
-      parseInt(take),
-      player.userId,
-    );
-  }
-
-  @Get("get-upcoming-contests")
-  @HttpCode(HttpStatus.OK)
-  @UseGuards(AtGuard)
-  @ApiBearerAuth()
-  async getUpcomingContests(
-    @Req() req: any,
-    @Query("page") page: string,
-    @Query("take") take: string,
-  ): Promise<PaginatedList<ContestRow>> {
-    const player = await this.authService.playerResolver((req as any).user.sub);
-    return this.contestService.getUpcomingContests(
       parseInt(page),
       parseInt(take),
       player.userId,
@@ -196,5 +180,17 @@ export class ContestController {
   async getRunningContests(@Req() req: any) {
     const player = await this.authService.playerResolver((req as any).user.sub);
     return this.contestService.getRunningContestsForUser(player);
+  }
+
+  @Delete("delete-contest")
+  @HttpCode(HttpStatus.OK)
+  @UseGuards(AtGuard)
+  @ApiBearerAuth()
+  async deleteContest(
+    @Req() req: any,
+    @Query("contestId") contestId: string,
+  ): Promise<void> {
+    await this.authService.AdminResolver((req as any).user.sub);
+    return await this.contestService.deletePublicContest(parseInt(contestId));
   }
 }

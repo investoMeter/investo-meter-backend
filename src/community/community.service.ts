@@ -327,13 +327,14 @@ export class CommunityService {
     });
 
     for (const stock of contestStocks) {
+      const { id, stockHistoryId, ...rest } = stock.initialPrice;
       await this.prisma.stockHistory.create({
         data: {
           contestId: newContest.id,
           roomNumber: room.roomNumber,
           stockId: stock.id,
           ContestStockPrice: {
-            create: stock.initialPrice,
+            create: rest,
           },
           currentShares: stocksShares,
         },
@@ -380,7 +381,7 @@ export class CommunityService {
       rooms: [
         {
           roomNumber: room.roomNumber,
-          currentCapacity: 0,
+          currentCapacity: communityMembersIds.length,
         },
       ],
     };
@@ -403,23 +404,12 @@ export class CommunityService {
     if (contest.startDate < new Date()) {
       throw new BadRequestException("Contest has already started");
     }
-    const deleteRooms = this.prisma.room.deleteMany({
-      where: { contestId: contestId },
-    });
-
-    const deleteContestStocks = this.prisma.contestContestStock.deleteMany({
-      where: { contestId: contestId },
-    });
 
     const deleteContest = this.prisma.contest.delete({
       where: { id: contestId },
     });
 
-    await this.prisma.$transaction([
-      deleteRooms,
-      deleteContestStocks,
-      deleteContest,
-    ]);
+    await this.prisma.$transaction([deleteContest]);
   }
 
   private async isInCommunity(

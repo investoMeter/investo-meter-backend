@@ -1,8 +1,8 @@
-import { Injectable } from '@nestjs/common';
-import { Player } from '@prisma/client';
-import { PrismaService } from 'src/prisma';
-import { ContestDataDto } from './dto/contestData.dto';
-import { playerDataDto } from './dto/playerData.dto';
+import { Injectable } from "@nestjs/common";
+import { Player } from "@prisma/client";
+import { PrismaService } from "src/prisma";
+import { ContestDataDto } from "./dto/contestData.dto";
+import { playerDataDto } from "./dto/playerData.dto";
 
 @Injectable()
 export class ProfileService {
@@ -23,7 +23,7 @@ export class ProfileService {
       orderBy: {
         room: {
           contest: {
-            endDate: 'desc',
+            endDate: "desc",
           },
         },
       },
@@ -35,6 +35,7 @@ export class ProfileService {
               select: {
                 name: true,
                 startDate: true,
+                isPrivate: true,
               },
             },
           },
@@ -45,6 +46,7 @@ export class ProfileService {
       (history) => ({
         name: history.room.contest.name,
         date: history.room.contest.startDate,
+        isPrivate: history.room.contest.isPrivate,
       }),
     );
     return mappedContests;
@@ -65,7 +67,7 @@ export class ProfileService {
       orderBy: {
         room: {
           contest: {
-            endDate: 'asc',
+            endDate: "asc",
           },
         },
       },
@@ -77,6 +79,7 @@ export class ProfileService {
               select: {
                 name: true,
                 startDate: true,
+                isPrivate: true,
               },
             },
           },
@@ -87,6 +90,7 @@ export class ProfileService {
       (upcoming) => ({
         name: upcoming.room.contest.name,
         date: upcoming.room.contest.startDate,
+        isPrivate: upcoming.room.contest.isPrivate,
       }),
     );
     return mappedContests;

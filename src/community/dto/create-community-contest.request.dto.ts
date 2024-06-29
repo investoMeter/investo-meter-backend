@@ -20,11 +20,6 @@ export class CreateCommunityContestRequest {
 
   @IsNotEmpty()
   @IsPositive()
-  @IsInt()
-  maxRoomCapacity: number;
-
-  @IsNotEmpty()
-  @IsPositive()
   startingMoney: number;
 
   // YYYY-MM-DDTHH:MM:SS

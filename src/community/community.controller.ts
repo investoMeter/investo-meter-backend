@@ -168,7 +168,7 @@ export class CommunityController {
     return this.service.removeCommunityMember(player, removeMemberDto);
   }
 
-  @Delete()
+  @Delete("community-contest")
   @HttpCode(HttpStatus.OK)
   @UseGuards(AtGuard)
   @ApiBearerAuth()
