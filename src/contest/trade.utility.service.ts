@@ -1,16 +1,16 @@
 import { Injectable } from '@nestjs/common';
-import { ContestMembership, Trade } from '@prisma/client';
-import { PrismaService } from 'src/prisma';
+import { ContestMembership, PrismaClient, Trade } from '@prisma/client';
 
 @Injectable()
 export class TradingUtilityService {
-  constructor(private prisma: PrismaService) {}
+  constructor() {}
   async updateOwnedStock(
     membershipId: number,
     stockId: number,
     quantity: number,
+    prisma: Omit<PrismaClient, "$connect" | "$disconnect" | "$on" | "$transaction" | "$use" | "$extends">
   ): Promise<void> {
-    const contestMembership = await this.prisma.contestMembership.findFirst({
+    const contestMembership = await prisma.contestMembership.findFirst({
       where: {
         id: membershipId,
       },
@@ -22,7 +22,7 @@ export class TradingUtilityService {
     if (!contestMembership) {
       throw new Error('Membership not found');
     }
-    const ownedStock = await this.prisma.ownedStock.findFirst({
+    const ownedStock = await prisma.ownedStock.findFirst({
       where: { contestMembershipId: membershipId, stockId },
     });
 
@@ -30,17 +30,17 @@ export class TradingUtilityService {
       const newShares = ownedStock.currentShares + quantity;
 
       if (newShares === 0) {
-        await this.prisma.ownedStock.delete({
+        await prisma.ownedStock.delete({
           where: { id: ownedStock.id },
         });
       } else {
-        await this.prisma.ownedStock.update({
+        await prisma.ownedStock.update({
           where: { id: ownedStock.id },
           data: { currentShares: newShares },
         });
       }
     } else {
-      await this.prisma.ownedStock.create({
+      await prisma.ownedStock.create({
         data: {
           contestMembershipId: membershipId,
           stockId,
@@ -60,6 +60,7 @@ export class TradingUtilityService {
     sellerMembershipId: number | undefined,
     contestId: number,
     roomNumber: number,
+    prisma: Omit<PrismaClient, "$connect" | "$disconnect" | "$on" | "$transaction" | "$use" | "$extends">,
   ): Promise<Trade> {
     if (!quantity || !price || !timestamp || !stockId || !buyerMembershipId || !contestId || !roomNumber) {
       throw new Error('Missing required parameters for creating a trade.');
@@ -86,7 +87,7 @@ export class TradingUtilityService {
     };
 
     try {
-      const createdTrade = await this.prisma.trade.create({ data: tradeInput });
+      const createdTrade = await prisma.trade.create({ data: tradeInput });
       return createdTrade;
     } catch (error) {
       throw new Error('Failed to create trade.');
@@ -94,19 +95,16 @@ export class TradingUtilityService {
   }
 
   async updateMembershipBalance(
-    roomNumber: number,
-    contestId: number,
     membership: ContestMembership,
     totalCost: number,
+    prisma: Omit<PrismaClient, "$connect" | "$disconnect" | "$on" | "$transaction" | "$use" | "$extends">,
   ) {
-    await this.prisma.contestMembership.update({
+    await prisma.contestMembership.update({
       where: {
-        roomNumber,
-        contestId,
         id: membership.id,
       },
       data: {
-        currentBalance: membership.currentBalance + totalCost,
+        currentBalance: { increment : totalCost },
       },
     });
   }

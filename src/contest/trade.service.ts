@@ -1,4 +1,4 @@
-import { Player, BuyRequest, RequestStatus, Trade } from "@prisma/client";
+import { Player, BuyRequest, RequestStatus, Trade, PrismaClient } from "@prisma/client";
 import { TradeRequestDto } from "./dto/trades dto/trade-request.dto";
 import { PrismaService } from "src/prisma";
 import {
@@ -40,6 +40,7 @@ export class TradeService {
 
     const totalPendingCost = pendingRequestCost[0].total_cost;
     const currentMoney = membership.currentBalance;
+
     if (currentMoney < requestCost + totalPendingCost) {
       throw new BadRequestException("No Sufficient coins");
     }
@@ -66,6 +67,7 @@ export class TradeService {
           undefined,
           contest.id,
           room.roomNumber,
+          prisma
         );
 
         await this.updateStockHistory(
@@ -74,29 +76,30 @@ export class TradeService {
           stock.id,
           room.roomNumber,
           sharesToTrade,
+          prisma
         );
 
         await this.tradingUtilityService.updateOwnedStock(
           membership.id,
           stock.id,
           sharesToTrade,
+          prisma
+        );
+
+
+        await this.tradingUtilityService.updateMembershipBalance(
+          membership,
+          -(sharesToTrade * price),
+          prisma
         );
 
         newtrades.push(trade);
-
-        await this.tradingUtilityService.updateMembershipBalance(
-          room.roomNumber,
-          contest.id,
-          membership,
-          -(sharesToTrade * price),
-        );
       }
 
-      let buyRequestData: TradeRequest;
       let newBuyRequest;
 
       if (quantity > currentShares) {
-        buyRequestData = {
+        const buyRequestData: TradeRequest = {
           quantity: quantity - sharesToTrade,
           price,
           userId: player.userId,
@@ -109,14 +112,14 @@ export class TradeService {
         const matchingSellRequests =
           await this.matchingService.findMatchingSellRequests(buyRequestData);
 
-        if (matchingSellRequests == null) {
+        if (!matchingSellRequests) {
           newBuyRequest = await this.createNewBuyRequest(buyRequestData);
         } else {
-          const { requestedQuantity, trades } =
-            await this.matchingService.matchBuyRequest(
+          const { requestedQuantity, trades } = await this.matchingService.matchBuyRequest(
               buyRequestData,
               matchingSellRequests,
             );
+
           newtrades.push(...trades);
 
           // if not all shares in the request is satisfied, then create a new buy request with the remaining shares
@@ -148,23 +151,21 @@ export class TradeService {
       await this.validateRequest(player, requestDto);
 
     // check if the player has enough shares to sell
-    const ownedStock = await this.prisma.ownedStock.findFirst({
-      where: { contestMembershipId: membership.id, stockId: stock.id },
-    });
-
-    // check if the pending sell requests for this stock doesn't exceed the limit he has
-    const pendingSellShares = await this.prisma.sellRequest.aggregate({
-      _sum: {
-        quantity: true,
-      },
-      where: {
-        contestId: contest.id,
-        roomNumber: room.roomNumber,
-        playerId: player.userId,
-        stockId: stock.id,
-        status: "PENDING",
-      },
-    });
+    const [ownedStock, pendingSellShares] = await Promise.all([
+      this.prisma.ownedStock.findFirst({
+        where: { contestMembershipId: membership.id, stockId: stock.id },
+      }),
+      this.prisma.sellRequest.aggregate({
+        _sum: { quantity: true },
+        where: {
+          contestId: contest.id,
+          roomNumber: room.roomNumber,
+          playerId: player.userId,
+          stockId: stock.id,
+          status: "PENDING",
+        },
+      }),
+    ]);
 
     const totalPendingShares = pendingSellShares._sum.quantity ?? 0;
 
@@ -177,7 +178,6 @@ export class TradeService {
       );
     }
 
-    return await this.prisma.$transaction(async (prisma) => {
       const sellRequestData = {
         quantity,
         price,
@@ -216,10 +216,8 @@ export class TradeService {
             stockId: stock.id,
           });
         }
-        console.log({ result });
       }
       return { newSellRequest, trade };
-    });
   }
 
   async getStockHistory(
@@ -301,8 +299,10 @@ export class TradeService {
     stockId: number,
     roomNumber: number,
     quantity: number,
+    prisma: Omit<PrismaClient, "$connect" | "$disconnect" | "$on" | "$transaction" | "$use" | "$extends">
   ): Promise<void> {
-    await this.prisma.stockHistory.update({
+
+    await prisma.stockHistory.update({
       where: {
         id: stockHistory.id,
         stockId: stockId,
@@ -437,10 +437,9 @@ export class TradeService {
     const cost = buyRequest.quantity * buyRequest.price;
 
     await this.tradingUtilityService.updateMembershipBalance(
-      roomNumber,
-      contestId,
       data.membership,
       cost,
+      this.prisma,
     );
     return await this.prisma.buyRequest.update({
       where: { id: requestId },
@@ -483,6 +482,7 @@ export class TradeService {
       membershipId,
       stockId,
       quantity,
+      this.prisma,
     );
     return await this.prisma.sellRequest.update({
       where: { id: requestId },

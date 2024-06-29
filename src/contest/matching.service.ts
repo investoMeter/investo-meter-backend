@@ -31,7 +31,9 @@ export class MatchingService {
   }
 
   async matchBuyRequest(buyRequest: TradeRequest, sellRequests: any) {
+
     let requestedQuantity = buyRequest.quantity;
+
     const buyerMembership = await this.prisma.contestMembership.findFirst({
       where: {
         playerId: buyRequest.userId,
@@ -78,17 +80,22 @@ export class MatchingService {
 
       // Update the sell request quantity
       if (sellRequest.quantity > tradeQuantity) {
+
         await this.prisma.sellRequest.update({
           where: { id: sellRequest.id },
           data: { quantity: sellRequest.quantity - tradeQuantity },
         });
+
       }
+      
       // if the sell request quantity is less than or equal the buy quantity, then the sell request is completed
       else {
+
         await this.prisma.sellRequest.update({
           where: { id: sellRequest.id },
           data: { status: RequestStatus.COMPLETED },
         });
+
       }
 
       requestedQuantity -= tradeQuantity;
@@ -191,23 +198,21 @@ export class MatchingService {
     cost: number,
     tradeQuantity: number,
   ) {
-    return await this.prisma.$transaction(async (prisma) => {
       const stockId = buyRequest.stockId || buyRequest.contestStockId;
       const contestId = buyRequest.contestId;
       const roomNumber = buyRequest.roomNumber;
 
+    return await this.prisma.$transaction(async (prisma) => {
       await this.tradingUtilityService.updateMembershipBalance(
-        roomNumber,
-        contestId,
         buyerMembership,
         -cost,
+        this.prisma
       );
 
       await this.tradingUtilityService.updateMembershipBalance(
-        roomNumber,
-        contestId,
         sellerMembership,
         cost,
+        this.prisma
       );
 
       // add the stock to the buyer and remove it from the seller
@@ -215,12 +220,14 @@ export class MatchingService {
         buyerMembership.id,
         stockId,
         tradeQuantity,
+        this.prisma,
       );
 
       await this.tradingUtilityService.updateOwnedStock(
         sellerMembership.id,
         stockId,
         -tradeQuantity,
+        this.prisma,
       );
 
       // Make the trade
@@ -235,6 +242,7 @@ export class MatchingService {
         sellerMembership.id,
         contestId,
         roomNumber,
+        this.prisma,
       );
 
       return trade;
