@@ -7,4 +7,5 @@ model Admin {
 
   reports Report[]
   user    User  @relation(fields: [userId], references: [id])
+  communityReports      CommunityReport[]
 }

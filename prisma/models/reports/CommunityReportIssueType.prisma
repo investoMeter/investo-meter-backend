@@ -1,0 +1,7 @@
+enum CommunityReportIssueType {
+  HARASSMENT
+  HATE_SPEECH
+  SPAM
+  INAPPROPRIATE_CONTENT
+  OTHER
+}

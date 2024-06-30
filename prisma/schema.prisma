@@ -93,6 +93,47 @@ model feedback {
 }
 
 //
+// commReport.prisma
+//
+
+model CommunityReport {
+  id        Int                      @id @default(autoincrement())
+  adminId   String?
+  creatorId String
+  subjectId String
+  content   String
+  title     String
+  subject   CommunityReportSubject
+  issueType CommunityReportIssueType
+  state     ReportState
+  createdAt DateTime                 @default(now())
+
+  creator Player @relation(fields: [creatorId], references: [userId])
+  admin   Admin? @relation(fields: [adminId], references: [userId])
+}
+
+//
+// CommunityReportIssueType.prisma
+//
+
+enum CommunityReportIssueType {
+  HARASSMENT
+  HATE_SPEECH
+  SPAM
+  INAPPROPRIATE_CONTENT
+  OTHER
+}
+
+//
+// CommunityReportSubject.prisma
+//
+
+enum CommunityReportSubject {
+  post
+  comment
+}
+
+//
 // report.prisma
 //
 
@@ -150,8 +191,9 @@ enum ReportType {
 model Admin {
   userId String @unique
 
-  reports Report[]
-  user    User     @relation(fields: [userId], references: [id])
+  reports          Report[]
+  user             User              @relation(fields: [userId], references: [id])
+  communityReports CommunityReport[]
 }
 
 //
@@ -182,6 +224,7 @@ model Player {
   communityMemberships CommunityMembership[]
 
   reports          Report[]
+  communityReports CommunityReport[]
   feedbacks        feedback[]
   ownedCommunities Community[]
 }

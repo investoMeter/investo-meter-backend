@@ -1,0 +1,4 @@
+enum CommunityReportSubject {
+    post
+    comment
+}
