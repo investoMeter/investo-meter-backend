@@ -116,7 +116,7 @@ export class LevelService {
       select: {
         id: true,
         questions: {
-          where: { id: parseInt(questionPosition) },
+          where: { position: parseInt(questionPosition) },
           include: {
             levelStock: {
               include: {
@@ -227,14 +227,24 @@ export class LevelService {
     const levelsCount = await this.prisma.level.count();
 
     if (win && parseInt(levelId) < levelsCount) {
-      await this.prisma.levelMembership.create({
-        data: {
-          levelId: parseInt(levelId) + 1,
+      const nextLevelId = parseInt(levelId) + 1;
+      const existingMembership = await this.prisma.levelMembership.findFirst({
+        where: {
+          levelId: nextLevelId,
           playerId: player.userId,
-          failuresCount: 0,
-          passedAt: null,
         },
       });
+
+      if (!existingMembership) {
+        await this.prisma.levelMembership.create({
+          data: {
+            levelId: nextLevelId,
+            playerId: player.userId,
+            failuresCount: 0,
+            passedAt: null,
+          },
+        });
+      }
     }
 
     return {
