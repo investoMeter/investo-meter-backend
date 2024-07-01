@@ -18,6 +18,8 @@ model BuyRequest {
     status    RequestStatus
 
     player   ContestMembership @relation(fields: [playerId, contestId], references: [playerId, contestId])
+    
     stock   ContestContestStock @relation(fields: [contestId,stockId], references: [contestId,contestStockId])
+
     room   Room @relation(fields: [contestId, roomNumber], references: [contestId, roomNumber])
 }
