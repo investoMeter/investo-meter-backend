@@ -1,4 +1,10 @@
-import { Player, BuyRequest, RequestStatus, Trade } from "@prisma/client";
+import {
+  Player,
+  BuyRequest,
+  RequestStatus,
+  Trade,
+  PrismaClient,
+} from "@prisma/client";
 import { TradeRequestDto } from "./dto/trades dto/trade-request.dto";
 import { PrismaService } from "src/prisma";
 import {
@@ -40,6 +46,7 @@ export class TradeService {
 
     const totalPendingCost = pendingRequestCost[0].total_cost;
     const currentMoney = membership.currentBalance;
+
     if (currentMoney < requestCost + totalPendingCost) {
       throw new BadRequestException("No Sufficient coins");
     }
@@ -55,17 +62,20 @@ export class TradeService {
     let newtrades: Trade[] = [];
     const NO_SHARES = 0;
 
-    return await this.prisma.$transaction(async (prisma) => {
-      if (currentShares != NO_SHARES) {
+    if (currentShares != NO_SHARES) {
+      await this.prisma.$transaction(async (prisma) => {
         const trade = await this.tradingUtilityService.createTrade(
-          sharesToTrade,
-          price,
-          timestampDate,
-          stock.id,
-          membership.id,
-          undefined,
-          contest.id,
-          room.roomNumber,
+          {
+            quantity: sharesToTrade,
+            price,
+            timestamp: timestampDate,
+            stockId: stock.id,
+            buyerMembershipId: membership.id,
+            sellerMembershipId: undefined,
+            contestId: contest.id,
+            roomNumber: room.roomNumber,
+          },
+          prisma,
         );
 
         await this.updateStockHistory(
@@ -74,29 +84,41 @@ export class TradeService {
           stock.id,
           room.roomNumber,
           sharesToTrade,
+          prisma,
         );
 
         await this.tradingUtilityService.updateOwnedStock(
-          membership.id,
-          stock.id,
-          sharesToTrade,
+          [
+            {
+              membershipId: membership.id,
+              stockId: stock.id,
+              quantity: sharesToTrade,
+            },
+          ],
+          contest.id,
+          prisma,
         );
 
+
+        await this.tradingUtilityService.updateMembershipBalances(
+          [
+            {
+              membershipId: membership.id,
+              totalCost: -(sharesToTrade * price),
+            },
+          ],
+          prisma,
+        );
         newtrades.push(trade);
 
-        await this.tradingUtilityService.updateMembershipBalance(
-          room.roomNumber,
-          contest.id,
-          membership,
-          -(sharesToTrade * price),
-        );
-      }
+      });
+    }
 
-      let buyRequestData: TradeRequest;
-      let newBuyRequest;
+    let newBuyRequest: any;
+    await this.prisma.$transaction(async (prisma) => {
 
       if (quantity > currentShares) {
-        buyRequestData = {
+        const buyRequestData: TradeRequest = {
           quantity: quantity - sharesToTrade,
           price,
           userId: player.userId,
@@ -109,7 +131,7 @@ export class TradeService {
         const matchingSellRequests =
           await this.matchingService.findMatchingSellRequests(buyRequestData);
 
-        if (matchingSellRequests == null) {
+        if (!matchingSellRequests) {
           newBuyRequest = await this.createNewBuyRequest(buyRequestData);
         } else {
           const { requestedQuantity, trades } =
@@ -117,6 +139,7 @@ export class TradeService {
               buyRequestData,
               matchingSellRequests,
             );
+
           newtrades.push(...trades);
 
           // if not all shares in the request is satisfied, then create a new buy request with the remaining shares
@@ -133,9 +156,10 @@ export class TradeService {
           }
         }
       }
-
-      return { newBuyRequest, trades: newtrades };
     });
+
+    return { newBuyRequest, trades: newtrades };
+
   }
 
   async createSellRequest(
@@ -148,23 +172,21 @@ export class TradeService {
       await this.validateRequest(player, requestDto);
 
     // check if the player has enough shares to sell
-    const ownedStock = await this.prisma.ownedStock.findFirst({
-      where: { contestMembershipId: membership.id, stockId: stock.id },
-    });
-
-    // check if the pending sell requests for this stock doesn't exceed the limit he has
-    const pendingSellShares = await this.prisma.sellRequest.aggregate({
-      _sum: {
-        quantity: true,
-      },
-      where: {
-        contestId: contest.id,
-        roomNumber: room.roomNumber,
-        playerId: player.userId,
-        stockId: stock.id,
-        status: "PENDING",
-      },
-    });
+    const [ownedStock, pendingSellShares] = await Promise.all([
+      this.prisma.ownedStock.findFirst({
+        where: { contestMembershipId: membership.id, stockId: stock.id },
+      }),
+      this.prisma.sellRequest.aggregate({
+        _sum: { quantity: true },
+        where: {
+          contestId: contest.id,
+          roomNumber: room.roomNumber,
+          playerId: player.userId,
+          stockId: stock.id,
+          status: "PENDING",
+        },
+      }),
+    ]);
 
     const totalPendingShares = pendingSellShares._sum.quantity ?? 0;
 
@@ -176,8 +198,11 @@ export class TradeService {
         "Player does not have enough shares to sell",
       );
     }
+    let newSellRequest;
+    
+    let trade;
 
-    return await this.prisma.$transaction(async (prisma) => {
+    await this.prisma.$transaction(async (prisma) => {
       const sellRequestData = {
         quantity,
         price,
@@ -188,8 +213,7 @@ export class TradeService {
         stockId: stock.id,
       };
 
-      let newSellRequest;
-      let trade;
+
       const matchingBuyRequests =
         await this.matchingService.findMatchingBuyRequests(sellRequestData);
 
@@ -204,9 +228,8 @@ export class TradeService {
         trade = result.trades;
 
         // if not all shares in the request is sold, then create a new sell request with the remaining shares
-
         if (result.quantityToSell != 0) {
-          await this.createNewSellRequest({
+          newSellRequest = await this.createNewSellRequest({
             quantity: result.quantityToSell,
             price,
             userId: player.userId,
@@ -216,10 +239,10 @@ export class TradeService {
             stockId: stock.id,
           });
         }
-        console.log({ result });
       }
-      return { newSellRequest, trade };
     });
+
+    return { newSellRequest, trade };
   }
 
   async getStockHistory(
@@ -301,8 +324,12 @@ export class TradeService {
     stockId: number,
     roomNumber: number,
     quantity: number,
+    prisma: Omit<
+      PrismaClient,
+      "$connect" | "$disconnect" | "$on" | "$transaction" | "$use" | "$extends"
+    >,
   ): Promise<void> {
-    await this.prisma.stockHistory.update({
+    await prisma.stockHistory.update({
       where: {
         id: stockHistory.id,
         stockId: stockId,
@@ -415,7 +442,7 @@ export class TradeService {
 
   async cancelBuyRequest(player: Player, requestDto: CancelRequestDto) {
     const { requestId, contestId, roomNumber } = requestDto;
-    const data = await this.validateRequest(player, requestDto);
+    await this.validateRequest(player, requestDto);
     const buyRequest = await this.prisma.buyRequest.findFirst({
       where: {
         id: requestId,
@@ -434,14 +461,6 @@ export class TradeService {
       throw new BadRequestException("Buy request is already processed");
     }
 
-    const cost = buyRequest.quantity * buyRequest.price;
-
-    await this.tradingUtilityService.updateMembershipBalance(
-      roomNumber,
-      contestId,
-      data.membership,
-      cost,
-    );
     return await this.prisma.buyRequest.update({
       where: { id: requestId },
       data: { status: RequestStatus.CANCELLED },
@@ -454,7 +473,7 @@ export class TradeService {
   ) {
     const { requestId, contestId, roomNumber } = requestDto;
 
-    const data = await this.validateRequest(player, requestDto);
+    await this.validateRequest(player, requestDto);
 
     const sellRequest = await this.prisma.sellRequest.findFirst({
       where: {
@@ -475,19 +494,11 @@ export class TradeService {
       throw new BadRequestException("Sell request is already processed");
     }
 
-    const membershipId = data.membership.id;
-    const quantity = sellRequest.quantity;
-    const stockId = sellRequest.stockId;
-
-    await this.tradingUtilityService.updateOwnedStock(
-      membershipId,
-      stockId,
-      quantity,
-    );
     return await this.prisma.sellRequest.update({
       where: { id: requestId },
       data: { status: RequestStatus.CANCELLED },
     });
+
   }
 
   async getOpenTrades(
