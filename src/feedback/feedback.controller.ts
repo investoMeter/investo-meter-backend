@@ -42,7 +42,7 @@ export class FeedbackController {
   @HttpCode(HttpStatus.OK)
   @UseGuards(AtGuard)
   @ApiBearerAuth()
-  async getReportDetails(
+  async getFeedbackDetails(
     @Query('id') feedbackId: string,
   ): Promise<GetFeedbackDto> {
     return this.feedbackService.getFeedbackDetails(parseInt(feedbackId));
@@ -52,7 +52,7 @@ export class FeedbackController {
   @HttpCode(HttpStatus.OK)
   @UseGuards(AtGuard)
   @ApiBearerAuth()
-  async getAllReports(
+  async getAllFeedbacks(
     @Req() req: any,
     @Query('page') page: string,
     @Query('take') take: string,

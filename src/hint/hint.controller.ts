@@ -32,4 +32,15 @@ export class HintController {
     var player = await this.auth.playerResolver((req as any).user.sub);
     return this.service.getStockPrediciton(requestDto, player);
   }
+
+  @Post('buy-hint')
+  @HttpCode(HttpStatus.OK)
+  @UseGuards(AtGuard)
+  @ApiBearerAuth()
+  async buyHint(
+    @Req() req: any,
+  ): Promise<any> {
+    var player = await this.auth.playerResolver((req as any).user.sub);
+    return this.service.buyHint(player);
+  }
 }

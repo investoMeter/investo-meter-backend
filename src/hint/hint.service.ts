@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from 'src/prisma';
 import { HintFacade } from './hint.facade';
 import { Player } from '@prisma/client';
@@ -11,7 +11,7 @@ export class HintService {
   constructor(
     private prisma: PrismaService,
     private facade: HintFacade,
-  ) {}
+  ) { }
 
   async getStockPrediciton(
     model: GetHintRequestDto,
@@ -69,5 +69,36 @@ export class HintService {
     const changeValue =
       (prediction.Close_Next_5mins - facadeModel.Close) / facadeModel.Close;
     return { hint: changeValue };
+  }
+
+  async buyHint(player: Player) {
+    const currentPlayer = await this.prisma.player.findUnique({
+      where: {
+        userId: player.userId,
+      },
+      select: {
+        coins: true,
+      },
+    });
+    if (!currentPlayer) {
+      throw new NotFoundException("Player not found");
+    }
+    if (currentPlayer.coins >= 50) {
+      const updatedCoins = await this.prisma.player.update({
+        where: {
+          userId: player.userId,
+        },
+        data: {
+          coins: currentPlayer.coins - 50,
+        },
+        select: {
+          coins: true,
+        },
+      });
+
+      return updatedCoins;
+    } else {
+      throw new BadRequestException('Not enough coins');
+    }
   }
 }
