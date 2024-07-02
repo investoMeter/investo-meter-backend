@@ -4,6 +4,7 @@ import {
   HttpCode,
   HttpStatus,
   Post,
+  Query,
   Req,
   UseGuards,
 } from '@nestjs/common';
@@ -39,8 +40,10 @@ export class HintController {
   @ApiBearerAuth()
   async buyHint(
     @Req() req: any,
+    @Query("contestId") contestId: string,
+    @Query("roomNumber") roomNumber: string,
   ): Promise<any> {
     var player = await this.auth.playerResolver((req as any).user.sub);
-    return this.service.buyHint(player);
+    return this.service.buyHint(player,parseInt(contestId),parseInt(roomNumber));
   }
 }

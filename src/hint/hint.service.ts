@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma';
 import { HintFacade } from './hint.facade';
 import { Player } from '@prisma/client';
@@ -71,17 +71,23 @@ export class HintService {
     return { hint: changeValue };
   }
 
-  async buyHint(player: Player) {
+  async buyHint(player: Player, contestId: number, roomNumber: number) {
     const currentPlayer = await this.prisma.player.findUnique({
       where: {
         userId: player.userId,
+        contestMemberships: {
+          some: {
+            contestId: contestId,
+            roomNumber: roomNumber,
+          },
+        },
       },
       select: {
         coins: true,
       },
     });
     if (!currentPlayer) {
-      throw new NotFoundException("Player not found");
+      throw new BadRequestException('Player not in room or contest');
     }
     if (currentPlayer.coins >= 50) {
       const updatedCoins = await this.prisma.player.update({
