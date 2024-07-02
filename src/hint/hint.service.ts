@@ -95,7 +95,9 @@ export class HintService {
           userId: player.userId,
         },
         data: {
-          coins: currentPlayer.coins - 50,
+          coins: {
+            decrement: 50
+          }
         },
         select: {
           coins: true,
