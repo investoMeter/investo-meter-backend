@@ -69,10 +69,7 @@ export class ProfileService {
       },
       orderBy: { startDate: "asc" },
       include: {
-        creator: true,
         community: true,
-        rooms: true,
-        contestStocks: true,
       },
     });
 
