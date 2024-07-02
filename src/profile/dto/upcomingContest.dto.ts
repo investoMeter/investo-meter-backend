@@ -1,7 +1,7 @@
 export interface UpcomingContestDto {
   contestId: number,
   name: string;
-  date: Date;
+  startDate: Date;
   isPrivate: boolean;
   communityId?: string | null,
   communityName: string,

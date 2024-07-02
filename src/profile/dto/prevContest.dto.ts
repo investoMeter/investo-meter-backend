@@ -2,7 +2,7 @@ export interface PrevContestDto {
   contestId: number,
   roomNumber: number,
   name: string;
-  date: Date;
+  startDate: Date;
   isPrivate: boolean;
   communityName: string;
 }
