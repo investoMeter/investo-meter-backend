@@ -1,14 +1,15 @@
 import { Injectable, NotFoundException } from "@nestjs/common";
 import { Player } from "@prisma/client";
 import { PrismaService } from "src/prisma";
-import { ContestDataDto } from "./dto/contestData.dto";
+import { PrevContestDto } from "./dto/prevContest.dto";
 import { playerDataDto } from "./dto/playerData.dto";
+import { UpcomingContestDto } from "./dto/upcomingContest.dto";
 
 @Injectable()
 export class ProfileService {
-  constructor(private prisma: PrismaService) {}
+  constructor(private prisma: PrismaService) { }
 
-  async getPreviousContests(player: Player): Promise<ContestDataDto[]> {
+  async getPreviousContests(player: Player): Promise<PrevContestDto[]> {
     const contestHistories = await this.prisma.contestMembership.findMany({
       where: {
         playerId: player.userId,
@@ -31,66 +32,76 @@ export class ProfileService {
       select: {
         room: {
           select: {
+            roomNumber: true,
             contest: {
               select: {
+                id: true,
                 name: true,
                 startDate: true,
                 isPrivate: true,
+                community: {
+                  select: {name:true},
+                },
               },
             },
           },
         },
       },
     });
-    const mappedContests: ContestDataDto[] = contestHistories.map(
+    const mappedContests: PrevContestDto[] = contestHistories.map(
       (history) => ({
+        contestId: history.room.contest.id,
+        roomNumber: history.room.roomNumber,
         name: history.room.contest.name,
         date: history.room.contest.startDate,
         isPrivate: history.room.contest.isPrivate,
+        communityName: history.room.contest.community?.name||"",
       }),
     );
     return mappedContests;
   }
 
-  async getUpcomingContests(player: Player): Promise<ContestDataDto[]> {
-    const upcomingContests = await this.prisma.contestMembership.findMany({
+  async getUpcomingContests(player: Player): Promise<UpcomingContestDto[]> {
+    const contestMemberships = await this.prisma.contestMembership.findMany({
+      where: { playerId: player.userId },
+      select: { contestId: true },
+    });
+
+    const contestIds = contestMemberships.map(membership => membership.contestId);
+
+    const contests = await this.prisma.contest.findMany({
       where: {
-        playerId: player.userId,
-        room: {
-          contest: {
-            startDate: {
-              gt: new Date(),
-            },
-          },
+        id: {
+          in: contestIds,
         },
+        startDate: { gt: new Date() },
       },
-      orderBy: {
-        room: {
-          contest: {
-            endDate: "asc",
-          },
-        },
-      },
+      orderBy: { startDate: "asc" },
       take: 5,
       select: {
-        room: {
+        id: true,
+        name: true,
+        startDate: true,
+        isPrivate: true,
+        community: {
           select: {
-            contest: {
-              select: {
-                name: true,
-                startDate: true,
-                isPrivate: true,
-              },
-            },
-          },
-        },
+            id: true,
+            name: true,
+            ownerId: true,
+          }
+        }
       },
     });
-    const mappedContests: ContestDataDto[] = upcomingContests.map(
-      (upcoming) => ({
-        name: upcoming.room.contest.name,
-        date: upcoming.room.contest.startDate,
-        isPrivate: upcoming.room.contest.isPrivate,
+
+    const mappedContests: UpcomingContestDto[] = contests.map(
+      (contest) => ({
+        contestId: contest.id,
+        name: contest.name,
+        date: contest.startDate,
+        isPrivate: contest.isPrivate,
+        communityId: contest.community?.id || null,
+        communityName: contest.community?.name || "",
+        isOwner: contest.community?.ownerId == player.userId,
       }),
     );
     return mappedContests;
@@ -114,8 +125,8 @@ export class ProfileService {
     if (!playersInfo) {
       throw new NotFoundException(
         "The player you are seeking with ID " +
-          player.userId +
-          " does not exist.",
+        player.userId +
+        " does not exist.",
       );
     }
     const latestLevelMembership = await this.prisma.levelMembership.findFirst({
@@ -134,8 +145,8 @@ export class ProfileService {
     if (!latestLevelMembership) {
       throw new NotFoundException(
         "The player you are seeking with ID " +
-          player.userId +
-          " does not exist.",
+        player.userId +
+        " does not exist.",
       );
     }
     const levelNum = await this.prisma.level.findUnique({
@@ -145,8 +156,8 @@ export class ProfileService {
     if (!levelNum) {
       throw new NotFoundException(
         "The level you are seeking with ID " +
-          latestLevelMembership.levelId +
-          " does not exist.",
+        latestLevelMembership.levelId +
+        " does not exist.",
       );
     }
     const playerData: playerDataDto = {
