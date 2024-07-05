@@ -1,6 +1,6 @@
 enum ReportSeverity {
-    low
-    medium
-    high
-    critical
+    LOW @map("Low")
+    MEDIUM @map("Medium")
+    HIGH @map("High")
+    CRITICAL @map("Critical")
 }

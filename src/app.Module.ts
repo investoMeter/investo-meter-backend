@@ -10,9 +10,11 @@ import { ScheduleModule } from "@nestjs/schedule";
 import { ProfileModule } from "./profile/profile.module";
 import { CommunityModule } from "./community";
 import { ContestGrpcModule } from "./contest-grpc";
+import { ConfigModule } from "@nestjs/config";
 
 @Module({
   imports: [
+    ConfigModule.forRoot(),
     PrismaModule,
     AuthModule,
     LevelModule,

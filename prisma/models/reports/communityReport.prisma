@@ -3,6 +3,7 @@ import { Admin } from "..\roles\admin"
 import { CommunityReportIssueType } from "CommunityReportIssueType"
 import { CommunityReportSubject } from "CommunityReportSubject"
 import { ReportState } from "reportState"
+
 model CommunityReport {
   id         Int           @id @default(autoincrement())
   adminId    String?
@@ -10,9 +11,11 @@ model CommunityReport {
   subjectId  String
   content    String
   title      String
+
   subject    CommunityReportSubject
   issueType  CommunityReportIssueType
   state      ReportState
+  
   createdAt  DateTime      @default(now())
   
   creator   Player  @relation(fields: [creatorId], references: [userId])

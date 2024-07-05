@@ -1,4 +1,4 @@
 enum ReportState {
-    open
-    close
+    OPEN @map("Open")
+    CLOSED @map("Closed")
 }

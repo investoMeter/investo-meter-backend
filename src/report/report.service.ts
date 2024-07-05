@@ -2,19 +2,19 @@ import {
   BadRequestException,
   Injectable,
   NotFoundException,
-} from '@nestjs/common';
-import { Player } from '@prisma/client';
-import { CreateReportDto } from './dto/CreateReportDto';
-import { ReportResponseDto } from './dto/reportResponse.dto';
-import { PrismaService } from 'src/prisma';
-import { ReportState } from '@prisma/client';
-import { PaginatedList } from 'src/common';
-import { ReportRow } from './models/ReportRow';
-import { ReportDetailsDialog } from './models/ReportDetailsDialod';
-import { CreateCommReportDto } from './dto/CreateCommReportDto';
-import { CommunityReportResponseDto } from './dto/commReportResponce.dto';
-import { CommunityReportRow } from './models/commReportRow';
-import { CommunityReportDetailsDialog } from './models/commReportDetailsDialog';
+} from "@nestjs/common";
+import { Player } from "@prisma/client";
+import { CreateReportDto } from "./dto/CreateReportDto";
+import { ReportResponseDto } from "./dto/reportResponse.dto";
+import { PrismaService } from "src/prisma";
+import { ReportState } from "@prisma/client";
+import { PaginatedList } from "src/common";
+import { ReportRow } from "./models/ReportRow";
+import { ReportDetailsDialog } from "./models/ReportDetailsDialod";
+import { CreateCommReportDto } from "./dto/CreateCommReportDto";
+import { CommunityReportResponseDto } from "./dto/commReportResponce.dto";
+import { CommunityReportRow } from "./models/commReportRow";
+import { CommunityReportDetailsDialog } from "./models/commReportDetailsDialog";
 
 @Injectable()
 export class ReportService {
@@ -33,7 +33,7 @@ export class ReportService {
       type,
       severity,
       createdAt: new Date(dateObject), // Convert timestamp to Date object
-      state: ReportState.open,
+      state: ReportState.OPEN,
     };
 
     try {
@@ -54,8 +54,8 @@ export class ReportService {
       return reportResponseDto;
     } catch (error) {
       // Handle any errors that might occur during report creation
-      console.error('Error creating report:', error);
-      throw new BadRequestException('Failed to create report');
+      console.error("Error creating report:", error);
+      throw new BadRequestException("Failed to create report");
     }
   }
 
@@ -64,29 +64,18 @@ export class ReportService {
     page: number = 0,
     take: number = 8,
   ): Promise<PaginatedList<ReportRow>> {
+
     const reports = await this.prisma.report.findMany({
       where: {
-        creatorId: {
-          equals: creatortId,
-        },
+        creatorId: creatortId,
       },
       orderBy: {
-        createdAt: 'desc',
-      },
-      select: {
-        id: true,
-        title: true,
-        content: true,
-        createdAt: true,
-        type: true,
-        state: true,
-        severity: true,
-        creatorId: true,
-        adminId: true,
+        createdAt: "desc",
       },
       skip: page * take,
       take: take,
     });
+
     const reportsCount = await this.prisma.report.count({
       where: {
         creatorId: {
@@ -103,12 +92,14 @@ export class ReportService {
           title: report.title,
           state: report.state,
           type: report.type,
+          severity: report.severity,
           adminId: report.adminId,
           creatorId: report.creatorId,
         };
       }),
       isLastPage: reports.length < take || reportsCount <= page * take + take,
     };
+
     return result;
   }
 
@@ -132,7 +123,7 @@ export class ReportService {
 
     if (!reportDetails) {
       throw new NotFoundException(
-        'The report you are seeking with ID ' + reportId + ' does not exist.',
+        "The report you are seeking with ID " + reportId + " does not exist.",
       );
     }
 
@@ -158,21 +149,23 @@ export class ReportService {
     page: number = 0,
     take: number = 8,
   ): Promise<PaginatedList<ReportRow>> {
+
     const reports = await this.prisma.report.findMany({
       orderBy: {
         createdAt: 'desc',
       },
-
       skip: page * take,
       take: take,
     });
     const reportsCount = await this.prisma.report.count({});
+
     const result: PaginatedList<ReportRow> = {
-      list: reports.map((report) => {
+      list: reports.map((report: any) => {
         return {
           id: report.id,
           createdAt: report.createdAt,
           title: report.title,
+          severity: report.severity,
           state: report.state,
           type: report.type,
         };
@@ -187,57 +180,60 @@ export class ReportService {
     const report = await this.prisma.report.findUnique({
       where: {
         id: reportId,
-      }
-    })
-    
+      },
+    });
+
     if (!report) {
       throw new NotFoundException(
-        'The report you are seeking with ID ' + reportId + ' does not exist.',);
-      }
+        "The report you are seeking with ID " + reportId + " does not exist.",
+      );
+    }
 
-      await this.prisma.report.update({
-        where: {
-          id: reportId,
-        },
-        data: {
-          state: ReportState.close,
-          adminId: adminId,
-        },
-      });
-  
-  }
-
-  async openReport(adminId: string, reportId: number) {
-
-    const report = await this.prisma.report.findUnique({
-      where: {
-        id: reportId,
-      }
-    })
-    
-    if (!report) {
-      throw new NotFoundException(
-        'The report you are seeking with ID ' + reportId + ' does not exist.',);
-      }
     await this.prisma.report.update({
       where: {
         id: reportId,
       },
       data: {
-        state: ReportState.open,
+        state: ReportState.CLOSED,
+        adminId: adminId,
+      },
+    });
+  }
+
+  async openReport(adminId: string, reportId: number) {
+    const report = await this.prisma.report.findUnique({
+      where: {
+        id: reportId,
+      },
+    });
+
+    if (!report) {
+      throw new NotFoundException(
+        "The report you are seeking with ID " + reportId + " does not exist.",
+      );
+    }
+    await this.prisma.report.update({
+      where: {
+        id: reportId,
+      },
+      data: {
+        state: ReportState.OPEN,
         adminId: null,
       },
     });
-    
   }
 
   //////////////////////community report //////////////////////////////////////////////
-  async createCommunityReport(player: Player, createcommReportDto: CreateCommReportDto) {
-    const { title, content, issueType, subject,subjectId } = createcommReportDto;
+  async createCommunityReport(
+    player: Player,
+    createcommReportDto: CreateCommReportDto,
+  ) {
+    const { title, content, issueType, subject, subjectId } =
+      createcommReportDto;
 
     const dateObject = new Date(Date.now());
     dateObject.setHours(dateObject.getHours() + 3);
-    
+
     const reportData = {
       content,
       creatorId: player.userId,
@@ -245,10 +241,9 @@ export class ReportService {
       issueType,
       subject,
       createdAt: new Date(dateObject), // Convert timestamp to Date object
-      state: ReportState.open,
-      subjectId:subjectId
+      state: ReportState.OPEN,
+      subjectId: subjectId,
     };
-      
 
     try {
       const newReport = await this.prisma.communityReport.create({
@@ -263,18 +258,17 @@ export class ReportService {
         issueType: newReport.issueType,
         state: newReport.state,
         subject: newReport.subject,
-        subjectId : newReport.subjectId
+        subjectId: newReport.subjectId,
       };
 
       return reportResponseDto;
     } catch (error) {
       // Handle any errors that might occur during report creation
-      console.error('Error creating report:', error);
-      throw new BadRequestException('Failed to create report');
+      console.error("Error creating report:", error);
+      throw new BadRequestException("Failed to create report");
     }
   }
 
-  
   async getCommunityReportsByCreatorId(
     creatortId: string,
     page: number = 0,
@@ -287,7 +281,7 @@ export class ReportService {
         },
       },
       orderBy: {
-        createdAt: 'desc',
+        createdAt: "desc",
       },
       select: {
         id: true,
@@ -299,7 +293,7 @@ export class ReportService {
         subject: true,
         creatorId: true,
         adminId: true,
-        subjectId: true
+        subjectId: true,
       },
       skip: page * take,
       take: take,
@@ -322,7 +316,6 @@ export class ReportService {
           issueType: report.issueType,
           adminId: report.adminId,
           creatorId: report.creatorId,
-
         };
       }),
       isLastPage: reports.length < take || reportsCount <= page * take + take,
@@ -330,7 +323,9 @@ export class ReportService {
     return result;
   }
 
-  async getCommunityReportDetails(reportId: number): Promise<CommunityReportDetailsDialog> {
+  async getCommunityReportDetails(
+    reportId: number,
+  ): Promise<CommunityReportDetailsDialog> {
     const reportDetails = await this.prisma.communityReport.findUnique({
       where: {
         id: reportId,
@@ -345,13 +340,13 @@ export class ReportService {
         subject: true,
         creatorId: true,
         adminId: true,
-        subjectId: true
+        subjectId: true,
       },
     });
 
     if (!reportDetails) {
       throw new NotFoundException(
-        'The report you are seeking with ID ' + reportId + ' does not exist.',
+        "The report you are seeking with ID " + reportId + " does not exist.",
       );
     }
 
@@ -380,7 +375,7 @@ export class ReportService {
   ): Promise<PaginatedList<CommunityReportRow>> {
     const reports = await this.prisma.communityReport.findMany({
       orderBy: {
-        createdAt: 'desc',
+        createdAt: "desc",
       },
 
       skip: page * take,
@@ -404,10 +399,12 @@ export class ReportService {
   }
 
   async closeCommunityReport(adminId: string, reportId: number) {
-    const report = await this.prisma.communityReport.findUnique({where:{id:reportId}})
-    if(!report){
+    const report = await this.prisma.communityReport.findUnique({
+      where: { id: reportId },
+    });
+    if (!report) {
       throw new NotFoundException(
-        'The report you are seeking with ID ' + reportId + ' does not exist.',
+        "The report you are seeking with ID " + reportId + " does not exist.",
       );
     }
     await this.prisma.communityReport.update({
@@ -415,17 +412,19 @@ export class ReportService {
         id: reportId,
       },
       data: {
-        state: ReportState.close,
+        state: ReportState.CLOSED,
         adminId: adminId,
       },
     });
   }
 
   async openCommunityReport(adminId: string, reportId: number) {
-    const report = await this.prisma.communityReport.findUnique({where:{id:reportId}})
-    if(!report){
+    const report = await this.prisma.communityReport.findUnique({
+      where: { id: reportId },
+    });
+    if (!report) {
       throw new NotFoundException(
-        'The report you are seeking with ID ' + reportId + ' does not exist.',
+        "The report you are seeking with ID " + reportId + " does not exist.",
       );
     }
     await this.prisma.communityReport.update({
@@ -433,10 +432,9 @@ export class ReportService {
         id: reportId,
       },
       data: {
-        state: ReportState.open,
+        state: ReportState.OPEN,
         adminId: null,
       },
     });
   }
-  
 }

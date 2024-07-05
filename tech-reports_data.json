@@ -2,141 +2,141 @@
   {
       "content": "Issue with community guidelines not being enforced properly.",
       "title": "Community Guidelines Issue",
-      "type": "Community",
-      "severity": "critical",
-      "state": "open"
+      "type": "COMMUNITY",
+      "severity": "CRITICAL",
+      "state": "OPEN"
   },
   {
       "content": "Level 5 has a bug that prevents completion.",
       "title": "Level 5 Bug",
-      "type": "Level",
-      "severity": "high",
-      "state": "open"
+     "type": "LEVEL",
+      "severity": "HIGH",
+      "state": "OPEN"
   },
   {
       "content": "Contest results are not updating correctly.",
       "title": "Contest Results Bug",
-      "type": "Contest",
-      "severity": "medium",
-      "state": "open"
+      "type": "CONTEST",
+      "severity": "MEDIUM",
+      "state": "OPEN"
   },
   {
       "content": "Community chat has inappropriate content.",
       "title": "Inappropriate Content in Chat",
-      "type": "Community",
-      "severity": "critical",
-      "state": "open"
+      "type": "COMMUNITY",
+      "severity": "CRITICAL",
+      "state": "OPEN"
   },
   {
       "content": "Minor graphical glitch in level 3.",
       "title": "Graphical Glitch",
-      "type": "Level",
-      "severity": "low",
-      "state": "close"
+     "type": "LEVEL",
+      "severity": "LOW",
+      "state": "CLOSED"
   },
   {
       "content": "Other players exploiting a bug in contest mode.",
       "title": "Exploit in Contest Mode",
-      "type": "Contest",
-      "severity": "high",
-      "state": "open"
+      "type": "CONTEST",
+      "severity": "HIGH",
+      "state": "OPEN"
   },
   {
       "content": "Community feedback section not loading.",
       "title": "Feedback Section Not Loading",
-      "type": "Community",
-      "severity": "medium",
-      "state": "open"
+      "type": "COMMUNITY",
+      "severity": "MEDIUM",
+      "state": "OPEN"
   },
   {
       "content": "Level 10 is too difficult, causing frustration.",
       "title": "Level 10 Difficulty",
-      "type": "Level",
-      "severity": "medium",
-      "state": "close"
+     "type": "LEVEL",
+      "severity": "MEDIUM",
+      "state": "CLOSED"
   },
   {
       "content": "Community leaderboard not updating.",
       "title": "Leaderboard Not Updating",
-      "type": "Community",
-      "severity": "high",
-      "state": "open"
+      "type": "COMMUNITY",
+      "severity": "HIGH",
+      "state": "OPEN"
   },
   {
       "content": "Unclear instructions in contest mode.",
       "title": "Unclear Contest Instructions",
-      "type": "Contest",
-      "severity": "low",
-      "state": "close"
+      "type": "CONTEST",
+      "severity": "LOW",
+      "state": "CLOSED"
   },
   {
       "content": "Error message when starting a new level.",
       "title": "Start Level Error",
-      "type": "Level",
-      "severity": "critical",
-      "state": "open"
+     "type": "LEVEL",
+      "severity": "CRITICAL",
+      "state": "OPEN"
   },
   {
       "content": "App crashes during community event.",
       "title": "Crash During Event",
-      "type": "Community",
-      "severity": "critical",
-      "state": "open"
+      "type": "COMMUNITY",
+      "severity": "CRITICAL",
+      "state": "OPEN"
   },
   {
       "content": "Leaderboard rewards not being distributed.",
       "title": "Rewards Not Distributed",
-      "type": "Contest",
-      "severity": "high",
-      "state": "open"
+      "type": "CONTEST",
+      "severity": "HIGH",
+      "state": "OPEN"
   },
   {
       "content": "Other - App freezing on main screen.",
       "title": "App Freezing Issue",
-      "type": "Other",
-      "severity": "critical",
-      "state": "open"
+      "type": "OTHER",
+      "severity": "CRITICAL",
+      "state": "OPEN"
   },
   {
       "content": "Minor issue with sound effects in level 2.",
       "title": "Sound Issue in Level 2",
-      "type": "Level",
-      "severity": "low",
-      "state": "close"
+     "type": "LEVEL",
+      "severity": "LOW",
+      "state": "CLOSED"
   },
   {
       "content": "Community event timings not accurate.",
       "title": "Event Timings Issue",
-      "type": "Community",
-      "severity": "medium",
-      "state": "close"
+      "type": "COMMUNITY",
+      "severity": "MEDIUM",
+      "state": "CLOSED"
   },
   {
       "content": "Contest rules not clear, causing confusion.",
       "title": "Confusing Contest Rules",
-      "type": "Contest",
-      "severity": "medium",
-      "state": "open"
+      "type": "CONTEST",
+      "severity": "MEDIUM",
+      "state": "OPEN"
   },
   {
       "content": "Level progress not saving correctly.",
       "title": "Progress Not Saving",
-      "type": "Level",
-      "severity": "high",
-      "state": "open"
+     "type": "LEVEL",
+      "severity": "HIGH",
+      "state": "OPEN"
   },
   {
       "content": "Community chat feature is lagging.",
       "title": "Chat Lag Issue",
-      "type": "Community",
-      "severity": "low",
-      "state": "close"
+      "type": "COMMUNITY",
+      "severity": "LOW",
+      "state": "CLOSED"
   },
   {
       "content": "Other - App not responding after update.",
       "title": "App Not Responding",
-      "type": "Other",
-      "severity": "critical",
-      "state": "open"
+      "type": "OTHER",
+      "severity": "CRITICAL",
+      "state": "OPEN"
   }
 ]

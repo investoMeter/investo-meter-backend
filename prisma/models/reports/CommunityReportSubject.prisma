@@ -1,4 +1,4 @@
 enum CommunityReportSubject {
-    post
-    comment
+  POST @map("Post")
+  COMMENT @map("Comment")
 }

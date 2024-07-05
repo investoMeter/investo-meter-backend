@@ -11,7 +11,7 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { AuthService } from 'src/auth';
-import { ApiBearerAuth } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { AtGuard } from 'src/auth/guards';
 import { CreateReportDto } from './dto/CreateReportDto';
 import { ReportResponseDto } from './dto/reportResponse.dto';
@@ -24,6 +24,7 @@ import { CommunityReportResponseDto } from './dto/commReportResponce.dto';
 import { CommunityReportRow } from './models/commReportRow';
 import { CommunityReportDetailsDialog } from './models/commReportDetailsDialog';
 
+@ApiTags('Reports')
 @Controller('report')
 export class ReportController {
   constructor(
