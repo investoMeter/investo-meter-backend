@@ -202,7 +202,7 @@ async function seedReports() {
           type: tech_report.type,
           severity: tech_report.severity,
           createdAt: dateObject,
-          state: ReportState.open,
+          state: ReportState.OPEN,
         },
       });
       console.log("technical report" + i + " seeded.");

@@ -93,6 +93,49 @@ model feedback {
 }
 
 //
+// communityReport.prisma
+//
+
+model CommunityReport {
+  id        Int     @id @default(autoincrement())
+  adminId   String?
+  creatorId String
+  subjectId String
+  content   String
+  title     String
+
+  subject   CommunityReportSubject
+  issueType CommunityReportIssueType
+  state     ReportState
+
+  createdAt DateTime @default(now())
+
+  creator Player @relation(fields: [creatorId], references: [userId])
+  admin   Admin? @relation(fields: [adminId], references: [userId])
+}
+
+//
+// CommunityReportIssueType.prisma
+//
+
+enum CommunityReportIssueType {
+  HARASSMENT            @map("Harassment")
+  HATE_SPEECH           @map("Hate Speech")
+  SPAM                  @map("Spam")
+  INAPPROPRIATE_CONTENT @map("Inappropriate Content")
+  OTHER                 @map("Other")
+}
+
+//
+// CommunityReportSubject.prisma
+//
+
+enum CommunityReportSubject {
+  POST    @map("Post")
+  COMMENT @map("Comment")
+}
+
+//
 // report.prisma
 //
 
@@ -117,10 +160,10 @@ model Report {
 //
 
 enum ReportSeverity {
-  low
-  medium
-  high
-  critical
+  LOW      @map("Low")
+  MEDIUM   @map("Medium")
+  HIGH     @map("High")
+  CRITICAL @map("Critical")
 }
 
 //
@@ -128,8 +171,8 @@ enum ReportSeverity {
 //
 
 enum ReportState {
-  open
-  close
+  OPEN   @map("Open")
+  CLOSED @map("Closed")
 }
 
 //
@@ -137,10 +180,10 @@ enum ReportState {
 //
 
 enum ReportType {
-  Level
-  Contest
-  Community
-  Other
+  LEVEL     @map("Level")
+  CONTEST   @map("Contest")
+  COMMUNITY @map("Community")
+  OTHER     @map("Other")
 }
 
 //
@@ -150,8 +193,9 @@ enum ReportType {
 model Admin {
   userId String @unique
 
-  reports Report[]
-  user    User     @relation(fields: [userId], references: [id])
+  reports          Report[]
+  user             User              @relation(fields: [userId], references: [id])
+  communityReports CommunityReport[]
 }
 
 //
@@ -182,6 +226,7 @@ model Player {
   communityMemberships CommunityMembership[]
 
   reports          Report[]
+  communityReports CommunityReport[]
   feedbacks        feedback[]
   ownedCommunities Community[]
 }
@@ -225,9 +270,11 @@ model BuyRequest {
   timestamp DateTime      @default(now())
   status    RequestStatus
 
-  player ContestMembership   @relation(fields: [playerId, contestId], references: [playerId, contestId])
-  stock  ContestContestStock @relation(fields: [contestId, stockId], references: [contestId, contestStockId])
-  room   Room                @relation(fields: [contestId, roomNumber], references: [contestId, roomNumber])
+  player ContestMembership @relation(fields: [playerId, contestId], references: [playerId, contestId])
+
+  stock ContestContestStock @relation(fields: [contestId, stockId], references: [contestId, contestStockId])
+
+  room Room @relation(fields: [contestId, roomNumber], references: [contestId, roomNumber])
 }
 
 //

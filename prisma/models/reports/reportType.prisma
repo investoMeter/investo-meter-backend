@@ -1,6 +1,6 @@
 enum ReportType {
-    Level
-    Contest
-    Community
-    Other
+    LEVEL @map("Level")
+    CONTEST @map("Contest")
+    COMMUNITY @map("Community")
+    OTHER @map("Other")
 }

@@ -1,0 +1,7 @@
+enum CommunityReportIssueType {
+  HARASSMENT @map("Harassment")
+  HATE_SPEECH @map("Hate Speech")
+  SPAM @map("Spam")
+  INAPPROPRIATE_CONTENT @map("Inappropriate Content")
+  OTHER @map("Other")
+}

@@ -1,102 +1,97 @@
 [
   {
-    "about": "About 1 feedback",
-    "content": "Description of feedback 1",
-    "rating": 3
+      "about": "Great Learning Tool",
+      "content": "This app really helps in understanding the stock market basics. The simulations are realistic and educational.",
+      "rating": 5
   },
   {
-    "about": "About 2 feedback",
-    "content": "Description of feedback 2",
-    "rating": 5
+      "about": "Very Informative",
+      "content": "I've learned a lot about trading and investing. The tutorials are very clear and easy to follow.",
+      "rating": 4
   },
   {
-    "about": "About 3 feedback",
-    "content": "Description of feedback 3",
-    "rating": 5
+      "about": "Good for Beginners",
+      "content": "As a beginner, I found this app extremely helpful. The interface is user-friendly and the lessons are well-structured.",
+      "rating": 5
   },
   {
-    "about": "About 4 feedback",
-    "content": "Description of feedback 4",
-    "rating": 5
+      "about": "Needs Improvement",
+      "content": "The concept is great but the app has some bugs. It crashes occasionally which disrupts the learning experience.",
+      "rating": 2
   },
   {
-    "about": "About 5 feedback",
-    "content": "Description of feedback 5",
-    "rating": 5
+      "about": "Excellent Concept",
+      "content": "I love the idea of learning about the stock market through a game. It makes the whole process fun and engaging.",
+      "rating": 5
   },
   {
-    "about": "About 6 feedback",
-    "content": "Description of feedback 6",
-    "rating": 4
+      "about": "Useful but Slow",
+      "content": "The app provides valuable information but it runs quite slow on my device. Needs optimization.",
+      "rating": 3
   },
   {
-    "about": "About 7 feedback",
-    "content": "Description of feedback 7",
-    "rating": 3
+      "about": "Great Interface",
+      "content": "The interface is very intuitive and easy to navigate. It made learning about stocks much easier.",
+      "rating": 4
   },
   {
-    "about": "About 8 feedback",
-    "content": "Description of feedback 8",
-    "rating": 4
+      "about": "Too Many Ads",
+      "content": "The app is good but there are too many ads which are very distracting and annoying.",
+      "rating": 1
   },
   {
-    "about": "About 9 feedback",
-    "content": "Description of feedback 9",
-    "rating": 4
+      "about": "Engaging and Fun",
+      "content": "Learning about stocks has never been this fun. The game mechanics are engaging and keep you hooked.",
+      "rating": 5
   },
   {
-    "about": "About 10 feedback",
-    "content": "Description of feedback 10",
-    "rating": 4
+      "about": "Frequent Updates",
+      "content": "The developers seem to update the app frequently which is great. They are constantly adding new features and fixing issues.",
+      "rating": 4
   },
   {
-    "about": "About 11 feedback",
-    "content": "Description of feedback 11",
-    "rating": 3
+      "about": "Average Experience",
+      "content": "The app is okay. It teaches the basics but could use more advanced lessons and features.",
+      "rating": 3
   },
   {
-    "about": "About 12 feedback",
-    "content": "Description of feedback 12",
-    "rating": 1
+      "about": "Not User-Friendly",
+      "content": "I found the app difficult to navigate. The tutorials are not very clear and it’s hard to understand the concepts.",
+      "rating": 2
   },
   {
-    "about": "About 13 feedback",
-    "content": "Description of feedback 13",
-    "rating": 4
+      "about": "Great Customer Support",
+      "content": "The customer support is very responsive and helpful. They resolved my issues quickly.",
+      "rating": 5
   },
   {
-    "about": "About 14 feedback",
-    "content": "Description of feedback 14",
-    "rating": 1
+      "about": "Informative but Buggy",
+      "content": "The information provided is very useful but the app has several bugs that need to be fixed.",
+      "rating": 3
   },
   {
-    "about": "About 15 feedback",
-    "content": "Description of feedback 15",
-    "rating": 3
+      "about": "Too Complex",
+      "content": "The app is too complex for beginners. It would be better if they simplified the initial lessons.",
+      "rating": 2
   },
   {
-    "about": "About 16 feedback",
-    "content": "Description of feedback 16",
-    "rating": 5
+      "about": "Well-Designed",
+      "content": "The design of the app is excellent. It’s visually appealing and the animations are smooth.",
+      "rating": 4
   },
   {
-    "about": "About 17 feedback",
-    "content": "Description of feedback 17",
-    "rating": 5
+      "about": "Helpful Tips",
+      "content": "The app provides helpful tips and tricks for trading. It’s a great resource for learning about the stock market.",
+      "rating": 5
   },
   {
-    "about": "About 18 feedback",
-    "content": "Description of feedback 18",
-    "rating": 5
+      "about": "Innovative Idea",
+      "content": "The idea of using a game to teach stock trading is very innovative. It makes learning more interactive.",
+      "rating": 4
   },
   {
-    "about": "About 19 feedback",
-    "content": "Description of feedback 19",
-    "rating": 3
-  },
-  {
-    "about": "About 20 feedback",
-    "content": "Description of feedback 20",
-    "rating": 4
+      "about": "Lacks Depth",
+      "content": "The app is good for beginners but lacks depth for advanced users. Needs more comprehensive lessons.",
+      "rating": 3
   }
 ]

@@ -1,142 +1,142 @@
 [
   {
-    "content": "Description of report 1",
-    "creatorId": "1",
-    "title": "Report 1 Title",
-    "type": "Contest",
-    "severity": "critical"
+      "content": "Issue with community guidelines not being enforced properly.",
+      "title": "Community Guidelines Issue",
+      "type": "COMMUNITY",
+      "severity": "CRITICAL",
+      "state": "OPEN"
   },
   {
-    "content": "Description of report 2",
-    "creatorId": "2",
-    "title": "Report 2 Title",
-    "type": "Contest",
-    "severity": "high"
+      "content": "Level 5 has a bug that prevents completion.",
+      "title": "Level 5 Bug",
+     "type": "LEVEL",
+      "severity": "HIGH",
+      "state": "OPEN"
   },
   {
-    "content": "Description of report 3",
-    "creatorId": "3",
-    "title": "Report 3 Title",
-    "type": "Level",
-    "severity": "low"
+      "content": "Contest results are not updating correctly.",
+      "title": "Contest Results Bug",
+      "type": "CONTEST",
+      "severity": "MEDIUM",
+      "state": "OPEN"
   },
   {
-    "content": "Description of report 4",
-    "creatorId": "4",
-    "title": "Report 4 Title",
-    "type": "Other",
-    "severity": "high"
+      "content": "Community chat has inappropriate content.",
+      "title": "Inappropriate Content in Chat",
+      "type": "COMMUNITY",
+      "severity": "CRITICAL",
+      "state": "OPEN"
   },
   {
-    "content": "Description of report 5",
-    "creatorId": "5",
-    "title": "Report 5 Title",
-    "type": "Community",
-    "severity": "medium"
+      "content": "Minor graphical glitch in level 3.",
+      "title": "Graphical Glitch",
+     "type": "LEVEL",
+      "severity": "LOW",
+      "state": "CLOSED"
   },
   {
-    "content": "Description of report 6",
-    "creatorId": "6",
-    "title": "Report 6 Title",
-    "type": "Contest",
-    "severity": "high"
+      "content": "Other players exploiting a bug in contest mode.",
+      "title": "Exploit in Contest Mode",
+      "type": "CONTEST",
+      "severity": "HIGH",
+      "state": "OPEN"
   },
   {
-    "content": "Description of report 7",
-    "creatorId": "6",
-    "title": "Report 7 Title",
-    "type": "Community",
-    "severity": "critical"
+      "content": "Community feedback section not loading.",
+      "title": "Feedback Section Not Loading",
+      "type": "COMMUNITY",
+      "severity": "MEDIUM",
+      "state": "OPEN"
   },
   {
-    "content": "Description of report 8",
-    "creatorId": "7",
-    "title": "Report 8 Title",
-    "type": "Community",
-    "severity": "high"
+      "content": "Level 10 is too difficult, causing frustration.",
+      "title": "Level 10 Difficulty",
+     "type": "LEVEL",
+      "severity": "MEDIUM",
+      "state": "CLOSED"
   },
   {
-    "content": "Description of report 9",
-    "creatorId": "8",
-    "title": "Report 9 Title",
-    "type": "Community",
-    "severity": "medium"
+      "content": "Community leaderboard not updating.",
+      "title": "Leaderboard Not Updating",
+      "type": "COMMUNITY",
+      "severity": "HIGH",
+      "state": "OPEN"
   },
   {
-    "content": "Description of report 10",
-    "creatorId": "1",
-    "title": "Report 10 Title",
-    "type": "Other",
-    "severity": "critical"
+      "content": "Unclear instructions in contest mode.",
+      "title": "Unclear Contest Instructions",
+      "type": "CONTEST",
+      "severity": "LOW",
+      "state": "CLOSED"
   },
   {
-    "content": "Description of report 11",
-    "creatorId": "1",
-    "title": "Report 11 Title",
-    "type": "Level",
-    "severity": "high"
+      "content": "Error message when starting a new level.",
+      "title": "Start Level Error",
+     "type": "LEVEL",
+      "severity": "CRITICAL",
+      "state": "OPEN"
   },
   {
-    "content": "Description of report 12",
-    "creatorId": "1",
-    "title": "Report 12 Title",
-    "type": "Other",
-    "severity": "low"
+      "content": "App crashes during community event.",
+      "title": "Crash During Event",
+      "type": "COMMUNITY",
+      "severity": "CRITICAL",
+      "state": "OPEN"
   },
   {
-    "content": "Description of report 13",
-    "creatorId": "1",
-    "title": "Report 13 Title",
-    "type": "Level",
-    "severity": "medium"
+      "content": "Leaderboard rewards not being distributed.",
+      "title": "Rewards Not Distributed",
+      "type": "CONTEST",
+      "severity": "HIGH",
+      "state": "OPEN"
   },
   {
-    "content": "Description of report 14",
-    "creatorId": "1",
-    "title": "Report 14 Title",
-    "type": "Community",
-    "severity": "low"
+      "content": "Other - App freezing on main screen.",
+      "title": "App Freezing Issue",
+      "type": "OTHER",
+      "severity": "CRITICAL",
+      "state": "OPEN"
   },
   {
-    "content": "Description of report 15",
-    "creatorId": "1",
-    "title": "Report 15 Title",
-    "type": "Level",
-    "severity": "low"
+      "content": "Minor issue with sound effects in level 2.",
+      "title": "Sound Issue in Level 2",
+     "type": "LEVEL",
+      "severity": "LOW",
+      "state": "CLOSED"
   },
   {
-    "content": "Description of report 16",
-    "creatorId": "1",
-    "title": "Report 16 Title",
-    "type": "Other",
-    "severity": "critical"
+      "content": "Community event timings not accurate.",
+      "title": "Event Timings Issue",
+      "type": "COMMUNITY",
+      "severity": "MEDIUM",
+      "state": "CLOSED"
   },
   {
-    "content": "Description of report 17",
-    "creatorId": "1",
-    "title": "Report 17 Title",
-    "type": "Community",
-    "severity": "high"
+      "content": "Contest rules not clear, causing confusion.",
+      "title": "Confusing Contest Rules",
+      "type": "CONTEST",
+      "severity": "MEDIUM",
+      "state": "OPEN"
   },
   {
-    "content": "Description of report 18",
-    "creatorId": "1",
-    "title": "Report 18 Title",
-    "type": "Level",
-    "severity": "high"
+      "content": "Level progress not saving correctly.",
+      "title": "Progress Not Saving",
+     "type": "LEVEL",
+      "severity": "HIGH",
+      "state": "OPEN"
   },
   {
-    "content": "Description of report 19",
-    "creatorId": "1",
-    "title": "Report 19 Title",
-    "type": "Community",
-    "severity": "critical"
+      "content": "Community chat feature is lagging.",
+      "title": "Chat Lag Issue",
+      "type": "COMMUNITY",
+      "severity": "LOW",
+      "state": "CLOSED"
   },
   {
-    "content": "Description of report 20",
-    "creatorId": "1",
-    "title": "Report 20 Title",
-    "type": "Community",
-    "severity": "critical"
+      "content": "Other - App not responding after update.",
+      "title": "App Not Responding",
+      "type": "OTHER",
+      "severity": "CRITICAL",
+      "state": "OPEN"
   }
 ]

@@ -19,6 +19,8 @@ model Player {
   communityMemberships  CommunityMembership[]
 
   reports               Report[]
+  communityReports      CommunityReport[]
   feedbacks             feedback[]
   ownedCommunities      Community[]
+
 }

@@ -57,7 +57,7 @@ export class FeedbackController {
     @Query('page') page: string,
     @Query('take') take: string,
   ): Promise<PaginatedList<GetFeedbackDto>> {
-    await this.authService.AdminResolver((req as any).user.sub)
+    //await this.authService.AdminResolver((req as any).user.sub)
     return this.feedbackService.getAllFeedbacks(parseInt(page), parseInt(take));
   }
 }
