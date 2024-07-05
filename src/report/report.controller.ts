@@ -4,6 +4,7 @@ import {
   Get,
   HttpCode,
   HttpStatus,
+  Param,
   Post,
   Put,
   Query,
@@ -11,7 +12,7 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { AuthService } from 'src/auth';
-import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { AtGuard } from 'src/auth/guards';
 import { CreateReportDto } from './dto/CreateReportDto';
 import { ReportResponseDto } from './dto/reportResponse.dto';
@@ -19,7 +20,7 @@ import { ReportService } from './report.service';
 import { ReportRow } from './models/ReportRow';
 import { PaginatedList } from 'src/common';
 import { ReportDetailsDialog } from './models/ReportDetailsDialod';
-import { CreateCommReportDto } from './dto/CreateCommReportDto';
+import { CreateCommunityReportDto } from './dto/CreateCommReportDto';
 import { CommunityReportResponseDto } from './dto/commReportResponce.dto';
 import { CommunityReportRow } from './models/commReportRow';
 import { CommunityReportDetailsDialog } from './models/commReportDetailsDialog';
@@ -114,23 +115,25 @@ export class ReportController {
     );
   }
 
-  @Post('create-community-report')
+  @Post('community-reports')
   @HttpCode(HttpStatus.CREATED)
   @UseGuards(AtGuard)
   @ApiBearerAuth()
-  async creatCommeReport(
+  @ApiOperation({ summary: 'Create a new community report (Player)' })
+  async createCommunityReport(
     @Req() req: Request,
-    @Body() createReportDto: CreateCommReportDto,
+    @Body() createReportDto: CreateCommunityReportDto,
     
   ): Promise<CommunityReportResponseDto> {
     const player = await this.authService.playerResolver((req as any).user.sub);
     return await this.reportService.createCommunityReport(player, createReportDto);
   }
 
-  @Get('get-community-reports-byCreatorId')
+  @Get('community-reports/creator')
   @HttpCode(HttpStatus.OK)
   @UseGuards(AtGuard)
   @ApiBearerAuth()
+  @ApiOperation({ summary: 'Get community reports created by the player' })
   async getCommunityReportsByCreatorId(
     @Req() req: any,
     @Query('page') page: string,
@@ -144,20 +147,21 @@ export class ReportController {
     );
   }
 
-  @Get('get-community-report-details')
+  @Get('community-reports/:id')
   @HttpCode(HttpStatus.OK)
   @UseGuards(AtGuard)
-  @ApiBearerAuth()
+  @ApiBearerAuth() @ApiOperation({ summary: 'Get details of a community report by ID (Player) & (Admin)' })
   async getCommunityReportDetails(
-    @Query('id') reportId: string,
+    @Param('id') reportId: string,
   ): Promise<CommunityReportDetailsDialog> {
     return this.reportService.getCommunityReportDetails(parseInt(reportId));
   }
 
-  @Get('get-community-reports')
+  @Get('community-reports')
   @HttpCode(HttpStatus.OK)
   @UseGuards(AtGuard)
   @ApiBearerAuth()
+  @ApiOperation({ summary: 'Get all community reports (Admin)' })
   async getAllCommunityReports(
     @Req() req: any,
     @Query('page') page: string,
@@ -167,13 +171,14 @@ export class ReportController {
     return this.reportService.getAllCommunityReports(parseInt(page), parseInt(take));
   }
 
-  @Put('close-community-report')
+  @Put('community-reports/:id/close')
   @HttpCode(HttpStatus.CREATED)
   @UseGuards(AtGuard)
   @ApiBearerAuth()
+  @ApiOperation({ summary: 'Close a community report by ID (Admin)' })
   async closeCommunityReport(
     @Req() req: Request,
-    @Query('id') reportId: string,
+    @Param('id') reportId: string,
   ): Promise<void> {
     const admin = await this.authService.AdminResolver((req as any).user.sub);
     return await this.reportService.closeCommunityReport(
@@ -182,13 +187,14 @@ export class ReportController {
     );
   }
 
-  @Put('open-community-report')
+  @Put('community-reports/:id/open')
   @HttpCode(HttpStatus.CREATED)
   @UseGuards(AtGuard)
   @ApiBearerAuth()
+  @ApiOperation({ summary: 'Open a community report by ID (Admin)' })
   async openCommunityReport(
     @Req() req: Request,
-    @Query('id') reportId: string,
+    @Param('id') reportId: string,
   ): Promise<void> {
     const admin = await this.authService.AdminResolver((req as any).user.sub);
     return await this.reportService.openCommunityReport(

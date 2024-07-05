@@ -11,8 +11,7 @@ import { ReportState } from "@prisma/client";
 import { PaginatedList } from "src/common";
 import { ReportRow } from "./models/ReportRow";
 import { ReportDetailsDialog } from "./models/ReportDetailsDialod";
-import { CreateCommReportDto } from "./dto/CreateCommReportDto";
-import { CommunityReportResponseDto } from "./dto/commReportResponce.dto";
+import { CreateCommunityReportDto } from "./dto/CreateCommReportDto";
 import { CommunityReportRow } from "./models/commReportRow";
 import { CommunityReportDetailsDialog } from "./models/commReportDetailsDialog";
 
@@ -64,7 +63,6 @@ export class ReportService {
     page: number = 0,
     take: number = 8,
   ): Promise<PaginatedList<ReportRow>> {
-
     const reports = await this.prisma.report.findMany({
       where: {
         creatorId: creatortId,
@@ -149,10 +147,9 @@ export class ReportService {
     page: number = 0,
     take: number = 8,
   ): Promise<PaginatedList<ReportRow>> {
-
     const reports = await this.prisma.report.findMany({
       orderBy: {
-        createdAt: 'desc',
+        createdAt: "desc",
       },
       skip: page * take,
       take: take,
@@ -226,10 +223,47 @@ export class ReportService {
   //////////////////////community report //////////////////////////////////////////////
   async createCommunityReport(
     player: Player,
-    createcommReportDto: CreateCommReportDto,
+    createcommunityReportDto: CreateCommunityReportDto,
   ) {
-    const { title, content, issueType, subject, subjectId } =
-      createcommReportDto;
+    const { communityId, title, content, issueType, subject, subjectId } =
+      createcommunityReportDto;
+
+    // check membership
+    const membership = await this.prisma.communityMembership.findFirst({
+      where: {
+        communityId: communityId,
+        userId: player.userId,
+      },
+    });
+
+    if (!membership) {
+      throw new BadRequestException("Player is not a member of this community");
+    }
+    let entity;
+    switch (subject) {
+      case "POST":
+        entity = await this.prisma.post.findUnique({
+          where: {
+            id: subjectId,
+            communityId: communityId,
+          },
+        });
+        break;
+      case "COMMENT":
+        entity = await this.prisma.comment.findUnique({
+          where: {
+            id: subjectId,
+            communityId: communityId,
+          },
+        });
+        break;
+      default:
+        throw new BadRequestException("Invalid subject type");
+    }
+
+    if (!entity) {
+      throw new BadRequestException(`${subject} not found`);
+    }
 
     const dateObject = new Date(Date.now());
     dateObject.setHours(dateObject.getHours() + 3);
@@ -240,28 +274,15 @@ export class ReportService {
       title,
       issueType,
       subject,
-      createdAt: new Date(dateObject), // Convert timestamp to Date object
+      createdAt: dateObject, // Convert timestamp to Date object
       state: ReportState.OPEN,
-      subjectId: subjectId,
+      subjectId,
     };
 
     try {
-      const newReport = await this.prisma.communityReport.create({
+      return await this.prisma.communityReport.create({
         data: reportData,
       });
-
-      const reportResponseDto: CommunityReportResponseDto = {
-        id: newReport.id,
-        title: newReport.title,
-        content: newReport.content,
-        createdAt: newReport.createdAt,
-        issueType: newReport.issueType,
-        state: newReport.state,
-        subject: newReport.subject,
-        subjectId: newReport.subjectId,
-      };
-
-      return reportResponseDto;
     } catch (error) {
       // Handle any errors that might occur during report creation
       console.error("Error creating report:", error);
@@ -283,18 +304,6 @@ export class ReportService {
       orderBy: {
         createdAt: "desc",
       },
-      select: {
-        id: true,
-        title: true,
-        content: true,
-        createdAt: true,
-        issueType: true,
-        state: true,
-        subject: true,
-        creatorId: true,
-        adminId: true,
-        subjectId: true,
-      },
       skip: page * take,
       take: take,
     });
@@ -307,17 +316,7 @@ export class ReportService {
     });
 
     const result: PaginatedList<CommunityReportRow> = {
-      list: reports.map((report) => {
-        return {
-          id: report.id,
-          createdAt: report.createdAt,
-          title: report.title,
-          state: report.state,
-          issueType: report.issueType,
-          adminId: report.adminId,
-          creatorId: report.creatorId,
-        };
-      }),
+      list: reports,
       isLastPage: reports.length < take || reportsCount <= page * take + take,
     };
     return result;
@@ -330,18 +329,6 @@ export class ReportService {
       where: {
         id: reportId,
       },
-      select: {
-        id: true,
-        title: true,
-        content: true,
-        createdAt: true,
-        issueType: true,
-        state: true,
-        subject: true,
-        creatorId: true,
-        adminId: true,
-        subjectId: true,
-      },
     });
 
     if (!reportDetails) {
@@ -350,21 +337,7 @@ export class ReportService {
       );
     }
 
-    const result: CommunityReportDetailsDialog = {
-      id: reportDetails.id,
-
-      createdAt: reportDetails.createdAt,
-      title: reportDetails.title,
-      state: reportDetails.state,
-      issueType: reportDetails.issueType,
-      subject: reportDetails.subject,
-      content: reportDetails.content,
-      adminId: reportDetails.adminId,
-      creatorId: reportDetails.creatorId,
-      subjectId: reportDetails.subjectId,
-    };
-
-    return result;
+    return reportDetails;
   }
 
   //admin side
@@ -375,23 +348,16 @@ export class ReportService {
   ): Promise<PaginatedList<CommunityReportRow>> {
     const reports = await this.prisma.communityReport.findMany({
       orderBy: {
-        createdAt: "desc",
+        createdAt: "asc",
       },
-
       skip: page * take,
       take: take,
     });
+
     const reportsCount = await this.prisma.communityReport.count({});
+
     const result: PaginatedList<CommunityReportRow> = {
-      list: reports.map((report) => {
-        return {
-          id: report.id,
-          createdAt: report.createdAt,
-          title: report.title,
-          state: report.state,
-          issueType: report.issueType,
-        };
-      }),
+      list: reports, 
       isLastPage: reports.length < take || reportsCount <= page * take + take,
     };
 
@@ -399,14 +365,17 @@ export class ReportService {
   }
 
   async closeCommunityReport(adminId: string, reportId: number) {
+
     const report = await this.prisma.communityReport.findUnique({
       where: { id: reportId },
     });
+
     if (!report) {
       throw new NotFoundException(
         "The report you are seeking with ID " + reportId + " does not exist.",
       );
     }
+    
     await this.prisma.communityReport.update({
       where: {
         id: reportId,

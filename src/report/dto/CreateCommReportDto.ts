@@ -3,7 +3,14 @@ import { Transform } from 'class-transformer';
 import { IsEnum, IsNotEmpty, IsString} from 'class-validator';
 import { CommunityReportIssueType, CommunityReportSubject } from '@prisma/client';
 
-export class CreateCommReportDto {
+export class CreateCommunityReportDto {
+
+
+  @IsString()
+  @Transform(({ value }) => value?.trim())
+  @IsNotEmpty()
+  communityId : string;
+  
   @ApiProperty({
     description: 'Description of the Technical Report',
     example: 'The buy botton is not working',
