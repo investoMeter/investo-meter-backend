@@ -11,7 +11,7 @@ export class HintService {
   constructor(
     private prisma: PrismaService,
     private facade: HintFacade,
-  ) {}
+  ) { }
 
   async getStockPrediciton(
     model: GetHintRequestDto,
@@ -69,5 +69,44 @@ export class HintService {
     const changeValue =
       (prediction.Close_Next_5mins - facadeModel.Close) / facadeModel.Close;
     return { hint: changeValue };
+  }
+
+  async buyHint(player: Player, contestId: number, roomNumber: number) {
+    const currentPlayer = await this.prisma.player.findUnique({
+      where: {
+        userId: player.userId,
+        contestMemberships: {
+          some: {
+            contestId: contestId,
+            roomNumber: roomNumber,
+          },
+        },
+      },
+      select: {
+        coins: true,
+      },
+    });
+    if (!currentPlayer) {
+      throw new BadRequestException('Player not in room or contest');
+    }
+    if (currentPlayer.coins >= 50) {
+      const updatedCoins = await this.prisma.player.update({
+        where: {
+          userId: player.userId,
+        },
+        data: {
+          coins: {
+            decrement: 50
+          }
+        },
+        select: {
+          coins: true,
+        },
+      });
+
+      return updatedCoins;
+    } else {
+      throw new BadRequestException('Not enough coins');
+    }
   }
 }

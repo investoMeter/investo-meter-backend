@@ -13,9 +13,11 @@ import { CreateCommunityContestRequest } from "./dto/create-community-contest.re
 import { CreateCommunityContestResponse } from "./dto/create-community-contest.response.dto";
 import { AdminMemberActionRequestDTO } from "./dto/admin-member-action.request.dto";
 import { EditCommunityRequestDTO } from "./dto/edit-community.request.dto";
+import { ResolvedPlayer } from "src/auth/dto/resolved-player.dto";
 
 @Injectable()
 export class CommunityService {
+ 
   constructor(private prisma: PrismaService) {}
   private readonly COMMUNITY_FEES = 500;
 
@@ -285,8 +287,8 @@ export class CommunityService {
       joinContest,
     } = request;
 
-    await this.checkOwner(player.userId, communityId);
     const community = await this.getCommunity(communityId);
+    await this.checkOwner(player.userId, communityId);
 
     const startDateObject = new Date(startDate);
     startDateObject.setUTCHours(startDateObject.getUTCHours() + 3);
@@ -327,13 +329,14 @@ export class CommunityService {
     });
 
     for (const stock of contestStocks) {
+      const { id, stockHistoryId, ...rest } = stock.initialPrice;
       await this.prisma.stockHistory.create({
         data: {
           contestId: newContest.id,
           roomNumber: room.roomNumber,
           stockId: stock.id,
           ContestStockPrice: {
-            create: stock.initialPrice,
+            create: rest,
           },
           currentShares: stocksShares,
         },
@@ -380,7 +383,7 @@ export class CommunityService {
       rooms: [
         {
           roomNumber: room.roomNumber,
-          currentCapacity: 0,
+          currentCapacity: communityMembersIds.length,
         },
       ],
     };
@@ -403,23 +406,12 @@ export class CommunityService {
     if (contest.startDate < new Date()) {
       throw new BadRequestException("Contest has already started");
     }
-    const deleteRooms = this.prisma.room.deleteMany({
-      where: { contestId: contestId },
-    });
-
-    const deleteContestStocks = this.prisma.contestContestStock.deleteMany({
-      where: { contestId: contestId },
-    });
 
     const deleteContest = this.prisma.contest.delete({
       where: { id: contestId },
     });
 
-    await this.prisma.$transaction([
-      deleteRooms,
-      deleteContestStocks,
-      deleteContest,
-    ]);
+    await this.prisma.$transaction([deleteContest]);
   }
 
   private async isInCommunity(
@@ -452,5 +444,37 @@ export class CommunityService {
     if (community.ownerId !== playerId) {
       throw new BadRequestException("Only the owner can perform this action");
     }
+  }
+
+  async getNonCommunityMembers(player: ResolvedPlayer, communityId: string) {
+
+    const community = await this.prisma.community.findUnique({
+      where: { id: communityId },
+      select: {
+        members: { select: { userId: true } },
+        ownerId: true
+      }
+    });
+
+    if (!community) throw new NotFoundException("Community not found");
+
+    if (community.ownerId !== player.userId) {
+      throw new BadRequestException("Only the owner can perform this action");
+    }
+
+    const nonMembersData = await this.prisma.user.findMany({
+      where: {
+        id: {
+          notIn: community.members.map(member => member.userId),
+        },
+        admin: null // Exclude admins from the result
+      },
+      select: {
+        id: true,
+        username: true,
+      }
+    });
+
+    return nonMembersData 
   }
 }

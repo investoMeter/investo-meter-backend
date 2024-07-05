@@ -12,7 +12,7 @@ model Room {
     currentCapacity Int @default(0)
 
     trades          Trade[]
-    contest         Contest @relation(fields: [contestId], references: [id])
+    contest         Contest @relation(fields: [contestId], references: [id], onDelete: Cascade)
     BuyRequest      BuyRequest[]
     SellRequest     SellRequest[]
     memberships     ContestMembership[]

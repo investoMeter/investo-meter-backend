@@ -184,18 +184,41 @@ export class ReportService {
   }
 
   async closeReport(adminId: string, reportId: number) {
-    await this.prisma.report.update({
+    const report = await this.prisma.report.findUnique({
       where: {
         id: reportId,
-      },
-      data: {
-        state: ReportState.close,
-        adminId: adminId,
-      },
-    });
+      }
+    })
+    
+    if (!report) {
+      throw new NotFoundException(
+        'The report you are seeking with ID ' + reportId + ' does not exist.',);
+      }
+
+      await this.prisma.report.update({
+        where: {
+          id: reportId,
+        },
+        data: {
+          state: ReportState.close,
+          adminId: adminId,
+        },
+      });
+  
   }
 
   async openReport(adminId: string, reportId: number) {
+
+    const report = await this.prisma.report.findUnique({
+      where: {
+        id: reportId,
+      }
+    })
+    
+    if (!report) {
+      throw new NotFoundException(
+        'The report you are seeking with ID ' + reportId + ' does not exist.',);
+      }
     await this.prisma.report.update({
       where: {
         id: reportId,
@@ -205,6 +228,7 @@ export class ReportService {
         adminId: null,
       },
     });
+    
   }
 
   //////////////////////community report //////////////////////////////////////////////

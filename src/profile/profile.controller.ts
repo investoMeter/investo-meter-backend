@@ -10,8 +10,9 @@ import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { AuthService } from 'src/auth';
 import { AtGuard } from 'src/auth/guards';
 import { ProfileService } from './profile.service';
-import { ContestDataDto } from './dto/contestData.dto';
+import { PrevContestDto } from './dto/prevContest.dto';
 import { playerDataDto } from './dto/playerData.dto';
+import { UpcomingContestDto } from './dto/upcomingContest.dto';
 
 @Controller('profile')
 @ApiTags('profile')
@@ -19,13 +20,13 @@ export class ProfileController {
   constructor(
     private profileService: ProfileService,
     private authService: AuthService,
-  ) {}
+  ) { }
 
   @Get('get-contest-history')
   @HttpCode(HttpStatus.OK)
   @UseGuards(AtGuard)
   @ApiBearerAuth()
-  async getPreviousContests(@Req() req: Request): Promise<ContestDataDto[]> {
+  async getPreviousContests(@Req() req: Request): Promise<PrevContestDto[]> {
     const player = await this.authService.playerResolver((req as any).user.sub);
     return this.profileService.getPreviousContests(player);
   }
@@ -34,7 +35,7 @@ export class ProfileController {
   @HttpCode(HttpStatus.OK)
   @UseGuards(AtGuard)
   @ApiBearerAuth()
-  async getUpcomingContests(@Req() req: Request): Promise<ContestDataDto[]> {
+  async getUpcomingContests(@Req() req: Request): Promise<UpcomingContestDto[]> {
     const player = await this.authService.playerResolver((req as any).user.sub);
     return this.profileService.getUpcomingContests(player);
   }

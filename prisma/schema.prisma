@@ -426,7 +426,7 @@ model Room {
   currentCapacity Int @default(0)
 
   trades          Trade[]
-  contest         Contest             @relation(fields: [contestId], references: [id])
+  contest         Contest             @relation(fields: [contestId], references: [id], onDelete: Cascade)
   BuyRequest      BuyRequest[]
   SellRequest     SellRequest[]
   memberships     ContestMembership[]
@@ -634,6 +634,7 @@ enum TradeType {
 
 generator client {
   provider = "prisma-client-js"
+  binaryTargets = ["native", "linux-musl-openssl-3.0.x"]
 }
 
 datasource db {

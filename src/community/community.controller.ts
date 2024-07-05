@@ -26,7 +26,7 @@ import { EditCommunityRequestDTO } from "./dto/edit-community.request.dto";
 @ApiTags("Communities")
 export class CommunityController {
   constructor(
-    private service: CommunityService,
+    private communityService: CommunityService,
     private authService: AuthService,
   ) {}
 
@@ -39,7 +39,7 @@ export class CommunityController {
     @Body() createCommunityRequestDTO: CreateCommunityRequest,
   ) {
     const player = await this.authService.playerResolver((req as any).user.sub);
-    return this.service.createCommunity(player, createCommunityRequestDTO);
+    return this.communityService.createCommunity(player, createCommunityRequestDTO);
   }
 
   @Put()
@@ -51,7 +51,7 @@ export class CommunityController {
     @Body() editCommunityRequestDTO: EditCommunityRequestDTO,
   ) {
     const player = await this.authService.playerResolver((req as any).user.sub);
-    return this.service.editCommunity(player, editCommunityRequestDTO);
+    return this.communityService.editCommunity(player, editCommunityRequestDTO);
   }
 
   @Delete()
@@ -63,7 +63,7 @@ export class CommunityController {
     @Body() deleteCommunityRequestDTO: CommunityActionRequest,
   ) {
     const player = await this.authService.playerResolver((req as any).user.sub);
-    return this.service.deleteCommunity(player, deleteCommunityRequestDTO);
+    return this.communityService.deleteCommunity(player, deleteCommunityRequestDTO);
   }
 
   @Post("create-contest")
@@ -75,7 +75,7 @@ export class CommunityController {
     @Body() createCommunityContestDTO: CreateCommunityContestRequest,
   ) {
     const player = await this.authService.playerResolver((req as any).user.sub);
-    return this.service.createCommunityContest(
+    return this.communityService.createCommunityContest(
       player,
       createCommunityContestDTO,
     );
@@ -90,7 +90,7 @@ export class CommunityController {
     @Body() joinCommunityRequestDTO: CommunityActionRequest,
   ) {
     const player = await this.authService.playerResolver((req as any).user.sub);
-    return this.service.joinCommunity(player, joinCommunityRequestDTO);
+    return this.communityService.joinCommunity(player, joinCommunityRequestDTO);
   }
 
   @Get("owned-communities")
@@ -99,7 +99,7 @@ export class CommunityController {
   @ApiBearerAuth()
   async getCommunitiesForOwner(@Req() req: any) {
     const player = await this.authService.playerResolver((req as any).user.sub);
-    return this.service.getOwnedCommunities(player);
+    return this.communityService.getOwnedCommunities(player);
   }
 
   @Get("joined-communities")
@@ -108,7 +108,7 @@ export class CommunityController {
   @ApiBearerAuth()
   async getJoinedCommunities(@Req() req: any) {
     const player = await this.authService.playerResolver((req as any).user.sub);
-    return this.service.getJoinedCommunities(player);
+    return this.communityService.getJoinedCommunities(player);
   }
 
   @Get("communities-to-join")
@@ -117,7 +117,7 @@ export class CommunityController {
   @ApiBearerAuth()
   async getCommunitiesToJoin(@Req() req: any) {
     const player = await this.authService.playerResolver((req as any).user.sub);
-    return this.service.getCommunitiesToJoin(player);
+    return this.communityService.getCommunitiesToJoin(player);
   }
 
   @Post("leave-community")
@@ -129,7 +129,7 @@ export class CommunityController {
     @Body() leaveCommunityDto: CommunityActionRequest,
   ) {
     const player = await this.authService.playerResolver((req as any).user.sub);
-    return this.service.leaveCommunity(player, leaveCommunityDto);
+    return this.communityService.leaveCommunity(player, leaveCommunityDto);
   }
 
   @Get("members/:communityId")
@@ -141,7 +141,7 @@ export class CommunityController {
     @Param("communityId") communityId: string,
   ) {
     const player = await this.authService.playerResolver((req as any).user.sub);
-    return this.service.getCommunityMembers(player, communityId);
+    return this.communityService.getCommunityMembers(player, communityId);
   }
 
   @Post("add-member")
@@ -153,7 +153,7 @@ export class CommunityController {
     @Body() addMemberDto: AdminMemberActionRequestDTO,
   ) {
     const player = await this.authService.playerResolver((req as any).user.sub);
-    return this.service.addCommunityMember(player, addMemberDto);
+    return this.communityService.addCommunityMember(player, addMemberDto);
   }
 
   @Post("remove-member")
@@ -165,10 +165,10 @@ export class CommunityController {
     @Body() removeMemberDto: AdminMemberActionRequestDTO,
   ) {
     const player = await this.authService.playerResolver((req as any).user.sub);
-    return this.service.removeCommunityMember(player, removeMemberDto);
+    return this.communityService.removeCommunityMember(player, removeMemberDto);
   }
 
-  @Delete()
+  @Delete("community-contest")
   @HttpCode(HttpStatus.OK)
   @UseGuards(AtGuard)
   @ApiBearerAuth()
@@ -178,10 +178,23 @@ export class CommunityController {
     @Query("communityId") communityId: string,
   ) {
     const player = await this.authService.playerResolver((req as any).user.sub);
-    return this.service.deleteCommunityContest(
+    return this.communityService.deleteCommunityContest(
       player,
       parseInt(contestId),
       communityId,
     );
+  }
+
+  @Get("non-community-members")
+  @HttpCode(HttpStatus.OK)
+  @UseGuards(AtGuard)
+  @ApiBearerAuth()
+  async getNonCommunityMembers(
+    @Req() req: any,
+    @Query("communityId") communityId: string,
+
+  ) {
+    const player = await this.authService.playerResolver((req as any).user.sub);
+    return this.communityService.getNonCommunityMembers(player, communityId);
   }
 }

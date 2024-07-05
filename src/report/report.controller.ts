@@ -84,7 +84,7 @@ export class ReportController {
   }
 
   @Put('close-report')
-  @HttpCode(HttpStatus.CREATED)
+  @HttpCode(HttpStatus.OK)
   @UseGuards(AtGuard)
   @ApiBearerAuth()
   async closeReport(
@@ -99,7 +99,7 @@ export class ReportController {
   }
 
   @Put('open-report')
-  @HttpCode(HttpStatus.CREATED)
+  @HttpCode(HttpStatus.OK)
   @UseGuards(AtGuard)
   @ApiBearerAuth()
   async openReport(
