@@ -80,6 +80,7 @@ export class TradingUtilityService {
     >,
   ) {
     for (const { membershipId, totalCost } of balancesUpdates) {
+  
       await prisma.contestMembership.update({
         where: {
           id: membershipId,

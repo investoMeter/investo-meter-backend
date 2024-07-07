@@ -6,11 +6,9 @@ export class PrismaService
   extends PrismaClient
   implements OnModuleInit, OnModuleDestroy
 {
-  [x: string]: any;
   constructor() {
     super({
-      datasources: { db: { url: process.env.DATABASE_URL } },
-      log: ['query'],
+      datasources: { db: { url: process.env.DATABASE_URL} },
     });
   }
 
@@ -22,3 +20,20 @@ export class PrismaService
     await this.$disconnect();
   }
 }
+
+const prismaClientSingleton = () => {
+  return new PrismaClient()
+}
+
+declare global {
+  interface Global {
+    prismaGlobal: PrismaService; // Define the type explicitly
+  }
+}
+const prisma = (global as any).prismaGlobal ?? prismaClientSingleton();
+
+
+if (process.env.NODE_ENV !== 'production') (global as any).prismaGlobal = prisma
+
+export default prisma;
+

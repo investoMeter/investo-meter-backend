@@ -48,7 +48,7 @@ export class TradeService {
     const currentMoney = membership.currentBalance;
 
     if (currentMoney < requestCost + totalPendingCost) {
-      throw new BadRequestException("No Sufficient coins");
+      return { error: "Insufficient coins", newBuyRequest: null, trades: [] };
     }
 
     const stockHistory = await this.getStockHistory(
@@ -64,17 +64,14 @@ export class TradeService {
 
     if (currentShares != NO_SHARES) {
       await this.prisma.$transaction(async (prisma) => {
-        const trade = await this.tradingUtilityService.createTrade(
-          {
-            quantity: sharesToTrade,
-            price,
-            timestamp: timestampDate,
-            stockId: stock.id,
-            buyerMembershipId: membership.id,
-            sellerMembershipId: undefined,
-            contestId: contest.id,
-            roomNumber: room.roomNumber,
-          },
+
+        await this.tradingUtilityService.updateMembershipBalances(
+          [
+            {
+              membershipId: membership.id,
+              totalCost: -(sharesToTrade * price),
+            },
+          ],
           prisma,
         );
 
@@ -99,45 +96,49 @@ export class TradeService {
           prisma,
         );
 
-
-        await this.tradingUtilityService.updateMembershipBalances(
-          [
-            {
-              membershipId: membership.id,
-              totalCost: -(sharesToTrade * price),
-            },
-          ],
+        const trade = await this.tradingUtilityService.createTrade(
+          {
+            quantity: sharesToTrade,
+            price,
+            timestamp: timestampDate,
+            stockId: stock.id,
+            buyerMembershipId: membership.id,
+            sellerMembershipId: undefined,
+            contestId: contest.id,
+            roomNumber: room.roomNumber,
+          },
           prisma,
         );
+       
         newtrades.push(trade);
-
+      }, {
+          maxWait: 5000,
+          timeout: 50000
       });
     }
+    let newBuyRequest;
 
-    let newBuyRequest: any;
-    await this.prisma.$transaction(async (prisma) => {
-
-      if (quantity > currentShares) {
-        const buyRequestData: TradeRequest = {
-          quantity: quantity - sharesToTrade,
-          price,
-          userId: player.userId,
-          timestamp: timestampDate,
-          contestId: contest.id,
-          roomNumber: room.roomNumber,
-          stockId: stock.id,
-        };
-
-        const matchingSellRequests =
-          await this.matchingService.findMatchingSellRequests(buyRequestData);
-
-        if (!matchingSellRequests) {
-          newBuyRequest = await this.createNewBuyRequest(buyRequestData);
-        } else {
+    if (quantity > currentShares) {
+      const buyRequestData: TradeRequest = {
+        quantity: quantity - sharesToTrade,
+        price,
+        userId: player.userId,
+        timestamp: timestampDate,
+        contestId: contest.id,
+        roomNumber: room.roomNumber,
+        stockId: stock.id,
+      };
+      const matchingSellRequests =
+        await this.matchingService.findMatchingSellRequests(buyRequestData);
+      if (!matchingSellRequests) {
+        newBuyRequest = await this.createNewBuyRequest(buyRequestData);
+      } else {
+        await this.prisma.$transaction(async (prisma) => {
           const { requestedQuantity, trades } =
             await this.matchingService.matchBuyRequest(
               buyRequestData,
               matchingSellRequests,
+              prisma,
             );
 
           newtrades.push(...trades);
@@ -154,12 +155,15 @@ export class TradeService {
               stockId: stock.id,
             });
           }
-        }
+        },
+          {
+            maxWait: 5000,
+            timeout: 50000
+          });
       }
-    });
+    }
 
     return { newBuyRequest, trades: newtrades };
-
   }
 
   async createSellRequest(
@@ -194,35 +198,34 @@ export class TradeService {
       !ownedStock ||
       ownedStock.currentShares < quantity + totalPendingShares
     ) {
-      throw new BadRequestException(
-        "Player does not have enough shares to sell",
-      );
+      return { error: "Player does not have enough shares to sell", newBuyRequest: null, trades: [] };
     }
     let newSellRequest;
-    
+
     let trade;
 
-    await this.prisma.$transaction(async (prisma) => {
-      const sellRequestData = {
-        quantity,
-        price,
-        userId: player.userId,
-        timestamp: timestampDate,
-        contestId: contest.id,
-        roomNumber: room.roomNumber,
-        stockId: stock.id,
-      };
+    const sellRequestData = {
+      quantity,
+      price,
+      userId: player.userId,
+      timestamp: timestampDate,
+      contestId: contest.id,
+      roomNumber: room.roomNumber,
+      stockId: stock.id,
+    };
 
+    const matchingBuyRequests =
+      await this.matchingService.findMatchingBuyRequests(sellRequestData);
+    if (matchingBuyRequests == null) {
+      newSellRequest = await this.createNewSellRequest(sellRequestData);
+    } else {
 
-      const matchingBuyRequests =
-        await this.matchingService.findMatchingBuyRequests(sellRequestData);
+      await this.prisma.$transaction(async (prisma) => {
 
-      if (matchingBuyRequests == null) {
-        newSellRequest = await this.createNewSellRequest(sellRequestData);
-      } else {
         let result = await this.matchingService.matchSellRequest(
           sellRequestData,
           matchingBuyRequests,
+          prisma,
         );
 
         trade = result.trades;
@@ -239,8 +242,8 @@ export class TradeService {
             stockId: stock.id,
           });
         }
-      }
-    });
+      });
+    }
 
     return { newSellRequest, trade };
   }
@@ -498,7 +501,6 @@ export class TradeService {
       where: { id: requestId },
       data: { status: RequestStatus.CANCELLED },
     });
-
   }
 
   async getOpenTrades(

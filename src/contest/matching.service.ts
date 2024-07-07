@@ -3,7 +3,7 @@ import { PrismaService } from "src/prisma";
 import { TradeRequest } from "./models/TradeRequest";
 import { RequestStatus } from "./models/RequestStatus";
 import { TradingUtilityService } from "./trade.utility.service";
-import { Trade } from "@prisma/client";
+import { PrismaClient, Trade } from "@prisma/client";
 
 interface ProcessTradeParams {
   request: {stockId: number, contestId:number, roomNumber: number};
@@ -39,7 +39,9 @@ export class MatchingService {
     return sellRequests;
   }
 
-  async matchBuyRequest(buyRequest: TradeRequest, sellRequests: any) {
+  async matchBuyRequest(buyRequest: TradeRequest, sellRequests: any,
+     prisma: Omit<PrismaClient, "$connect" | "$disconnect" | "$on" | "$transaction" | "$use" | "$extends">
+  ) {
 
     let requestedQuantity = buyRequest.quantity;
     const { contestId, roomNumber, stockId } = buyRequest;
@@ -83,7 +85,8 @@ export class MatchingService {
         sellerMembership,
         cost,
         tradeQuantity,
-      });
+      }, 
+    prisma);
 
       trades.push(trade);
 
@@ -129,7 +132,7 @@ export class MatchingService {
     return buyRequests;
   }
 
-  async matchSellRequest(sellRequest: TradeRequest, buyRequests: any) {
+  async matchSellRequest(sellRequest: TradeRequest, buyRequests: any, prisma: Omit<PrismaClient, "$connect" | "$disconnect" | "$on" | "$transaction" | "$use" | "$extends">) {
     let quantityToSell = sellRequest.quantity;
     const { contestId, roomNumber, stockId } = sellRequest;
 
@@ -175,7 +178,8 @@ export class MatchingService {
         sellerMembership,
         cost,
         tradeQuantity,
-      });
+      },
+    prisma);
 
       trades.push(trade);
 
@@ -204,13 +208,12 @@ export class MatchingService {
     sellerMembership,
     cost,
     tradeQuantity,
-  }: ProcessTradeParams) {
+  }: ProcessTradeParams,
+   prisma: Omit<PrismaClient, "$connect" | "$disconnect" | "$on" | "$transaction" | "$use" | "$extends"> ) {
     const stockId = request.stockId;
     const contestId = request.contestId;
     const roomNumber = request.roomNumber;
 
-    return await this.prisma.$transaction(
-      async (prisma) => {
       const balances = [
         { membershipId: buyerMembership.id, totalCost: -cost },
         { membershipId: sellerMembership.id, totalCost: cost },
@@ -258,9 +261,5 @@ export class MatchingService {
       );
 
       return trade;
-    }, {
-      maxWait: 5000,
-      timeout: 10000
-    });
+    }
   }
-}
