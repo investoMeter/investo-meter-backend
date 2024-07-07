@@ -535,6 +535,7 @@ export class TradeService {
     });
 
     buyRequests = buyRequests.map((buyRequest: any) => ({
+      id: buyRequest.id,
       quantity: buyRequest.quantity,
       price: buyRequest.price,
       stockSymbol: buyRequest.stock.contestStock.symbol,
@@ -558,6 +559,7 @@ export class TradeService {
     });
 
     sellRequests = sellRequests.map((sellRequest: any) => ({
+      id: sellRequest.id,
       quantity: sellRequest.quantity,
       price: sellRequest.price,
       stockSymbol: sellRequest.stock.contestStock.symbol,
